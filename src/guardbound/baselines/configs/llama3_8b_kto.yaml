@@ -1,0 +1,33 @@
+# LLaMA-Factory config: Llama-3-8B-Instruct + LoRA KTO
+# (Not specified in the NBF paper.)
+
+model_name_or_path: meta-llama/Meta-Llama-3-8B-Instruct
+adapter_name_or_path: checkpoints/lora_kto/llama-3-8b-instruct
+output_dir: checkpoints/lora_kto/llama-3-8b-instruct
+stage: kto
+do_train: true
+finetuning_type: lora
+lora_target: all
+
+learning_rate: 2.0e-4
+num_train_epochs: 3
+
+lora_rank: 8
+lora_alpha: 16
+lora_dropout: 0.05
+per_device_train_batch_size: 2
+gradient_accumulation_steps: 8
+lr_scheduler_type: cosine
+warmup_ratio: 0.03
+weight_decay: 0.0
+bf16: true
+max_grad_norm: 1.0
+seed: 42
+max_length: 2048
+logging_steps: 10
+save_steps: 500
+dataset: phase8_kto_llama3
+dataset_dir: data/processed/llama_factory
+template: llama3
+plot_loss: true
+report_to: none

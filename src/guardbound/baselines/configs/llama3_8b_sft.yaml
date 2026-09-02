@@ -1,0 +1,47 @@
+# LLaMA-Factory config: Llama-3-8B-Instruct + LoRA SFT
+#
+# Paper-specified (B.1):
+#   learning_rate: 2e-4
+#   num_train_epochs: 3
+#
+# Everything else below is LLaMA-Factory default or local default
+# (Not specified in the NBF paper).  Recorded verbatim in the run
+# manifest for reproducibility.
+#
+# Target dataset: built by `python scripts/build_sft_data.py` (or
+# `src/guardbound/baselines/build_sft_data.py`); must be in the
+# LLaMA-Factory `messages` schema with the safe response substituted
+# for the original jailbreak response (provenance in the manifest).
+
+model_name_or_path: meta-llama/Meta-Llama-3-8B-Instruct
+adapter_name_or_path: checkpoints/lora_sft/llama-3-8b-instruct
+output_dir: checkpoints/lora_sft/llama-3-8b-instruct
+stage: sft
+do_train: true
+finetuning_type: lora
+lora_target: all
+
+# Paper-specified
+learning_rate: 2.0e-4
+num_train_epochs: 3
+
+# LLaMA-Factory defaults (Not specified in the NBF paper)
+lora_rank: 8
+lora_alpha: 16
+lora_dropout: 0.05
+per_device_train_batch_size: 4
+gradient_accumulation_steps: 4
+lr_scheduler_type: cosine
+warmup_ratio: 0.03
+weight_decay: 0.0
+bf16: true
+max_grad_norm: 1.0
+seed: 42
+max_length: 2048
+logging_steps: 10
+save_steps: 500
+dataset: phase8_sft_llama3
+dataset_dir: data/processed/llama_factory
+template: llama3
+plot_loss: true
+report_to: none

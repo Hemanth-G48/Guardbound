@@ -1,0 +1,258 @@
+# =============================================================================
+# NBF Safety Steering reproduction — default configuration
+# Paper: "Steering Dialogue Dynamics for Robustness against Multi-turn
+#         Jailbreaking Attacks" (Hu, Robey, Liu — TMLR 2026, arXiv:2503.00187v3)
+#
+# Every value below marked "# paper" is specified in the paper (Sec. 5.1 / B.1).
+# Values marked "# not in paper" are local defaults for details the paper does
+# not specify — see README ("Paper-specified vs defaulted").
+# =============================================================================
+
+project: nbf-safety-steering
+
+dims:                        # paper
+  embedding_dim_n: 768       # paper: sentence embedding dimension
+  state_dim_m: 768           # paper: hidden state dimension
+
+dialogue:
+  max_turns_k: 8             # paper (B.1): at most 8 turns of queries by default
+  temperature: 0.7           # paper (Sec. 5.1): all temperatures set to 0.7
+
+safety_labels:               # paper (B.1): GPT-4o judge scores
+  scores: [1, 2, 3, 4, 5]
+  unsafe_score: 5            # paper: unsafe score is 5
+  safe_scores: [1, 2, 3, 4]  # paper: safe scores are 1-4
+
+training:
+  stage1_dynamics:           # paper (Sec. 5.1)
+    optimizer: adam
+    lr: 1.0e-4
+    epochs: 200
+  stage2_predictor:          # paper (Sec. 5.1 / B.1)
+    optimizer: adam
+    lr: 1.0e-3
+    epochs: 200
+  loss_weights:              # paper (B.1)
+    lambda_dyn: 1.0
+    lambda_ce: 1.0
+    lambda_ss: 100.0
+    lambda_si: 100.0
+  eta_train: 0.0             # paper (B.1): threshold during training
+  kappa_noninvariant_turns: 3 # paper (default), ablated {2, 4}
+  freeze_dynamics_in_stage2: true  # primary reading; --joint optional (see roadmap audit)
+
+defense:
+  # paper (B.1/B.2/Table 13/15): evaluation-time steering thresholds
+  eta_eval_grid: [0.0, 1.0e-4, 2.0e-4, 4.0e-4, 5.0e-4, 6.0e-4, 8.0e-4, 1.0e-3, 5.0e-3, 1.0e-2, 5.0e-2]
+  eta_recommended: 5.0e-4    # paper (Table 15 discussion): best practical trade-off
+
+embeddings:                  # paper (Sec. 5.1)
+  default_model: all-mpnet-base-v2
+  alt_model: all-distilroberta-v1
+
+llm:
+  openai:                    # paper (Sec. 5.1) model versions
+    gpt35_turbo: gpt-3.5-turbo-0125
+    gpt4o: gpt-4o-2024-08-06
+    o1: o1-2024-12-17
+  anthropic:
+    claude35_sonnet: claude-3-5-sonnet-20241022
+  local:                     # open-source targets used in Tables 2-3
+    llama3_8b_instruct: meta-llama/Meta-Llama-3-8B-Instruct
+    phi4: microsoft/phi-4
+
+paths:
+  data_raw: data/raw
+  data_processed: data/processed
+  checkpoints: checkpoints
+  runs: runs
+  results: results
+
+# ---------------------------------------------------------------------------
+# Phase 2 — Data pipeline settings
+# ---------------------------------------------------------------------------
+data_source:
+  circuit_breakers:
+    num_train_goals: 1000    # paper: 1,000 training samples from Circuit Breakers
+    selection_seed: 42       # not in paper: deterministic selection seed
+  harmbench:
+    num_test_behaviors: 200  # paper: 200 test behaviors
+    selection_seed: 42       # not in paper: deterministic selection seed
+
+attack:
+  target_model: gpt-3.5-turbo-0125   # paper: default attack target
+  temperature: 0.7                    # paper: all temps = 0.7
+  max_turns: 8                        # paper B.1: K_max = 8
+  retry_max: 3                        # not in paper: max retries per API call
+  retry_backoff_base: 2.0             # not in paper: exponential backoff base
+  concurrency: 1                      # not in paper: conservative default
+
+cache:
+  dir: data/processed/.cache          # not in paper: local cache directory
+
+judge:
+  model: gpt-4o-2024-08-06            # paper: GPT-4o judge
+  prompt_path: configs/judge_prompt.txt
+  retry_max: 3                        # not in paper
+  retry_backoff_base: 2.0             # not in paper
+
+embedding_extraction:
+  batch_size: 64                      # not in paper: embedding batch size
+  cache_dir: data/processed/.cache/embeddings
+  output_dir: data/processed/embeddings
+
+dataset:
+  embedding_batch_size: 64            # not in paper
+  manifest_dir: data/processed/manifests
+  output_dir: data/processed/datasets
+
+# ---------------------------------------------------------------------------
+# Phase 3 — Dynamics training settings
+# ---------------------------------------------------------------------------
+dynamics:
+  embedding_dim: 768         # paper: n = 768
+  state_dim: 768             # paper: m = 768
+  hidden_dims: [512, 512]    # paper: MLP 1536→512→512→768
+  # Output activation: linear (not specified in the paper — default: linear output for regression)
+
+# ---------------------------------------------------------------------------
+# Phase 6 — Attack configuration
+# ---------------------------------------------------------------------------
+attacks:
+  max_turns: 8                    # paper: K_max = 8
+  temperature: 0.7                # paper: all temps = 0.7
+  adaptive_candidates: 3          # paper B.2 / Table 14: 3 candidates per turn
+  # Default evaluation attacks per the NBF paper (Sec. 5.1 / B.1):
+  default_evaluation_attacks:
+    - actor_attack
+    - crescendo
+    - opposite_day
+  # Acronym is training-only (paper Sec. 5.1) — excluded from evaluation.
+  # RedQueen is the unseen-attack generalization probe only (Fig. 6) and is
+  # invoked explicitly with --max-turns 1|3|4|5.
+
+# ---------------------------------------------------------------------------
+# Phase 9 — Experiments, ablations, and visualization
+# ---------------------------------------------------------------------------
+# PAPER-SPECIFIED: nothing in this section is paper-specified — Phase 9
+# is pure orchestration and analysis.
+experiments:
+  output_root: results/experiments
+  figure_dir: results/experiments/figures
+  table_dir: results/experiments/tables
+  manifest_dir: results/experiments
+  report_dir: results/final
+  smoke: false                 # local default: avoid expensive runs in CI
+  resume: true                 # local default: skip completed cells
+  registry: [E1, E2, E3, E4, E5, E6, E7, E8, E9, E10]
+  pca:
+    n_components: 2            # local default: top-2 for Fig. 9-11
+    random_state: 42
+  paper_comparisons:
+    # Paper values, if entered by the operator, support
+    # side-by-side comparison rows in build_final_report.
+    asr_gpt35_nbf_eta1e3: null  # paper value, operator-supplied
+    mtbench_gpt35:           null
+  master_runner_stages: [validate, smoke, aggregate, sweeps, ablations,
+                          retrain, attacks, guardrails, pca, tables,
+                          figures, findings, report]
+
+# ---------------------------------------------------------------------------
+# Phase 8 — Defense baselines
+# ---------------------------------------------------------------------------
+# PAPER-SPECIFIED (B.1):
+#   LoRA SFT learning_rate = 2e-4, num_train_epochs = 3
+#   target models: Llama-3-8B-Instruct, Phi-4
+#   safety-aligned responses: from Ren et al. (2024) — provenance required
+# Everything else is "Not specified in the paper — LLaMA-Factory default".
+baselines:
+  variants:
+    - original
+    - system_prompt
+    - lora_sft
+    - lora_dpo
+    - lora_kto
+    - nbf_steering
+  system_prompt:
+    path: src/guardbound/baselines/prompts/llama2_safety_system.txt
+  lora_sft:
+    learning_rate: 2.0e-4          # paper (B.1)
+    num_train_epochs: 3            # paper (B.1)
+    # Not specified in the paper — LLaMA-Factory defaults:
+    lora_rank: 8
+    lora_alpha: 16
+    lora_dropout: 0.05
+    target_modules: all
+    per_device_train_batch_size: 4
+    gradient_accumulation_steps: 4
+    lr_scheduler_type: cosine
+    warmup_ratio: 0.03
+    weight_decay: 0.0
+    bf16: true
+    seed: 42
+    max_length: 2048
+    config_llama3: src/guardbound/baselines/configs/llama3_8b_sft.yaml
+    config_phi4:   src/guardbound/baselines/configs/phi4_sft.yaml
+  lora_dpo:
+    learning_rate: 2.0e-4          # not in paper — SFT-aligned local choice
+    num_train_epochs: 3            # not in paper — SFT-aligned local choice
+    config_llama3: src/guardbound/baselines/configs/llama3_8b_dpo.yaml
+    config_phi4:   src/guardbound/baselines/configs/phi4_dpo.yaml
+  lora_kto:
+    learning_rate: 2.0e-4          # not in paper — SFT-aligned local choice
+    num_train_epochs: 3            # not in paper — SFT-aligned local choice
+    config_llama3: src/guardbound/baselines/configs/llama3_8b_kto.yaml
+    config_phi4:   src/guardbound/baselines/configs/phi4_kto.yaml
+  nbf_steering:
+    # Delegates to Phase 5 SteeredLLMChat; see `defense:` section.
+    checkpoint: null              # populated at evaluation time
+  adapter_paths:
+    llama-3-8b-instruct: checkpoints/lora_sft/llama-3-8b-instruct
+    phi-4:                checkpoints/lora_sft/phi-4
+
+# ---------------------------------------------------------------------------
+# Phase 7 — Evaluation
+# ---------------------------------------------------------------------------
+# PAPER-SPECIFIED: ASR uses GPT-4o judge (Sec. 5.1); MTBench uses LLM judge
+# (Zheng et al. 2023); MMLU post-filtering (h > 0 -> wrong) is per B.1.
+# Everything else is "Not specified in the paper — local default".
+evaluation:
+  asr:
+    judge_model: gpt-4o-2024-08-06     # paper (Sec. 5.1)
+    prompt_path: configs/judge_prompts/asr_judge.txt
+    cache_dir: data/processed/.cache/judge_asr
+  mtbench:
+    judge_model: gpt-4o-2024-08-06     # paper (Sec. 5.1)
+    prompt_path: null                  # not specified in the paper — local default
+    cache_dir: data/processed/.cache/judge_mtbench
+  mmlu:
+    # MMLU dataset path is NOT specified in the paper; user must provide.
+    dataset_path: data/raw/mmlu.jsonl
+  over_refusal:
+    detector: shared.refusal_detector.is_refusal
+    datasets:
+      xstest: data/raw/xstest.jsonl
+      jbb_benign: data/raw/jbb_benign.jsonl
+      phtest_harmless: data/raw/phtest_harmless.jsonl
+  guardrail:
+    nbf_initial_state: zeros(768)     # not specified in the paper — local default
+    datasets:
+      harmbench: data/raw/harmbench.jsonl
+      aegis: data/raw/aegis.jsonl
+      wildguard: data/raw/wildguard.jsonl
+    baselines:
+      openai_moderation: omni-moderation-latest
+      shieldgemma: google/shieldgemma-2b
+      llama_guard: meta-llama/LlamaGuard-7b
+  cache:
+    protocol_version: v1
+    sharding_depth: 2                  # first 2 hex chars of cache key
+
+data:
+  train_val_split: 0.9       # not in paper: train/validation split ratio
+training_extra:
+  batch_size: 64             # not in paper: batch size
+  seed: 0                    # not in paper: random seed
+  weight_decay: 0.0          # not in paper: weight decay
+  gradient_clip_norm: null    # not in paper: gradient clipping disabled by default
+  scheduler: none            # not in paper: no LR scheduler

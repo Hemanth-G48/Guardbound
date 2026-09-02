@@ -1,0 +1,20 @@
+# Core (Phase 1)
+pyyaml>=6.0
+numpy>=1.24
+pandas>=2.0
+matplotlib>=3.7
+pytest>=7.0
+
+# LLM backends (Phase 1 clients; lazy-imported so core works without them)
+openai>=1.30
+anthropic>=0.30
+transformers>=4.40   # local HF targets: Llama-3-8b-instruct, Phi-4
+torch>=2.1           # required by transformers/sentence-transformers
+accelerate>=0.30     # device_map="auto" for local models
+
+# Embeddings (paper: all-mpnet-base-v2 default, all-distilroberta-v1 alt)
+sentence-transformers>=2.6
+
+# Later phases
+datasets>=2.19       # Phase 2: Circuit Breakers / HarmBench loaders
+tqdm>=4.66
