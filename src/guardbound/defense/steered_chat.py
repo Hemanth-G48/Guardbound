@@ -113,17 +113,17 @@ class SteeredLLMChat:
         self.system_prompt = system_prompt
         self.on_refusal = on_refusal
 
+        # Device first (needed for state initialization)
+        self._device = next(barrier.parameters()).device
+
         # State
         self._state_dim = barrier.predictor.state_dim
         self._embedding_dim = barrier.predictor.embedding_dim
-        self._state: torch.Tensor = torch.zeros(1, self._state_dim)
+        self._state: torch.Tensor = torch.zeros(1, self._state_dim, device=self._device)
         self._turn_index: int = 0          # processed-turn counter
         self._accepted_turn_index: int = 0  # dynamics state counter
         self._history: list[Message] = []
         self._turns: list[Turn] = []
-
-        # Device
-        self._device = next(barrier.parameters()).device
 
     def reset(self) -> None:
         """Reset state to x_0 = zeros(768) and clear all counters."""

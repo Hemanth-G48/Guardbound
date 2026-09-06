@@ -25,6 +25,30 @@ With NBF defense:
         --max-turns 8 \\
         --out data/processed/crescendo_nbf.jsonl
 
+GPT-4 Crescendo (paper-style with backtracking):
+
+    python scripts/run_attacks.py \\
+        --attack crescendo_paper \\
+        --goals data/raw/harmbench/raw_data.jsonl \\
+        --target gpt-3.5-turbo-0125 \\
+        --attacker gpt-4o \\
+        --use-backtracking \\
+        --max-turns 8 \\
+        --out data/processed/crescendo_gpt4_eval.jsonl
+
+GPT-4 Crescendo with NBF defense:
+
+    python scripts/run_attacks.py \\
+        --attack crescendo_paper \\
+        --goals data/raw/harmbench/raw_data.jsonl \\
+        --target gpt-3.5-turbo-0125 \\
+        --attacker gpt-4o \\
+        --use-backtracking \\
+        --barrier-checkpoint checkpoints/nbf_mpnet/checkpoint.pt \\
+        --eta 5e-4 \\
+        --max-turns 8 \\
+        --out data/processed/crescendo_gpt4_nbf.jsonl
+
 Offline (mock):
 
     python scripts/run_attacks.py \\
@@ -58,7 +82,7 @@ def parse_args() -> argparse.Namespace:
         "--attack",
         required=True,
         choices=[
-            "crescendo", "actor_attack", "opposite_day",
+            "crescendo", "crescendo_paper", "actor_attack", "opposite_day",
             "acronym", "red_queen", "adaptive",
         ],
         help="Attack method to use",
@@ -135,6 +159,22 @@ def parse_args() -> argparse.Namespace:
         default=42,
         help="Random seed (default: 42)",
     )
+    parser.add_argument(
+        "--concurrent",
+        type=int,
+        default=4,
+        help="Max concurrent attacks (default: 4)",
+    )
+    parser.add_argument(
+        "--attacker",
+        default=None,
+        help="Attacker LLM for crescendo_paper (e.g., gpt-4o, gpt-4-turbo)",
+    )
+    parser.add_argument(
+        "--use-backtracking",
+        action="store_true",
+        help="Use backtracking runner for paper-style attacks (crescendo_paper)",
+    )
     return parser.parse_args()
 
 
@@ -159,10 +199,16 @@ def make_target_llm(args: argparse.Namespace):
         from guardbound.llm.mock import MockChatLLM
         return MockChatLLM()
 
-    # Try configured LLM backends
+    from pathlib import Path
+    target_path = Path(args.target)
+
+    if target_path.exists() and target_path.is_dir():
+        from guardbound.llm.local_client import HFLocalChatLLM
+        return HFLocalChatLLM(model_id=args.target, device_map="cuda")
+
     target = args.target.lower()
 
-    if "gpt" in target or "o1" in target:
+    if "gpt" in target or "o1" in target or "chatgpt" in target:
         from guardbound.llm.openai_client import OpenAIChatLLM
         return OpenAIChatLLM(model=args.target)
 
@@ -170,9 +216,41 @@ def make_target_llm(args: argparse.Namespace):
         from guardbound.llm.anthropic_client import AnthropicChatLLM
         return AnthropicChatLLM(model=args.target)
 
-    # Default to local
-    from guardbound.llm.local_client import LocalChatLLM
-    return LocalChatLLM(model_name=args.target)
+    if "ollama/" in target:
+        from guardbound.llm.ollama_client import OllamaChatLLM
+        return OllamaChatLLM(model=args.target.replace("ollama/", ""))
+
+    # Default to local HF model
+    from guardbound.llm.local_client import HFLocalChatLLM
+    return HFLocalChatLLM(model_id=args.target, device_map="cuda")
+
+
+def make_attacker_llm(args: argparse.Namespace):
+    """Create attacker LLM for crescendo_paper attacks."""
+    if args.attacker is None:
+        return None
+
+    if args.mock:
+        from guardbound.llm.mock import MockChatLLM
+        return MockChatLLM()
+
+    attacker = args.attacker.lower()
+
+    if "gpt" in attacker or "o1" in attacker or "chatgpt" in attacker:
+        from guardbound.llm.openai_client import OpenAIChatLLM
+        return OpenAIChatLLM(model=args.attacker)
+
+    if "claude" in attacker or "anthropic" in attacker:
+        from guardbound.llm.anthropic_client import AnthropicChatLLM
+        return AnthropicChatLLM(model=args.attacker)
+
+    if "ollama/" in attacker:
+        from guardbound.llm.ollama_client import OllamaChatLLM
+        return OllamaChatLLM(model=args.attacker.replace("ollama/", ""))
+
+    # Default to OpenAI if it looks like a model name
+    from guardbound.llm.openai_client import OpenAIChatLLM
+    return OpenAIChatLLM(model=args.attacker)
 
 
 def make_barrier(args: argparse.Namespace):
@@ -181,9 +259,21 @@ def make_barrier(args: argparse.Namespace):
         return None
 
     from guardbound.models.predictor import NeuralBarrierFunction
+    from pathlib import Path
+
+    barrier_path = Path(args.barrier_checkpoint)
+    if barrier_path.is_file():
+        # Single checkpoint file - use adapted format
+        dynamics_dir = barrier_path.parent / 'dynamics'
+        predictor_path = barrier_path.parent / 'predictor.pt'
+    else:
+        # Directory format
+        dynamics_dir = barrier_path
+        predictor_path = barrier_path / 'predictor.pt'
+
     return NeuralBarrierFunction.load(
-        dynamics_dir=args.barrier_checkpoint,
-        embedding_model=args.embedding,
+        dynamics_dir=dynamics_dir,
+        predictor_path=predictor_path,
     )
 
 
@@ -210,17 +300,17 @@ def main() -> None:
     import logging
     logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
-    # Import attacks
     from guardbound.attacks.registry import get_attack, available_attacks
-    from guardbound.attacks.runner import run_attack
+    from guardbound.attacks.runner import run_attack_batch_parallel
+    import asyncio
 
     print(f"Attack: {args.attack}")
     print(f"Target: {args.target}")
     print(f"Max turns: {args.max_turns}")
     print(f"Temperature: {args.temperature}")
     print(f"Mock: {args.mock}")
+    print(f"Concurrent: {args.concurrent}")
 
-    # Load goals
     goals_data = load_goals(args.goals, limit=args.limit)
     print(f"Loaded {len(goals_data)} goals from {args.goals}")
 
@@ -228,15 +318,20 @@ def main() -> None:
         print("No goals found. Exiting.")
         sys.exit(1)
 
-    # Create attack
     attack = get_attack(args.attack)
     print(f"Attack instance: {attack.__class__.__name__}")
 
-    # Create target LLM
     target_llm = make_target_llm(args)
     print(f"Target LLM: {target_llm.__class__.__name__}")
 
-    # Create barrier
+    attacker_llm = make_attacker_llm(args)
+    if attacker_llm is not None:
+        print(f"Attacker LLM: {attacker_llm.__class__.__name__}")
+        if hasattr(attack, 'set_attacker_llm'):
+            attack.set_attacker_llm(attacker_llm)
+    else:
+        print("No attacker LLM (using simple Crescendo templates)")
+
     barrier = make_barrier(args)
     if barrier is not None:
         print(f"NBF barrier loaded from: {args.barrier_checkpoint}")
@@ -244,91 +339,86 @@ def main() -> None:
     else:
         print("No NBF barrier (bare-LLM mode)")
 
-    # Create embed function (only used in NBF mode)
     embed_fn = make_embed_fn(args)
 
-    # Prepare output
     out_path = Path(args.out)
     out_path.parent.mkdir(parents=True, exist_ok=True)
 
-    # Load existing for resume
-    existing_goals: set[str] = set()
-    if args.resume and out_path.exists():
-        with open(out_path, "r", encoding="utf-8") as f:
-            for line in f:
-                line = line.strip()
-                if line:
-                    try:
-                        rec = json.loads(line)
-                        existing_goals.add(rec.get("goal", ""))
-                    except json.JSONDecodeError:
-                        pass
-        print(f"Resume: {len(existing_goals)} existing conversations found")
+    use_paper_runner = args.use_backtracking and args.attack == "crescendo_paper"
 
-    # Run attacks
-    from guardbound.schemas import Conversation
+    async def run_all():
+        if use_paper_runner:
+            from guardbound.attacks.runner import run_attack_with_backtracking_async
+            from guardbound.attacks.crescendo_paper import CrescendoAttackPaper
+            from guardbound.schemas import load_conversations_jsonl
+            if not isinstance(attack, CrescendoAttackPaper):
+                raise ValueError("--use-backtracking requires crescendo_paper attack")
 
-    results: list[dict] = []
-    start_time = time.time()
+            goals_list = [g.get("goal") or g.get("behavior") or g.get("text") or "" for g in goals_data]
+            existing_goals = set()
+            if args.resume and out_path.exists():
+                try:
+                    for c in load_conversations_jsonl(out_path):
+                        existing_goals.add(c.goal)
+                except Exception:
+                    pass
 
-    for i, goal_record in enumerate(goals_data):
-        goal_text = (
-            goal_record.get("goal")
-            or goal_record.get("behavior")
-            or goal_record.get("text")
-            or ""
+            conversations = []
+            for i, goal in enumerate(goals_list):
+                if goal in existing_goals:
+                    for c in load_conversations_jsonl(out_path):
+                        if c.goal == goal:
+                            conversations.append(c)
+                            break
+                    continue
+
+                conv = await run_attack_with_backtracking_async(
+                    attack=attack,
+                    goal=goal,
+                    target_llm=target_llm,
+                    embed_fn=embed_fn,
+                    barrier=barrier,
+                    eta=args.eta,
+                    max_turns=args.max_turns,
+                    temperature=args.temperature,
+                    target_llm_name=args.target,
+                    attack_method=args.attack,
+                )
+                conversations.append(conv)
+                with open(out_path, "a", encoding="utf-8") as f:
+                    f.write(conv.to_json() + "\n")
+                logger.info(f"[{i+1}/{len(goals_list)}] {goal[:50]} -> {len(conv.turns)} turns")
+
+            return conversations
+
+        return await run_attack_batch_parallel(
+            attack=attack,
+            goals=[g.get("goal") or g.get("behavior") or g.get("text") or "" for g in goals_data],
+            target_llm=target_llm,
+            output_path=out_path,
+            embed_fn=embed_fn,
+            barrier=barrier,
+            eta=args.eta,
+            max_turns=args.max_turns,
+            temperature=args.temperature,
+            target_llm_name=args.target,
+            attack_method=args.attack,
+            resume=args.resume,
+            dry_run=args.dry_run,
+            max_concurrent=args.concurrent,
         )
 
-        # Resume check
-        if goal_text in existing_goals:
-            print(f"[{i+1}/{len(goals_data)}] SKIP (already completed): {goal_text[:50]}...")
-            continue
-
-        print(f"[{i+1}/{len(goals_data)}] Attacking: {goal_text[:50]}...")
-
-        if args.dry_run:
-            print(f"  [DRY RUN] Would run {args.attack} with max_turns={args.max_turns}")
-            continue
-
-        try:
-            conv = run_attack(
-                attack=attack,
-                goal=goal_text,
-                target_llm=target_llm,
-                barrier=barrier,
-                embed_fn=embed_fn,
-                eta=args.eta,
-                max_turns=args.max_turns,
-                temperature=args.temperature,
-                attack_method=args.attack,
-                target_llm_name=args.target,
-            )
-
-            # Record
-            result = conv.to_dict()
-            results.append(result)
-
-            # Append to output file
-            with open(out_path, "a", encoding="utf-8") as f:
-                f.write(json.dumps(result, ensure_ascii=False) + "\n")
-
-            # Print summary
-            n_turns = len(conv.turns)
-            n_filtered = sum(1 for t in conv.turns if t.was_filtered)
-            print(f"  -> {n_turns} turns, {n_filtered} filtered")
-
-        except Exception as exc:
-            print(f"  -> ERROR: {exc}")
-
+    start_time = time.time()
+    results = asyncio.run(run_all())
     elapsed = time.time() - start_time
+
     print(f"\nDone. {len(results)} conversations in {elapsed:.1f}s")
     print(f"Output: {out_path}")
 
     if not args.dry_run and results:
-        # Summary
-        total_turns = sum(len(r.get("turns", [])) for r in results)
+        total_turns = sum(len(r.turns) for r in results)
         total_filtered = sum(
-            sum(1 for t in r.get("turns", []) if t.get("was_filtered", False))
+            sum(1 for t in r.turns if t.was_filtered)
             for r in results
         )
         print(f"Total turns: {total_turns}")

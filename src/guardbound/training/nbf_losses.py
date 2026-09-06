@@ -64,14 +64,21 @@ def ce_loss(
     # Convert paper labels to CE indices
     y_ce = paper_label_to_ce_index(y_paper.reshape(-1))  # [B*K]
 
+    # Mask to only valid (non-padded) elements
+    mask_flat = mask.reshape(-1)  # [B*K]
+    valid_idx = mask_flat.nonzero(as_tuple=True)[0]
+
+    if valid_idx.numel() == 0:
+        return torch.tensor(0.0, device=x_prev.device, dtype=x_prev.dtype)
+
+    # Select only valid elements
+    logits_valid = logits[valid_idx]
+    y_ce_valid = y_ce[valid_idx]
+
     # Cross entropy (numerically stable)
-    ce_per_element = F.cross_entropy(logits, y_ce, reduction="none")  # [B*K]
+    ce_per_element = F.cross_entropy(logits_valid, y_ce_valid, reduction="none")
 
-    # Mask
-    mask_flat = mask.float().reshape(-1)  # [B*K]
-    valid_count = mask_flat.sum().clamp(min=1.0)
-
-    loss = (ce_per_element * mask_flat).sum() / valid_count
+    loss = ce_per_element.mean()
     return loss
 
 
@@ -143,6 +150,9 @@ def safety_invariance_loss(
         L_SI = (1 / [N(K-κ)]) Σ_i Σ_{k=1}^{K-κ}
                max{ 0, h( f_θ(x_{k-1}, u_k), u_{k+1} ) + η }
 
+    Paper's loss_forward_invariance uses:
+        relu(p_unsafe - max(p_safe)) where p = softmax(logits)
+
     Indexing: for each valid turn k, evaluate h on the ROLLED-FORWARD state
     x_k = f_θ(x_{k-1}, u_k) with the NEXT query u_{k+1}.
 
@@ -155,7 +165,7 @@ def safety_invariance_loss(
     mask : [B, K]
         Boolean mask.
     eta : float
-        Training threshold.
+        Training threshold (unused in paper's forward invariance loss formulation).
     kappa : int
         Number of final turns to exclude.
 
@@ -169,11 +179,6 @@ def safety_invariance_loss(
 
     # Rollout to get all states
     X, _ = dynamics.rollout(U, mask)  # [B, K, 768]
-
-    # For SI: evaluate h(x_k, u_{k+1}) for k = 0..K-kappa-2
-    # x_k = X[:, k], u_{k+1} = U[:, k+1]
-    # We need K-1 turns for the one-step lookahead (k to k+1)
-    # Then exclude last kappa turns
 
     total_count = 0
     total_loss = torch.tensor(0.0, device=device, dtype=dtype)
@@ -198,16 +203,25 @@ def safety_invariance_loss(
         # u_{k+1}: query at turn k+1
         u_k1 = U[:, k + 1]  # [B, 768]
 
-        # h(x_k, u_{k+1})
-        h_vals = predictor.predictor_value(x_k, u_k1)  # [B]
+        # Get logits and compute p_unsafe - max(p_safe) using paper's formulation
+        # Paper: probs = softmax(logits), loss = relu(p_last - max(p_other))
+        x_k_valid = x_k[valid]  # [N, 768]
+        u_k1_valid = u_k1[valid]  # [N, 768]
 
-        # Hinge loss
-        hinge = F.relu(h_vals + eta)  # [B]
+        logits = predictor.net(torch.cat([x_k_valid, u_k1_valid], dim=-1))  # [N, 5]
+        probs = F.softmax(logits, dim=-1)  # [N, 5]
+
+        p_unsafe = probs[:, 4]  # p(class 5), shape [N]
+        p_safe_max = probs[:, :4].max(dim=-1).values  # max p(class 1-4), shape [N]
+
+        # Paper's forward invariance loss: relu(p_unsafe - max(p_safe))
+        # Note: Paper does NOT use eta in forward invariance loss
+        diff = p_unsafe - p_safe_max
+        loss_k = F.relu(diff)  # [N]
 
         # Mask and accumulate
-        valid_f = valid.float()
-        total_loss = total_loss + (hinge * valid_f).sum()
-        total_count = total_count + valid_f.sum()
+        total_loss = total_loss + loss_k.sum()
+        total_count = total_count + valid.sum()
 
     total_count = total_count.clamp(min=1.0)
     return total_loss / total_count
