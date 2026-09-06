@@ -15,6 +15,7 @@ __all__ = [
     "OpenAIChatLLM",
     "AnthropicChatLLM",
     "HFLocalChatLLM",
+    "OllamaChatLLM",
     "make_chat_llm",
 ]
 
@@ -30,13 +31,16 @@ def __getattr__(name: str):
     if name == "HFLocalChatLLM":
         from .local_client import HFLocalChatLLM
         return HFLocalChatLLM
+    if name == "OllamaChatLLM":
+        from .ollama_client import OllamaChatLLM
+        return OllamaChatLLM
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
 
 def make_chat_llm(kind: str, model_id: str, **kwargs) -> ChatLLM:
     """Factory used by later-phase scripts.
 
-    kind ∈ {"mock", "openai", "anthropic", "local"}
+    kind ∈ {"mock", "openai", "anthropic", "local", "ollama"}
     """
     if kind == "mock":
         return MockChatLLM()
@@ -49,4 +53,7 @@ def make_chat_llm(kind: str, model_id: str, **kwargs) -> ChatLLM:
     if kind == "local":
         from .local_client import HFLocalChatLLM
         return HFLocalChatLLM(model_id, **kwargs)
+    if kind == "ollama":
+        from .ollama_client import OllamaChatLLM
+        return OllamaChatLLM(model=model_id, **kwargs)
     raise ValueError(f"Unknown LLM kind: {kind!r}")

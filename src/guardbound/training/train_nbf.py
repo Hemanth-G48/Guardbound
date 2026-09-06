@@ -228,7 +228,7 @@ class NBFTrainer:
         self.dynamics.train()
         self.predictor.train()
 
-        total_losses = {"total": 0, "dyn": 0, "ce": 0, "ss": 0, "si": 0}
+        total_losses = {"train_total": 0, "train_dyn": 0, "train_ce": 0, "train_ss": 0, "train_si": 0}
         n_batches = 0
 
         # Simple batching (not using DataLoader for simplicity with small datasets)
@@ -292,11 +292,11 @@ class NBFTrainer:
             l_total.backward()
             self.optimizer.step()
 
-            total_losses["total"] += l_total.item()
-            total_losses["dyn"] += l_dyn.item()
-            total_losses["ce"] += l_ce.item()
-            total_losses["ss"] += l_ss.item()
-            total_losses["si"] += l_si.item()
+            total_losses["train_total"] += l_total.item()
+            total_losses["train_dyn"] += l_dyn.item()
+            total_losses["train_ce"] += l_ce.item()
+            total_losses["train_ss"] += l_ss.item()
+            total_losses["train_si"] += l_si.item()
             n_batches += 1
 
         return {k: v / max(n_batches, 1) for k, v in total_losses.items()}

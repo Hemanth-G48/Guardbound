@@ -16,6 +16,7 @@ from __future__ import annotations
 
 from .base import MultiTurnAttack
 from .crescendo import CrescendoAttack
+from .crescendo_paper import CrescendoAttackPaper, CrescendoAttackPaperSimple
 from .actor_attack import ActorAttack
 from .opposite_day import OppositeDayAttack
 from .acronym import AcronymAttack
@@ -32,26 +33,40 @@ ATTACK_PROVENANCE = {
         "implementation_status": "paper-derived",
         "local_deviations": "Adapter wrapping the Crescendo multi-turn escalation pattern; official implementation uses Azure-specific API calls",
     },
+    "crescendo_paper": {
+        "method_name": "Crescendo (Paper Implementation)",
+        "original_paper": "Great, Now Write an Article About That: The Crescendo Multi-Turn LLM Jailbreak Attack (Russinovich et al., 2024)",
+        "official_repository": "https://github.com/IBM/ai-anchoring",
+        "implementation_status": "full-paper",
+        "local_deviations": "Full implementation with attacker LLM, scoring rubric, safety filtering, and backtracking",
+    },
+    "crescendo_paper_simple": {
+        "method_name": "Crescendo (Simplified Paper)",
+        "original_paper": "Great, Now Write an Article About That: The Crescendo Multi-Turn LLM Jailbreak Attack (Russinovich et al., 2024)",
+        "official_repository": "https://github.com/IBM/ai-anchoring",
+        "implementation_status": "paper-derived",
+        "local_deviations": "Simplified version with escalation templates and backtracking, no separate attacker LLM required",
+    },
     "opposite_day": {
         "method_name": "Opposite Day",
-        "original_paper": "Defending ChatGPT against Jailbreaking with System Prompt Optimization (Li et al., 2024b)",
-        "official_repository": "Not available",
-        "implementation_status": "paper-derived",
-        "local_deviations": "Reimplemented from paper description; opposite-perspective reframing pattern",
+        "original_paper": "A Wolf in Sheep's Clothing: Generalized Nested Jailbreak Prompts (Li et al., 2024)",
+        "official_repository": "Author TMLR_supp_code",
+        "implementation_status": "full-paper",
+        "local_deviations": "Full implementation with GPT-4 dynamic generation, backtracking, and LLM-based evaluation",
     },
     "actor_attack": {
         "method_name": "ActorAttack",
-        "original_paper": "Tastle: Large Language Model Attacks with Two-Hop Tampering (Ren et al., 2024)",
-        "official_repository": "https://github.com/wjlan/LLM-Attacks-Two-Hop",
-        "implementation_status": "paper-derived",
-        "local_deviations": "Adapter based on paper description; self-discovered clues / actor-based decomposition",
+        "original_paper": "Derail Yourself: Multi-turn LLM Jailbreak through Self-discovered Clues (Ren et al., 2024)",
+        "official_repository": "Author TMLR_supp_code",
+        "implementation_status": "full-paper",
+        "local_deviations": "Full implementation with GPT-4 dynamic generation, actor-network theory, and query rewriting",
     },
     "acronym": {
         "method_name": "Acronym",
-        "original_paper": "Referenced in NBF paper as training-only attack",
-        "official_repository": "Not available",
-        "implementation_status": "paper-derived",
-        "local_deviations": "Train-only attack; excluded from evaluation. Uses abbreviation-based obfuscation",
+        "original_paper": "A Wolf in Sheep's Clothing: Generalized Nested Jailbreak Prompts (Li et al., 2024)",
+        "official_repository": "Author TMLR_supp_code",
+        "implementation_status": "full-paper",
+        "local_deviations": "Full implementation with GPT-4 dynamic generation, acronym obfuscation, and disclaimer checking",
     },
     "red_queen": {
         "method_name": "RedQueen",
@@ -72,6 +87,8 @@ ATTACK_PROVENANCE = {
 __all__ = [
     "MultiTurnAttack",
     "CrescendoAttack",
+    "CrescendoAttackPaper",
+    "CrescendoAttackPaperSimple",
     "ActorAttack",
     "OppositeDayAttack",
     "AcronymAttack",

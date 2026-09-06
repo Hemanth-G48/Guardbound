@@ -19,6 +19,7 @@ def _lazy_register() -> None:
         return
 
     from .crescendo import CrescendoAttack
+    from .crescendo_paper import CrescendoAttackPaper, CrescendoAttackPaperSimple
     from .actor_attack import ActorAttack
     from .opposite_day import OppositeDayAttack
     from .acronym import AcronymAttack
@@ -27,6 +28,8 @@ def _lazy_register() -> None:
 
     _REGISTRY.update({
         "crescendo": CrescendoAttack,
+        "crescendo_paper": CrescendoAttackPaper,
+        "crescendo_paper_simple": CrescendoAttackPaperSimple,
         "actor_attack": ActorAttack,
         "opposite_day": OppositeDayAttack,
         "acronym": AcronymAttack,

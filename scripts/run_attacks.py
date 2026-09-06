@@ -344,15 +344,23 @@ def main() -> None:
     out_path = Path(args.out)
     out_path.parent.mkdir(parents=True, exist_ok=True)
 
-    use_paper_runner = args.use_backtracking and args.attack == "crescendo_paper"
+    use_paper_runner = args.use_backtracking and args.attack in [
+        "crescendo_paper", "opposite_day", "actor_attack", "acronym"
+    ]
 
     async def run_all():
         if use_paper_runner:
             from guardbound.attacks.runner import run_attack_with_backtracking_async
             from guardbound.attacks.crescendo_paper import CrescendoAttackPaper
+            from guardbound.attacks.opposite_day import OppositeDayAttack
+            from guardbound.attacks.actor_attack import ActorAttack
+            from guardbound.attacks.acronym import AcronymAttack
             from guardbound.schemas import load_conversations_jsonl
-            if not isinstance(attack, CrescendoAttackPaper):
-                raise ValueError("--use-backtracking requires crescendo_paper attack")
+            supported = (CrescendoAttackPaper, OppositeDayAttack, ActorAttack, AcronymAttack)
+            if not isinstance(attack, supported):
+                raise ValueError(
+                    f"--use-backtracking requires one of: crescendo_paper, opposite_day, actor_attack, acronym"
+                )
 
             goals_list = [g.get("goal") or g.get("behavior") or g.get("text") or "" for g in goals_data]
             existing_goals = set()
