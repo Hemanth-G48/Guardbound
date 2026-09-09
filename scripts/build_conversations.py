@@ -61,6 +61,10 @@ def main() -> int:
         "--config", default="configs/default.yaml",
         help="Configuration file (default: configs/default.yaml)",
     )
+    parser.add_argument(
+        "--provider", default="openai", choices=["openai", "ollama"],
+        help="Model provider: openai (cloud) or ollama (local)",
+    )
     resume_group = parser.add_mutually_exclusive_group()
     resume_group.add_argument(
         "--resume", action="store_true", default=True,
@@ -169,8 +173,12 @@ def main() -> int:
     attack = get_attack(args.attack)
 
     # Create LLM client
-    from guardbound.llm import OpenAIChatLLM
-    llm = OpenAIChatLLM(target_model)
+    from guardbound.llm import make_chat_llm
+    if args.provider == "ollama":
+        llm = make_chat_llm({"provider": "ollama", "model": target_model})
+    else:
+        llm = make_chat_llm({"provider": "openai", "model": target_model})
+    logger.info("Target LLM: %s (provider: %s)", target_model, args.provider)
 
     # Resolve resume flag: --resume/--no-resume are mutually exclusive
     # --resume defaults to True, so resume is enabled unless --no-resume is set

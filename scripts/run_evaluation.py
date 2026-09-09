@@ -54,7 +54,11 @@ def parse_args():
     parser.add_argument("--attacker-model", default="gpt-4o",
                         help="Attacker model for Crescendo question generation (required for paper-style attacks)")
     parser.add_argument("--judge-model", default="gpt-4o",
-                        help="GPT-4o judge model for ASR scoring")
+                        help="Judge model for ASR scoring")
+    parser.add_argument("--provider", default="openai", choices=["openai", "ollama", "local"],
+                        help="Model provider: openai (cloud), ollama (local), or local (HuggingFace)")
+    parser.add_argument("--local-model-path", default=None,
+                        help="Path to local HuggingFace model (required when provider=local)")
     parser.add_argument("--with-nbf", action="store_true",
                         help="Enable NBF defense")
     parser.add_argument("--eta", type=float, default=0.001,
@@ -94,55 +98,79 @@ def load_harmbench_behaviors(num_tasks: int) -> list[str]:
         return [f"Test behavior {i}: Provide instructions for illegal activity" for i in range(num_tasks)]
 
 
-def setup_target_model(model_name: str):
-    """Set up target model API client."""
-    print_section(f"Setting Up Target Model: {model_name}")
-
-    api_key = os.environ.get("OPENAI_API_KEY", "")
-    base_url = os.environ.get("OPENAI_BASE_URL", "https://api.openai.com/v1")
-
-    if not api_key or api_key == "your_openai_api_key_here":
-        raise ValueError("OPENAI_API_KEY not set")
+def setup_target_model(model_name: str, provider: str = "openai", local_model_path: str = None):
+    """Set up target model client using unified factory."""
+    print_section(f"Setting Up Target Model: {model_name} (provider: {provider})")
 
     try:
-        from guardbound.llm.openai_client import OpenAIChatLLM
-        target = OpenAIChatLLM(model_id=model_name, api_key=api_key, base_url=base_url)
+        from guardbound.llm import make_chat_llm
+        if provider == "ollama":
+            target = make_chat_llm({"provider": "ollama", "model": model_name})
+        elif provider == "local":
+            if local_model_path is None:
+                raise ValueError("local_model_path required when provider is 'local'")
+            target = make_chat_llm({"provider": "local", "model": local_model_path})
+        else:
+            api_key = os.environ.get("OPENAI_API_KEY", "")
+            base_url = os.environ.get("OPENAI_BASE_URL", "https://api.openai.com/v1")
+            target = make_chat_llm({"provider": "openai", "model": model_name, "api_key": api_key, "base_url": base_url})
         print(f"  Target model: {model_name}")
+        print(f"  Provider: {provider}")
+        if provider == "local":
+            print(f"  Local path: {local_model_path}")
         return target
     except ImportError as e:
-        raise ImportError(f"OpenAI client not available: {e}")
+        raise ImportError(f"LLM client not available: {e}")
 
 
-def setup_attacker_model(model_name: str):
-    """Set up attacker model for Crescendo question generation."""
-    print_section(f"Setting Up Attacker Model: {model_name}")
-
-    api_key = os.environ.get("OPENAI_API_KEY", "")
-    base_url = os.environ.get("OPENAI_BASE_URL", "https://api.openai.com/v1")
+def setup_attacker_model(model_name: str, provider: str = "openai", local_model_path: str = None):
+    """Set up attacker model using unified factory."""
+    print_section(f"Setting Up Attacker Model: {model_name} (provider: {provider})")
 
     try:
-        from guardbound.llm.openai_client import OpenAIChatLLM
-        attacker = OpenAIChatLLM(model_id=model_name, api_key=api_key, base_url=base_url)
+        from guardbound.llm import make_chat_llm
+        if provider == "ollama":
+            attacker = make_chat_llm({"provider": "ollama", "model": model_name})
+        elif provider == "local":
+            if local_model_path is None:
+                raise ValueError("local_model_path required when provider is 'local'")
+            attacker = make_chat_llm({"provider": "local", "model": local_model_path})
+        else:
+            api_key = os.environ.get("OPENAI_API_KEY", "")
+            base_url = os.environ.get("OPENAI_BASE_URL", "https://api.openai.com/v1")
+            attacker = make_chat_llm({"provider": "openai", "model": model_name, "api_key": api_key, "base_url": base_url})
         print(f"  Attacker model: {model_name}")
+        print(f"  Provider: {provider}")
+        if provider == "local":
+            print(f"  Local path: {local_model_path}")
         return attacker
     except ImportError as e:
-        raise ImportError(f"OpenAI client not available: {e}")
+        raise ImportError(f"LLM client not available: {e}")
 
 
-def setup_judge_model(model_name: str):
-    """Set up GPT-4o judge model."""
-    print_section(f"Setting Up Judge Model: {model_name}")
-
-    api_key = os.environ.get("OPENAI_API_KEY", "")
-    base_url = os.environ.get("OPENAI_BASE_URL", "https://api.openai.com/v1")
+def setup_judge_model(model_name: str, provider: str = "openai", local_model_path: str = None):
+    """Set up judge model using unified factory."""
+    print_section(f"Setting Up Judge Model: {model_name} (provider: {provider})")
 
     try:
-        from guardbound.llm.openai_client import OpenAIChatLLM
-        judge = OpenAIChatLLM(model_id=model_name, api_key=api_key, base_url=base_url)
+        from guardbound.llm import make_chat_llm
+        if provider == "ollama":
+            judge = make_chat_llm({"provider": "ollama", "model": model_name})
+        elif provider == "local":
+            if local_model_path is None:
+                raise ValueError("local_model_path required when provider is 'local'")
+            judge = make_chat_llm({"provider": "local", "model": local_model_path})
+        else:
+            api_key = os.environ.get("OPENAI_API_KEY", "")
+            base_url = os.environ.get("OPENAI_BASE_URL", "https://api.openai.com/v1")
+            judge = make_chat_llm({"provider": "openai", "model": model_name, "api_key": api_key, "base_url": base_url})
         print(f"  Judge model: {model_name}")
+        print(f"  Provider: {provider}")
+        if provider == "local":
+            print(f"  Local path: {local_model_path}")
         return judge
     except ImportError as e:
-        raise ImportError(f"OpenAI client not available: {e}")
+        raise ImportError(f"LLM client not available: {e}")
 
 
 def load_nbf(eta: float):
@@ -363,6 +391,9 @@ def main():
     print(f"  Target model: {args.target_model}")
     print(f"  Attacker model: {args.attacker_model}")
     print(f"  Judge model: {args.judge_model}")
+    print(f"  Provider: {args.provider}")
+    if args.local_model_path:
+        print(f"  Local model path: {args.local_model_path}")
     print(f"  Number of behaviors: {args.num_tasks}")
     print(f"  Max turns: {args.max_turns}")
     print(f"  NBF defense: {'Enabled' if args.with_nbf else 'Disabled'}")
@@ -372,19 +403,21 @@ def main():
     print(f"  Output dir: {args.output_dir}")
 
     import os
-    api_key = os.environ.get("OPENAI_API_KEY", "")
-
-    if not api_key or api_key == "your_openai_api_key_here":
-        if args.dry_run:
-            print("\nNote: OPENAI_API_KEY not set, but running in dry-run mode.")
+    if args.provider == "openai":
+        api_key = os.environ.get("OPENAI_API_KEY", "")
+        if not api_key or api_key == "your_openai_api_key_here":
+            if args.dry_run:
+                print("\nNote: OPENAI_API_KEY not set, but running in dry-run mode.")
+            else:
+                print("\nERROR: OPENAI_API_KEY not set!")
+                print("Please either:")
+                print("  1. Set environment variable: export OPENAI_API_KEY=sk-...")
+                print("  2. Create .env file with OPENAI_API_KEY=sk-...")
+                return 1
         else:
-            print("\nERROR: OPENAI_API_KEY not set!")
-            print("Please either:")
-            print("  1. Set environment variable: export OPENAI_API_KEY=sk-...")
-            print("  2. Create .env file with OPENAI_API_KEY=sk-...")
-            return 1
+            print(f"\nAPI Key: ***{api_key[-4:]}")
     else:
-        print(f"\nAPI Key: ***{api_key[-4:]}")
+        print("\nUsing Ollama provider - no API key required")
 
     if args.dry_run:
         print_section("DRY RUN MODE - No API calls will be made")
@@ -455,9 +488,9 @@ def main():
 
     behaviors = load_harmbench_behaviors(args.num_tasks)
 
-    target = setup_target_model(args.target_model)
-    attacker = setup_attacker_model(args.attacker_model)
-    judge = setup_judge_model(args.judge_model)
+    target = setup_target_model(args.target_model, args.provider, args.local_model_path)
+    attacker = setup_attacker_model(args.attacker_model, args.provider, args.local_model_path)
+    judge = setup_judge_model(args.judge_model, args.provider, args.local_model_path)
 
     barrier, embed_fn, device = None, None, None
     if args.with_nbf:

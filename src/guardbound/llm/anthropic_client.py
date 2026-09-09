@@ -51,7 +51,8 @@ class AnthropicChatLLM(ChatLLM):
 
     def generate(self, messages: list[Message],
                  temperature: float = DEFAULT_TEMPERATURE,
-                 max_turns_context: int | None = None) -> str:
+                 max_turns_context: int | None = None,
+                 json_format: bool = False) -> str | dict:
         # Optionally trim to last N user turns
         if max_turns_context is not None and max_turns_context > 0:
             system_msgs = [m for m in messages if m["role"] == "system"]
@@ -61,7 +62,7 @@ class AnthropicChatLLM(ChatLLM):
 
         client = self._get_client()
         system_text, rest = self._split_system(messages)
-        response = client.messages.create(
+        kwargs: dict = dict(
             model=self.model_id,
             max_tokens=self.max_tokens,
             temperature=temperature,
@@ -70,6 +71,17 @@ class AnthropicChatLLM(ChatLLM):
                 {"role": m["role"], "content": m["content"]} for m in rest
             ],
         )
+        if json_format:
+            kwargs["betas"] = ["json-mode"]
+        response = client.messages.create(**kwargs)
         text = "".join(block.text for block in response.content)
         logger.debug("Anthropic %s replied (%d chars)", self.model_id, len(text))
+        if json_format and text:
+            import json
+            try:
+                return json.loads(text)
+            except json.JSONDecodeError:
+                logger.warning("Anthropic %s returned non-JSON response when json_format=True: %s",
+                               self.model_id, text[:200])
+                return text
         return text

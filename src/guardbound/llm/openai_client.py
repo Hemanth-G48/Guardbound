@@ -36,7 +36,8 @@ class OpenAIChatLLM(ChatLLM):
 
     def generate(self, messages: list[Message],
                  temperature: float = DEFAULT_TEMPERATURE,
-                 max_turns_context: int | None = None) -> str:
+                 max_turns_context: int | None = None,
+                 json_format: bool = False) -> str | dict:
         # Optionally trim to last N user turns
         if max_turns_context is not None and max_turns_context > 0:
             # Keep system message(s) at front, trim user/assistant pairs from tail
@@ -51,8 +52,18 @@ class OpenAIChatLLM(ChatLLM):
         # o1-family reasoning models reject custom temperatures on some tiers.
         if not self.model_id.startswith("o1") and not self.model_id.startswith("o3"):
             kwargs["temperature"] = temperature
+        if json_format:
+            kwargs["response_format"] = {"type": "json_object"}
         response = client.chat.completions.create(**kwargs)
         content = response.choices[0].message.content
         logger.debug("OpenAI %s replied (%d chars)", self.model_id,
                      len(content or ""))
+        if json_format and content:
+            import json
+            try:
+                return json.loads(content)
+            except json.JSONDecodeError:
+                logger.warning("OpenAI %s returned non-JSON response when json_format=True: %s",
+                               self.model_id, content[:200])
+                return content
         return content or ""

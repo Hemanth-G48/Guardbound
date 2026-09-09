@@ -17,6 +17,7 @@ runs/*
 .env.*
 *.pem
 *.key
+*.pdf
 
 # Python
 __pycache__/
@@ -46,6 +47,11 @@ Thumbs.db
 .pytest_cache/
 .coverage
 htmlcov/
+
+# Local model weights and reference material (large binaries / external code)
+/models/
+/nbf_original_stuff/
+/NBF-LLM-Dialogue-Embedding/
 
 # Jupyter
 .ipynb_checkpoints/

@@ -391,6 +391,8 @@ def main() -> None:
                     temperature=args.temperature,
                     target_llm_name=args.target,
                     attack_method=args.attack,
+                    # Official history_t includes the dataset system prompt.
+                    system_prompt=(g.get("target_system") or None),
                 )
                 conversations.append(conv)
                 with open(out_path, "a", encoding="utf-8") as f:

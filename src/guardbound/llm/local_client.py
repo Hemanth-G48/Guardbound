@@ -5,12 +5,54 @@ Requires ``transformers`` (+ torch). Model ids come from config
 """
 from __future__ import annotations
 
+import threading
 from pathlib import Path
 
 from ..logging_utils import get_logger
 from .base import ChatLLM, DEFAULT_TEMPERATURE, Message
 
 logger = get_logger(__name__)
+
+_pipeline_cache: dict = {}
+_cache_lock = threading.Lock()
+
+
+def _extract_json_block(text: str):
+    """Return the first ``{...}`` JSON object embedded in ``text`` or None.
+
+    Local instruct models frequently wrap JSON in prose or markdown fences.
+    """
+    import json
+
+    start = text.find("{")
+    if start == -1:
+        return None
+    depth = 0
+    in_string = False
+    escape = False
+    for i in range(start, len(text)):
+        ch = text[i]
+        if in_string:
+            if escape:
+                escape = False
+            elif ch == "\\":
+                escape = True
+            elif ch == '"':
+                in_string = False
+            continue
+        if ch == '"':
+            in_string = True
+        elif ch == "{":
+            depth += 1
+        elif ch == "}":
+            depth -= 1
+            if depth == 0:
+                block = text[start:i + 1]
+                try:
+                    return json.loads(block)
+                except json.JSONDecodeError:
+                    return None
+    return None
 
 
 class HFLocalChatLLM(ChatLLM):
@@ -42,6 +84,13 @@ class HFLocalChatLLM(ChatLLM):
 
     def _get_pipeline(self):
         if self._pipeline is None:
+            cache_key = f"{self.model_id}_{self.device_map}"
+            with _cache_lock:
+                if cache_key in _pipeline_cache:
+                    self._pipeline = _pipeline_cache[cache_key]
+                    logger.info("Reusing cached pipeline for: %s", self.model_id)
+                    return self._pipeline
+            
             try:
                 from transformers import pipeline, AutoTokenizer, AutoModelForCausalLM
             except ImportError as exc:
@@ -68,11 +117,15 @@ class HFLocalChatLLM(ChatLLM):
                     model=self.model_id,
                     device_map=self.device_map,
                 )
+            
+            with _cache_lock:
+                _pipeline_cache[cache_key] = self._pipeline
         return self._pipeline
 
     def generate(self, messages: list[Message],
                  temperature: float = DEFAULT_TEMPERATURE,
-                 max_turns_context: int | None = None) -> str:
+                 max_turns_context: int | None = None,
+                 json_format: bool = False) -> str | dict:
         if max_turns_context is not None and max_turns_context > 0:
             system_msgs = [m for m in messages if m["role"] == "system"]
             non_system = [m for m in messages if m["role"] != "system"]
@@ -91,4 +144,18 @@ class HFLocalChatLLM(ChatLLM):
         generated = output[0]["generated_text"]
         reply = generated[len(text):] if generated.startswith(text) else generated
         logger.debug("HF %s replied (%d chars)", self.model_id, len(reply))
+        if json_format and reply:
+            import json
+            try:
+                return json.loads(reply)
+            except json.JSONDecodeError:
+                # Best-effort: extract the first {...} JSON block. Local models
+                # frequently wrap JSON in prose or markdown fences; the official
+                # local generate path returns raw text in this situation, so
+                # the attacks already tolerate a str fallback, but extracting
+                # the block keeps the pipeline flowing on local Llama.
+                extracted = _extract_json_block(reply)
+                if extracted is not None:
+                    return extracted
+                return reply
         return reply

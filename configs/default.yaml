@@ -60,6 +60,27 @@ llm:
   local:                     # open-source targets used in Tables 2-3
     llama3_8b_instruct: meta-llama/Meta-Llama-3-8B-Instruct
     phi4: microsoft/phi-4
+  providers:
+    gpt4o_cloud:
+      provider: openai
+      model: gpt-4o-2024-08-06
+      api_key_env: OPENAI_API_KEY
+    gpt35_cloud:
+      provider: openai
+      model: gpt-3.5-turbo-0125
+      api_key_env: OPENAI_API_KEY
+    qwen3_14b_local:
+      provider: ollama
+      model: qwen3:14b
+      base_url: http://localhost:11434
+    qwen3_8b_local:
+      provider: ollama
+      model: qwen3:8b
+      base_url: http://localhost:11434
+    llama31_8b_local:
+      provider: ollama
+      model: llama3.1:8b
+      base_url: http://localhost:11434
 
 paths:
   data_raw: data/raw

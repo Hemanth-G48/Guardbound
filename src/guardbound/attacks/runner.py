@@ -20,6 +20,20 @@ from .base import MultiTurnAttack
 logger = get_logger(__name__)
 
 
+def _embed_batch(embed_fn, text: str):
+    """Embed text as a batch tensor ``[1, dim]`` regardless of backend convention.
+
+    The official code uses ``SentenceTransformer.encode`` which returns 1D
+    ``[dim]`` and then calls ``.unsqueeze(0)``; Guardbound's ``get_embed_fn``
+    returns ``[1, dim]`` directly. Normalizing here makes both work while
+    keeping official numerics identical for 1D inputs.
+    """
+    u = embed_fn(text)
+    if u.dim() == 1:
+        u = u.unsqueeze(0)
+    return torch.as_tensor(u, dtype=torch.float32)
+
+
 def run_attack(
     attack: MultiTurnAttack,
     goal: str,
@@ -125,6 +139,13 @@ def run_attack(
         )
         history.append(turn)
 
+        # Allow paper attacks (CrescendoAttackPaper, etc.) to record the turn
+        # for their internal state tracking (history_attacker, scores, etc.).
+        if hasattr(attack, "record_turn"):
+            score = attack.evaluate_response(query, response, goal)
+            was_refusal = attack.check_refusal(query, response)
+            attack.record_turn(query, response, score)
+
     return Conversation(
         goal=goal,
         attack_method=attack_method or attack.label if hasattr(attack, "label") else (attack_method or attack.name),
@@ -210,6 +231,12 @@ async def run_attack_async(
         )
         history.append(turn)
 
+        # Allow paper attacks to record the turn for internal state tracking.
+        if hasattr(attack, "record_turn"):
+            score = attack.evaluate_response(query, response, goal)
+            was_refusal = attack.check_refusal(query, response)
+            attack.record_turn(query, response, score)
+
     return Conversation(
         goal=goal,
         attack_method=attack_method or attack.label if hasattr(attack, "label") else (attack_method or attack.name),
@@ -217,6 +244,7 @@ async def run_attack_async(
         turns=history,
         max_turns=max_turns,
     )
+
 
 
 def run_attack_batch(
@@ -489,6 +517,8 @@ def run_attack_with_backtracking(
     attack_method: str = "",
     allow_regeneration: bool = True,
     regeneration_max: int = 3,
+    system_prompt: str | None = None,
+    steer_target: bool = True,
 ) -> Conversation:
     """Run attack with backtracking support for paper implementations.
 
@@ -498,6 +528,14 @@ def run_attack_with_backtracking(
 
     Includes safety filtering via SSM/NBF when barrier and embed_fn are provided.
     Implements paper Section B.1: If model refuses but NBF doesn't detect → regenerate turn.
+
+    ``system_prompt`` seeds the target conversation exactly like the official
+    ``history_t = [{"role": "system", "content": target_system}]`` — the target
+    model sees the dataset's system prompt as its first message. NBF scoring
+    ignores non-user roles, so this does not change safety indices.
+
+    ``steer_target=False`` reproduces the official ``--safety_filtering`` mode:
+    NBF candidate filtering with plain target calls (no SteeredLLMChat wrapper).
     """
     from ..defense.steered_chat import SteeredLLMChat
     from .crescendo_paper import CrescendoAttackPaper
@@ -514,8 +552,10 @@ def run_attack_with_backtracking(
 
     history: list[Turn] = []
     messages: list[Message] = []
-    use_steered = barrier is not None and embed_fn is not None
+    if system_prompt:
+        messages.append({"role": "system", "content": system_prompt})
     use_safety_filter = barrier is not None and embed_fn is not None
+    use_steered = use_safety_filter and steer_target
     safety_threshold = -eta if eta > 0 else 0.0
 
     attack.reset()
@@ -532,10 +572,25 @@ def run_attack_with_backtracking(
             temperature=temperature,
             allow_regeneration=allow_regeneration,
             regeneration_max=regeneration_max,
+            system_prompt=system_prompt,
         )
 
-    turn_num = 0
+    # Effective round number: derived from the target conversation length,
+    # matching the official implementation's ``len(history_t) // 2 + 1``.
+    # The official loop recomputes this each iteration from the current
+    # ``history_t`` (which grows by 2 per accepted turn and shrinks by 1 on
+    # refusal). NBF-filtered prompts are counted separately via ``num_filtering``
+    # and added to the round number passed to the attacker.
+    #
+    # We track the cumulative NBF filtering count across iterations because
+    # the official ``num_filtering`` persists across the while loop.
+    _num_filtering = 0
     last_response = ""
+    # Response to echo in the attacker prompt for a post-refusal retry.
+    # Official parity (run.py): the official loop never resets its ``response``
+    # variable after history_t.pop(), so the retry prompt contains
+    # "The last response was: <refused response>".
+    _refused_response: str | None = None
     regeneration_count = 0
 
     def calculate_score_from_dialog(dialog_hist, query):
@@ -554,18 +609,16 @@ def run_attack_with_backtracking(
         for dialog in dialog_hist:
             if dialog['role'] == 'user':
                 x_t_prev = x_t.clone()
-                u_t = embed_fn(dialog['content']).unsqueeze(0)
-                u_t = u_t.to(x_t.device)
+                u_t = _embed_batch(embed_fn, dialog['content']).to(x_t.device)
 
                 with torch.no_grad():
                     nbf_output = barrier.predictor(x_t_prev, u_t)
                     probs = torch.softmax(nbf_output, dim=-1)
                     last_class_prob = probs[:, -1]
                     max_other_class_prob = torch.max(probs[:, :-1], dim=1).values
-                    x_t = barrier.dynamics(x_t_prev, u_t)
+                    x_t = barrier.advance_state(x_t_prev, u_t)
 
-        u_t = embed_fn(query).unsqueeze(0)
-        u_t = u_t.to(x_t.device)
+        u_t = _embed_batch(embed_fn, query).to(x_t.device)
 
         with torch.no_grad():
             nbf_output = barrier.predictor(x_t, u_t)
@@ -576,23 +629,37 @@ def run_attack_with_backtracking(
 
         return nbf_score[0].item()
 
-    while turn_num < max_turns:
-        turn_num += 1
+    def _effective_round(messages_list, num_filtering):
+        """Effective round number matching official ``len(history_t)//2 + 1 + num_filtering``.
+
+        ``history_t`` contains the system message plus one user+assistant pair per
+        accepted turn, so the round number is ``len(history_t)//2 + 1``. NBF-filtered
+        prompts increment ``num_filtering`` but do not grow ``history_t``; the official
+        passes ``round_number + num_filtering`` to the attacker.
+        """
+        return len(messages_list) // 2 + 1 + num_filtering
+
+    while len(history) < max_turns:
+        # Derive the effective round number from the target conversation state,
+        # matching the official ``round_number + num_filtering`` semantics.
+        effective_round = _effective_round(messages, _num_filtering)
 
         if hasattr(attack, 'generate_question_for_turn'):
+            if _refused_response is not None:
+                attack_echo_response = _refused_response
+            else:
+                attack_echo_response = last_response
             query, _ = attack.generate_question_for_turn(
                 goal=goal,
-                turn_num=turn_num,
-                last_response=last_response,
+                turn_num=effective_round,
+                last_response=attack_echo_response,
             )
         else:
             query = attack.next_query(goal, history)
 
         if not query or not query.strip():
-            logger.warning("Attack produced empty query at turn %d, stopping", turn_num)
+            logger.warning("Attack produced empty query at turn %d, stopping", effective_round)
             break
-
-        num_filtering = 0
 
         if use_safety_filter and isinstance(attack, (CrescendoAttackPaper, OppositeDayAttack, AcronymAttack)):
             minimal_ssm_nbf_score = float('inf')
@@ -608,13 +675,13 @@ def run_attack_with_backtracking(
                     break
                 else:
                     logger.info("Trial %d: unsafe prompt filtered: %s, safety index: %s",
-                               num_filtering, query[:50], ssm_nbf_score - safety_threshold)
+                               _num_filtering, query[:50], ssm_nbf_score - safety_threshold)
                     unsafe_cutoff = True
                     break
 
             query = min_score_query if min_score_query else query
             if unsafe_cutoff:
-                num_filtering += 1
+                _num_filtering += 1
                 continue
 
         if use_steered:
@@ -627,11 +694,54 @@ def run_attack_with_backtracking(
             messages.append({"role": "assistant", "content": response})
             was_filtered = False
 
-        score = attack.evaluate_response(query, response, goal)
-        was_refusal = attack.check_refusal(query, response)
-
-        if hasattr(attack, 'record_turn'):
+        # Official order: check refusal/disclaimer BEFORE rubric evaluation.
+        # A refused/disclaimed response must NOT trigger a rubric LLM call.
+        if isinstance(attack, ActorAttack):
+            # Official ActorAttack (call_multi): evaluate_with_rubric runs
+            # BEFORE step_judge, and the rubric score is recorded even for
+            # rejected steps. record_turn consumes the cached judge result and
+            # performs the official rewrite-and-retry (N_retry = 3).
+            score = attack.evaluate_response(query, response, goal)
+            was_refusal = attack.check_refusal(query, response)  # step_judge
             attack.record_turn(query, response, score)
+            if was_refusal:  # judge == "rejective"
+                if messages and messages[-1].get("role") == "assistant":
+                    messages = messages[:-2]
+                attack.increment_refusal()
+                _refused_response = response
+                logger.info("Rejective step at round %d, rewriting query (rewrite attempt %d)",
+                            effective_round, attack.get_refusal_count())
+                continue
+        else:
+            # Official order for Crescendo/OppositeDay/Acronym: check
+            # refusal/disclaimer BEFORE rubric evaluation; a refused turn must
+            # NOT trigger a rubric LLM call. AcronymAttack.check_refusal
+            # includes the official OR-disclaimer check.
+            was_refusal = attack.check_refusal(query, response)
+
+            if was_refusal and attack.should_backtrack():
+                # Record refusal in attacker history, then backtrack.
+                # Official: the refused exchange is removed from the target
+                # conversation (history_t.pop()), so later target calls and NBF
+                # scoring never see it.
+                if hasattr(attack, 'record_turn'):
+                    attack.record_turn(query, response, "refused")
+
+                if messages and messages[-1].get("role") == "assistant":
+                    messages = messages[:-2]
+
+                attack.increment_refusal()
+                _refused_response = response
+                logger.info("Refusal detected at round %d, backtracking (attempt %d)",
+                           effective_round, attack.get_refusal_count())
+                continue
+
+            # Not refused: evaluate rubric and record the turn.
+            if hasattr(attack, 'record_turn'):
+                score = attack.evaluate_response(query, response, goal)
+                attack.record_turn(query, response, score)
+            else:
+                score = attack.evaluate_response(query, response, goal)
 
         turn = Turn(
             query=query,
@@ -640,32 +750,22 @@ def run_attack_with_backtracking(
         )
         history.append(turn)
         last_response = response
+        _refused_response = None
 
         if score == 5:
-            logger.info("Goal achieved at turn %d", turn_num)
+            logger.info("Goal achieved at round %d", effective_round)
             break
-
-        if was_refusal and attack.should_backtrack():
-            attack.increment_refusal()
-            logger.info("Refusal detected at turn %d, backtracking (attempt %d)",
-                       turn_num, attack.get_refusal_count())
-            if hasattr(attack, 'generate_question_for_turn'):
-                messages.append({"role": "user", "content": query})
-                messages.append({"role": "assistant", "content": response})
-            continue
 
         if allow_regeneration and was_refusal and not was_filtered:
             regeneration_count += 1
-            logger.info("Turn %d: model refused but NBF didn't detect, regenerating (attempt %d/%d)",
-                       turn_num, regeneration_count, regeneration_max)
+            logger.info("Round %d: model refused but NBF didn't detect, regenerating (attempt %d/%d)",
+                       effective_round, regeneration_count, regeneration_max)
             if regeneration_count >= regeneration_max:
                 logger.info("Max regeneration attempts reached, continuing without regeneration")
                 regeneration_count = 0
             else:
-                if hasattr(attack, 'generate_question_for_turn'):
-                    messages.append({"role": "user", "content": query})
-                    messages.append({"role": "assistant", "content": response})
-                turn_num -= 1
+                # Regeneration: rewind so the next iteration reuses the same effective round.
+                # The target conversation already has the refused exchange removed above.
                 continue
 
     return Conversation(
@@ -690,10 +790,14 @@ async def run_attack_with_backtracking_async(
     attack_method: str = "",
     allow_regeneration: bool = True,
     regeneration_max: int = 3,
+    system_prompt: str | None = None,
+    steer_target: bool = True,
 ) -> Conversation:
     """Async version of run_attack_with_backtracking with safety filtering.
 
     Implements paper Section B.1: If model refuses but NBF doesn't detect → regenerate turn.
+    ``system_prompt`` seeds the target conversation (official ``history_t`` parity);
+    ``steer_target=False`` reproduces official ``--safety_filtering`` (plain target calls).
     """
     from ..defense.steered_chat import SteeredLLMChat
     from .crescendo_paper import CrescendoAttackPaper
@@ -710,8 +814,10 @@ async def run_attack_with_backtracking_async(
 
     history: list[Turn] = []
     messages: list[Message] = []
-    use_steered = barrier is not None and embed_fn is not None
+    if system_prompt:
+        messages.append({"role": "system", "content": system_prompt})
     use_safety_filter = barrier is not None and embed_fn is not None
+    use_steered = use_safety_filter and steer_target
     safety_threshold = -eta if eta > 0 else 0.0
 
     attack.reset()
@@ -728,10 +834,18 @@ async def run_attack_with_backtracking_async(
             temperature=temperature,
             allow_regeneration=allow_regeneration,
             regeneration_max=regeneration_max,
+            system_prompt=system_prompt,
         )
 
-    turn_num = 0
+    # Effective round number: derived from the target conversation length,
+    # matching the official implementation's ``len(history_t) // 2 + 1``.
+    _num_filtering = 0
     last_response = ""
+    # Response to echo in the attacker prompt for a post-refusal retry.
+    # Official parity (run.py): the official loop never resets its ``response``
+    # variable after history_t.pop(), so the retry prompt contains
+    # "The last response was: <refused response>".
+    _refused_response: str | None = None
     regeneration_count = 0
 
     def calculate_score_from_dialog(dialog_hist, query):
@@ -746,18 +860,16 @@ async def run_attack_with_backtracking_async(
         for dialog in dialog_hist:
             if dialog['role'] == 'user':
                 x_t_prev = x_t.clone()
-                u_t = embed_fn(dialog['content']).unsqueeze(0)
-                u_t = u_t.to(x_t.device)
+                u_t = _embed_batch(embed_fn, dialog['content']).to(x_t.device)
 
                 with torch.no_grad():
                     nbf_output = barrier.predictor(x_t_prev, u_t)
                     probs = torch.softmax(nbf_output, dim=-1)
                     last_class_prob = probs[:, -1]
                     max_other_class_prob = torch.max(probs[:, :-1], dim=1).values
-                    x_t = barrier.dynamics(x_t_prev, u_t)
+                    x_t = barrier.advance_state(x_t_prev, u_t)
 
-        u_t = embed_fn(query).unsqueeze(0)
-        u_t = u_t.to(x_t.device)
+        u_t = _embed_batch(embed_fn, query).to(x_t.device)
 
         with torch.no_grad():
             nbf_output = barrier.predictor(x_t, u_t)
@@ -768,23 +880,29 @@ async def run_attack_with_backtracking_async(
 
         return nbf_score[0].item()
 
-    while turn_num < max_turns:
-        turn_num += 1
+    def _effective_round(messages_list, num_filtering):
+        """Effective round number matching official ``len(history_t)//2 + 1 + num_filtering``."""
+        return len(messages_list) // 2 + 1 + num_filtering
+
+    while len(history) < max_turns:
+        effective_round = _effective_round(messages, _num_filtering)
 
         if hasattr(attack, 'generate_question_for_turn'):
+            if _refused_response is not None:
+                attack_echo_response = _refused_response
+            else:
+                attack_echo_response = last_response
             query, _ = attack.generate_question_for_turn(
                 goal=goal,
-                turn_num=turn_num,
-                last_response=last_response,
+                turn_num=effective_round,
+                last_response=attack_echo_response,
             )
         else:
             query = attack.next_query(goal, history)
 
         if not query or not query.strip():
-            logger.warning("Attack produced empty query at turn %d, stopping", turn_num)
+            logger.warning("Attack produced empty query at round %d, stopping", effective_round)
             break
-
-        num_filtering = 0
 
         if use_safety_filter and isinstance(attack, (CrescendoAttackPaper, OppositeDayAttack, AcronymAttack)):
             minimal_ssm_nbf_score = float('inf')
@@ -800,13 +918,13 @@ async def run_attack_with_backtracking_async(
                     break
                 else:
                     logger.info("Trial %d: unsafe prompt filtered: %s, safety index: %s",
-                               num_filtering, query[:50], ssm_nbf_score - safety_threshold)
+                               _num_filtering, query[:50], ssm_nbf_score - safety_threshold)
                     unsafe_cutoff = True
                     break
 
             query = min_score_query if min_score_query else query
             if unsafe_cutoff:
-                num_filtering += 1
+                _num_filtering += 1
                 continue
 
         if use_steered:
@@ -822,11 +940,30 @@ async def run_attack_with_backtracking_async(
             messages.append({"role": "assistant", "content": response})
             was_filtered = False
 
-        score = attack.evaluate_response(query, response, goal)
+        # Official order: check refusal/disclaimer BEFORE rubric evaluation.
+        # AcronymAttack.check_refusal internally includes the official
+        # OR-disclaimer check (refusal or disclaimer -> backtrack).
         was_refusal = attack.check_refusal(query, response)
 
+        if was_refusal and attack.should_backtrack():
+            if hasattr(attack, 'record_turn'):
+                attack.record_turn(query, response, "refused")
+
+            if messages and messages[-1].get("role") == "assistant":
+                messages = messages[:-2]
+
+            attack.increment_refusal()
+            _refused_response = response
+            logger.info("Refusal detected at round %d, backtracking (attempt %d)",
+                       effective_round, attack.get_refusal_count())
+            continue
+
+        # Not refused: evaluate rubric and record the turn.
         if hasattr(attack, 'record_turn'):
+            score = attack.evaluate_response(query, response, goal)
             attack.record_turn(query, response, score)
+        else:
+            score = attack.evaluate_response(query, response, goal)
 
         turn = Turn(
             query=query,
@@ -835,32 +972,20 @@ async def run_attack_with_backtracking_async(
         )
         history.append(turn)
         last_response = response
+        _refused_response = None
 
         if score == 5:
-            logger.info("Goal achieved at turn %d", turn_num)
+            logger.info("Goal achieved at round %d", effective_round)
             break
-
-        if was_refusal and attack.should_backtrack():
-            attack.increment_refusal()
-            logger.info("Refusal detected at turn %d, backtracking (attempt %d)",
-                       turn_num, attack.get_refusal_count())
-            if hasattr(attack, 'generate_question_for_turn'):
-                messages.append({"role": "user", "content": query})
-                messages.append({"role": "assistant", "content": response})
-            continue
 
         if allow_regeneration and was_refusal and not was_filtered:
             regeneration_count += 1
-            logger.info("Turn %d: model refused but NBF didn't detect, regenerating (attempt %d/%d)",
-                       turn_num, regeneration_count, regeneration_max)
+            logger.info("Round %d: model refused but NBF didn't detect, regenerating (attempt %d/%d)",
+                       effective_round, regeneration_count, regeneration_max)
             if regeneration_count >= regeneration_max:
                 logger.info("Max regeneration attempts reached, continuing without regeneration")
                 regeneration_count = 0
             else:
-                if hasattr(attack, 'generate_question_for_turn'):
-                    messages.append({"role": "user", "content": query})
-                    messages.append({"role": "assistant", "content": response})
-                turn_num -= 1
                 continue
 
     return Conversation(

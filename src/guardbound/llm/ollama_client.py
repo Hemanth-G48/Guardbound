@@ -78,7 +78,8 @@ class OllamaChatLLM(ChatLLM):
         messages: list[Message],
         temperature: float = DEFAULT_TEMPERATURE,
         max_turns_context: int | None = None,
-    ) -> str:
+        json_format: bool = False,
+    ) -> str | dict:
         client = self._get_client()
 
         # Optionally trim to last N user/assistant pairs (keep system)
@@ -95,6 +96,8 @@ class OllamaChatLLM(ChatLLM):
             "temperature": temperature,
             "stream": False,
         }
+        if json_format:
+            payload["format"] = "json"
 
         logger.info("Calling Ollama %s...", self.model)
         response = client.post("/api/chat", json=payload)
@@ -103,6 +106,12 @@ class OllamaChatLLM(ChatLLM):
 
         reply = data.get("message", {}).get("content", "")
         logger.debug("Ollama %s replied (%d chars)", self.model, len(reply))
+        if json_format and reply:
+            import json
+            try:
+                return json.loads(reply)
+            except json.JSONDecodeError:
+                return reply
         return reply
 
     async def generate_async(
@@ -110,7 +119,8 @@ class OllamaChatLLM(ChatLLM):
         messages: list[Message],
         temperature: float = DEFAULT_TEMPERATURE,
         max_turns_context: int | None = None,
-    ) -> str:
+        json_format: bool = False,
+    ) -> str | dict:
         client = await self._get_async_client()
 
         # Optionally trim to last N user/assistant pairs (keep system)
@@ -127,6 +137,8 @@ class OllamaChatLLM(ChatLLM):
             "temperature": temperature,
             "stream": False,
         }
+        if json_format:
+            payload["format"] = "json"
 
         logger.info("Calling Ollama %s (async)...", self.model)
         response = await client.post("/api/chat", json=payload)
@@ -135,4 +147,10 @@ class OllamaChatLLM(ChatLLM):
 
         reply = data.get("message", {}).get("content", "")
         logger.debug("Ollama %s replied (%d chars)", self.model, len(reply))
+        if json_format and reply:
+            import json
+            try:
+                return json.loads(reply)
+            except json.JSONDecodeError:
+                return reply
         return reply

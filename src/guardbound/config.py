@@ -77,6 +77,7 @@ class LLMConfig:
     openai: dict[str, str]
     anthropic: dict[str, str]
     local: dict[str, str]
+    providers: dict[str, dict[str, str]] = field(default_factory=dict)
 
 
 @dataclass

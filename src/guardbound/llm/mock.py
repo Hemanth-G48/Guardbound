@@ -18,10 +18,22 @@ class MockChatLLM(ChatLLM):
 
     def generate(self, messages: list[Message],
                  temperature: float = DEFAULT_TEMPERATURE,
-                 max_turns_context: int | None = None) -> str:
-        self.calls.append((messages, temperature))
+                 max_turns_context: int | None = None,
+                 json_format: bool = False) -> str | dict:
+        # Snapshot the request: callers may mutate ``messages`` after generate()
+        # returns (e.g. the runner appends the assistant reply), and a call
+        # recorder must capture the request exactly as it was passed in.
+        self.calls.append(([dict(m) for m in messages], temperature, json_format))
         if self.responses:
-            return self.responses.pop(0)
-        last_user = next(
-            (m["content"] for m in reversed(messages) if m["role"] == "user"), "")
-        return f"[mock reply to]: {last_user}"
+            raw = self.responses.pop(0)
+        else:
+            last_user = next(
+                (m["content"] for m in reversed(messages) if m["role"] == "user"), "")
+            raw = f"[mock reply to]: {last_user}"
+        if json_format:
+            import json
+            try:
+                return json.loads(raw)
+            except (json.JSONDecodeError, TypeError):
+                return raw
+        return raw

@@ -34,8 +34,9 @@ def test_mock_llm_scripts_then_echoes():
 def test_mock_llm_defaults_to_paper_temperature():
     llm = MockChatLLM()
     llm.chat("hello")
-    _, temperature = llm.calls[0]
+    _, temperature, json_format = llm.calls[0]
     assert temperature == 0.7  # paper-wide generation setting
+    assert json_format is False
 
 
 def test_chatllm_is_abstract():

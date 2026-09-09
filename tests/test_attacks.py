@@ -3,10 +3,12 @@
 These tests verify:
 
 - Interface conformance for all attack classes.
-- Stub contract: the 5 paper-strict attack stubs raise
+- Stub contract: paper-strict attack stubs (currently only RedQueen) raise
   ``NotImplementedError`` from ``next_query`` until the official
-  implementations are pasted in.  This is intentional under
+  implementation is pasted in.  This is intentional under
   ``paper-strict`` mode.
+- Crescendo, ActorAttack, OppositeDay and Acronym were integrated in
+  Phase 2, so they are no longer stubs.
 - Adaptive attack selector (paper-defined) still works end-to-end.
 - Runner / registry / resume plumbing are correct using a tiny local
   ``MultiTurnAttack`` subclass — these prove the harness is correct
@@ -112,18 +114,17 @@ def test_adaptive_is_multiturn():
 # TEST B — Paper-strict stub contract
 # ---------------------------------------------------------------------------
 
+# Only RedQueen still ships as a stub (its official code was never provided).
+# The other four attacks (Crescendo, ActorAttack, OppositeDay, Acronym) were
+# implemented in Phase 2 and no longer raise NotImplementedError.
 STUB_CLASSES = [
-    CrescendoAttack,
-    ActorAttack,
-    OppositeDayAttack,
-    AcronymAttack,
     RedQueenAttack,
 ]
 
 
 @pytest.mark.parametrize("cls", STUB_CLASSES, ids=lambda c: c.__name__)
 def test_stub_next_query_raises_not_implemented(cls):
-    """Under paper-strict mode the 5 non-adaptive attacks ship as stubs.
+    """Under paper-strict mode non-integrated attacks ship as stubs.
 
     next_query() must raise NotImplementedError so the failure mode is
     loud and explicit when these attacks are invoked before their

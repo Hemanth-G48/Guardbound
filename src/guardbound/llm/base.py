@@ -24,7 +24,8 @@ class ChatLLM(ABC):
         messages: list[Message],
         temperature: float = DEFAULT_TEMPERATURE,
         max_turns_context: int | None = None,
-    ) -> str:
+        json_format: bool = False,
+    ) -> str | dict:
         """Return the assistant reply for a list of chat messages.
 
         Parameters
@@ -36,16 +37,30 @@ class ChatLLM(ABC):
         max_turns_context:
             Optional cap on how many recent turns to include in context.
             ``None`` means use all provided messages.
+        json_format:
+            If True, parse the response as JSON and return a dict.
+            If False (default), return the raw text as a str.
+            When True and parsing fails, the raw text is still returned
+            so callers can handle the failure themselves.
+
+        Returns
+        -------
+        str or dict
+            When ``json_format=False``: the raw text response.
+            When ``json_format=True``: a parsed dict if the response is
+            valid JSON, otherwise the raw text as a str.
         """
 
     # -- convenience --------------------------------------------------------- #
 
     def chat(self, user_text: str, system: str | None = None,
              temperature: float = DEFAULT_TEMPERATURE,
-             max_turns_context: int | None = None) -> str:
+             max_turns_context: int | None = None,
+             json_format: bool = False) -> str | dict:
         messages: list[Message] = []
         if system is not None:
             messages.append({"role": "system", "content": system})
         messages.append({"role": "user", "content": user_text})
         return self.generate(messages, temperature=temperature,
-                             max_turns_context=max_turns_context)
+                             max_turns_context=max_turns_context,
+                             json_format=json_format)

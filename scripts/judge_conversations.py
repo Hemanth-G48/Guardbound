@@ -36,6 +36,8 @@ def main() -> int:
     parser.add_argument("--limit", type=int, default=None, help="Limit number of conversations to judge")
     parser.add_argument("--dry-run", action="store_true", help="Show what would be executed")
     parser.add_argument("--config", default="configs/default.yaml", help="Config file")
+    parser.add_argument("--provider", default="openai", choices=["openai", "ollama"],
+                        help="Model provider: openai (cloud) or ollama (local)")
     parser.add_argument("-v", "--verbose", action="store_true", help="Verbose logging")
     args = parser.parse_args()
 
@@ -74,8 +76,12 @@ def main() -> int:
         return 0
 
     # Create judge
-    from guardbound.llm import OpenAIChatLLM
-    judge_llm = OpenAIChatLLM(judge_model)
+    from guardbound.llm import make_chat_llm
+    if args.provider == "ollama":
+        judge_llm = make_chat_llm({"provider": "ollama", "model": judge_model})
+    else:
+        judge_llm = make_chat_llm({"provider": "openai", "model": judge_model})
+    logger.info("Judge LLM: %s (provider: %s)", judge_model, args.provider)
 
     judge = SafetyJudge(
         judge_llm=judge_llm,
