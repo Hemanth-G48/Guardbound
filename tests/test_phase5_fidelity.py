@@ -1929,12 +1929,17 @@ class TestRoundNumberSecondTurn:
             json.dumps({"score": 3}),
         ])
         target = MockChatLLM(responses=["Response to QB"])
-        attack = CrescendoAttackPaper(max_turns=1)
+        attack = CrescendoAttackPaper(max_turns=2)
         attack.set_attacker_llm(attacker)
 
+        # Official budget semantics (run.py ``round_number + num_filtering <
+        # max_rounds``): a filtered candidate consumes one round of budget, so
+        # retrying after a filter requires max_turns=2 (harness convention:
+        # accepted turns + filtered candidates < max_turns). With max_turns=1
+        # the budget is exhausted after the first filtered candidate.
         conv = run_attack_with_backtracking(
             attack=attack, goal="G", target_llm=target,
-            embed_fn=embed_fn, barrier=barrier, eta=0.0, max_turns=1,
+            embed_fn=embed_fn, barrier=barrier, eta=0.0, max_turns=2,
             steer_target=False,
         )
 

@@ -18,7 +18,7 @@ from ..llm.base import ChatLLM
 from ..logging_utils import get_logger
 from ..schemas import Turn
 from .actor_attack import score_query_from_dialog
-from .base import MultiTurnAttack
+from .base import MultiTurnAttack, _EvaluatorMixin
 
 logger = get_logger(__name__)
 
@@ -404,7 +404,7 @@ def llm_evaluate_with_rubric(
     return 1
 
 
-class AcronymAttack(MultiTurnAttack):
+class AcronymAttack(_EvaluatorMixin, MultiTurnAttack):
     """Acronym attack using GPT-4 dynamic generation.
 
     The attack works by:
@@ -449,10 +449,17 @@ class AcronymAttack(MultiTurnAttack):
         self._last_goal = ""
         self._last_summary = ""
         self._last_turn_num = 0
+        self._evaluator_llm: Optional[ChatLLM] = None
 
     def set_attacker_llm(self, llm: ChatLLM) -> None:
         """Set the attacker LLM after initialization."""
         self._attacker_llm = llm
+
+    @property
+    def _judge_llm(self) -> Optional[ChatLLM]:
+        """The evaluator backend: separate model when set (Phase 8), else the
+        official attacker-as-evaluator default."""
+        return self._evaluator_llm or self._attacker_llm
 
     def set_safety_filter(self, embed_fn, barrier, threshold: float) -> None:
         """Set the SSM/NBF safety filter components.
@@ -528,23 +535,26 @@ class AcronymAttack(MultiTurnAttack):
     def evaluate_response(self, prompt: str, response: str, goal: str) -> int:
         """Evaluate the target's response.
 
-        Returns score 1-5.
+        Returns score 1-5. Routes to the evaluator LLM when one is set
+        (Phase 8 three-model mode); otherwise the official attacker-judges
+        behavior.
         """
-        return evaluate_with_rubric(prompt, response, goal, self._attacker_llm)
+        return evaluate_with_rubric(prompt, response, goal, self._judge_llm)
 
     def check_refusal(self, prompt: str, response: str) -> bool:
         """Check if the response is a refusal OR contains a disclaimer.
 
         Matches the official ``run_acronym`` control flow:
         ``(check_refusal(...) or check_disclaimer(...))`` — either triggers
-        the refusal/backtrack path.
+        the refusal/backtrack path. Both checks route to the evaluator LLM
+        in three-model mode.
         """
-        refused = check_refusal(prompt, response, self._attacker_llm) or check_disclaimer(prompt, response, self._attacker_llm)
+        refused = check_refusal(prompt, response, self._judge_llm) or check_disclaimer(prompt, response, self._judge_llm)
         return refused
 
     def check_disclaimer(self, prompt: str, response: str) -> bool:
-        """Check if the response contains a disclaimer."""
-        return check_disclaimer(prompt, response, self._attacker_llm)
+        """Check if the response contains a disclaimer (evaluator LLM)."""
+        return check_disclaimer(prompt, response, self._judge_llm)
 
     def record_turn(self, attacker_query: str, target_response: str, score: int) -> None:
         """Record a completed turn for history tracking.

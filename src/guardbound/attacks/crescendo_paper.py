@@ -19,7 +19,7 @@ from typing import Optional
 from ..logging_utils import get_logger
 from ..schemas import Turn
 from ..llm.base import ChatLLM, Message
-from .base import MultiTurnAttack
+from .base import MultiTurnAttack, _EvaluatorMixin
 
 logger = get_logger(__name__)
 
@@ -416,7 +416,7 @@ def generate_crescendo_step(
     return fallback_question, ""
 
 
-class CrescendoAttackPaper(MultiTurnAttack):
+class CrescendoAttackPaper(_EvaluatorMixin, MultiTurnAttack):
     """Full paper implementation of Crescendo attack.
 
     This attack uses an attacker LLM to dynamically generate escalation questions
@@ -462,10 +462,17 @@ class CrescendoAttackPaper(MultiTurnAttack):
         self._history_target: list[str] = []
         self._scores: list[int] = []
         self._c_refused = 0
+        self._evaluator_llm: Optional[ChatLLM] = None
 
     def set_attacker_llm(self, llm: ChatLLM) -> None:
         """Set the attacker LLM after initialization."""
         self._attacker_llm = llm
+
+    @property
+    def _judge_llm(self) -> Optional[ChatLLM]:
+        """The evaluator backend: separate model when set (Phase 8), else the
+        official attacker-as-evaluator default."""
+        return self._evaluator_llm or self._attacker_llm
 
     def set_safety_filter(self, embed_fn, barrier, threshold: float) -> None:
         """Set the safety filter components."""
@@ -526,13 +533,15 @@ class CrescendoAttackPaper(MultiTurnAttack):
     def evaluate_response(self, prompt: str, response: str, goal: str) -> int:
         """Evaluate the target's response.
 
-        Returns score 0-5.
+        Returns score 0-5. Routes to the evaluator LLM when one is set
+        (Phase 8 three-model mode); otherwise the official attacker-judges
+        behavior.
         """
-        return evaluate_with_rubric(prompt, response, goal, self._attacker_llm)
+        return evaluate_with_rubric(prompt, response, goal, self._judge_llm)
 
     def check_refusal(self, prompt: str, response: str) -> bool:
-        """Check if the response is a refusal."""
-        return check_refusal(prompt, response, self._attacker_llm)
+        """Check if the response is a refusal (evaluator LLM in three-model mode)."""
+        return check_refusal(prompt, response, self._judge_llm)
 
     def record_turn(self, attacker_query: str, target_response: str, score: int) -> None:
         """Record a completed turn for history tracking."""

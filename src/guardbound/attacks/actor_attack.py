@@ -17,7 +17,7 @@ from typing import Optional, Any
 from ..llm.base import ChatLLM
 from ..logging_utils import get_logger
 from ..schemas import Turn
-from .base import MultiTurnAttack
+from .base import MultiTurnAttack, _EvaluatorMixin
 
 logger = get_logger(__name__)
 
@@ -347,8 +347,9 @@ def get_actors(
 
     if isinstance(data, dict):
         for item in data.get('actors', []):
-            if item.get('actor_name') not in [a.get('actor_name') for a in actors]:
-                actors.append(item)
+            if isinstance(item, dict) and item.get('actor_name'):
+                if item.get('actor_name') not in [a.get('actor_name') for a in actors]:
+                    actors.append(item)
     messages = messages[:-2]
 
     if len(actors) >= actor_num:
@@ -386,7 +387,10 @@ def get_init_queries(
     data = attacker_llm.generate(messages, json_format=True)
     queries = []
     for item in data.get("questions", []):
-        queries.append(item.get("question", ""))
+        if isinstance(item, str):
+            queries.append(item)
+        elif isinstance(item, dict):
+            queries.append(item.get("question", ""))
     return queries, query_resp
 
 
@@ -545,7 +549,7 @@ def llm_evaluate_with_rubric(
     return 1
 
 
-class ActorAttack(MultiTurnAttack):
+class ActorAttack(_EvaluatorMixin, MultiTurnAttack):
     """Actor Attack using GPT-4 dynamic generation.
 
     The attack works by:
@@ -596,10 +600,22 @@ class ActorAttack(MultiTurnAttack):
 
         self._embed_fn = None
         self._barrier = None
+        self._evaluator_llm: Optional[ChatLLM] = None
 
     def set_attacker_llm(self, llm: ChatLLM) -> None:
         """Set the attacker LLM after initialization."""
         self._attacker_llm = llm
+
+    @property
+    def _judge_llm(self) -> Optional[ChatLLM]:
+        """The evaluator backend: separate model when set (Phase 8), else the
+        official attacker-as-evaluator default.
+
+        ActorAttack's evaluator handles BOTH the rubric evaluation AND the
+        three-way step judge (successful/unknown/rejective); the attacker LLM
+        handles generation, extraction, actors, and rewrites.
+        """
+        return self._evaluator_llm or self._attacker_llm
 
     def prepare_attack(self, goal: str) -> None:
         """Pre-compute the attack chain for the given goal.
@@ -674,16 +690,20 @@ class ActorAttack(MultiTurnAttack):
     def evaluate_response(self, prompt: str, response: str, goal: str) -> int:
         """Evaluate the target's response.
 
-        Returns score 1-5.
+        Returns score 1-5. Routes to the evaluator LLM when one is set
+        (Phase 8 three-model mode); otherwise the official attacker-judges
+        behavior.
         """
-        return evaluate_with_rubric(prompt, response, goal, self._attacker_llm)
+        return evaluate_with_rubric(prompt, response, goal, self._judge_llm)
 
     def step_judge(self, query: str, response: str) -> str:
         """Judge the attack step result.
 
-        Returns "successful", "rejective", or "unknown".
+        Returns "successful", "rejective", or "unknown". Routes to the
+        evaluator LLM in three-model mode (official semantics unchanged:
+        same prompt, same three-way classification).
         """
-        return step_judge(query, response, self._attacker_llm)
+        return step_judge(query, response, self._judge_llm)
 
     def check_refusal(self, query: str, response: str) -> bool:
         """Official ActorAttack refusal check: step_judge == "rejective".
@@ -691,9 +711,9 @@ class ActorAttack(MultiTurnAttack):
         ActorAttack does not use regex/LLM refusal classification; it uses the
         official three-way step judge. The result is cached so that
         ``record_turn`` (which the runner invokes right after this) does not
-        call the attacker LLM twice for the same response.
+        call the judge LLM twice for the same response.
         """
-        if self._attacker_llm is None:
+        if self._judge_llm is None:
             return False
         judge = self.step_judge(query, response)
         self._last_judge = (query, response, judge)
@@ -727,7 +747,7 @@ class ActorAttack(MultiTurnAttack):
             judge = self._last_judge[2]
             self._last_judge = None
             return judge
-        if self._attacker_llm is None:
+        if self._judge_llm is None:
             return "successful"
         return self.step_judge(query, response)
 
@@ -831,6 +851,9 @@ class ActorAttack(MultiTurnAttack):
         self._actor_complete = False
         self._attempts = 0
         self._last_judge = None
+        # Parity-tracking counter (harness telemetry, not official state):
+        # must reset per conversation or refusal counts accumulate across goals.
+        self._c_refused_backtrack = 0
 
     def call_multi(
         self,
@@ -875,6 +898,12 @@ class ActorAttack(MultiTurnAttack):
 
                     for index_ in range(10):
                         ssm_nbf_score = self._calculate_score(queries, i)
+                        # Harness telemetry (official semantics unchanged): record
+                        # the candidate's barrier score and accept/filter verdict.
+                        if hasattr(self, "nbf_candidate_scores"):
+                            self.nbf_candidate_scores.append(ssm_nbf_score)
+                            self.nbf_candidate_verdicts.append(
+                                ssm_nbf_score < safety_threshold)
                         if minimal_ssm_nbf_score > ssm_nbf_score:
                             minimal_ssm_nbf_score = ssm_nbf_score
                             min_score_query = queries[i]
@@ -962,6 +991,11 @@ class ActorAttack(MultiTurnAttack):
                     ssm_nbf_score = self._calculate_score_from_dialog(
                         dialog_hist, summary_query, ""
                     )
+                    # Harness telemetry (official semantics unchanged).
+                    if hasattr(self, "nbf_candidate_scores"):
+                        self.nbf_candidate_scores.append(ssm_nbf_score)
+                        self.nbf_candidate_verdicts.append(
+                            ssm_nbf_score < safety_threshold)
                     if minimal_ssm_nbf_score > ssm_nbf_score:
                         minimal_ssm_nbf_score = ssm_nbf_score
                         min_score_query = summary_query
