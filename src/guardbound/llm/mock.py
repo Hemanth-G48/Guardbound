@@ -19,7 +19,8 @@ class MockChatLLM(ChatLLM):
     def generate(self, messages: list[Message],
                  temperature: float = DEFAULT_TEMPERATURE,
                  max_turns_context: int | None = None,
-                 json_format: bool = False) -> str | dict:
+                 json_format: bool = False,
+                 structured_output_mode: str | None = None) -> str | dict:
         # Snapshot the request: callers may mutate ``messages`` after generate()
         # returns (e.g. the runner appends the assistant reply), and a call
         # recorder must capture the request exactly as it was passed in.

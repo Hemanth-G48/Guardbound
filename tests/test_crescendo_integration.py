@@ -355,16 +355,36 @@ class TestRefusalBacktracking:
         assert not attack.should_backtrack()
 
     def test_record_turn_tracks_history(self):
-        """record_turn populates internal history."""
+        """record_turn reproduces the author's history_a bookkeeping.
+
+        Official ``run_crescendomation`` appends the attacker prompt every round
+        and the target entry (``"(Summary) " + response_summary``) only when
+        ``round_number > 1``; only the most recent target response is echoed to
+        the attacker verbatim, as this round's ``last_response``.
+        """
         from guardbound.llm.mock import MockChatLLM
         from guardbound.attacks.crescendo_paper import CrescendoAttackPaper
-        attacker = MockChatLLM(responses=['{"generatedQuestion": "q1", "lastResponseSummary": ""}'])
+        attacker = MockChatLLM(responses=[
+            '{"generatedQuestion": "q1", "lastResponseSummary": "s1"}',
+            '{"generatedQuestion": "q2", "lastResponseSummary": "s2"}',
+        ])
         attack = CrescendoAttackPaper(attacker_llm=attacker)
-        q = attack.next_query(goal="g", history=[])
-        attack.record_turn(q, "resp", 3)
-        assert attack._history_attacker == [q]
-        assert attack._history_target == ["resp"]
+
+        # Round 1: ``round_number > 1`` is false, so no target entry.
+        q1 = attack.next_query(goal="g", history=[])
+        attack.record_turn(q1, "resp1", 3)
+        assert attack._history_attacker == [q1]
+        assert attack._history_target == []
         assert attack._scores == [3]
+
+        # Round 2: the target entry is the summary generated this round.
+        q2, summary2 = attack.generate_question_for_turn(
+            goal="g", turn_num=2, last_response="resp1"
+        )
+        attack.record_turn(q2, "resp2", 4)
+        assert attack._history_attacker == [q1, q2]
+        assert attack._history_target == ["(Summary) " + summary2]
+        assert attack._scores == [3, 4]
 
 
 # ============================================================================

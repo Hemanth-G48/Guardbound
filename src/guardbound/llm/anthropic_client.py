@@ -52,7 +52,8 @@ class AnthropicChatLLM(ChatLLM):
     def generate(self, messages: list[Message],
                  temperature: float = DEFAULT_TEMPERATURE,
                  max_turns_context: int | None = None,
-                 json_format: bool = False) -> str | dict:
+                 json_format: bool = False,
+                 structured_output_mode: str | None = None) -> str | dict:
         # Optionally trim to last N user turns
         if max_turns_context is not None and max_turns_context > 0:
             system_msgs = [m for m in messages if m["role"] == "system"]

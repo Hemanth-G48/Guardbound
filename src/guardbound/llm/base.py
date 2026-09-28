@@ -25,6 +25,7 @@ class ChatLLM(ABC):
         temperature: float = DEFAULT_TEMPERATURE,
         max_turns_context: int | None = None,
         json_format: bool = False,
+        structured_output_mode: str | None = None,
     ) -> str | dict:
         """Return the assistant reply for a list of chat messages.
 
@@ -42,6 +43,9 @@ class ChatLLM(ABC):
             If False (default), return the raw text as a str.
             When True and parsing fails, the raw text is still returned
             so callers can handle the failure themselves.
+        structured_output_mode:
+            None = default behavior (local JSON stopping criteria).
+            "constrained_json" = Phase 14.1 constrained decoding.
 
         Returns
         -------
@@ -56,11 +60,13 @@ class ChatLLM(ABC):
     def chat(self, user_text: str, system: str | None = None,
              temperature: float = DEFAULT_TEMPERATURE,
              max_turns_context: int | None = None,
-             json_format: bool = False) -> str | dict:
+             json_format: bool = False,
+             structured_output_mode: str | None = None) -> str | dict:
         messages: list[Message] = []
         if system is not None:
             messages.append({"role": "system", "content": system})
         messages.append({"role": "user", "content": user_text})
         return self.generate(messages, temperature=temperature,
                              max_turns_context=max_turns_context,
-                             json_format=json_format)
+                             json_format=json_format,
+                             structured_output_mode=structured_output_mode)

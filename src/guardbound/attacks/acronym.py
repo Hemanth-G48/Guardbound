@@ -449,6 +449,7 @@ class AcronymAttack(_EvaluatorMixin, MultiTurnAttack):
         self._last_goal = ""
         self._last_summary = ""
         self._last_turn_num = 0
+        self._accepted_turns_so_far: Optional[int] = None
         self._evaluator_llm: Optional[ChatLLM] = None
 
     def set_attacker_llm(self, llm: ChatLLM) -> None:
@@ -521,7 +522,7 @@ class AcronymAttack(_EvaluatorMixin, MultiTurnAttack):
                 "attacker_llm in constructor."
             )
 
-        return generate_acronym_step(
+        question, summary = generate_acronym_step(
             round_num=turn_num,
             goal=goal,
             history_attacker=self._history_attacker,
@@ -531,6 +532,13 @@ class AcronymAttack(_EvaluatorMixin, MultiTurnAttack):
             attacker_llm=self._attacker_llm,
             max_rounds=self._max_turns,
         )
+        # The summary describes the PREVIOUS target response. It must be captured
+        # HERE (not only in next_query) because the runner drives
+        # generate_question_for_turn directly and then calls record_turn, which
+        # appends it under the author's ``round_number > 1`` condition.
+        self._last_summary = summary
+        self._last_turn_num = turn_num
+        return question, summary
 
     def evaluate_response(self, prompt: str, response: str, goal: str) -> int:
         """Evaluate the target's response.
@@ -556,15 +564,34 @@ class AcronymAttack(_EvaluatorMixin, MultiTurnAttack):
         """Check if the response contains a disclaimer (evaluator LLM)."""
         return check_disclaimer(prompt, response, self._judge_llm)
 
-    def record_turn(self, attacker_query: str, target_response: str, score: int) -> None:
-        """Record a completed turn for history tracking.
+    def _include_summary(self) -> bool:
+        """The author's ``if round_number > 1`` test from ``run_acronym``.
 
-        Per the official implementation, the target history stores the
-        ``(Summary) <response_summary>`` produced by the attacker for the
-        previous response (only for rounds > 1).
+        ``history_a[\"target\"]`` receives ``\"(Summary) \" + response_summary``
+        whenever the round number exceeds 1, i.e. whenever at least one accepted
+        turn is already in ``history_t`` (the runner publishes that count as
+        ``_accepted_turns_so_far``; refused turns do not count because the author
+        pops them from ``history_t``). ``next_query``-driven callers that never
+        go through the runner fall back to the generation-time turn number.
+        """
+        if self._accepted_turns_so_far is not None:
+            return self._accepted_turns_so_far > 0
+        return self._last_turn_num > 1
+
+    def record_turn(self, attacker_query: str, target_response: str, score: int | str) -> None:
+        """Record a completed turn using the author's history bookkeeping.
+
+        Official ``run_acronym``:
+
+            history_a["attacker"].append(prompt)                  # every round
+            if round_number > 1:
+                history_a["target"].append("(Summary) " + response_summary)
+
+        so subsequent attacker prompts are built from summaries, and only the
+        most recent target response is echoed verbatim (``last_response``).
         """
         self._history_attacker.append(attacker_query)
-        if self._last_turn_num > 1:
+        if self._include_summary():
             self._history_target.append("(Summary) " + self._last_summary)
         self._scores.append(score)
 
@@ -658,3 +685,4 @@ class AcronymAttack(_EvaluatorMixin, MultiTurnAttack):
         self._last_goal = ""
         self._last_summary = ""
         self._last_turn_num = 0
+        self._accepted_turns_so_far = None

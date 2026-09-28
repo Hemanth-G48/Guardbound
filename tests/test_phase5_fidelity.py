@@ -374,12 +374,26 @@ class TestCrescendoFidelity:
         assert query == "Attack question?"
 
     def test_crescendo_attack_record_turn(self):
-        """Verify turn recording updates history."""
+        """Verify turn recording follows the author's history bookkeeping.
+
+        Official run_crescendomation: ``history_a["target"]`` receives
+        ``"(Summary) " + response_summary`` only for ``round_number > 1``
+        (i.e. once an accepted turn already exists in ``history_t``).
+        """
         attack = CrescendoAttackPaper()
         attack.record_turn("Q1", "A1", 3)
         assert len(attack._history_attacker) == 1
-        assert len(attack._history_target) == 1
+        # First recorded round: round_number == 1 -> no target entry.
+        assert attack._history_target == []
         assert attack._scores == [3]
+
+        # Second accepted turn (one accepted turn already in history_t): the
+        # attacker's own summary of the previous response is recorded.
+        attack._last_summary = "S1"
+        attack._accepted_turns_so_far = 1
+        attack.record_turn("Q2", "A2", 4)
+        assert attack._history_target == ["(Summary) S1"]
+        assert attack._scores == [3, 4]
 
     def test_crescendo_attack_was_successful(self):
         """Verify success detection."""
@@ -1002,45 +1016,57 @@ class TestRunnerIntegrationFidelity:
     """Verify the runner orchestrates attacks correctly."""
 
     def test_runner_creates_conversation(self):
-        """Verify runner produces a Conversation object."""
+        """Verify runner produces a Conversation object.
+
+        Official loop parity (``round_number + num_filtering < max_rounds``)
+        executes ``max_rounds`` accepted turns for max_rounds >= 2.
+        """
         attacker = MockChatLLM(responses=[
-            {"generatedQuestion": "Q1?", "lastResponseSummary": "S1"},
+            '{"generatedQuestion": "Q1?", "lastResponseSummary": "S1"}',
+            '{"value": False, "metadata": 95}',
+            '{"score": 3}',
+            '{"generatedQuestion": "Q2?", "lastResponseSummary": "S2"}',
+            '{"value": False, "metadata": 95}',
+            '{"score": 3}',
         ])
-        target = MockChatLLM(responses=["Response"])
-        attack = CrescendoAttackPaper(max_turns=1)
+        target = MockChatLLM(responses=["Response", "Response"])
+        attack = CrescendoAttackPaper(max_turns=2)
         attack.set_attacker_llm(attacker)
 
         conv = run_attack_with_backtracking(
             attack=attack,
             goal="Test goal",
             target_llm=target,
-            max_turns=1,
+            max_turns=2,
         )
 
         assert isinstance(conv, Conversation)
         assert conv.goal == "Test goal"
         assert conv.attack_method == "crescendo_paper"
-        assert len(conv.turns) == 1
+        assert len(conv.turns) == 2
 
     def test_runner_records_turns(self):
         """Verify runner records turn information."""
         attacker = MockChatLLM(responses=[
-            {"generatedQuestion": "Q1?", "lastResponseSummary": "S1"},
-            {"value": False, "metadata": 95},
-            {"score": 3},
+            '{"generatedQuestion": "Q1?", "lastResponseSummary": "S1"}',
+            '{"value": False, "metadata": 95}',
+            '{"score": 3}',
+            '{"generatedQuestion": "Q2?", "lastResponseSummary": "S2"}',
+            '{"value": False, "metadata": 95}',
+            '{"score": 3}',
         ])
-        target = MockChatLLM(responses=["Response"])
-        attack = CrescendoAttackPaper(max_turns=1)
+        target = MockChatLLM(responses=["Response", "Response"])
+        attack = CrescendoAttackPaper(max_turns=2)
         attack.set_attacker_llm(attacker)
 
         conv = run_attack_with_backtracking(
             attack=attack,
             goal="Test goal",
             target_llm=target,
-            max_turns=1,
+            max_turns=2,
         )
 
-        assert len(conv.turns) == 1
+        assert len(conv.turns) == 2
         turn = conv.turns[0]
         assert turn.query == "Q1?"
         assert turn.response == "Response"
@@ -1109,19 +1135,22 @@ class TestRunnerIntegrationFidelity:
     def test_runner_uses_system_prompt(self):
         """Verify runner uses the system prompt for the target."""
         attacker = MockChatLLM(responses=[
-            {"generatedQuestion": "Q1?", "lastResponseSummary": "S1"},
-            {"value": False, "metadata": 95},
-            {"score": 3},
+            '{"generatedQuestion": "Q1?", "lastResponseSummary": "S1"}',
+            '{"value": False, "metadata": 95}',
+            '{"score": 3}',
+            '{"generatedQuestion": "Q2?", "lastResponseSummary": "S2"}',
+            '{"value": False, "metadata": 95}',
+            '{"score": 3}',
         ])
-        target = MockChatLLM(responses=["Response"])
-        attack = CrescendoAttackPaper(max_turns=1)
+        target = MockChatLLM(responses=["Response", "Response"])
+        attack = CrescendoAttackPaper(max_turns=2)
         attack.set_attacker_llm(attacker)
 
         conv = run_attack_with_backtracking(
             attack=attack,
             goal="Test goal",
             target_llm=target,
-            max_turns=1,
+            max_turns=2,
             system_prompt="You are a helpful assistant",
         )
 
@@ -1139,12 +1168,15 @@ class TestRunnerIntegrationFidelity:
         embed_fn = lambda x: torch.randn(1, 768)
 
         attacker = MockChatLLM(responses=[
-            {"generatedQuestion": "Q1?", "lastResponseSummary": "S1"},
-            {"value": False, "metadata": 95},
-            {"score": 3},
+            '{"generatedQuestion": "Q1?", "lastResponseSummary": "S1"}',
+            '{"value": False, "metadata": 95}',
+            '{"score": 3}',
+            '{"generatedQuestion": "Q2?", "lastResponseSummary": "S2"}',
+            '{"value": False, "metadata": 95}',
+            '{"score": 3}',
         ])
-        target = MockChatLLM(responses=["Response"])
-        attack = CrescendoAttackPaper(max_turns=1)
+        target = MockChatLLM(responses=["Response", "Response"])
+        attack = CrescendoAttackPaper(max_turns=2)
         attack.set_attacker_llm(attacker)
         attack.set_safety_filter(embed_fn, barrier, 0.0)
 
@@ -1154,12 +1186,15 @@ class TestRunnerIntegrationFidelity:
             target_llm=target,
             embed_fn=embed_fn,
             barrier=barrier,
-            max_turns=1,
+            max_turns=2,
             eta=0.0,
         )
 
         assert isinstance(conv, Conversation)
-        assert len(conv.turns) == 1
+        # Official budget parity (crescendomation/run.py): with nothing filtered
+        # or refused, ``max_rounds`` accepted turns are executed, so it is 2
+        # turns here -- not ``max_turns - 1``.
+        assert len(conv.turns) == 2
 
     def test_runner_handles_empty_query(self):
         """Verify runner handles attacks that produce empty queries.
@@ -1408,20 +1443,25 @@ class TestRoundNumberFidelity:
     def test_round_number_first_turn(self):
         """Round 1: empty target conversation -> effective round = 1.
 
-        Uses max_turns=1 so the loop stops after one turn (the test only
-        provides responses for one turn).
+        The author's loop (``round_number + num_filtering < max_rounds`` with
+        ``round_number`` recomputed inside the body) executes one accepted turn
+        only from max_turns >= 2, so both turns are scripted and the assertions
+        read the FIRST generate call.
         """
         attacker = MockChatLLM(responses=[
             '{"generatedQuestion": "Q1?", "lastResponseSummary": "S1"}',
             '{"value": False, "metadata": 95}',
             '{"score": 3}',
+            '{"generatedQuestion": "Q2?", "lastResponseSummary": "S2"}',
+            '{"value": False, "metadata": 95}',
+            '{"score": 3}',
         ])
-        target = MockChatLLM(responses=["Response"])
-        attack = CrescendoAttackPaper(max_turns=1)
+        target = MockChatLLM(responses=["Response", "Response"])
+        attack = CrescendoAttackPaper(max_turns=2)
         attack.set_attacker_llm(attacker)
 
         conv = run_attack_with_backtracking(
-            attack=attack, goal="G", target_llm=target, max_turns=1
+            attack=attack, goal="G", target_llm=target, max_turns=2
         )
 
         gen_messages = self._find_generate_step_messages(attacker)
@@ -1472,8 +1512,6 @@ class TestRoundNumberFidelity:
 
         round_number. With no actual filtering (safe barrier), the round
         number should be 1 for the first turn.
-
-        Uses max_turns=1 so the loop stops after one turn.
         """
         barrier = make_mock_barrier()
         embed_fn = lambda x: torch.randn(1, 768)
@@ -1482,15 +1520,18 @@ class TestRoundNumberFidelity:
             '{"generatedQuestion": "Q1?", "lastResponseSummary": "S1"}',
             '{"value": False, "metadata": 95}',
             '{"score": 3}',
+            '{"generatedQuestion": "Q2?", "lastResponseSummary": "S2"}',
+            '{"value": False, "metadata": 95}',
+            '{"score": 3}',
         ])
-        target = MockChatLLM(responses=["Response"])
-        attack = CrescendoAttackPaper(max_turns=1)
+        target = MockChatLLM(responses=["Response", "Response"])
+        attack = CrescendoAttackPaper(max_turns=2)
         attack.set_attacker_llm(attacker)
         attack.set_safety_filter(embed_fn, barrier, 0.0)
 
         conv = run_attack_with_backtracking(
             attack=attack, goal="G", target_llm=target,
-            embed_fn=embed_fn, barrier=barrier, eta=0.0, max_turns=1
+            embed_fn=embed_fn, barrier=barrier, eta=0.0, max_turns=2
         )
 
         gen_messages = self._find_generate_step_messages(attacker)
@@ -1927,19 +1968,29 @@ class TestRoundNumberSecondTurn:
             # Turn 1 (attempt B sent): check_refusal, then rubric
             json.dumps({"value": False, "metadata": 95}),
             json.dumps({"score": 3}),
+            # Attempt C: generate_step (the author's lagging counter leaves one
+            # more round inside the max_rounds=3 budget)
+            json.dumps({"generatedQuestion": "QC?", "lastResponseSummary": "SC"}),
+            json.dumps({"value": False, "metadata": 95}),
+            json.dumps({"score": 3}),
         ])
-        target = MockChatLLM(responses=["Response to QB"])
-        attack = CrescendoAttackPaper(max_turns=2)
+        target = MockChatLLM(responses=["Response to QB", "Response to QC"])
+        attack = CrescendoAttackPaper(max_turns=3)
         attack.set_attacker_llm(attacker)
 
-        # Official budget semantics (run.py ``round_number + num_filtering <
-        # max_rounds``): a filtered candidate consumes one round of budget, so
-        # retrying after a filter requires max_turns=2 (harness convention:
-        # accepted turns + filtered candidates < max_turns). With max_turns=1
-        # the budget is exhausted after the first filtered candidate.
+        # Official budget semantics, transcribed exactly (run.py):
+        #
+        #     round_number = 1
+        #     while round_number + num_filtering < max_rounds:
+        #         round_number = len(history_t) // 2 + 1
+        #
+        # The test therefore uses the round number computed at the START of the
+        # previous iteration, so with a filtered first candidate the budget
+        # admits attempts A (filtered), B (accepted) and C at max_rounds=3;
+        # max_rounds=2 would stop before attempt B.
         conv = run_attack_with_backtracking(
             attack=attack, goal="G", target_llm=target,
-            embed_fn=embed_fn, barrier=barrier, eta=0.0, max_turns=2,
+            embed_fn=embed_fn, barrier=barrier, eta=0.0, max_turns=3,
             steer_target=False,
         )
 
@@ -1952,9 +2003,9 @@ class TestRoundNumberSecondTurn:
         )
 
         gen_calls = attacker.calls_of_purpose("generation")
-        assert len(gen_calls) == 2, (
-            f"Expected two attacker generation calls (filtered attempt A + "
-            f"accepted attempt B), got {len(gen_calls)}"
+        assert len(gen_calls) == 3, (
+            f"Expected three attacker generation calls (filtered attempt A + "
+            f"accepted attempts B and C), got {len(gen_calls)}"
         )
 
         # Attempt A (base round 1, no filtering yet): first-round boilerplate.
@@ -1978,10 +2029,10 @@ class TestRoundNumberSecondTurn:
         )
         assert "round number" not in second
 
-        # Exactly one target call, containing only the accepted query QB?.
+        # Only the accepted queries reach the target (QA? never does).
         # MockChatLLM.calls entries are (messages, temperature, json_format);
         # the last message of the request is the user query.
-        assert len(target.calls) == 1, (
+        assert len(target.calls) == 2, (
             f"The filtered candidate must never reach the target; got "
             f"{len(target.calls)} target calls."
         )
@@ -1989,10 +2040,19 @@ class TestRoundNumberSecondTurn:
             f"Target must see the accepted query QB? as its last (user) "
             f"message; got: {target.calls[0][0][-1]['content']!r}"
         )
+        assert target.calls[1][0][-1]["content"] == "QC?"
+        for call in target.calls:
+            assert all(m["content"] != "QA?" for m in call[0])
 
-        # The accepted turn was recorded once.
-        assert len(conv.turns) == 1
+        # Both accepted turns were recorded; the filtered candidate was not.
+        assert len(conv.turns) == 2
         assert conv.turns[0].query == "QB?"
+        assert conv.turns[1].query == "QC?"
+
+        # Harness telemetry: one scored candidate per iteration, the first
+        # verdict rejected.
+        assert attack.nbf_candidate_verdicts[0] is False
+        assert len(attack.nbf_candidate_verdicts) == len(gen_calls)
 
 
 class TestCrescendoPlaceholderInMessage:

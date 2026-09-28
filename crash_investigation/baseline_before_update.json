@@ -1,0 +1,388 @@
+{
+  "_note": "TWO SNAPSHOTS IN ONE FILE. (1) The pre-update baseline captured BEFORE the Intel/NVIDIA/BIOS updates. (2) 'post_update_snapshot' (added 2026-09-23 01:28) - which updates actually landed and which did not; headline: the Intel iGPU is STILL on 32.0.101.8132 because 32.0.101.9030 is staged but unbound. Also 'remediation_ownership' (what can be automated vs what needs the operator). Re-run the capture commands in PHASE14_CRASH_ROOT_CAUSE.md section 11 and diff against these blocks. Generated 2026-09-23 by the Phase 14 crash root-cause investigation.",
+  "captured_at": "2026-09-23T00:10:00+05:30",
+  "captured_after_crash": "2026-09-22T23:57:47+05:30",
+
+  "machine": {
+    "hostname": "DESKTOP-PVCRPVT",
+    "manufacturer": "HP",
+    "model": "HP Z2 Tower G1i Workstation Desktop PC",
+    "system_family": "103C_53335X HP Workstation",
+    "system_sku": "B04F2AV",
+    "baseboard": { "manufacturer": "HP", "product": "8D3C", "version": "KBC Version 14.22.00" },
+    "pc_system_type": 3
+  },
+
+  "firmware": {
+    "bios_vendor": "HP",
+    "bios_version": "X51 Ver. 01.08.03",
+    "bios_release_date": "2025-12-12",
+    "smbios_version": "3.8",
+    "bios_version_string": "HPQOEM - 0"
+  },
+
+  "os": {
+    "edition": "Windows 11 Pro 25H2",
+    "registry_product_name": "Windows 10 Pro",
+    "display_version": "25H2",
+    "build": "26200.9457",
+    "major_minor": "10.0.26200",
+    "architecture": "64-bit",
+    "install_date": "2026-04-24",
+    "last_boot": "2026-09-22T23:57:33+05:30",
+    "power_plan": "HP High Performance (c0f3b76f-e4e4-4c1e-aeba-a6b32674b454)"
+  },
+
+  "security_stack": {
+    "vbs_enabled": true,
+    "policies": ["VBS Enabled", "VSM Required", "Secure Boot", "Iommu Protection", "Mmio Nx", "Strong MSR Filtering", "Hvci", "Boot Chain Signer Soft Enforced", "Measured Launch"],
+    "hvci_mode": "Strict",
+    "hypervisors_present": [
+      { "name": "Microsoft Hyper-V", "binaries": ["hvix64.exe", "Vid.sys", "hvservice.sys"], "state": "running" },
+      { "name": "Bromium uXen (HP Sure Click)", "binary": "uxen.sys", "path": "c:\\Program Files\\HP\\Sure Click\\bin\\uxen.sys", "signer": "CN=Bromium UK Limited", "state": "running" }
+    ],
+    "hp_wolf_security": {
+      "version": "4.4.33.1019",
+      "services_running": ["BrService", "BrEndpointSvc"],
+      "services_disabled": ["BrAmSvc (HP Sure Sense Antimalware)"],
+      "live_microvms": ["Br-uxendm.exe -n uVM0001"],
+      "note": "uXen is present but is NOT named by any WER crash bucket. Not the attributed culprit."
+    }
+  },
+
+  "hardware": {
+    "cpu": { "name": "Intel(R) Core(TM) Ultra 9 285", "codename": "Arrow Lake-S", "cores": 24, "threads": 24, "max_clock_mhz": 2500, "no_hyperthreading": true },
+    "ram": {
+      "total_bytes": 136831197184,
+      "total_visible_gib": 127.4,
+      "dimm_count": 4,
+      "dimm_size_gb": 32,
+      "part_number": "M323R4GA3EB0-CWMOL",
+      "manufacturer": "Samsung",
+      "speed_mts": 5600,
+      "ecc": false
+    },
+    "gpus": [
+      { "index": 0, "name": "NVIDIA RTX 4500 Ada Generation", "vram_mib": 24570, "vram_gb_decimal": 25.77, "vram_gib": 24.0, "pci": "00000000:02:00.0", "pci_id": "PCI\\VEN_10DE&DEV_27B1&SUBSYS_180C103C&REV_A1", "driver_model": "WDDM", "ecc": "disabled" },
+      { "index": 1, "name": "Intel(R) Graphics", "arch": "Arrow Lake", "pci_id": "PCI\\VEN_8086&DEV_7D67&SUBSYS_8D3C103C&REV_06" }
+    ],
+    "disks": [
+      { "device_id": 0, "model": "HGST HUS722T2TALA604", "media": "HDD", "bus": "SATA", "size_gb": 1863, "health": "Healthy" },
+      { "device_id": 1, "model": "HGST HUS722T2TALA604", "media": "HDD", "bus": "SATA", "size_gb": 1863, "health": "Healthy" },
+      { "device_id": 2, "model": "SAMSUNG MZVL81T0HFLB-00BH1", "media": "SSD", "bus": "NVMe", "size_gb": 954, "health": "Healthy" }
+    ],
+    "volumes": [
+      { "letter": "C", "label": "Windows", "size_gb": 920.4, "free_gb": 364.9, "health": "Healthy" },
+      { "letter": "D", "label": "DATADRIVE0", "size_gb": 1863, "free_gb": 1861, "health": "Healthy" },
+      { "letter": "E", "label": "DATADRIVE1", "size_gb": 1863, "free_gb": 1862.8, "health": "Healthy" }
+    ],
+    "pagefile": { "path": "C:\\pagefile.sys", "allocated_mb": 8192, "current_usage_mb": 0, "peak_usage_mb": 0, "automatic_managed": true },
+    "hf_cache": { "path": "C:\\Users\\CSLAB\\.cache\\huggingface", "size_gb": 135.82 }
+  },
+
+  "ml_stack": {
+    "python": "3.13.9",
+    "python_prefix": "C:\\Users\\CSLAB\\anaconda3",
+    "pytorch": "2.7.1+cu118",
+    "transformers": "5.16.1",
+    "cuda_runtime_torch": "11.8",
+    "nvidia_driver_cuda_capability": "13.0",
+    "nvidia_driver_version": "582.08",
+    "known_env_issue": "OMP: Error #15 duplicate libiomp5md.dll; masked by KMP_DUPLICATE_LIB_OK=TRUE in phase14_full_reproduction.py"
+  },
+
+  "drivers_before_update": [
+    { "device": "Intel(R) Graphics", "version": "32.0.101.8132", "date": "2025-09-19", "provider": "Intel Corporation", "role": "PRIMARY SUSPECT - implicated in 177/202 kernel reports" },
+    { "device": "NVIDIA RTX 4500 Ada Generation", "version": "32.0.15.8208", "date": "2025-07-12", "provider": "NVIDIA", "role": "8/202 kernel reports" },
+    { "device": "Intel(R) Wi-Fi 6E AX211 160MHz", "version": "24.0.2.1", "date": "2025-10-21", "provider": "Intel", "role": "1/202 reports (Netwtw14.sys fatal miniport)" },
+    { "device": "Intel(R) Wireless Bluetooth(R)", "version": "24.0.1.1", "date": "2025-09-23", "provider": "Intel" },
+    { "device": "Intel(R) Ethernet Connection (19) I219-LM", "version": "20.0.3.16", "date": "2025-05-10", "provider": "Intel" },
+    { "device": "Intel(R) AI Boost", "version": "32.0.100.4778", "date": "2026-04-28", "provider": "Intel" },
+    { "device": "Intel(R) Management Engine Interface #1", "version": "2552.8.10.0", "date": "2025-12-23", "provider": "Intel" },
+    { "device": "Intel(R) Dynamic Tuning Technology", "version": "9.1.10002.281", "date": "2025-10-17", "provider": "Intel" },
+    { "device": "Intel(R) Innovation Platform Framework", "version": "2.2.10204.8", "date": "2024-12-16", "provider": "Intel" },
+    { "device": "Intel(R) Platform Monitoring Technology (PMT) Driver", "version": "3.1.2.6", "date": "2024-05-24", "provider": "Intel" },
+    { "device": "Intel(R) TXT Authenticated Code Module", "version": "20.20.19.28", "date": "2025-07-03", "provider": "Intel" },
+    { "device": "Intel(R) SPI (flash) Controller - AE23", "version": "10.1.47.12", "provider": "Intel" },
+    { "device": "Intel Processor (intelppm.sys)", "version": "10.0.26100.9278", "provider": "Microsoft" },
+    { "device": "NVIDIA High Definition Audio", "version": "1.4.5.6", "date": "2025-07-12", "provider": "NVIDIA" },
+    { "device": "NVIDIA Virtual Audio Device", "version": "4.92.0.0", "date": "2026-04-08", "provider": "NVIDIA" }
+  ],
+
+  "driver_targets": {
+    "intel_graphics": { "current": "32.0.101.8132", "current_date": "2025-09-19", "target": "32.0.101.9030", "target_date": "2026-09-17", "priority": "P0", "note": "Verify current release at Intel Download Center before installing. Must support Arrow Lake-S." },
+    "hp_bios": { "current": "X51 Ver. 01.08.03", "current_date": "2025-12-12", "priority": "P1" },
+    "nvidia": { "current": "32.0.15.8208", "current_date": "2025-07-12", "priority": "P2" },
+    "intel_wifi": { "current": "24.0.2.1", "current_date": "2025-10-21", "priority": "P2" }
+  },
+
+  "crash_dump_config": {
+    "before": { "CrashDumpEnabled": 3, "CrashDumpEnabled_meaning": "small minidump ONLY - no kernel dump, no MEMORY.DMP", "DedicatedDumpFile": "", "DumpFileSize": "", "DumpFile": "C:\\Windows\\MEMORY.DMP", "AutoReboot": 1 },
+    "after":  { "CrashDumpEnabled": 7, "CrashDumpEnabled_meaning": "Automatic", "DedicatedDumpFile": "D:\\dedicateddump.sys", "DumpFileSize": 40960, "DumpFile": "C:\\Windows\\MEMORY.DMP", "AutoReboot": 1 },
+    "reg_hive": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\CrashControl"
+  },
+
+  "bugcheck_taxonomy_202_kernel_reports": {
+    "by_code": {
+      "0x141": { "name": "VIDEO_ENGINE_TIMEOUT_DETECTED", "count": 174, "first": "2026-05-31T17:06", "last": "2026-09-17T12:29", "severity": "recovered (LiveKernelEvent)" },
+      "0x117": { "name": "VIDEO_TDR_TIMEOUT_DETECTED", "count": 11, "first": "2026-05-31T17:07", "last": "2026-09-16T12:37", "severity": "recovered (LiveKernelEvent)" },
+      "0x20001": { "name": "HYPERVISOR_ERROR", "count": 11, "first": "2026-05-21T19:16", "last": "2026-09-22T23:57", "severity": "FATAL - reboot" },
+      "0x113": { "name": "VIDEO_DXGKRNL_FATAL_ERROR", "count": 3, "first": "2026-05-14T09:47", "last": "2026-06-21T15:13" },
+      "0x116": { "name": "VIDEO_TDR_FAILURE", "count": 1, "date": "2026-09-16T11:23" },
+      "0x1e": { "name": "KMODE_EXCEPTION_NOT_HANDLED", "count": 1, "date": "2026-09-14T15:48" },
+      "0x15e": { "name": "FATAL_MINIPORT_ERROR", "count": 1, "date": "2026-06-06T00:09" }
+    },
+    "by_bucket": [
+      { "count": 148, "bucket": "LKD_0x141_Tdr:6_IMAGE_igdkmdn64.sys_ARL_0_KMD", "vendor": "Intel" },
+      { "count": 14, "bucket": "LKD_0x141_Tdr:6_IMAGE_igdkmdn64.sys_ARL_TRINITY11_BBHANG", "vendor": "Intel" },
+      { "count": 10, "bucket": "LKD_0x117_Tdr:3_TdrVTR:0_IMAGE_igdkmdn64.sys_ARL_0_DISPLAY", "vendor": "Intel" },
+      { "count": 7, "bucket": "INTEL_IOMMU_TIMEOUT_IMAGE_GenuineIntel.sys", "vendor": "Intel", "role": "hypervisor fatal, param1=0x28" },
+      { "count": 5, "bucket": "LKD_0x141_Tdr:6_IMAGE_nvlddmkm.sys_Ada", "vendor": "NVIDIA" },
+      { "count": 4, "bucket": "NOBLOB_HYPERVISOR_ERROR_EXCESSIVE_WAIT_WHILE_SPINNING_IMAGE_hvix64.exe", "vendor": "Microsoft", "role": "hypervisor fatal, param1=0x13" },
+      { "count": 2, "bucket": "LKD_0x141_Tdr:6_IMAGE_igdkmdn64.sys_ARL_TRINITY11_RINGHANG", "vendor": "Intel" },
+      { "count": 2, "bucket": "LKD_0x141_Tdr:6_IMAGE_igdkmdn64.sys_ARL_TRINITY11_GUC_SCHEDULER_ERROR", "vendor": "Intel" },
+      { "count": 2, "bucket": "0x113_2C_dxgkrnl!DXGCONTEXT::_DXGCONTEXT", "vendor": "Microsoft" },
+      { "count": 2, "bucket": "LKD_0x141_Tdr:C_AppFault_IMAGE_nvlddmkm.sys_Ada", "vendor": "NVIDIA" },
+      { "count": 1, "bucket": "0x116_TdrBCR:3:C0000001_Tdr:9_IMAGE_igdkmdn64.sys_ARL_0_ENGINE", "vendor": "Intel" },
+      { "count": 1, "bucket": "LKD_0x117_Tdr:9_IMAGE_nvlddmkm.sys_Ada", "vendor": "NVIDIA" },
+      { "count": 1, "bucket": "LKD_0x15E_FATAL_MINIPORT_ERROR_MINIPORT_REQUESTED_PLDR_1_8_IMAGE_Netwtw14.sys", "vendor": "Intel" },
+      { "count": 1, "bucket": "AV_nt!KeContextFromKframes", "vendor": "Microsoft" },
+      { "count": 1, "bucket": "BAD_DUMPFILE", "vendor": "n/a" },
+      { "count": 2, "bucket": "0x113_2B_dxgkrnl!DXGDEVICE::DestroyAllDeviceState", "vendor": "Microsoft" }
+    ],
+    "vendor_totals": { "Intel": 177, "NVIDIA": 8, "Microsoft": 5, "other": 12 },
+    "bucket_key": "igdkmdn64 = Intel graphics KMD | ARL = Arrow Lake | TRINITY11 = Intel GPU IP block | BBHANG = breadcrumb hang | KMD = kernel-mode driver | LKD_ = LiveKernelDump (recovered, no BSOD)"
+  },
+
+  "hypervisor_crashes_all": [
+    { "n": 1,  "time": "2026-05-21T19:16:49", "param1": "0x13", "param4": "0xffffe80001a27c80", "boot_id": 13, "bucket": "EXCESSIVE_WAIT_WHILE_SPINNING_hvix64.exe", "minidump": "052126-12000-01.dmp" },
+    { "n": 2,  "time": "2026-05-22T00:36:52", "param1": "0x28", "param4": "0xfc810000", "boot_id": 14, "bucket": "INTEL_IOMMU_TIMEOUT_GenuineIntel.sys", "minidump": "052226-12703-01.dmp" },
+    { "n": 3,  "time": "2026-05-22T00:41:37", "param1": "0x28", "param4": "0xfc810000", "boot_id": 15, "bucket": "INTEL_IOMMU_TIMEOUT_GenuineIntel.sys", "minidump": "052226-12140-01.dmp" },
+    { "n": 4,  "time": "2026-06-06T13:14:06", "param1": "0x28", "param4": "0xfc810000", "boot_id": 16, "bucket": "INTEL_IOMMU_TIMEOUT_GenuineIntel.sys", "minidump": "060626-12921-01.dmp" },
+    { "n": 5,  "time": "2026-06-17T13:01:37", "param1": "0x28", "param4": "0xfc800000", "boot_id": 21, "bucket": "INTEL_IOMMU_TIMEOUT_GenuineIntel.sys", "minidump": "061726-24687-01.dmp" },
+    { "n": 6,  "time": "2026-06-17T23:37:51", "param1": "0x28", "param4": "0xfc810000", "boot_id": 22, "bucket": "INTEL_IOMMU_TIMEOUT_GenuineIntel.sys", "minidump": "061726-22859-01.dmp" },
+    { "n": 7,  "time": "2026-09-14T19:21:05", "param1": "0x28", "param4": "0xfc810000", "boot_id": 37, "bucket": "INTEL_IOMMU_TIMEOUT_GenuineIntel.sys", "minidump": "091426-14031-01.dmp" },
+    { "n": 8,  "time": "2026-09-14T21:24:12", "param1": "0x13", "param4": "0xffffe80001a2cc80", "boot_id": 38, "bucket": "EXCESSIVE_WAIT_WHILE_SPINNING_hvix64.exe", "minidump": "091426-13171-01.dmp" },
+    { "n": 9,  "time": "2026-09-17T00:34:10", "param1": "0x13", "param4": "0xffffe80001a2cc80", "boot_id": 47, "bucket": "EXCESSIVE_WAIT_WHILE_SPINNING_hvix64.exe", "minidump": "091726-18937-01.dmp" },
+    { "n": 10, "time": "2026-09-17T12:31:50", "param1": "0x28", "param4": "0xfc810000", "boot_id": 52, "bucket": "INTEL_IOMMU_TIMEOUT_GenuineIntel.sys", "minidump": "091726-25203-01.dmp" },
+    { "n": 11, "time": "2026-09-22T23:57:54", "param1": "0x13", "param4": "0xffffe80001a2cc80", "boot_id": 55, "bucket": "EXCESSIVE_WAIT_WHILE_SPINNING_hvix64.exe", "minidump": "092226-14609-01.dmp", "note": "THE PHASE 14 CRASH" }
+  ],
+  "hypervisor_crash_notes": [
+    "param3 is 0x29b92701 in ALL 11 events across 4 months - a fixed structure/build signature, not a per-crash value.",
+    "param4 is 0xfc810000 or 0xfc800000 on every IOMMU variant - a physical DMA address in the ~4GB window.",
+    "param4 is 0xffffe80001a2cc80 (kernel VA) on the spinning variant.",
+    "Microsoft documents 0x20001 params as Reserved; the meaning above comes from WER bucket naming.",
+    "GenuineIntel.sys DOES NOT EXIST on disk (verified C:\\Windows\\System32\\drivers and full C:\\Windows search). It is a synthetic WER attribution to the Intel CPU/IOMMU subsystem."
+  ],
+
+  "reproducing_minidump_header": {
+    "file": "092226-14609-01.dmp",
+    "signature": "PAGE",
+    "valid_dump": "DU64",
+    "version": "15.26100",
+    "bugcheck_code": "0x00020001",
+    "param1": "0x0000000000000013",
+    "param2": "0x0000000000000000",
+    "param3": "0x0000000029B92701",
+    "param4": "0xFFFFE80001A2CC80"
+  },
+
+  "vram_measurements": {
+    "card": { "name": "NVIDIA RTX 4500 Ada Generation", "usable_mib": 24570, "usable_gb_decimal": 25.77, "usable_gib": 24.0 },
+    "models": [
+      { "role": "attacker", "model": "Qwen/Qwen3.5-4B", "static_gb": 8.41 },
+      { "role": "target", "model": "microsoft/Phi-4-mini-instruct", "cumulative_gb": 16.08 },
+      { "role": "evaluator", "model": "Qwen/Qwen3-4B-Instruct-2507", "cumulative_gb": 24.13, "reserved_gb": 24.15, "free_gb": 0.18 }
+    ],
+    "scenarios": [
+      { "label": "attacker alone", "static_gb": 8.41, "peak_gb_at_ctx4087": 11.51, "peak_gb_at_ctx6013": "n/a", "outcome": "safe", "decode_tps": "22.1 -> 17.5 (ctx 1091 -> 6013)" },
+      { "label": "attacker + target", "static_gb": 16.08, "peak_gb_at_ctx4087": 19.18, "peak_gb_at_ctx6013": 22.33, "outcome": "safe - 3.44 GB headroom" },
+      { "label": "all three resident", "static_gb": 24.13, "peak_gb_at_ctx4087": 27.23, "outcome": "CRASHED - exceeds card by ~1.46 GB, spilled to host memory over PCIe" }
+    ],
+    "batch0_measured": { "peak_vram_gb_range": "18.3-24.2", "sm_utilisation_pct": 96, "power_w": 63, "attacker_tps": "2.60-2.75", "target_tps": "11.8-14.8", "per_run_s": "479-577" }
+  },
+
+  "phase14_workload_verdict": {
+    "role": "TRIGGER / AMPLIFIER, not cause",
+    "reasoning": "The defect predates Phase 14 by ~2 months (first hypervisor crash 2026-05-21; OS installed 2026-04-24; first GPU stall 2026-05-31). Phase 14 loads the same graphics subsystem (NVIDIA CUDA + Intel iGPU driving display/compositor/browser), raising the probability of hitting the iGPU hang -> IOMMU stall -> hypervisor death.",
+    "correlations": [
+      "2026-09-22 23:55:47 spill_all3.txt created (0 bytes) -> bugcheck ~23:56-57 -> boot 23:57:33 (~2 min)",
+      "2026-09-17 00:31:43 probe_run3.log stops mid-flight -> bugcheck 00:34:10 (~2.5 min)"
+    ],
+    "separate_hazard": "The required next-phase stack (attacker Qwen3.5-4B-Instruct + target Phi-4-mini + evaluator Qwen3-4B-Instruct-2507 = three DISTINCT models = 24.13 GB) exceeds the card. Must be fixed independently of the Intel driver issue."
+  },
+
+  "ruled_out": {
+    "system_ram_exhaustion": "127.4 GiB total / 113 GiB free; pagefile peak 0 MB; zero OOM events",
+    "disk_exhaustion": "C: 364 GB free, D: 1861 GB, E: 1863 GB; all volumes + disks Healthy",
+    "cpu_overload": "3-4% load; no runaway processes",
+    "cpu_thermal": "zero Kernel-Processor-Power thermal events (86/87/88/89/90/35/37/38) ever logged",
+    "gpu_thermal": "NO EVIDENCE - 43C idle vs 84C target; HW/SW thermal slowdown Not Active; all counters 0us. CAVEAT: no crash-window telemetry exists; counters reset on reboot, so thermal is unproven rather than excluded.",
+    "power_loss_psu": "a bugcheck code + minidump cannot be produced by a power cut",
+    "python_crash": "no traceback in the fatal run - spill_all3.txt is 0 bytes (earlier failing probes DID leave tracebacks)",
+    "cuda_oom": "zero 'CUDA out of memory' anywhere; 7x 'CUDA error: unknown error' is a dead context, explicitly not OOM",
+    "infinite_loop": "no runaway processes; probes completed normally",
+    "phase14_code_bug": "fault is in the kernel/hypervisor path, not user space"
+  },
+
+  "confirmed": {
+    "kernel_bugcheck": true,
+    "bugcheck_is_hypervisor_error": true,
+    "hardware_firmware_instability": true,
+    "intel_igpu_primary_culprit": true
+  },
+
+  "retracted_hypotheses": [
+    "HP Wolf Security / Bromium uXen as the faulting hypervisor - RETRACTED as primary. uXen IS a second Type-1 hypervisor on this box, but NO WER bucket names uxen.sys; the named images are hvix64.exe (Microsoft Hyper-V) and the Intel IOMMU path.",
+    "NVIDIA as the dominant failing GPU - RETRACTED. NVIDIA = 8/202 reports; Intel iGPU = 177/202.",
+    "nvidia-smi thermal limit fields - UNRELIABLE on this driver (reports T.Limit 44C with current 43C and Shutdown -7C). GPU Target Temperature 84C is the credible figure.",
+    "CrashDumpEnabled=3 as a crash symptom - it was simply why MEMORY.DMP was missing."
+  ],
+
+  "open_questions": [
+    "Exact faulting image / stack - needs !analyze -v on a KERNEL dump",
+    "Whether uXen contributes (not named by any bucket) - needs kernel dump + optional bounded Sure Click test",
+    "Whether VBS 'Iommu Protection' must be relaxed as a fallback (security control on an HVCI-Strict box; escalate to HP/IT)",
+    "The 2026-09-18 00:23 unexpected shutdown - Event 41 + 6008 but NO bugcheck (power/hang signature), unresolved",
+    "Memory has never been tested - Microsoft-Windows-MemoryDiagnostics-Results is empty; 4x32GB non-ECC",
+    "Root cause of the failed dump write (volmgr 161, BugCheckProgress 0x53)",
+    "Why GenuineIntel.sys is named but absent from disk (assume synthetic WER attribution)"
+  ],
+
+  "next_actions_priority": [
+    { "priority": "P0", "action": "Update Intel Graphics driver 32.0.101.8132 -> 32.0.101.9030 (or newer, Arrow Lake-S)", "rationale": "Implicated in 177/202 kernel reports; ~1 year out of date", "status": "ATTEMPTED 2026-09-23 00:49-00:57 - NOT IN EFFECT. 32.0.101.9030 is staged in the driver store (iigd_dch.inf_amd64_873dcf47953be7ee) but the device is still bound to oem24.inf = 32.0.101.8132. Cause: 'Intel Graphics Software' component exit 3017 + Windows Update had already ranked the older 8132 package. See report section 14.2", "owner": "operator (elevation + display rebind + reboot)" },
+    { "priority": "P0", "action": "Set CUDA Sysmem Fallback = 'Prefer No Sysmem Fallback' for python.exe", "rationale": "Turns an over-budget allocation into a catchable CUDA OOM instead of a driver-level spill", "status": "NOT DONE - zero python/sysmem strings in nvdrsdb0.bin; NVIDIA App 11.0.9.251 installed, setting is GUI-only", "owner": "operator (NVIDIA App click)" },
+    { "priority": "P0", "action": "Never keep 3 distinct LLMs co-resident; swap the evaluator via ModelManager", "rationale": "Measured 27.23 GB peak vs 25.77 GB card", "status": "NOT DONE - scripts/phase14_full_reproduction.py::make_models() still bypasses ModelManager", "owner": "fixable in-repo (code only)" },
+    { "priority": "P1", "action": "Update HP BIOS (X51 01.08.03 -> current) + Intel chipset/IOMMU platform drivers", "rationale": "IOMMU timeout is in the failure chain", "status": "PARTIAL - BIOS now X51 02.02.02 (2026-06-15) via WU HP Firmware Driver Update 2.2.2.0; chipset INF 10.1.47.12 -> 10.1.51.10. Still unchanged: ME 2552.8.10.0, ME-WMI 2544.8.3.0, DTT 9.1.10002.281, IPF 2.2.10204.8, PMT 3.1.2.6, TXT ACM 20.20.19.28, SPI-AE23 10.1.47.12", "owner": "mixed - BIOS landed via WU; remaining need elevated installs" },
+    { "priority": "P1", "action": "Install a GPU/CPU thermal logger", "rationale": "No crash-window temperature telemetry currently exists", "status": "NOT DONE - no HWiNFO / HWMonitor / LibreHardwareMonitor present", "owner": "automatable (winget, user-scope) - may not expose an Intel iGPU sensor" },
+    { "priority": "P1", "action": "Run Windows Memory Diagnostic / MemTest86", "rationale": "Never been run; 4x32GB non-ECC", "status": "NOT DONE - Microsoft-Windows-MemoryDiagnostics-Results RecordCount = 0", "owner": "operator (reboot + downtime; scheduling itself needs elevation)" },
+    { "priority": "P2", "action": "Update Intel Wi-Fi driver (Netwtw14.sys had a fatal miniport error)", "rationale": "1/202 reports", "status": "DONE 2026-09-22 19:29 - Intel Wi-Fi 6E AX211 24.0.2.1 -> 24.30.1.1", "owner": "n/a" },
+    { "priority": "P2", "action": "Add pre-flight VRAM gate + peak-VRAM hard stop + one-GPU-process-at-a-time", "rationale": "Prevent silent spill; the 7x 'CUDA error: unknown error' came from overlapping runs", "status": "NOT DONE - no mem_get_info / VRAM ceiling in scripts/ or src/; only peak_vram_gb reporting (phase14_full_reproduction.py lines 707-841)", "owner": "fixable in-repo (code only)" },
+    { "priority": "P2", "action": "Escalate the VBS 'Iommu Protection' question to HP/IT as a fallback mitigation", "rationale": "Likely stops crashes immediately but is a real security control", "status": "NOT DONE - no ticket; VBS still running, SecurityServicesRunning = {2,3,4,7}", "owner": "operator/HP-IT only (organisational + security-policy decision)" }
+  ],
+
+  "evidence_paths": {
+    "preserved_dumps_and_wer": "C:\\Users\\CSLAB\\Desktop\\Guardbound_crash_dumps\\",
+    "minidumps": "C:\\Windows\\Minidump\\",
+    "live_kernel_reports": "C:\\Windows\\LiveKernelReports (was empty)",
+    "wer_archive_originals": "C:\\ProgramData\\Microsoft\\Windows\\WER\\ReportArchive (ACL-protected, needs elevation)",
+    "phase14_logs": "results/phase14/batch00.log, probe_run2.log, probe_run3.log, probe_json_compliance.log, BATCH0_STATUS.md",
+    "helper_script": "diagnose_crash.ps1 (read-only by default; -Apply for dump config)",
+    "kill_chain_artifacts": "spill_all3.txt (0 bytes, the crash artifact), reside.txt, spill_att_target.txt, spill_alone.txt - in the session scratchpad, EPHEMERAL, values transcribed above",
+    "this_report": "crash_investigation/PHASE14_CRASH_ROOT_CAUSE.md",
+    "this_baseline": "crash_investigation/baseline_before_update.json"
+  },
+
+  "changes_made_this_investigation": {
+    "production_code_modified": false,
+    "phase14_launched": false,
+    "system_restarted_by_investigation": false,
+    "files_created": [
+      "diagnose_crash.ps1",
+      "crash_investigation/PHASE14_CRASH_ROOT_CAUSE.md",
+      "crash_investigation/baseline_before_update.json"
+    ],
+    "system_changes_approved": [
+      "CrashDumpEnabled 3 -> 7",
+      "DedicatedDumpFile = D:\\dedicateddump.sys",
+      "DumpFileSize = 40960 MB"
+    ],
+    "evidence_copied_out_of_acl_protected_locations": true
+  },
+
+  "post_update_snapshot": {
+    "captured_at": "2026-09-23T01:28:42+05:30",
+    "captured_by": "read-only re-run of PHASE14_CRASH_ROOT_CAUSE.md section 11; no system state was changed",
+    "last_boot": "2026-09-23T01:10:54+05:30",
+    "reboots_since_crash": ["2026-09-23T00:58:13", "2026-09-23T01:10:54"],
+    "see_report_section": "14",
+
+    "landed": {
+      "hp_bios": { "before": "X51 Ver. 01.08.03 (2025-12-12)", "after": "X51 Ver. 02.02.02 (2026-06-15)", "how": "Windows Update 'HP Firmware Driver Update (2.2.2.0)' 2026-09-22T19:30:51" },
+      "nvidia_gpu": { "before": "32.0.15.8208 (582.08)", "after": "32.0.15.9579 (nvidia-smi reports 595.79)", "how": "Windows Update 2026-09-22T19:30:49" },
+      "nvidia_hd_audio": { "before": "1.4.5.6", "after": "1.4.5.7" },
+      "intel_wifi": { "before": "24.0.2.1", "after": "24.30.1.1", "how": "Windows Update 2026-09-22T19:29:45" },
+      "intel_bluetooth": { "before": "24.0.1.1", "after": "24.30.1.1" },
+      "intel_ethernet": { "before": "20.0.3.16", "after": "20.0.3.24" },
+      "intel_chipset_inf": { "before": "10.1.47.12", "after": "10.1.51.10", "devices": ["LPC Controller/eSPI Controller - 7F08", "SPI (flash) Controller - 7F24"] },
+      "crash_dump_config": "unchanged from the 'after' block above (CrashDumpEnabled=7, D:\\dedicateddump.sys, 40960 MB)",
+      "windows_build": "unchanged at 26200.9457 (25H2); no cumulative update applied"
+    },
+
+    "intel_igpu_p0_still_not_in_effect": {
+      "verdict": "The 9030 driver is staged on disk, but the device never bound to it - the primary fix is NOT in effect.",
+      "active_binding": {
+        "DEVPKEY_Device_DriverVersion": "32.0.101.8132",
+        "DEVPKEY_Device_DriverDate": "2025-09-19",
+        "DEVPKEY_Device_DriverInfPath": "oem24.inf",
+        "DEVPKEY_Device_LastArrivalDate": "2026-09-23T01:10:55"
+      },
+      "staged_but_unbound": {
+        "path": "C:\\Windows\\System32\\DriverStore\\FileRepository\\iigd_dch.inf_amd64_873dcf47953be7ee\\igdkmdn64.sys",
+        "file_version": "32.0.101.9030",
+        "inf_driver_ver": "09/17/2026,32.0.101.9030",
+        "staged_at": "2026-09-23T00:55:46"
+      },
+      "old_package_still_staged": "iigd_dch.inf_amd64_f753fe2f699ef44c -> igdkmdn64.sys 32.0.101.8132",
+      "installer_evidence": {
+        "log": "C:\\ProgramData\\Intel\\GFXInstaller\\Installer\\IntelGFX_20260923_004927_Install.log",
+        "bootstrapper_log": "C:\\ProgramData\\Intel\\GFXInstaller\\Bootstrapper\\IntelGFX_Bootstrapper_20260923_004922.log",
+        "media": "C:\\Users\\CSLAB\\Downloads\\gfx_win_101.9030.exe (932289352 bytes, 2026-09-23T00:48:45)",
+        "di_install_driver": "00:51:20 DiInstallDriver ...RarSFX0\\Graphics\\iigd_dch.inf Flag=0x00000002 (DIIRFLAG_FORCE_INF) - took 74 s, succeeded",
+        "component_failure": "00:54:32 Exit code 3017 -> Executing operation for the component 'Intel(R) Graphics Software' failed.",
+        "bootstrapper_exit": "00:57:10 exit code 2 = 'Success, but installer had to trigger system restart.'"
+      },
+      "contributing_factor": "Windows Update had already ranked the OLD driver for this device: 'Intel Corporation Driver Update (32.0.101.8132)' at 2026-09-22T19:24:08 and 19:24:45, plus 'Intel Corporation - Extension - 32.0.101.6629' at 19:24:03.",
+      "warn": "If the 9030 binding succeeds, Windows Update can revert it to 8132 again. Block WU driver updates (ExcludeWUDriversInQualityUpdate) or hide that package first.",
+      "fix": "pnputil /add-driver <staged iigd_dch.inf> /install (elevated), or Device Manager -> Intel(R) Graphics -> Update driver -> Let me pick from a list -> 32.0.101.9030. Verify with DEVPKEY_Device_DriverVersion + DEVPKEY_Device_DriverDate."
+    },
+
+    "crash_activity_since_update": {
+      "new_0x20001_hypervisor_error": "none - last 2026-09-22T23:57:54",
+      "new_0x141_or_0x117_gpu_stalls": "none - last 0x141 2026-09-17T12:29; weak evidence, since no GPU workload has run",
+      "kernel_wer_report_total": 206,
+      "new_codes_not_in_taxonomy": [
+        { "code": "Kernel_1a8", "count": 2, "window": "2026-09-23T00:51-00:55", "interpretation": "DXGKRNL black-screen livedump (LKD_0x1A8_..._dxgkrnl!DISPLAYSTATECHECKER::CreateBlackScreenLiveDump); fired inside the display-driver install window" },
+        { "code": "Kernel_1b8", "count": 2, "window": "2026-09-23T00:51-00:55", "interpretation": "same display-state-checker family; Report.wer bodies are ACL-blocked, read them elevated" }
+      ],
+      "whea_logger_17": ["2026-09-22T23:57:50", "2026-09-23T00:58:29", "2026-09-23T01:11:08"],
+      "nvlddmkm_events": { "id_13": 1864, "id_153": 112 },
+      "dump_files": "none (correct - nothing has bugchecked; D:\\dedicateddump.sys will appear at the next one)"
+    },
+
+    "still_pending": [
+      "P0 Intel iGPU 32.0.101.8132 -> 32.0.101.9030: staged but not bound",
+      "P0 CUDA Sysmem Fallback for python.exe: not set",
+      "P0 3 co-resident LLMs: make_models() still bypasses ModelManager",
+      "P2 pre-flight VRAM gate / peak-VRAM hard stop: not implemented",
+      "P1 thermal logger: not installed",
+      "P1 memory diagnostic: never run",
+      "P2 VBS 'Iommu Protection' escalation: no ticket",
+      "Intel ME / ME-WMI / DTT / IPF / PMT / TXT ACM / SPI-AE23 / AI Boost: unchanged"
+    ],
+
+    "display_adapter_note": "The Intel iGPU is the adapter driving the display (1920x1080 @ 60 Hz on an HP 324pf); the NVIDIA RTX 4500 exposes no active mode. Consistent with igdkmdn64.sys leading attribution at 177/202 kernel reports.",
+
+    "phase14_workload": "Still halted. Newest artifact results/phase14/phase14_1_structured_output_report.md (2026-09-17T02:52); ABORTED_PRE_PHASE14.marker (2026-09-16T21:57). No re-run since the crash; the section 7 code-side guards are still absent."
+  },
+
+  "remediation_ownership": {
+    "measured_2026-09-23": "The assistant session is NON-ELEVATED: HKLM writes denied, 'bcdedit /enum' -> access denied, WER ReportArchive unreadable. sudo.exe exists (policy Enabled=1) but each use raises a UAC prompt a human must accept, so it is not unattended elevation. winget v1.29.380 is available.",
+    "automatable_unattended": [
+      "VRAM pre-flight gate + peak-VRAM hard stop + evaluator swap via ModelManager (repo-only change)",
+      "Thermal logger install/config (winget HWiNFO portable; an nvidia-smi temp/power/clock logger as fallback) - caveats: may not expose an Intel iGPU sensor, and no logger captures the final seconds before a bugcheck"
+    ],
+    "schedulable_but_not_completable": [
+      "Memory diagnostic - scheduling needs elevation; the run itself needs a reboot, 30 min-2 h downtime and physical presence; MemTest86 needs a USB stick"
+    ],
+    "operator_required": [
+      "CUDA Sysmem Fallback (NVIDIA App GUI; an unsupported NVAPI write into nvdrsdb0.bin was deliberately not attempted even though Drs is Everyone:(F) writable)",
+      "Intel iGPU 9030 bind (elevation + display-driver rebind blacks the screen + reboot)",
+      "Intel ME / DTT / IPF / PMT / TXT ACM updates (elevation each; firmware-adjacent, defer until the box is stable)",
+      "Controlled-load re-run of the 3-model path (a bugcheck reboots the machine and kills the session)"
+    ],
+    "impossible_for_the_assistant": [
+      "VBS 'Iommu Protection' escalation to HP/IT - organisational and security-policy decision on a live HVCI-Strict control"
+    ]
+  }
+}

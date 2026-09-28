@@ -638,27 +638,38 @@ def run_attack_with_backtracking(
 
         return nbf_score[0].item()
 
-    def _effective_round(messages_list, num_filtering):
-        """Effective round number matching official ``len(history_t)//2 + 1 + num_filtering``.
-
-        ``history_t`` contains the system message plus one user+assistant pair per
-        accepted turn, so the round number is ``len(history_t)//2 + 1``. NBF-filtered
-        prompts increment ``num_filtering`` but do not grow ``history_t``; the official
-        passes ``round_number + num_filtering`` to the attacker.
-        """
-        return len(messages_list) // 2 + 1 + num_filtering
-
-    # Official termination parity (run.py): ``while round_number + num_filtering
-    # < max_rounds`` — NBF-filtered candidates consume the same round budget as
-    # accepted turns, so a deterministic attacker that keeps regenerating the
-    # same filtered query cannot loop forever. Refusal backtracks restore the
-    # budget (official history_t.pop()) and do not count. Adapted to this
-    # harness's accepted-turn convention: identical to the already-completed
-    # NBF-OFF arm when num_filtering == 0.
-    while len(history) + _num_filtering < max_turns:
-        # Derive the effective round number from the target conversation state,
-        # matching the official ``round_number + num_filtering`` semantics.
-        effective_round = _effective_round(messages, _num_filtering)
+    # Official termination parity (run.py), transcribed exactly:
+    #
+    #     round_number = 1
+    #     while round_number + num_filtering < max_rounds:
+    #         round_number = len(history_t) // 2 + 1
+    #
+    # The loop test uses the round number computed at the START of the previous
+    # iteration; the body then recomputes it before generating. That ordering is
+    # observable at the budget boundary: when the last executed iteration was an
+    # NBF filter (which increments ``num_filtering`` without growing
+    # ``history_t``) the author's counter is one higher than
+    # ``accepted_turns + num_filtering``, so the loop stops one iteration earlier
+    # than a plain ``len(history) + _num_filtering`` test would.
+    #
+    # NBF-filtered candidates consume the same round budget as accepted turns,
+    # so a deterministic attacker that keeps regenerating the same filtered
+    # query cannot loop forever. Refusal backtracks restore the budget
+    # (official ``history_t.pop()``) and do not count.
+    round_number = 1
+    while round_number + _num_filtering < max_turns:
+        # Official body recomputation: ``round_number = len(history_t)//2 + 1``.
+        # ``history_t`` is the system message plus one user/assistant pair per
+        # ACCEPTED turn, so ``len(history_t)//2 + 1 == len(history) + 1``. Deriving
+        # it from ``history`` (not ``messages``) keeps the author's accounting
+        # valid on both target paths: ``messages`` is only maintained on the
+        # plain-call path, while SteeredLLMChat owns its own conversation.
+        round_number = len(history) + 1
+        effective_round = round_number + _num_filtering
+        # Publish the accepted-turn count of the target conversation so the
+        # attack can apply the author's ``if round_number > 1`` summary rule
+        # (see attack ``record_turn``).
+        attack._accepted_turns_so_far = len(history)
 
         if hasattr(attack, 'generate_question_for_turn'):
             if _refused_response is not None:
@@ -756,6 +767,11 @@ def run_attack_with_backtracking(
                 _refused_response = response
                 logger.info("Refusal detected at round %d, backtracking (attempt %d)",
                            effective_round, attack.get_refusal_count())
+                # Official parity (run.py): the author pops the refused exchange
+                # from ``history_t`` AND decrements its round counter
+                # (``round_number -= 1``), so a backtracked round consumes no
+                # round budget in the loop test either.
+                round_number -= 1
                 continue
 
             # Not refused: evaluate rubric and record the turn.
@@ -788,6 +804,7 @@ def run_attack_with_backtracking(
             else:
                 # Regeneration: rewind so the next iteration reuses the same effective round.
                 # The target conversation already has the refused exchange removed above.
+                round_number -= 1
                 continue
 
     return Conversation(
@@ -915,17 +932,37 @@ async def run_attack_with_backtracking_async(
 
         return nbf_score[0].item()
 
-    def _effective_round(messages_list, num_filtering):
-        """Effective round number matching official ``len(history_t)//2 + 1 + num_filtering``."""
-        return len(messages_list) // 2 + 1 + num_filtering
-
-    # Official termination parity (run.py): ``while round_number + num_filtering
-    # < max_rounds`` — NBF-filtered candidates consume the same round budget as
-    # accepted turns. Refusal backtracks restore the budget (official
-    # history_t.pop()) and do not count. Adapted to this harness's
-    # accepted-turn convention: identical to the OFF arm when num_filtering == 0.
-    while len(history) + _num_filtering < max_turns:
-        effective_round = _effective_round(messages, _num_filtering)
+    # Official termination parity (run.py), transcribed exactly:
+    #
+    #     round_number = 1
+    #     while round_number + num_filtering < max_rounds:
+    #         round_number = len(history_t) // 2 + 1
+    #
+    # The loop test uses the round number computed at the START of the previous
+    # iteration; the body then recomputes it before generating. That ordering is
+    # observable at the budget boundary: when the last executed iteration was an
+    # NBF filter (which increments ``num_filtering`` without growing
+    # ``history_t``) the author's counter is one higher than
+    # ``accepted_turns + num_filtering``, so the loop stops one iteration earlier
+    # than a plain ``len(history) + _num_filtering`` test would.
+    #
+    # NBF-filtered candidates consume the same round budget as accepted turns.
+    # Refusal backtracks restore the budget (official ``history_t.pop()``) and do
+    # not count.
+    round_number = 1
+    while round_number + _num_filtering < max_turns:
+        # Official body recomputation: ``round_number = len(history_t)//2 + 1``.
+        # ``history_t`` is the system message plus one user/assistant pair per
+        # ACCEPTED turn, so ``len(history_t)//2 + 1 == len(history) + 1``. Deriving
+        # it from ``history`` (not ``messages``) keeps the author's accounting
+        # valid on both target paths: ``messages`` is only maintained on the
+        # plain-call path, while SteeredLLMChat owns its own conversation.
+        round_number = len(history) + 1
+        effective_round = round_number + _num_filtering
+        # Publish the accepted-turn count of the target conversation so the
+        # attack can apply the author's ``if round_number > 1`` summary rule
+        # (see attack ``record_turn``).
+        attack._accepted_turns_so_far = len(history)
 
         if hasattr(attack, 'generate_question_for_turn'):
             if _refused_response is not None:
@@ -1002,6 +1039,11 @@ async def run_attack_with_backtracking_async(
             _refused_response = response
             logger.info("Refusal detected at round %d, backtracking (attempt %d)",
                        effective_round, attack.get_refusal_count())
+            # Official parity (run.py): the author pops the refused exchange
+            # from ``history_t`` AND decrements its round counter
+            # (``round_number -= 1``), so a backtracked round consumes no
+            # round budget in the loop test either.
+            round_number -= 1
             continue
 
         # Not refused: evaluate rubric and record the turn.
@@ -1032,6 +1074,8 @@ async def run_attack_with_backtracking_async(
                 logger.info("Max regeneration attempts reached, continuing without regeneration")
                 regeneration_count = 0
             else:
+                # Regeneration: rewind so the next iteration reuses the same round.
+                round_number -= 1
                 continue
 
     return Conversation(

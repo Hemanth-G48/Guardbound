@@ -101,7 +101,7 @@ class HFChatLLM(ChatLLM):
         # Build a text-generation pipeline on demand in generate().
         self._pipeline = (model, tokenizer)
 
-    def generate(self, messages, temperature=0.7, max_turns_context=None) -> str:
+    def generate(self, messages, temperature=0.7, max_turns_context=None, json_format=False, structured_output_mode=None) -> str:
         self._load()
         import torch
         model, tokenizer = self._pipeline

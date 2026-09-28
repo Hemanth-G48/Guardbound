@@ -79,6 +79,7 @@ class OllamaChatLLM(ChatLLM):
         temperature: float = DEFAULT_TEMPERATURE,
         max_turns_context: int | None = None,
         json_format: bool = False,
+        structured_output_mode: str | None = None,
     ) -> str | dict:
         client = self._get_client()
 

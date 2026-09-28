@@ -1,0 +1,64 @@
+{
+  "generated": 1790602765.0346801,
+  "results": [
+    {
+      "model_id": "zai-org/GLM-4.6V-Flash",
+      "label": "GLM-4.6V-Flash",
+      "role_cfg_used": {
+        "provider": "local",
+        "model": "zai-org/GLM-4.6V-Flash",
+        "parameters": "4B",
+        "actual_parameters": "4.66B",
+        "temperature": 0.7,
+        "max_new_tokens": 256,
+        "reasoning_mode": "disabled",
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        }
+      },
+      "load_ok": true,
+      "load_seconds": 426.13,
+      "residency": {
+        "resident_roles": [
+          "attacker"
+        ],
+        "resident_model_ids": [
+          "zai-org/GLM-4.6V-Flash"
+        ],
+        "resident_count": 1,
+        "pinned_roles": [
+          "attacker"
+        ],
+        "free_gb": 3.796893696,
+        "allocated_gb": 20.58555648,
+        "reserved_gb": 20.587741184,
+        "cached_free_gb": 0.002
+      },
+      "hub_cache_delta_gb": 20.606
+    },
+    {
+      "model_id": "ornith-ai/Ornith-1.0-9B-GGUF",
+      "label": "Ornith-1.0-9B-GGUF",
+      "role_cfg_used": {
+        "provider": "local",
+        "model": "ornith-ai/Ornith-1.0-9B-GGUF",
+        "parameters": "4B",
+        "actual_parameters": "4.66B",
+        "temperature": 0.7,
+        "max_new_tokens": 256,
+        "reasoning_mode": "disabled",
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        }
+      },
+      "load_ok": false,
+      "load_seconds": 3.65,
+      "failure_class": "MODEL_LOAD_FAILURE",
+      "error_type": "ModelLoadError",
+      "error_message": "loading attacker (ornith-ai/Ornith-1.0-9B-GGUF) failed: ValueError: Couldn't instantiate the backend tokenizer from one of: \n(1) a `tokenizers` library serialization file, \n(2) a slow tokenizer instance to convert or \n(3) an equivalent slow tokenizer class to instantiate and convert. \nYou need to have sentencepiece or tiktoken installed to convert a slow tokenizer to a fast one.",
+      "exception_module": "guardbound.llm.model_manager",
+      "traceback_tail": "^^^^^^^\n    )\n    ^\n  File \"C:\\Users\\CSLAB\\anaconda3\\Lib\\site-packages\\transformers\\models\\auto\\tokenization_auto.py\", line 959, in from_pretrained\n    return tokenizer_class.from_pretrained(pretrained_model_name_or_path, *inputs, **kwargs)\n           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\CSLAB\\anaconda3\\Lib\\site-packages\\transformers\\tokenization_utils_base.py\", line 1736, in from_pretrained\n    return cls._from_pretrained(\n           ~~~~~~~~~~~~~~~~~~~~^\n        resolved_vocab_files,\n        ^^^^^^^^^^^^^^^^^^^^^\n    ...<9 lines>...\n        **kwargs,\n        ^^^^^^^^^\n    )\n    ^\n  File \"C:\\Users\\CSLAB\\anaconda3\\Lib\\site-packages\\transformers\\tokenization_utils_base.py\", line 1932, in _from_pretrained\n    tokenizer = cls(*init_inputs, **init_kwargs)\n  File \"C:\\Users\\CSLAB\\anaconda3\\Lib\\site-packages\\transformers\\tokenization_utils_tokenizers.py\", line 376, in __init__\n    raise ValueError(\n    ...<5 lines>...\n    )\nValueError: Couldn't instantiate the backend tokenizer from one of: \n(1) a `tokenizers` library serialization file, \n(2) a slow tokenizer instance to convert or \n(3) an equivalent slow tokenizer class to instantiate and convert. \nYou need to have sentencepiece or tiktoken installed to convert a slow tokenizer to a fast one.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"C:\\Users\\CSLAB\\AppData\\Local\\Temp\\commandcode\\C--Users-CSLAB-Desktop-hemanth-Guardbound\\96891ac5-287d-4657-beb4-d5693bfabe6a\\scratchpad\\stage0_load_gate.py\", line 79, in <module>\n    manager.ensure_resident(\"attacker\")\n    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^\n  File \"C:\\Users\\CSLAB\\Desktop\\hemanth\\Guardbound\\src\\guardbound\\llm\\model_manager.py\", line 376, in ensure_resident\n    self._load_with_guards(role, backend)\n    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^\n  File \"C:\\Users\\CSLAB\\Desktop\\hemanth\\Guardbound\\src\\guardbound\\llm\\model_manager.py\", line 419, in _load_with_guards\n    raise ModelLoadError(\n    ...<2 lines>...\n    ) from exc\nguardbound.llm.model_manager.ModelLoadError: loading attacker (ornith-ai/Ornith-1.0-9B-GGUF) failed: ValueError: Couldn't instantiate the backend tokenizer from one of: \n(1) a `tokenizers` library serialization file, \n(2) a slow tokenizer instance to convert or \n(3) an equivalent slow tokenizer class to instantiate and convert. \nYou need to have sentencepiece or tiktoken installed to convert a slow tokenizer to a fast one.\n",
+      "hub_cache_delta_gb": 0.0
+    }
+  ]
+}

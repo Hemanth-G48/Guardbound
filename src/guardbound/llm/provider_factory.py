@@ -48,6 +48,7 @@ def build_role_llm(
     manager: ModelManager | None = None,
     default_max_new_tokens: int = 256,
     default_temperature: float = 0.7,
+    structured_output_mode: str | None = None,
 ) -> ChatLLM:
     """Build the ChatLLM for one role from its config block.
 
@@ -60,6 +61,10 @@ def build_role_llm(
         "attacker" | "target" | "evaluator"
     manager
         Required for local providers: models register here for GPU swapping.
+    structured_output_mode
+        Decoding mode for the local backend (e.g. ``"constrained_json"``).
+        Applied to every local role built here; a per-role
+        ``structured_output_mode`` key in ``role_cfg`` takes precedence.
     """
     provider = _norm_provider(role_cfg.get("provider", "local"))
     model_id = role_cfg.get("model")
@@ -103,15 +108,20 @@ def build_role_llm(
     # Only pass them when declared — other templates reject unknown kwargs.
     ctk = role_cfg.get("chat_template_kwargs")
     extra = {"chat_template_kwargs": ctk} if ctk else {}
+    # A per-role config key wins over the caller-supplied default, so a mixed
+    # stack (e.g. constrained JSON on attacker+evaluator only) stays expressible.
+    mode = role_cfg.get("structured_output_mode", structured_output_mode)
     backend = HFLocalChatLLM(
         model_id=model_id,
         device_map=device_map,
         max_new_tokens=max_new_tokens,
+        structured_output_mode=mode,
         **extra,
     )
     manager.register(role, backend, model_id)
-    logger.info("[factory] %s -> local model=%s dtype=bfloat16 max_new_tokens=%s",
-                role, model_id, max_new_tokens)
+    logger.info("[factory] %s -> local model=%s dtype=bfloat16 max_new_tokens=%s "
+                "structured_output_mode=%s",
+                role, model_id, max_new_tokens, mode)
     return ManagedLocalChatLLM(backend, manager, role)
 
 
@@ -119,10 +129,15 @@ def build_three_model_stack(
     models_cfg: dict[str, dict[str, Any]],
     device: str = "cuda",
     default_max_new_tokens: int = 256,
+    structured_output_mode: str | None = None,
 ) -> tuple[ModelManager, dict[str, ChatLLM]]:
     """Build attacker/target/evaluator from the ``models:`` config section.
 
     Returns (manager, {"attacker": llm, "target": llm, "evaluator": llm}).
+
+    No role is pinned here: eviction policy is a property of the caller's
+    architecture, not of the stack. Callers that need a pinned slot call
+    ``manager.pin(role)`` explicitly.
     """
     manager = ModelManager(device=device)
     llms: dict[str, ChatLLM] = {}
@@ -135,5 +150,6 @@ def build_three_model_stack(
             role,
             manager=manager,
             default_max_new_tokens=default_max_new_tokens,
+            structured_output_mode=structured_output_mode,
         )
     return manager, llms

@@ -203,23 +203,27 @@ class TestSeededPreAttackPreservation(unittest.TestCase):
             json.dumps({"target": "T", "details": {}}),
             "Network.",
             json.dumps({"actors": [{"actor_name": "A", "relationship": "R"}]}),
-            "Approach.\nQuestions:\n1. Q?",
-            json.dumps({"questions": [{"question": "Q?"}]}),
+            "Approach.\nQuestions:\n1. Q1?\n2. Q2?",
+            json.dumps({"questions": [{"question": "Q1?"}, {"question": "Q2?"}]}),
             # Turn 1: rubric + step judge
+            json.dumps({"score": 3}),
+            json.dumps({"type": "successful"}),
+            # Turn 2: rubric + step judge
             json.dumps({"score": 3}),
             json.dumps({"type": "successful"}),
         ])
         attack = ActorAttack(actor_num=1)
         attack.set_attacker_llm(attacker)
-        target = MockChatLLM(responses=["Answer."])
+        target = MockChatLLM(responses=["Answer.", "Answer."])
 
         conv = run_attack_with_backtracking(
-            attack=attack, goal="G", target_llm=target, max_turns=1,
+            attack=attack, goal="G", target_llm=target, max_turns=2,
         )
-        assert len(conv.turns) == 1
-        # 5 pre-attack + rubric + judge = 7 calls — exactly one pre-attack.
-        assert len(attacker.calls) == 7, (
-            f"expected 7 attacker calls (single pre-attack), got "
+        # Official budget parity (run.py): ``max_rounds`` accepted turns run.
+        assert len(conv.turns) == 2
+        # 5 pre-attack + 2 x (rubric + judge) = 9 calls — exactly one pre-attack.
+        assert len(attacker.calls) == 9, (
+            f"expected 9 attacker calls (single pre-attack), got "
             f"{len(attacker.calls)}"
         )
 
