@@ -19,10 +19,11 @@ see ordinary ``ChatLLM`` objects and never know models are being swapped. The
 logical call order the attacks issue is never altered — no batching, no
 deferral, no response caching.
 
-RELEASING VRAM REQUIRES TWO RELEASES. Every backend delegates its heavy work to
-the shared ``_pipeline_cache`` in ``local_client``. A loaded pipeline is held by
-*both* that cache entry *and* the backend's own ``_pipeline`` attribute, so
-nulling either one alone frees nothing. ``_evict`` therefore drops both, then
+RELEASING VRAM IS A SINGLE RELEASE. Every backend delegates its heavy work to
+the shared ``_pipeline_cache`` in ``local_client``, which is the **sole strong
+owner** of a loaded pipeline: a backend's ``_pipeline`` handle is weak (Phase 17
+Stage 2, F2). ``_evict`` therefore drops the cache entry — that alone returns the
+memory — clears the backend's handles so no stale object can be re-served, and
 hands the blocks back to the driver with ``empty_cache``. A model released this
 way must be reloaded from disk on its next use, which is the measured cost of
 the rotation (11.25 s warm / 23.53 s cold for the Phase 14 attacker).
@@ -54,6 +55,15 @@ _HF_HUB = Path.home() / ".cache" / "huggingface" / "hub"
 # is the failure mode the gate exists to prevent.
 _UNKNOWN_FOOTPRINT_GB = 10.0
 
+# NF4 footprint model. 4-bit weights are ~0.5 bytes/parameter against bf16's 2,
+# so the quantized layers cost a quarter of the on-disk checkpoint; the rest
+# (embeddings, LM head, norms) stays in the compute dtype and is covered by the
+# overhead term. Both constants are calibrated against the measured load of the
+# 27B-class candidate (16.46 GiB measured, 18.4 GB estimated) and are kept on
+# the high side on purpose.
+_NF4_WEIGHT_DIVISOR = 4.0
+_NF4_UNQUANTIZED_OVERHEAD_GB = 4.5
+
 
 class ResidencyError(RuntimeError):
     """Base class for residency-layer failures (carries its failure class)."""
@@ -83,13 +93,24 @@ class ResidencyStateError(ResidencyError):
     failure_class = "RESIDENCY_STATE_FAILURE"
 
 
-def estimate_model_footprint_gb(model_id: str) -> float:
+def estimate_model_footprint_gb(model_id: str, quantization: str | None = None) -> float:
     """Conservative upper bound on a model's GPU footprint, in GB.
 
     Uses the on-disk safetensors size of the local snapshot: bf16 weights are
     ~2 bytes/parameter, so the file size is a safe over-estimate of the resident
     allocation. Gating on an over-estimate is correct here — the pre-load gate
     must refuse rather than admit an over-budget load.
+
+    ``quantization`` makes the estimate describe the load that will actually
+    happen. Without it, a 4-bit load is charged its bf16 size and the gate
+    refuses a model that fits comfortably — measured in Phase 17 Stage 2:
+    Qwen3.8-27B is 55.56 GB of bf16 weights on disk but allocates 16.46 GiB
+    resident under the approved NF4 path, so the bf16 estimate refused it with
+    "free 24.15GB - footprint 55.56GB < 3.00GB reserve" (Part L). The NF4
+    estimate below charges a quarter of the weight bytes for the quantized
+    layers plus 4.5 GB for the parts bitsandbytes leaves in the compute dtype
+    (embeddings, LM head, norms) — 18.4 GB for that model, i.e. still above its
+    16.46 GiB measurement, so the gate keeps erring toward refusal.
     """
     snapshots: list[Path] = []
     local = Path(model_id)
@@ -110,6 +131,8 @@ def estimate_model_footprint_gb(model_id: str) -> float:
             except OSError:
                 continue
         if total:
+            if quantization == "nf4":
+                return total / _NF4_WEIGHT_DIVISOR / 1e9 + _NF4_UNQUANTIZED_OVERHEAD_GB
             return total / 1e9
     return _UNKNOWN_FOOTPRINT_GB
 
@@ -179,6 +202,9 @@ class ModelManager:
         self._lock = threading.RLock()
         self._pinned: set[str] = set()
         self._resident: set[str] = set()
+        # Declared residency mode per role ("pinned" | "sequential"). Recorded
+        # for telemetry; the eviction decision itself is driven by `_pinned`.
+        self._residency: dict[str, str] = {}
         self._footprints_gb: dict[str, float] = {}
         self._run_id: str | None = None
         self.min_free_before_load_gb = min_free_before_load_gb
@@ -191,7 +217,22 @@ class ModelManager:
     # ------------------------------------------------------------------ #
 
     def register(self, role: str, backend: ChatLLM, model_id: str) -> None:
-        """Register a backend for a logical role."""
+        """Register a backend for a logical role.
+
+        Re-pointing a role (a different backend or model id) first releases the
+        previous occupant. Without that, ``activate(role)`` would short-circuit
+        on the stale ``_active_role``/``_resident`` state and the new model would
+        never load — leaving the previous weights resident under a new identity.
+        """
+        previous_backend = self._backends.get(role)
+        previous_id = self._model_ids.get(role)
+        if previous_backend is not None and (
+            previous_backend is not backend or previous_id != model_id
+        ):
+            self._evict(role)          # uses the still-registered old backend
+            self._resident.discard(role)
+            if self._active_role == role:
+                self._active_role = None
         self._backends[role] = backend
         self._model_ids[role] = model_id
 
@@ -234,6 +275,63 @@ class ModelManager:
 
     def unpin(self, role: str) -> None:
         self._pinned.discard(role)
+
+    def set_residency(self, role: str, mode: str = "pinned") -> None:
+        """Declare how ``role`` may occupy the GPU.
+
+        ``pinned``
+            The legacy behaviour: never evicted for another role's activation.
+            Correct while the role's weights plus its partner's fit together.
+        ``sequential``
+            The role is released whenever another role needs the GPU, so exactly
+            one model is resident at a time. Required for attackers whose
+            weights cannot co-reside with the target on this card (GLM-4.6V:
+            20.594 GB against a 7.67 GB target on 24.57 GB).
+
+        This only decides *whether the existing eviction path may release the
+        role* — it changes no threshold, no gate and no check. Sequential roles
+        still pass the pre-load gate, the post-load verification and the ceiling
+        check on every reload.
+        """
+        if role not in self._backends:
+            raise KeyError(f"cannot set residency for unregistered role {role!r}")
+        if mode not in ("pinned", "sequential"):
+            raise ValueError(
+                f"unknown residency mode {mode!r}; supported: ['pinned', 'sequential']"
+            )
+        self._residency[role] = mode
+        if mode == "pinned":
+            self._pinned.add(role)
+        else:
+            self._pinned.discard(role)
+
+    def residency_mode(self, role: str) -> str:
+        """Declared residency mode for ``role`` (``pinned`` when unset)."""
+        return self._residency.get(role, "pinned")
+
+    def release_sequential(self) -> list[str]:
+        """Release every currently-resident ``sequential`` role.
+
+        Called at a run boundary: a sequentially-resident model (a 20.6 GB GLM
+        attacker) would otherwise stay on the card between runs and trip the
+        per-run floor before the next run even starts. Pinned roles are never
+        touched, so a ``pinned`` stack (the frozen Track A configuration) sees
+        an empty release list and behaves exactly as before.
+
+        This is a lifecycle action, not a guard bypass: every role released here
+        is re-checked by the pre-load gate, the post-load verification and the
+        ceiling check when it is next needed.
+        """
+        with self._lock:
+            released: list[str] = []
+            for role in sorted(self._resident):
+                if role in self._pinned:
+                    continue
+                if self.residency_mode(role) != "sequential":
+                    continue
+                self._evict(role)
+                released.append(role)
+            return released
 
     def set_run_context(self, run_id: str | None) -> None:
         """Attach the current run id to subsequent telemetry events."""
@@ -298,12 +396,15 @@ class ModelManager:
             self._active_role = role
 
     def _evict(self, role: str) -> None:
-        """Release a role's weights: backend handles AND the pipeline cache.
+        """Release a role's weights: the pipeline cache plus the backend handles.
 
-        Both releases are required. Before this was fixed, only the backend
-        attributes were nulled while ``_pipeline_cache`` kept the pipeline, so
-        an evict freed 0.000 GB of driver-level VRAM and the model re-activated
-        in 0.00 s — it had never left the GPU.
+        The cache release is the one that returns the memory, because the cache
+        is the only strong owner of a loaded pipeline (Phase 17 Stage 2, F2).
+        The backend handles are cleared as well so the role cannot re-serve a
+        released object; before the ownership fix, nulling only the backend
+        attributes left ``_pipeline_cache`` holding the pipeline, so an evict
+        freed 0.000 GB of driver-level VRAM and the model re-activated in
+        0.00 s — it had never left the GPU.
         """
         backend = self._backends.get(role)
         model_id = self._model_ids.get(role)
@@ -379,7 +480,9 @@ class ModelManager:
         """Gated, timed load of one role's weights. Caller holds ``_lock``."""
         model_id = self._model_ids[role]
         device_map = getattr(backend, "device_map", self.device)
-        needed_gb = self._footprint_gb(model_id)
+        # The backend's declared load precision, so the gate estimates the load
+        # that will actually happen (a 4-bit load is not charged its bf16 size).
+        needed_gb = self._footprint_gb(model_id, getattr(backend, "quantization", None))
 
         # Return cached-but-unused blocks to the driver *before* reading free
         # VRAM, so the gate sees what is genuinely available rather than the
@@ -460,12 +563,12 @@ class ModelManager:
                 f"{free_after:.2f}GB < {self.min_free_after_load_gb:.2f}GB"
             )
 
-    def _footprint_gb(self, model_id: str) -> float:
+    def _footprint_gb(self, model_id: str, quantization: str | None = None) -> float:
         """Best known footprint: the measured value, else a conservative estimate."""
         measured = self._footprints_gb.get(model_id)
         if measured is not None:
             return measured
-        return estimate_model_footprint_gb(model_id)
+        return estimate_model_footprint_gb(model_id, quantization)
 
     def pre_run_check(self, run_id: str) -> None:
         """Per-run guard: refuse to start a run with too little free VRAM.

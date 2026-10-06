@@ -200,6 +200,14 @@ class TestTargetConversationParity:
             '{"generatedQuestion": "q2", "lastResponseSummary": "s2"}',
             '{"value": false, "metadata": 80}',
             '{"score": 3}',
+            # Phase 16.5 F2: the next (round-2) generation used to fall through to
+            # MockChatLLM's prose default and be silently absorbed by
+            # generate_opposite_day_step's old `return "", ""` parse-failure branch.
+            # A malformed reply is now correctly an execution failure, so the loop is
+            # ended with a *valid* JSON reply carrying an intentionally empty query —
+            # which is the legitimate, unchanged termination path. The test's own
+            # subject (backtracking popping the refused exchange) is unaffected.
+            '{"generatedQuestion": "", "lastResponseSummary": ""}',
         ])
         target = _CopyingTarget(["I refuse", "ok resp"])
         attack = OppositeDayAttack(attacker_llm=attacker, max_refusal_retries=10)

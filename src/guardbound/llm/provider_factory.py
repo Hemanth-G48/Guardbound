@@ -22,6 +22,12 @@ from __future__ import annotations
 from typing import Any
 
 from ..logging_utils import get_logger
+from .attacker_profiles import (
+    BACKEND_GLM4V,
+    BACKEND_HF_LOCAL,
+    BACKEND_ORNITH15,
+    BACKEND_QWEN38_NATIVE,
+)
 from .base import ChatLLM
 from .model_manager import ManagedLocalChatLLM, ModelManager
 
@@ -29,6 +35,37 @@ logger = get_logger(__name__)
 
 SUPPORTED_PROVIDERS = ("local", "cloud")
 CLOUD_BACKENDS = ("openai",)
+
+# Local backends. "hf_local" is the transformers text-generation pipeline used by
+# every existing role; "glm4v" is the native processor/model path for GLM-4.6V.
+_LOCAL_BACKEND_ALIASES = {
+    "hf_local": "hf_local",
+    "huggingface_local": "hf_local",
+    "hf": "hf_local",
+    "glm4v": "glm4v",
+    "glm": "glm4v",
+    "glm4v_local": "glm4v",
+    "ornith15": "ornith15",
+    "ornith": "ornith15",
+    "ornith15_local": "ornith15",
+    # Phase 17 Stage 3: the declared native architecture for Qwen3.8-27B
+    # (`Qwen3_5ForConditionalGeneration`) rather than the text-generation
+    # pipeline's `Qwen3_5ForCausalLM` substitution.
+    "qwen38_native": "qwen38_native",
+    "qwen3_8_native": "qwen38_native",
+    "qwen38": "qwen38_native",
+}
+
+
+def _norm_local_backend(backend: str | None) -> str:
+    """Canonicalise a local backend name; unknown names fail loudly."""
+    b = (backend or "hf_local").strip().lower()
+    if b not in _LOCAL_BACKEND_ALIASES:
+        raise ValueError(
+            f"unknown local backend {backend!r}; supported: "
+            f"{sorted(set(_LOCAL_BACKEND_ALIASES))}"
+        )
+    return _LOCAL_BACKEND_ALIASES[b]
 
 
 def _norm_provider(provider: str) -> str:
@@ -101,8 +138,6 @@ def build_role_llm(
         raise ValueError(
             "local provider requires a ModelManager for GPU lifecycle handling"
         )
-    from .local_client import HFLocalChatLLM
-
     device_map = role_cfg.get("device_map", "cuda")
     # Optional chat-template kwargs (e.g. Qwen3.5 enable_thinking=False).
     # Only pass them when declared — other templates reject unknown kwargs.
@@ -111,17 +146,100 @@ def build_role_llm(
     # A per-role config key wins over the caller-supplied default, so a mixed
     # stack (e.g. constrained JSON on attacker+evaluator only) stays expressible.
     mode = role_cfg.get("structured_output_mode", structured_output_mode)
-    backend = HFLocalChatLLM(
-        model_id=model_id,
-        device_map=device_map,
-        max_new_tokens=max_new_tokens,
-        structured_output_mode=mode,
-        **extra,
-    )
+    # Backend selection lives here and only here. Unset -> "hf_local", which is
+    # the pre-existing behaviour for every role in the frozen configuration.
+    backend_kind = _norm_local_backend(role_cfg.get("backend", BACKEND_HF_LOCAL))
+
+    if backend_kind == BACKEND_HF_LOCAL:
+        from .local_client import HFLocalChatLLM
+
+        if role_cfg.get("revision"):
+            raise ValueError(
+                f"{role}: 'revision' is not supported by the hf_local backend "
+                f"(transformers pipeline path). Use backend: {BACKEND_GLM4V} for "
+                "revision-pinned loading, or drop the revision key — pinning it "
+                "here would be silently ignored."
+            )
+        backend = HFLocalChatLLM(
+            model_id=model_id,
+            device_map=device_map,
+            # ``None`` here means the experiment declares NO output cap
+            # (Phase 16.5 F1): generation is then bounded only by the model's
+            # remaining context and stops at EOS.
+            max_new_tokens=max_new_tokens,
+            structured_output_mode=mode,
+            # Phase 16.5 F3: declared sampling parameters are passed explicitly;
+            # an absent key means "inherited", which the telemetry reports as such.
+            top_p=role_cfg.get("top_p"),
+            top_k=role_cfg.get("top_k"),
+            do_sample=role_cfg.get("do_sample"),
+            # Phase 17 Stage 2: opt-in load-time quantisation. Absent key -> None
+            # -> the unquantized path every existing config uses.
+            quantization=role_cfg.get("quantization"),
+            **extra,
+        )
+    elif backend_kind == BACKEND_GLM4V:
+        # Native processor + vision-language model path. Never routed through
+        # pipeline("text-generation"), which does not support this architecture.
+        from .glm4v_client import GLM4VChatLLM
+
+        backend = GLM4VChatLLM(
+            model_id=model_id,
+            device_map=device_map,
+            max_new_tokens=max_new_tokens,
+            structured_output_mode=mode,
+            revision=role_cfg.get("revision"),
+            dtype=role_cfg.get("dtype", "bfloat16"),
+            **extra,
+        )
+    elif backend_kind == BACKEND_QWEN38_NATIVE:
+        # Native image-text-to-text path for Qwen3.8-27B. Its own backend because
+        # the checkpoint declares Qwen3_5ForConditionalGeneration while the
+        # text-generation pipeline resolves Qwen3_5ForCausalLM — a class whose
+        # expected parameters do not match the published checkpoint.
+        from .qwen38_native_client import Qwen38NativeChatLLM
+
+        backend = Qwen38NativeChatLLM(
+            model_id=model_id,
+            device_map=device_map,
+            max_new_tokens=max_new_tokens,
+            structured_output_mode=mode,
+            revision=role_cfg.get("revision"),
+            dtype=role_cfg.get("dtype", "bfloat16"),
+            quantization=role_cfg.get("quantization"),
+            top_p=role_cfg.get("top_p"),
+            do_sample=role_cfg.get("do_sample"),
+            **extra,
+        )
+    else:  # BACKEND_ORNITH15
+        # Native multimodal path (AutoProcessor + AutoModelForMultimodalLM). Its
+        # own backend because the checkpoint's declared architecture is
+        # Qwen3_5ForConditionalGeneration, not the causal-LM class that
+        # qwen3_5 also maps to.
+        from .ornith15_client import Ornith15ChatLLM
+
+        backend = Ornith15ChatLLM(
+            model_id=model_id,
+            device_map=device_map,
+            max_new_tokens=max_new_tokens,
+            structured_output_mode=mode,
+            revision=role_cfg.get("revision"),
+            dtype=role_cfg.get("dtype", "bfloat16"),
+            **extra,
+        )
+
     manager.register(role, backend, model_id)
-    logger.info("[factory] %s -> local model=%s dtype=bfloat16 max_new_tokens=%s "
-                "structured_output_mode=%s",
-                role, model_id, max_new_tokens, mode)
+    # Residency is applied only when the role EXPLICITLY declares it. An absent
+    # key must not touch the pinned set: the legacy behaviour is that the runner
+    # pins the attacker and leaves the target/evaluator evictable, and pinning
+    # every role here would stop the target/evaluator rotation from ever
+    # releasing anything.
+    if "residency" in role_cfg:
+        manager.set_residency(role, role_cfg["residency"])
+    logger.info("[factory] %s -> local backend=%s model=%s revision=%s "
+                "max_new_tokens=%s structured_output_mode=%s residency=%s",
+                role, backend_kind, model_id, role_cfg.get("revision"),
+                max_new_tokens, mode, manager.residency_mode(role))
     return ManagedLocalChatLLM(backend, manager, role)
 
 

@@ -519,6 +519,7 @@ def run_attack_with_backtracking(
     regeneration_max: int = 3,
     system_prompt: str | None = None,
     steer_target: bool = True,
+    safety_threshold_override: float | None = None,
 ) -> Conversation:
     """Run attack with backtracking support for paper implementations.
 
@@ -536,6 +537,11 @@ def run_attack_with_backtracking(
 
     ``steer_target=False`` reproduces the official ``--safety_filtering`` mode:
     NBF candidate filtering with plain target calls (no SteeredLLMChat wrapper).
+
+    ``safety_threshold_override`` (Phase 19) makes the NBF decision threshold explicit
+    for threshold-sensitivity studies. ``None`` keeps the derivation above untouched,
+    so every pre-existing caller is bit-identical. The filtering rule itself is
+    unchanged: ``score < threshold`` accepts, ``score >= threshold`` filters.
     """
     from ..defense.steered_chat import SteeredLLMChat
     from .crescendo_paper import CrescendoAttackPaper
@@ -557,6 +563,8 @@ def run_attack_with_backtracking(
     use_safety_filter = barrier is not None and embed_fn is not None
     use_steered = use_safety_filter and steer_target
     safety_threshold = -eta if eta > 0 else 0.0
+    if safety_threshold_override is not None:
+        safety_threshold = safety_threshold_override
 
     # Phase 12 harness fix: preserve an explicitly seeded pre-attack (see the
     # async variant) so ActorAttack's official single infer_single per goal is
@@ -831,12 +839,15 @@ async def run_attack_with_backtracking_async(
     regeneration_max: int = 3,
     system_prompt: str | None = None,
     steer_target: bool = True,
+    safety_threshold_override: float | None = None,
 ) -> Conversation:
     """Async version of run_attack_with_backtracking with safety filtering.
 
     Implements paper Section B.1: If model refuses but NBF doesn't detect → regenerate turn.
     ``system_prompt`` seeds the target conversation (official ``history_t`` parity);
     ``steer_target=False`` reproduces official ``--safety_filtering`` (plain target calls).
+    ``safety_threshold_override`` behaves as in the sync runner: ``None`` keeps the
+    derivation above untouched.
     """
     from ..defense.steered_chat import SteeredLLMChat
     from .crescendo_paper import CrescendoAttackPaper
@@ -858,6 +869,8 @@ async def run_attack_with_backtracking_async(
     use_safety_filter = barrier is not None and embed_fn is not None
     use_steered = use_safety_filter and steer_target
     safety_threshold = -eta if eta > 0 else 0.0
+    if safety_threshold_override is not None:
+        safety_threshold = safety_threshold_override
 
     # Phase 12 harness fix: the caller may have already run the official
     # pre-attack (ActorAttack.prepare_attack(goal) — official run.py calls

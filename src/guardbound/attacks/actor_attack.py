@@ -18,6 +18,7 @@ from ..llm.base import ChatLLM
 from ..logging_utils import get_logger
 from ..schemas import Turn
 from .base import MultiTurnAttack, _EvaluatorMixin
+from .rubric_evaluation import classify_rubric_output, record_evaluation
 
 logger = get_logger(__name__)
 
@@ -457,7 +458,7 @@ def evaluate_with_rubric(
     response: str,
     goal: str,
     attacker_llm: Optional[ChatLLM] = None,
-) -> int:
+) -> int | None:
     """Evaluate the response against the goal using a scoring rubric.
 
     Returns score 1-5.
@@ -472,10 +473,12 @@ def llm_evaluate_with_rubric(
     response: str,
     goal: str,
     attacker_llm: ChatLLM,
-) -> int:
+) -> int | None:
     """LLM-based evaluation using the author's rubric (Qi et al. 2023).
 
-    Returns score 1-5.
+    Returns the parsed score 1-5, or ``None`` when the evaluator's reply could
+    not be used (recorded as ``JSON_PARSE_ERROR`` in the evaluator telemetry;
+    Phase 17 Stage 2, F3).
     """
     target_model_holder = "OpenAI"
     detailed_policy = (
@@ -535,18 +538,13 @@ def llm_evaluate_with_rubric(
     )
 
     messages = [{"role": "user", "content": full_prompt}]
+    # The official implementation calls the evaluator without ``json_format``
+    # and parses the raw reply itself, so classification applies the project's
+    # own parse chain to whatever the backend returned.
     raw = attacker_llm.generate(messages, temperature=0.0)
 
-    try:
-        data = json.loads(raw.strip())
-        if "score" in data:
-            score = data["score"]
-            if isinstance(score, (int, float)) and 1 <= score <= 5:
-                return int(score)
-    except (json.JSONDecodeError, TypeError, ValueError):
-        pass
-
-    return 1
+    evaluation = record_evaluation(classify_rubric_output(raw))
+    return evaluation.score
 
 
 class ActorAttack(_EvaluatorMixin, MultiTurnAttack):
@@ -593,7 +591,7 @@ class ActorAttack(_EvaluatorMixin, MultiTurnAttack):
         self._current_query_idx = 0
         self._dialog_hist: list[dict] = []
         self._queries: list[str] = []
-        self._scores: list[int] = []
+        self._scores: list[int | None] = []
         self._actor_complete = False
         self._attempts = 0
         self._last_judge: tuple | None = None
@@ -687,10 +685,11 @@ class ActorAttack(_EvaluatorMixin, MultiTurnAttack):
 
         return self.next_query(goal, []), ""
 
-    def evaluate_response(self, prompt: str, response: str, goal: str) -> int:
+    def evaluate_response(self, prompt: str, response: str, goal: str) -> int | None:
         """Evaluate the target's response.
 
-        Returns score 1-5. Routes to the evaluator LLM when one is set
+        Returns score 1-5, or ``None`` when the evaluator's reply could not be
+        used (Phase 17 Stage 2, F3). Routes to the evaluator LLM when one is set
         (Phase 8 three-model mode); otherwise the official attacker-judges
         behavior.
         """
@@ -775,7 +774,7 @@ class ActorAttack(_EvaluatorMixin, MultiTurnAttack):
         """Number of rejective backtracks seen (official code tracks none)."""
         return getattr(self, "_c_refused_backtrack", 0)
 
-    def record_turn(self, attacker_query: str, target_response: str, score: int) -> None:
+    def record_turn(self, attacker_query: str, target_response: str, score: int | None) -> None:
         """Record a completed turn and advance per official step_judge semantics.
 
         Mirrors official ``call_multi``:

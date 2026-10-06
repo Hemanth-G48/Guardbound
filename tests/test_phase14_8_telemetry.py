@@ -475,7 +475,12 @@ class TestSchemaUnchangedByFilterTrialsPatch:
     )
 
     def test_canonical_field_count_unchanged(self):
-        assert len(P14.RUN_RECORD_FIELDS) == 55
+        # 55 Phase-14.8 fields + "attacker_runtime" (Phase 15 attacker-model
+        # selection telemetry: model_id/revision/backend/dtype/quantization/
+        # residency_mode). The count is still pinned so accidental drift in
+        # either direction fails; the field is emitted on BOTH the completed and
+        # the failure path, so the constant-schema contract is preserved.
+        assert len(P14.RUN_RECORD_FIELDS) == 56
 
     def test_every_named_field_still_present(self):
         missing = [f for f in self.REQUIRED_14_8 if f not in CANON]

@@ -63,6 +63,11 @@ logging.getLogger("urllib3").setLevel(logging.WARNING)
 
 import torch  # noqa: E402
 
+from guardbound.llm.attacker_profiles import (  # noqa: E402
+    apply_attacker_profile,
+    attacker_runtime_telemetry,
+    profile_names,
+)
 from guardbound.llm.base import ChatLLM  # noqa: E402
 
 CONFIG_PATH = Path("configs/reproduction_three_model.yaml")
@@ -156,6 +161,15 @@ def parse_args(argv=None):
     p.add_argument("--structured-output-mode", default=None,
                    choices=[None, "constrained_json"],
                    help="Phase 14.1: constrained JSON decoding for attacker/evaluator")
+    p.add_argument("--attacker-model", default=None, choices=profile_names(),
+                   help="Attacker-model profile. Omit to use the config's attacker "
+                        "exactly as before; 'qwen3' and 'glm46v' rewrite only "
+                        "models.attacker (backend, model id, revision, residency).")
+    p.add_argument("--out", default=None,
+                   help="Output JSONL path. Omit for the historical hardcoded "
+                        "results/phase14/batch<NN>.jsonl. A separate experiment "
+                        "(e.g. the GLM attacker) MUST pass --out so it can never "
+                        "append to the frozen Track A file.")
     return p.parse_args(argv)
 
 
@@ -493,6 +507,10 @@ RUN_RECORD_FIELDS = (
     "attacker_model", "target_model", "evaluator_model", "embedding_model",
     "checkpoint_sha256", "dataset_sha256", "config_hash", "code_commit",
     "worktree_sha256",
+    # attacker runtime identity (model_id/revision/backend/dtype/quantization/
+    # residency_mode). Observational only — it never influences generation,
+    # selection, prompts, thresholds or attack behaviour.
+    "attacker_runtime",
     # frozen configuration
     "dtype", "quantization", "max_rounds", "threshold", "filter_trials",
     "top_p", "generation_config", "target_system",
@@ -655,6 +673,7 @@ def build_failure_record(
         attack=attack_key,
         seed=seed,
         attacker_model=metadata["attacker_model"],
+        attacker_runtime=metadata.get("attacker_runtime"),
         target_model=metadata["target_model"],
         evaluator_model=metadata.get("evaluator_model"),
         embedding_model=metadata["embedding_model"],
@@ -756,9 +775,18 @@ def make_models(cfg: dict, structured_output_mode: str | None = None):
             f"resolved {identities}"
         )
 
-    # Pinned-slot rotation: the attacker never leaves the GPU, so the target and
-    # evaluator are the only models that pay a reload.
-    manager.pin("attacker")
+    # Residency comes from the attacker's config block (already applied by
+    # build_role_llm, restated here so the runner's intent is explicit):
+    #   "pinned"     — the attacker never leaves the GPU; only the target and
+    #                  evaluator pay a reload. Correct while the attacker's
+    #                  weights fit alongside a partner model.
+    #   "sequential" — the attacker is released whenever the target/evaluator
+    #                  needs the GPU, so exactly one model is resident at a time.
+    #                  Required by GLM-4.6V (20.594 GB), which cannot co-reside
+    #                  with the 7.67 GB target on this card.
+    # Both modes use the same eviction path and the same VRAM gates.
+    attacker_residency = (models_cfg.get("attacker") or {}).get("residency", "pinned")
+    manager.set_residency("attacker", attacker_residency)
 
     return (
         CountingChatLLM(llms["attacker"], "attacker"),
@@ -789,6 +817,7 @@ def build_metadata(cfg: dict, ckpt_sha: str | None, dataset_sha: str) -> dict:
         "phase": 14,
         "study_type": "local_substitute_model_reproduction",
         "attacker_model": cfg["models"]["attacker"]["model"],
+        "attacker_runtime": attacker_runtime_telemetry(cfg),
         "target_model": cfg["models"]["target"]["model"],
         "evaluator_model": cfg["models"]["evaluator"]["model"],
         "embedding_model": cfg["embedding"]["model"],
@@ -820,7 +849,23 @@ def build_metadata(cfg: dict, ckpt_sha: str | None, dataset_sha: str) -> dict:
             if k in ATTACK_KEYS.values()
         },
         "refusal_retry_limit": OFFICIAL_MAX_REFUSAL_RETRIES,
-        "top_p": 1.0,
+        # Phase 16.5 F3: report the sampling parameters the experiment DECLARES
+        # per role, and say so when a value is inherited from the model's own
+        # generation_config.json instead of being passed explicitly. The previous
+        # hardcoded value (1.0) was inaccurate for roles that declared nothing —
+        # the frozen stack actually sampled with the models' own top_p.
+        "top_p": {
+            role: (cfg["models"][role].get("top_p")
+                   if cfg["models"][role].get("top_p") is not None
+                   else "inherited_from_generation_config")
+            for role in ("attacker", "target", "evaluator")
+        },
+        "top_k": {
+            role: (cfg["models"][role].get("top_k")
+                   if cfg["models"][role].get("top_k") is not None
+                   else "inherited_from_generation_config")
+            for role in ("attacker", "target", "evaluator")
+        },
         "excluded_attacks": EXCLUDED_ATTACKS,
         "declared_deviations": DECLARED_DEVIATIONS,
         "asr_caveat": (
@@ -839,9 +884,31 @@ def build_metadata(cfg: dict, ckpt_sha: str | None, dataset_sha: str) -> dict:
             "temperature_attacker": cfg["models"]["attacker"].get("temperature", 0.7),
             "temperature_target": cfg["models"]["target"].get("temperature", 0.7),
             "temperature_evaluator": cfg["models"]["evaluator"].get("temperature", 0.0),
-            "max_new_tokens_attacker": cfg["models"]["attacker"]["max_new_tokens"],
-            "max_new_tokens_target": cfg["models"]["target"]["max_new_tokens"],
-            "max_new_tokens_evaluator": cfg["models"]["evaluator"]["max_new_tokens"],
+            # Phase 16.5 F1: ``null`` records "no artificial output cap declared";
+            # generation is bounded only by the model's remaining context.
+            "max_new_tokens_attacker": cfg["models"]["attacker"].get("max_new_tokens"),
+            "max_new_tokens_target": cfg["models"]["target"].get("max_new_tokens"),
+            "max_new_tokens_evaluator": cfg["models"]["evaluator"].get("max_new_tokens"),
+            "output_cap_declared": {
+                role: cfg["models"][role].get("max_new_tokens") is not None
+                for role in ("attacker", "target", "evaluator")
+            },
+            "top_p": {
+                role: (cfg["models"][role].get("top_p")
+                       if cfg["models"][role].get("top_p") is not None
+                       else "inherited_from_generation_config")
+                for role in ("attacker", "target", "evaluator")
+            },
+            "top_k": {
+                role: (cfg["models"][role].get("top_k")
+                       if cfg["models"][role].get("top_k") is not None
+                       else "inherited_from_generation_config")
+                for role in ("attacker", "target", "evaluator")
+            },
+            "do_sample": {
+                role: cfg["models"][role].get("do_sample")
+                for role in ("attacker", "target", "evaluator")
+            },
             "use_cache": True,
         },
         "max_rounds": cfg["attacks"].get("max_turns", 8),
@@ -953,6 +1020,7 @@ async def run_one_phase14(
         attack=attack_key,
         seed=seed,
         attacker_model=metadata["attacker_model"],
+        attacker_runtime=metadata.get("attacker_runtime"),
         target_model=metadata["target_model"],
         evaluator_model=metadata.get("evaluator_model"),
         embedding_model=metadata["embedding_model"],
@@ -995,7 +1063,11 @@ async def run_batch(args, cfg):
     conditions = ["on", "off"] if args.condition == "both" else [args.condition]
 
     total_runs = len(goals) * len(attacks) * len(conditions)
-    out_path = Path("results/phase14") / f"batch{batch:02d}.jsonl"
+    # Default is the historical path, so an unmodified command behaves exactly
+    # as before. --out lets a separate experiment (GLM attacker) write its own
+    # results instead of appending to the frozen Track A file.
+    out_path = (Path(args.out) if getattr(args, "out", None) is not None
+                else Path("results/phase14") / f"batch{batch:02d}.jsonl")
     done_ids = existing_run_ids(out_path) if not args.no_resume else set()
 
     print(f"[phase14] batch={batch} goals={len(goals)} attacks={len(attacks)} "
@@ -1154,6 +1226,14 @@ async def run_batch(args, cfg):
                 # free-VRAM floor is enforced, then both peak windows are opened
                 # before this run allocates anything.
                 model_manager.set_run_context(run_id)
+                # Run boundary: release any sequentially-resident role so the
+                # per-run floor is measured against the state the run will
+                # actually start from. No-op for a fully pinned stack (Track A),
+                # where the pinned attacker is deliberately kept resident.
+                _released = model_manager.release_sequential()
+                if _released:
+                    print(f"[phase14] released sequential roles: {_released}",
+                          flush=True)
                 model_manager.pre_run_check(run_id)
                 model_manager.reset_vram_peak()
                 if torch.cuda.is_available():
@@ -1359,6 +1439,12 @@ def main(argv=None):
     args = parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="[%(name)s] %(message)s")
     cfg = load_config(args.config)
+    # Attacker selection is a runtime overlay: the config file on disk is never
+    # rewritten, and omitting --attacker-model leaves the config untouched.
+    if getattr(args, "attacker_model", None):
+        cfg = apply_attacker_profile(cfg, args.attacker_model)
+        print(f"[phase14] attacker-model profile: {args.attacker_model} -> "
+              f"{json.dumps(attacker_runtime_telemetry(cfg))}", flush=True)
     asyncio.run(run_batch(args, cfg))
 
 
