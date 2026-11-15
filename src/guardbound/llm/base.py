@@ -12,6 +12,24 @@ Message = dict[str, str]  # {"role": "system"|"user"|"assistant", "content": str
 
 DEFAULT_TEMPERATURE = 0.7  # paper-wide setting
 
+# Evaluator / judge temperature.
+#
+# Paper (arXiv:2503.00187v3, p9 Sec. 5.1): "All temperatures are set to be 0.7."
+# The paper states no exception for judge, rubric, refusal or disclaimer calls,
+# so the paper-authoritative value is PAPER_EVALUATOR_TEMPERATURE for all of them.
+#
+# The author's release instead passes 0.0 to check_refusal / check_disclaimer /
+# evaluate_with_rubric. Guardbound inherited that, and every frozen local
+# experiment (Phase 14-19) was produced with it. LEGACY_EVALUATOR_TEMPERATURE
+# therefore remains the default so historical configurations are unchanged; the
+# paper-reproduction configuration opts in to the paper value explicitly.
+PAPER_EVALUATOR_TEMPERATURE = 0.7
+LEGACY_EVALUATOR_TEMPERATURE = 0.0
+
+# ActorAttack's step judge inherits generate()'s default in the author's release
+# (no explicit override), i.e. 0.7 - which already equals the paper value.
+ACTOR_STEP_JUDGE_TEMPERATURE = DEFAULT_TEMPERATURE
+
 
 class ChatLLM(ABC):
     """Minimal chat interface shared by API, local, and mock backends."""

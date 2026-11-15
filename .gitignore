@@ -14,7 +14,10 @@ runs/*
 
 # Environment / secrets
 .env
+# Real credentials must never be committed. The template below IS tracked so a
+# fresh clone knows which variables to export; it contains no secret material.
 .env.*
+!.env.example
 *.pem
 *.key
 *.pdf
@@ -34,6 +37,12 @@ build/
 *.swp
 *.swo
 *~
+.obsidian/
+*.base
+.commandcode/
+
+# Local test-run artifacts
+_phase*.xml
 
 # OS
 .DS_Store

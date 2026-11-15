@@ -20,6 +20,7 @@ from ..llm.base import ChatLLM, DEFAULT_TEMPERATURE, Message
 from ..logging_utils import get_logger
 from ..models.predictor import NeuralBarrierFunction
 from ..schemas import Conversation, Turn
+from .filter_rule import is_filtered
 
 logger = get_logger(__name__)
 
@@ -195,8 +196,8 @@ class SteeredLLMChat:
             h_val = self.barrier.h(self._state, u)
             h_value = h_val.item()
 
-        # Step 4: Q-filter decision
-        filtered = (h_value + self.eta) >= 0
+        # Step 4: Q-filter decision (paper: filter iff h + eta >= 0)
+        filtered = is_filtered(h_value, self.eta)
 
         # Step 5/6: Execute based on decision
         if filtered:

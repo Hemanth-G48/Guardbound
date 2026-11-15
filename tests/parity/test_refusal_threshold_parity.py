@@ -119,12 +119,21 @@ class TestThresholdBoundary:
                 assert len(attacker.calls) > 1, "filtered prompt must regenerate"
 
     def test_sign_convention_threshold_is_negated(self):
-        """Runner uses threshold = -eta; both attacks apply the same sign."""
+        """Runner negates eta through the shared rule; both attacks use the same sign.
+
+        Phase 24 (defect D-01) moved the conversion into
+        ``guardbound.defense.filter_rule.threshold_from_eta`` so the steered
+        runtime and the attack-level filters cannot drift. The invariant is
+        unchanged: a raw admission threshold of ``-eta``.
+        """
         from guardbound.attacks.runner import run_attack_with_backtracking
-        # eta=0.5 -> safety_threshold = -0.5 (verified in runner source)
+        from guardbound.defense.filter_rule import threshold_from_eta
+
         import inspect
+
+        assert threshold_from_eta(0.5) == -0.5
         src = inspect.getsource(run_attack_with_backtracking)
-        assert "safety_threshold = -eta if eta > 0 else 0.0" in src
+        assert "safety_threshold = threshold_from_eta(eta)" in src
 
 
 # --------------------------------------------------------------------------- #

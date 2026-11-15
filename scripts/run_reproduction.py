@@ -59,6 +59,8 @@ _project_root = str(Path(__file__).resolve().parent.parent)
 if _project_root not in sys.path:
     sys.path.insert(0, _project_root)
 
+import _cloud_common as common  # noqa: E402
+
 import logging  # noqa: E402  (after sys.path setup)
 
 logger = logging.getLogger("run_reproduction")
@@ -173,13 +175,20 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
                         help="Force NBF on/off (overrides nbf.enabled and mode)")
     parser.add_argument("--dry-run", action="store_true", help="Print plan and exit")
     parser.add_argument("--validate-config", action="store_true",
-                        help="Validate config and exit (exit 0 = valid)")
+                        help="Validate config and exit")
+    common.add_paid_authorization_args(parser)
     return parser.parse_args(argv)
 
 
 def load_config(path: str) -> dict:
     with open(path, "r", encoding="utf-8") as f:
-        return yaml.safe_load(f)
+        cfg = yaml.safe_load(f) or {}
+    # Phase 51: bind the source configuration to the effective identity, just
+    # like the cloud configs, so a qualification report cannot silently describe
+    # a different file with substituted role models.
+    cfg["_source_path"] = str(Path(path).resolve())
+    cfg["_source_sha256"] = sha256_of(Path(path))
+    return cfg
 
 
 def load_goals(dataset_path: Path, limit: int | None, start_from: int) -> list[dict]:
@@ -277,17 +286,36 @@ def make_llm(cfg: dict, role: str, args: argparse.Namespace, mock: bool,
     fallback. In three-model configs the provider factory decides local vs
     cloud per role; in single-model configs the legacy behavior applies
     (local HF path unless an API key is set and the id is API-style).
+
+    Phase 49: the active ``cfg`` is forwarded to every guard/helper so a
+    ``paper_reproduction: true`` configuration is enforced even when the role
+    model is a non-R1 substitution. Phase 51: the actual role is forwarded too,
+    so the effective qualification identity records a CLI override rather than
+    the configured role model. The exact frozen R1 model remains gated by the
+    client layer independently of this configuration.
     """
     if mock:
         return JsonAwareMockLLM()
 
     # Phase 8 three-model path: provider factory owns local/cloud selection.
     if "models" in cfg and manager is not None:
-        from guardbound.llm.provider_factory import build_role_llm
-        return build_role_llm(cfg["models"][role], role, manager=manager)
+        if getattr(args, "attacker", None) or getattr(args, "target", None):
+            raise ValueError(
+                "--attacker/--target model overrides are not supported for "
+                "three-model configurations; edit models.attacker / "
+                "models.target in the configuration instead.")
+        return common.build_paid_role_llm(
+            cfg["models"][role], role, args=args, manager=manager, cfg=cfg)
 
-    override = args.attacker if role == "attacker" else args.target
-    model = override or cfg[role]["model"]
+    if role == "evaluator":
+        model = common._effective_role_models(cfg)["evaluator"]["model"]
+        override = None
+    else:
+        override = args.attacker if role == "attacker" else args.target
+        model = override or cfg[role]["model"]
+    # Phase 45/49/51: gate before the local/key branch, forward the config, and
+    # name the actual role so the effective identity records CLI overrides.
+    common.guard_paid_model(model, args, cfg=cfg, role=role)
     temperature = cfg[role].get("temperature", 0.7)
     max_new_tokens = cfg[role].get("max_new_tokens", 256)
 
@@ -299,8 +327,7 @@ def make_llm(cfg: dict, role: str, args: argparse.Namespace, mock: bool,
         return HFLocalChatLLM(model_id=override, **local_kwargs)
 
     if os.environ.get("OPENAI_API_KEY") and "/" not in model:
-        from guardbound.llm.openai_client import OpenAIChatLLM
-        return OpenAIChatLLM(model=model)
+        return common.build_paid_chat_llm(model, args=args, cfg=cfg, role=role)
 
     from guardbound.llm.local_client import HFLocalChatLLM
     return HFLocalChatLLM(model_id=model, **local_kwargs)
@@ -482,6 +509,7 @@ async def run_one(
         "attacker_model": metadata["attacker_model"],
         "target_model": metadata["target_model"],
         "evaluator_model": metadata.get("evaluator_model"),
+        "evaluator_subroles": metadata.get("evaluator_subroles"),
         "embedding_model": metadata["embedding_model"],
         "checkpoint_sha256": metadata["checkpoint_sha256"],
         "config_hash": metadata.get("config_hash"),
@@ -537,6 +565,40 @@ def resolve_models(cfg: dict, args: argparse.Namespace) -> tuple[str, str]:
     return attacker, target
 
 
+def evaluator_subroles_block(cfg: dict, effective_model: str) -> dict:
+    """Record the evaluator declaration and the actual consumer model.
+
+    The single-model path uses one evaluator LLM (built from the rubric model)
+    for every evaluator subrole; the other declared fields are not separate
+    clients. The three-model path routes every subrole to the single evaluator
+    role, validated by ``validate_three_model``.
+    """
+    if "models" in cfg:
+        mapped = cfg.get("evaluators") or {}
+        return {
+            name: {
+                "declared_role": role,
+                "consumer": "evaluator",
+                "consumer_model": effective_model,
+            }
+            for name, role in mapped.items()
+        }
+    evaluator = cfg.get("evaluator") or {}
+    return {
+        name: {
+            "declared_model": evaluator.get(key),
+            "consumer": "evaluator_llm",
+            "consumer_model": effective_model,
+        }
+        for name, key in (
+            ("rubric", "rubric_model"),
+            ("refusal", "refusal_model"),
+            ("disclaimer", "disclaimer_model"),
+            ("actor_attack_judge", "actor_step_judge_model"),
+        )
+    }
+
+
 def build_metadata(cfg: dict, args: argparse.Namespace, mock: bool) -> dict:
     """Resolve the run's model identities (no silent fallback).
 
@@ -549,6 +611,8 @@ def build_metadata(cfg: dict, args: argparse.Namespace, mock: bool) -> dict:
             "attacker_model": models["attacker"]["model"],
             "target_model": models["target"]["model"],
             "evaluator_model": models["evaluator"]["model"],
+            "evaluator_subroles": evaluator_subroles_block(
+                cfg, models["evaluator"]["model"]),
             "attacker_provider": models["attacker"]["provider"],
             "target_provider": models["target"]["provider"],
             "evaluator_provider": models["evaluator"]["provider"],
@@ -567,6 +631,7 @@ def build_metadata(cfg: dict, args: argparse.Namespace, mock: bool) -> dict:
         }
         if mock:
             meta["attacker_model"] = meta["target_model"] = meta["evaluator_model"] = "mock"
+            meta["evaluator_subroles"] = evaluator_subroles_block(cfg, "mock")
         ckpt = Path(cfg["nbf"]["checkpoint"])
         if not mock:
             if not ckpt.exists():
@@ -577,14 +642,20 @@ def build_metadata(cfg: dict, args: argparse.Namespace, mock: bool) -> dict:
         return meta
 
     attacker, target = resolve_models(cfg, args)
+    evaluator_model = cfg.get("evaluator", {}).get("rubric_model", attacker)
     if mock:
         attacker = "mock"
         target = "mock"
+        evaluator_model = "mock"
 
     meta = {
         "attacker_model": attacker,
         "target_model": target,
-        "evaluator_model": cfg.get("evaluator", {}).get("rubric_model", attacker),
+        "evaluator_model": evaluator_model,
+        "evaluator_subroles": evaluator_subroles_block(cfg, evaluator_model),
+        "config_hash": hashlib.sha256(
+            json.dumps(cfg, sort_keys=True, default=str).encode("utf-8")
+        ).hexdigest()[:16],
         "embedding_model": cfg["embedding"]["model"],
         "checkpoint_sha256": None,
     }
@@ -726,6 +797,13 @@ def validate_config(cfg: dict, strict: bool = True) -> list[str]:
         "experiment.output_dir",
         "hardware.device",
     ]
+    if "models" not in cfg:
+        evaluator_cfg = cfg.get("evaluator") or {}
+        if isinstance(evaluator_cfg, dict) and "model" in evaluator_cfg:
+            problems.append(
+                "evaluator.model is not supported for single-model configs; "
+                "use evaluator.rubric_model (the single-model evaluator LLM).")
+
     # Single-model configs (Phase 7 layout) require the experiment_model block;
     # three-model configs express the same requirement via models.* (checked
     # by validate_three_model, including role separation).
@@ -835,6 +913,8 @@ def write_manifest(cfg: dict, args: argparse.Namespace, out_path: Path) -> Path:
             return None
 
     models = cfg.get("models") or {}
+    effective_models = common._effective_role_models(cfg)
+    effective_evaluator = effective_models["evaluator"]["model"]
     manifest = {
         "timestamp": time.strftime("%Y-%m-%dT%H:%M:%S%z"),
         "git_commit": _git_rev(),
@@ -842,28 +922,32 @@ def write_manifest(cfg: dict, args: argparse.Namespace, out_path: Path) -> Path:
             "path": str(args.config),
             "content": cfg,
         },
+        "config_hash": hashlib.sha256(
+            json.dumps(cfg, sort_keys=True, default=str).encode("utf-8")
+        ).hexdigest()[:16],
         "attacker": {
             "provider": (models.get("attacker") or {}).get("provider", "local"),
-            "model": cfg["attacker"]["model"],
+            "model": effective_models["attacker"]["model"],
             "parameters": (models.get("attacker") or {}).get("parameters"),
             "actual_parameters": (models.get("attacker") or {}).get("actual_parameters"),
         },
         "target": {
             "provider": (models.get("target") or {}).get("provider", "local"),
-            "model": cfg["target"]["model"],
+            "model": effective_models["target"]["model"],
             "parameters": (models.get("target") or {}).get("parameters"),
             "actual_parameters": (models.get("target") or {}).get("actual_parameters"),
         },
         "evaluator": {
             "provider": (models.get("evaluator") or {}).get("provider", "local"),
-            "model": (models.get("evaluator") or {}).get("model")
-                     or cfg.get("evaluator", {}).get("rubric_model"),
+            "model": effective_evaluator,
             "parameters": (models.get("evaluator") or {}).get("parameters"),
             "actual_parameters": (models.get("evaluator") or {}).get("actual_parameters"),
         },
-        "attacker_model": cfg["attacker"]["model"],
-        "target_model": cfg["target"]["model"],
-        "evaluator_model": cfg.get("evaluator", {}).get("rubric_model"),
+        "attacker_model": effective_models["attacker"]["model"],
+        "target_model": effective_models["target"]["model"],
+        "evaluator_model": effective_evaluator,
+        "evaluator_subroles": evaluator_subroles_block(
+            cfg, effective_evaluator),
         "embedding_model": cfg["embedding"]["model"],
         "nbf_checkpoint": cfg["nbf"]["checkpoint"],
         "nbf_checkpoint_sha256": sha256_of(Path(cfg["nbf"]["checkpoint"])),
@@ -969,6 +1053,10 @@ async def main_async(args: argparse.Namespace) -> None:
     else:
         attacker_llm = make_llm(cfg, "attacker", args, mock)
         target_llm = make_llm(cfg, "target", args, mock)
+        evaluator_llm = make_llm(cfg, "evaluator", args, mock)
+        attacker_llm = CountingChatLLM(attacker_llm, "attacker")
+        target_llm = CountingChatLLM(target_llm, "target")
+        evaluator_llm = CountingChatLLM(evaluator_llm, "evaluator")
     barrier, embed_fn = make_barrier_and_embed(cfg, mock) if use_barrier else (None, None)
 
     print(f"[repro] attacker={metadata['attacker_model']} target={metadata['target_model']}")

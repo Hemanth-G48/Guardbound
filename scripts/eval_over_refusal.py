@@ -14,6 +14,8 @@ _project_root = str(Path(__file__).resolve().parent.parent)
 if _project_root not in sys.path:
     sys.path.insert(0, _project_root)
 
+import _cloud_common as common  # noqa: E402
+
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description=__doc__)
@@ -27,10 +29,13 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--dynamics-dir", default=None)
     p.add_argument("--embedding", default="mpnet",
                    choices=["mpnet", "distilroberta"])
-    p.add_argument("--eta", type=float, default=5e-4)
+    p.add_argument("--eta", type=float, default=1e-3,
+                   help="Steering margin η. Default 1e-3 = the paper's GPT-4o "
+                        "Table 1 row (was 5e-4 before Phase 29).")
     p.add_argument("--out", required=True)
     p.add_argument("--mock", action="store_true")
     p.add_argument("--limit", type=int, default=None)
+    common.add_paid_authorization_args(p)
     return p.parse_args()
 
 
@@ -43,8 +48,7 @@ def make_llm(args):
         ] * 5000)
     target = args.model.lower()
     if "gpt" in target or target.startswith("o1") or target.startswith("o3"):
-        from guardbound.llm.openai_client import OpenAIChatLLM
-        return OpenAIChatLLM(model_id=args.model)
+        return common.build_paid_chat_llm(args.model, args=args)
     if "claude" in target or "anthropic" in target:
         from guardbound.llm.anthropic_client import AnthropicChatLLM
         return AnthropicChatLLM(model=args.model)
@@ -71,8 +75,21 @@ def main() -> None:
         OVER_REFUSAL_LOADERS,
         evaluate_over_refusal,
     )
+    from guardbound.evaluation.readiness import (
+        STATUS_BLOCKED,
+        check_utility_dataset,
+    )
     loader = OVER_REFUSAL_LOADERS[args.dataset]
     path = args.data_path or f"data/raw/{args.dataset}.jsonl"
+    if args.dataset == "xstest":
+        inventory = check_utility_dataset("xstest", path)
+        if inventory["status"] == STATUS_BLOCKED:
+            print(f"{STATUS_BLOCKED}: XSTest data not usable at {path} "
+                  f"(exists={inventory['exists']}, rows={inventory['rows']}, "
+                  f"missing={inventory['missing_fields']})")
+            print("  Provide a JSONL with a `prompt` (or `text`) field per line.")
+            print("  No dataset is downloaded, fabricated or substituted.")
+            raise SystemExit(2)
     examples = loader(path)
     if args.limit:
         examples = examples[: args.limit]

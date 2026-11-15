@@ -74,11 +74,19 @@ class _FakeOpenAIClient:
         self.chat = types.SimpleNamespace(completions=_FAKE_COMPLETIONS)
 
 
+# The client now fails fast with a missing-key error (see
+# ``test_missing_key_raises_actionable_auth_error`` in tests/test_cloud_provider.py),
+# so the plumbing tests below need a key to be present. This placeholder is not a
+# credential: it has no sk- prefix, is only ever handed to the fake module above,
+# and cannot be used against a real endpoint.
+_PLACEHOLDER_KEY = "test-key-not-a-credential"
+
+
 def test_openai_client_sends_model_and_temperature(monkeypatch):
     fake_openai = types.ModuleType("openai")
     fake_openai.OpenAI = _FakeOpenAIClient
     monkeypatch.setitem(sys.modules, "openai", fake_openai)
-    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
+    monkeypatch.setenv("OPENAI_API_KEY", _PLACEHOLDER_KEY)
 
     llm = OpenAIChatLLM("gpt-3.5-turbo-0125")  # paper version pin
     reply = llm.generate([{"role": "user", "content": "hi"}])
@@ -93,6 +101,7 @@ def test_o1_client_skips_custom_temperature(monkeypatch):
     fake_openai = types.ModuleType("openai")
     fake_openai.OpenAI = _FakeOpenAIClient
     monkeypatch.setitem(sys.modules, "openai", fake_openai)
+    monkeypatch.setenv("OPENAI_API_KEY", _PLACEHOLDER_KEY)
 
     OpenAIChatLLM("o1-2024-12-17").generate(
         [{"role": "user", "content": "hi"}], temperature=0.7)

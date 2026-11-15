@@ -14,6 +14,8 @@ _project_root = str(Path(__file__).resolve().parent.parent)
 if _project_root not in sys.path:
     sys.path.insert(0, _project_root)
 
+import _cloud_common as common  # noqa: E402
+
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description=__doc__)
@@ -35,6 +37,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--mock", action="store_true",
                    help="Use MockChatLLM (for tests).")
     p.add_argument("--limit", type=int, default=None)
+    common.add_paid_authorization_args(p)
     return p.parse_args()
 
 
@@ -47,8 +50,7 @@ def make_llm(args):
         ] * 5000)
     target = args.model.lower()
     if "gpt" in target or target.startswith("o1") or target.startswith("o3"):
-        from guardbound.llm.openai_client import OpenAIChatLLM
-        return OpenAIChatLLM(model_id=args.model)
+        return common.build_paid_chat_llm(args.model, args=args)
     if "claude" in target or "anthropic" in target:
         from guardbound.llm.anthropic_client import AnthropicChatLLM
         return AnthropicChatLLM(model=args.model)

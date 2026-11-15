@@ -1,0 +1,92 @@
+# =============================================================================
+# Cloud model pricing (rate card)
+# =============================================================================
+# Cost estimation reads prices from THIS FILE, never from Python constants, so a
+# price change never requires a code change. Pricing is used for reporting only:
+# Phase 22 removed the custom spend cap, so nothing here can block a request.
+#
+# VERIFIED: 2026-11-10 against the official OpenAI documentation.
+#
+#   Source 1 (pricing table):
+#     https://platform.openai.com/docs/pricing   -> redirects to
+#     https://developers.openai.com/api/docs/pricing
+#   Source 2 (per-model pages, same figures):
+#     https://developers.openai.com/api/docs/models/gpt-4o
+#     https://developers.openai.com/api/docs/models/gpt-4o-mini
+#
+# Units: USD per 1,000,000 tokens. Currency: USD.
+#
+# -----------------------------------------------------------------------------
+# !! MODELS ARE DEPRECATED — READ BEFORE SCHEDULING AN EXPERIMENT !!
+# -----------------------------------------------------------------------------
+# Both models used by Guardbound are deprecated, with a published shutdown date:
+#
+#   2026-10-14 announcement:
+#     gpt-4o      (gpt-4o-2024-08-06, gpt-4o-2024-11-20)  shut down 2027-01-14
+#     gpt-4o-mini (gpt-4o-mini-2024-07-18)                shut down 2027-01-14
+#     recommended replacement: gpt-6-luna
+#   https://developers.openai.com/api/docs/deprecations
+#
+# Consequences:
+#   * The experiments are runnable today (a Deprecated model still serves
+#     requests until its shutdown date), but the reproducibility window closes
+#     on 2027-01-14. Every run manifest records the execution date for this
+#     reason.
+#   * Do NOT silently substitute the replacement model: it is a different model
+#     with different behaviour, so it is a new model substitution that must be
+#     labelled as such.
+#   * gpt-3.5-turbo-0125 (also a paper target) was SHUT DOWN on 2026-10-23 and
+#     is deliberately absent from this file rather than carrying a stale price.
+# -----------------------------------------------------------------------------
+
+version: "2026-11-10.2"
+as_of: "2026-11-10"
+source: "https://developers.openai.com/api/docs/pricing"
+verified: true
+
+models:
+
+  # --- Configuration A: original paper reference models -------------------- #
+  gpt-4o:
+    input_per_1m: 2.50
+    cached_input_per_1m: 1.25
+    output_per_1m: 10.00
+    shutdown_date: "2027-01-14"
+    note: "Read directly from the official pricing table and the gpt-4o model page."
+
+  # The paper pins this snapshot (Sec. 5.1). OpenAI does not publish a separate
+  # price for dated snapshots; a snapshot is billed at its family rate.
+  gpt-4o-2024-08-06:
+    input_per_1m: 2.50
+    cached_input_per_1m: 1.25
+    output_per_1m: 10.00
+    shutdown_date: "2027-01-14"
+    derived_from: gpt-4o
+    note: "Inherited from the gpt-4o family rate; not listed separately."
+
+  # --- Configuration B: initial cloud experiment --------------------------- #
+  gpt-4o-mini:
+    input_per_1m: 0.15
+    cached_input_per_1m: 0.075
+    output_per_1m: 0.60
+    shutdown_date: "2027-01-14"
+    note: "Read directly from the official pricing table and the gpt-4o-mini model page."
+
+  gpt-4o-mini-2024-07-18:
+    input_per_1m: 0.15
+    cached_input_per_1m: 0.075
+    output_per_1m: 0.60
+    shutdown_date: "2027-01-14"
+    derived_from: gpt-4o-mini
+    note: "Inherited from the gpt-4o-mini family rate; not listed separately."
+
+# -----------------------------------------------------------------------------
+# Not priced here, on purpose
+# -----------------------------------------------------------------------------
+# gpt-3.5-turbo-0125   shut down 2026-10-23 (deprecations page). No current price
+#                      exists; a stale number would silently mis-cost a run.
+# o1-2024-12-17        shut down 2026-10-23 (deprecations page).
+# gpt-6-luna           the officially recommended replacement for both models
+#                      above. NOT configured anywhere in Guardbound, because
+#                      using it would be a second, separate model substitution.
+#                      If it is adopted, add a verified entry for it here first.

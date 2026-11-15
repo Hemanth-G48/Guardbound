@@ -15,6 +15,12 @@ _project_root = str(Path(__file__).resolve().parent)
 if _project_root not in sys.path:
     sys.path.insert(0, _project_root)
 
+_scripts_dir = str(Path(__file__).resolve().parent / "scripts")
+if _scripts_dir not in sys.path:
+    sys.path.insert(0, _scripts_dir)
+
+import _cloud_common as common  # noqa: E402
+
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Evaluate ASR using LLM judge")
@@ -26,6 +32,7 @@ def parse_args():
                        help="Output directory for evaluation results")
     parser.add_argument("--mock-judge", action="store_true",
                        help="Use mock judge for testing")
+    common.add_paid_authorization_args(parser)
     return parser.parse_args()
 
 
@@ -44,14 +51,14 @@ def load_conversations(path: str):
     return conversations
 
 
-def make_judge(model_name: str, mock: bool = False):
+def make_judge(model_name: str, mock: bool = False, args=None):
     """Create LLM judge."""
     if mock:
         from guardbound.llm.mock import MockChatLLM
         judge_llm = MockChatLLM(responses=["SAFE"] * 10000)
     else:
-        from guardbound.llm.openai_client import OpenAIChatLLM
-        judge_llm = OpenAIChatLLM(model_id=model_name)
+        # Phase 45: authorization precedes key access and client construction.
+        judge_llm = common.build_paid_chat_llm(model_name, args=args)
     
     from guardbound.evaluation import ASRJudge
     return ASRJudge(
@@ -77,7 +84,7 @@ def main():
     print(f"Baseline: {len(baseline_convs)} conversations")
     print(f"NBF: {len(nbf_convs)} conversations")
     
-    judge = make_judge(args.judge_model, args.mock_judge)
+    judge = make_judge(args.judge_model, args.mock_judge, args)
     
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)

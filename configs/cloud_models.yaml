@@ -1,0 +1,132 @@
+# =============================================================================
+# Cloud model catalog — per-role provider/model presets
+# =============================================================================
+# Reference only: this file documents the supported role configurations and is
+# not consumed by a runner. The runnable experiment configs are
+#   configs/cloud_research_reference.yaml      (Configuration A — paper models)
+#   configs/cloud_research_gpt4o_mini.yaml     (Configuration B — gpt-4o-mini)
+#
+# Every role is resolved independently, so attacker / target / evaluator may use
+# different providers in the same run. Nothing in the attack, evaluator or NBF
+# code knows which provider a role uses: they all receive a ``ChatLLM``.
+#
+# Accepted keys per role:
+#   provider          "local" | "cloud"            (required)
+#   model             provider model id            (required)
+#   backend           "hf_local" | "glm4v" | "ornith15" | "qwen38_native"
+#                     (local) | "openai" (cloud)
+#   api_key_env       env var holding the cloud key (cloud only)
+#   base_url          alternate OpenAI-compatible endpoint (cloud only)
+#   timeout_s         per-request timeout (cloud only)
+#   max_output_tokens output cap; omitted = no cap (cloud only)
+#   top_p             nucleus sampling (cloud only, optional)
+#   structured_output "json_object" (default, official) | "json_schema" | "none"
+#   json_schema       JSON Schema object, required when structured_output=json_schema
+#   json_schema_name  schema name for Structured Outputs
+#
+# Keys rejected for a cloud role (no cloud equivalent — reported, never ignored):
+#   top_k, do_sample, chat_template_kwargs, quantization, device_map, revision,
+#   dtype, residency, parameters, actual_parameters, reasoning_mode
+# =============================================================================
+
+# --------------------------------------------------------------------------- #
+# Configuration A — original paper reference (Sec. 5.1)
+# --------------------------------------------------------------------------- #
+paper_reference:
+  verified_against: "paper Sec. 5.1 + official steering.py defaults"
+  note: >
+    The official entry point (steering.py) defaults both --attacker_model and
+    --target_model to gpt-4o, and the attacker model also produces every
+    evaluator verdict. The paper pins the dated snapshot gpt-4o-2024-08-06, so
+    that snapshot is configured here rather than the floating alias.
+  models:
+    attacker:
+      provider: openai
+      model: gpt-4o-2024-08-06
+    target:
+      provider: openai
+      model: gpt-4o-2024-08-06
+    evaluator:
+      provider: openai
+      model: gpt-4o-2024-08-06
+
+# --------------------------------------------------------------------------- #
+# Configuration B — initial cloud experiment (NOT a paper reproduction)
+# --------------------------------------------------------------------------- #
+local_research_adaptation:
+  note: >
+    A smaller cloud model substituted for all three roles. This is a model
+    substitution: it must be labelled as such in every report and must not be
+    described as an exact reproduction of the GPT-4o setup. The dated snapshot
+    is used, not the floating alias, so a run cannot silently drift onto a
+    newer revision.
+  models:
+    attacker:
+      provider: openai
+      model: gpt-4o-mini-2024-07-18
+    target:
+      provider: openai
+      model: gpt-4o-mini-2024-07-18
+    evaluator:
+      provider: openai
+      model: gpt-4o-mini-2024-07-18
+
+# --------------------------------------------------------------------------- #
+# Mixed-provider configurations (supported without code changes)
+# --------------------------------------------------------------------------- #
+mixed_cloud_attacker_local_target:
+  note: >
+    Cloud attacker + cloud evaluator, local HF target. The guard model runs in
+    the cloud; the defended model stays on the GPU. NBF is provider-agnostic and
+    unchanged.
+  models:
+    attacker:
+      provider: openai
+      model: gpt-4o-mini-2024-07-18
+    target:
+      provider: local
+      model: meta-llama/Meta-Llama-3-8B-Instruct
+    evaluator:
+      provider: openai
+      model: gpt-4o-mini-2024-07-18
+
+# The paper's GPT-4o judge applied to a local target — the original Table 2
+# comparison, made runnable on a single GPU.
+paper_judge_local_target:
+  models:
+    attacker:
+      provider: openai
+      model: gpt-4o-2024-08-06
+    target:
+      provider: local
+      model: microsoft/phi-4
+    evaluator:
+      provider: openai
+      model: gpt-4o-2024-08-06
+
+# --------------------------------------------------------------------------- #
+# Generation settings (paper + official implementation)
+# --------------------------------------------------------------------------- #
+generation:
+  # Paper Sec. 5.1: "All temperatures are set to be 0.7."
+  attacker: 0.7
+  target: 0.7
+  # Official implementation: check_refusal.py, check_disclaimer.py and
+  # evaluate_with_rubric.py all call generate(..., temperature=0.0), which
+  # overrides the 0.7 default for these three evaluator operations only.
+  # NOTE: this is an implementation discrepancy with the paper's blanket
+  # "all temperatures 0.7" sentence; the official code is treated as
+  # authoritative for operational behaviour. See PAPER_METHODOLOGY_COMPARISON.md.
+  refusal_check: 0.0
+  disclaimer_check: 0.0
+  rubric: 0.0
+  actor_attack_step_judge: 0.0
+
+json_generation:
+  # Official reference: response_format={"type": "json_object"} when the caller
+  # asks for JSON, {"type": "text"} otherwise.
+  mode: json_object
+  note: >
+    Structured Outputs (json_schema) is available per role and is NOT enabled by
+    default, because it is a different generation contract than the one the
+    paper used. Enabling it does not change any attack prompt or JSON field.

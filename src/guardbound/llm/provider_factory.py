@@ -19,6 +19,7 @@ Required cloud credentials are validated lazily per-provider:
 """
 from __future__ import annotations
 
+import os
 from typing import Any
 
 from ..logging_utils import get_logger
@@ -35,6 +36,24 @@ logger = get_logger(__name__)
 
 SUPPORTED_PROVIDERS = ("local", "cloud")
 CLOUD_BACKENDS = ("openai",)
+
+# Keys that only make sense for the local HF backend. They have no cloud
+# equivalent, so a cloud role declaring one is rejected instead of silently
+# dropping it (a dropped sampling parameter would change the generation
+# contract without appearing anywhere in the run manifest).
+LOCAL_ONLY_ROLE_KEYS = (
+    "top_k",
+    "do_sample",
+    "chat_template_kwargs",
+    "quantization",
+    "device_map",
+    "revision",
+    "dtype",
+    "residency",
+    "parameters",
+    "actual_parameters",
+    "reasoning_mode",
+)
 
 # Local backends. "hf_local" is the transformers text-generation pipeline used by
 # every existing role; "glm4v" is the native processor/model path for GLM-4.6V.
@@ -79,6 +98,125 @@ def _norm_provider(provider: str) -> str:
     )
 
 
+def normalize_provider(provider: str) -> str:
+    """Public alias for the provider-name normaliser.
+
+    Scripts need the same local/cloud decision the factory makes, so
+    ``provider: openai`` is not mistaken for something exotic just because it
+    is not spelled ``cloud``.
+    """
+    return _norm_provider(provider)
+
+
+def validate_cloud_role_config(role: str, role_cfg: dict[str, Any]) -> None:
+    """Reject a cloud role that declares parameters the cloud API cannot honour.
+
+    Reporting beats ignoring: a silently dropped ``top_k`` or
+    ``chat_template_kwargs`` would change the generation contract while leaving
+    no trace in the manifest.
+    """
+    offending = sorted(k for k in LOCAL_ONLY_ROLE_KEYS if k in role_cfg)
+    if offending:
+        raise ValueError(
+            f"{role}: provider=cloud cannot honour local-only keys "
+            f"{offending}. Remove them, or switch {role}.provider to 'local'."
+        )
+    if role_cfg.get("structured_output") == "json_schema" and not role_cfg.get("json_schema"):
+        raise ValueError(
+            f"{role}: structured_output='json_schema' requires a 'json_schema' "
+            f"block. Omit structured_output to use the official reference "
+            f"behaviour (JSON mode)."
+        )
+
+
+def build_cloud_role_llm(
+    role: str,
+    role_cfg: dict[str, Any],
+    *,
+    ledger=None,
+) -> ChatLLM:
+    """Build the OpenAI-backed ``ChatLLM`` for one role.
+
+    ``role_cfg`` keys (all optional except ``model``):
+        provider, model, backend, api_key_env, base_url, organization, project,
+        timeout_s, max_output_tokens, top_p, structured_output, json_schema,
+        json_schema_name, client (test injection), supports_temperature.
+    """
+    backend_kind = role_cfg.get("backend", "openai")
+    if backend_kind not in CLOUD_BACKENDS:
+        raise ValueError(
+            f"{role}: unsupported cloud backend {backend_kind!r}; "
+            f"supported: {CLOUD_BACKENDS}"
+        )
+    validate_cloud_role_config(role, role_cfg)
+
+    model_id = role_cfg.get("model")
+    if not model_id:
+        raise ValueError(f"{role}.model is required")
+
+    # Phase 45: check before the API-key read below and before OpenAIChatLLM.
+    from .paid_authorization import require_construction_authorization
+    require_construction_authorization(model_id)
+
+    api_key_env = role_cfg.get("api_key_env", "OPENAI_API_KEY")
+    injected_client = role_cfg.get("client")
+    # Fail fast on a missing key for a real run. An injected client (offline
+    # tests, smoke harnesses) already owns its transport and needs no key.
+    if injected_client is None and not os.environ.get(api_key_env):
+        raise ValueError(
+            f"{role}: cloud provider selected but environment variable "
+            f"{api_key_env} is not set. Set it or switch "
+            f"{role}.provider to 'local'."
+        )
+
+    from .openai_client import OpenAIChatLLM
+
+    kwargs: dict[str, Any] = {
+        "api_key_env": api_key_env,
+        "role": role,
+        "client": injected_client,
+    }
+    for key in (
+        "base_url",
+        "organization",
+        "project",
+        "timeout_s",
+        "max_output_tokens",
+        "top_p",
+        "structured_output",
+        "json_schema",
+        "json_schema_name",
+        "supports_temperature",
+    ):
+        if key in role_cfg and role_cfg[key] is not None:
+            kwargs[key] = role_cfg[key]
+
+    # Explicit local->cloud mapping for the output cap. The official reference
+    # sends no cap at all, so a declared cap is honoured but announced: it is a
+    # deviation from the paper, not a silent default.
+    if "max_output_tokens" not in kwargs and role_cfg.get("max_new_tokens") is not None:
+        kwargs["max_output_tokens"] = int(role_cfg["max_new_tokens"])
+        logger.warning(
+            "[factory] %s: mapping max_new_tokens=%s to OpenAI max_tokens. "
+            "The paper's reference implementation sends no output cap.",
+            role, kwargs["max_output_tokens"],
+        )
+    if "temperature" in role_cfg:
+        # Recorded for the manifest only: the paper drives sampling per call
+        # (attacker/generator 0.7, evaluator 0.0), not per role.
+        logger.info("[factory] %s: declared role temperature %s (per-call "
+                    "temperatures still govern generation)", role,
+                    role_cfg["temperature"])
+
+    if ledger is not None:
+        kwargs["ledger"] = ledger
+
+    logger.info("[factory] %s -> cloud/%s model=%s structured_output=%s",
+                role, backend_kind, model_id,
+                role_cfg.get("structured_output", "json_object"))
+    return OpenAIChatLLM(model_id=model_id, **kwargs)
+
+
 def build_role_llm(
     role_cfg: dict[str, Any],
     role: str,
@@ -86,6 +224,7 @@ def build_role_llm(
     default_max_new_tokens: int = 256,
     default_temperature: float = 0.7,
     structured_output_mode: str | None = None,
+    ledger=None,
 ) -> ChatLLM:
     """Build the ChatLLM for one role from its config block.
 
@@ -102,6 +241,9 @@ def build_role_llm(
         Decoding mode for the local backend (e.g. ``"constrained_json"``).
         Applied to every local role built here; a per-role
         ``structured_output_mode`` key in ``role_cfg`` takes precedence.
+    ledger
+        Optional shared :class:`UsageLedger` for cloud roles (cost accounting).
+        Ignored by the local provider, which has no per-token cost.
     """
     provider = _norm_provider(role_cfg.get("provider", "local"))
     model_id = role_cfg.get("model")
@@ -112,26 +254,7 @@ def build_role_llm(
     max_new_tokens = role_cfg.get("max_new_tokens", default_max_new_tokens)
 
     if provider == "cloud":
-        backend_kind = role_cfg.get("backend", "openai")
-        if backend_kind not in CLOUD_BACKENDS:
-            raise ValueError(
-                f"{role}: unsupported cloud backend {backend_kind!r}; "
-                f"supported: {CLOUD_BACKENDS}"
-            )
-        import os
-
-        api_key_env = role_cfg.get("api_key_env", "OPENAI_API_KEY")
-        if not os.environ.get(api_key_env):
-            raise ValueError(
-                f"{role}: cloud provider selected but environment variable "
-                f"{api_key_env} is not set. Set it or switch "
-                f"{role}.provider to 'local'."
-            )
-        from .openai_client import OpenAIChatLLM
-
-        logger.info("[factory] %s -> cloud/%s model=%s",
-                    role, backend_kind, model_id)
-        return OpenAIChatLLM(model_id=model_id, api_key_env=api_key_env)
+        return build_cloud_role_llm(role, role_cfg, ledger=ledger)
 
     # ---- local provider ------------------------------------------------- #
     if manager is None:
@@ -248,10 +371,16 @@ def build_three_model_stack(
     device: str = "cuda",
     default_max_new_tokens: int = 256,
     structured_output_mode: str | None = None,
+    ledger=None,
 ) -> tuple[ModelManager, dict[str, ChatLLM]]:
     """Build attacker/target/evaluator from the ``models:`` config section.
 
     Returns (manager, {"attacker": llm, "target": llm, "evaluator": llm}).
+
+    Each role resolves its own ``provider``, so a mixed stack (cloud attacker +
+    local target + cloud evaluator) is expressible without any special case
+    here. The ``ModelManager`` is always created — it simply sees no local
+    registrations when every role is cloud.
 
     No role is pinned here: eviction policy is a property of the caller's
     architecture, not of the stack. Callers that need a pinned slot call
@@ -269,5 +398,6 @@ def build_three_model_stack(
             manager=manager,
             default_max_new_tokens=default_max_new_tokens,
             structured_output_mode=structured_output_mode,
+            ledger=ledger,
         )
     return manager, llms

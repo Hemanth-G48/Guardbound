@@ -14,6 +14,8 @@ _project_root = str(Path(__file__).resolve().parent.parent)
 if _project_root not in sys.path:
     sys.path.insert(0, _project_root)
 
+import _cloud_common as common  # noqa: E402
+
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description=__doc__)
@@ -28,13 +30,16 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--dynamics-dir", default=None)
     p.add_argument("--embedding", default="mpnet",
                    choices=["mpnet", "distilroberta"])
-    p.add_argument("--eta", type=float, default=5e-4)
+    p.add_argument("--eta", type=float, default=1e-3,
+                   help="Steering margin η. Default 1e-3 = the paper's GPT-4o "
+                        "Table 1 row (was 5e-4 before Phase 29).")
     p.add_argument("--cache-dir",
                    default="data/processed/.cache/judge_mtbench")
     p.add_argument("--out", required=True)
     p.add_argument("--mock", action="store_true",
                    help="Use MockChatLLM for both target and judge.")
     p.add_argument("--limit", type=int, default=None)
+    common.add_paid_authorization_args(p)
     return p.parse_args()
 
 
@@ -47,8 +52,8 @@ def make_llm(args, judge: bool = False):
         ] * 5000)
     target = (args.judge_model if judge else args.model).lower()
     if "gpt" in target or target.startswith("o1") or target.startswith("o3"):
-        from guardbound.llm.openai_client import OpenAIChatLLM
-        return OpenAIChatLLM(model_id=(args.judge_model if judge else args.model))
+        return common.build_paid_chat_llm(
+            args.judge_model if judge else args.model, args=args)
     if "claude" in target or "anthropic" in target:
         from guardbound.llm.anthropic_client import AnthropicChatLLM
         return AnthropicChatLLM(model=(args.judge_model if judge else args.model))
@@ -72,6 +77,22 @@ def make_barrier_and_embed(args):
 def main() -> None:
     args = parse_args()
     from guardbound.evaluation import load_mtbench_jsonl, evaluate_mtbench
+    from guardbound.evaluation.readiness import (
+        STATUS_BLOCKED,
+        check_utility_dataset,
+    )
+
+    inventory = check_utility_dataset("mtbench", args.dataset)
+    if not inventory["exists"]:
+        print(f"{STATUS_BLOCKED}: MTBench dataset not found at {args.dataset}")
+        print("  Provide the JSONL the loader reads "
+              "{question, reference?, turn2_question?, category?}.")
+        print("  No dataset is downloaded, fabricated or substituted.")
+        raise SystemExit(2)
+    if inventory["status"] == STATUS_BLOCKED:
+        print(f"{STATUS_BLOCKED}: {args.dataset} "
+              f"({inventory['rows']} rows, missing {inventory['missing_fields']})")
+        raise SystemExit(2)
 
     examples = load_mtbench_jsonl(args.dataset)
     if args.limit:

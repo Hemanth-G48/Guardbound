@@ -31,6 +31,8 @@ _project_root = str(Path(__file__).resolve().parent.parent)
 if _project_root not in sys.path:
     sys.path.insert(0, _project_root)
 
+import _cloud_common as common  # noqa: E402
+
 
 def parse_args():
     parser = argparse.ArgumentParser(
@@ -105,7 +107,22 @@ def parse_args():
         action="store_true",
         help="Show what would be executed without running",
     )
+    common.add_paid_authorization_args(parser)
     return parser.parse_args()
+
+
+def target_llm_namespace(args):
+    """Namespaces for the delegated run_attacks client factory.
+
+    Phase 45 (P2-2): forward the authorization paths instead of dropping them.
+    A dry run uses the mock path so no paid client is constructed.
+    """
+    return argparse.Namespace(
+        mock=bool(args.dry_run),
+        target=args.target,
+        qualification_report=args.qualification_report,
+        review_decision=args.review_decision,
+    )
 
 
 def main():
@@ -138,10 +155,7 @@ def main():
     print(f"\nLoaded {len(goals_data)} goals")
 
     attack = get_attack("crescendo")
-    target_llm = make_target_llm(argparse.Namespace(
-        mock=False,
-        target=args.target,
-    ))
+    target_llm = make_target_llm(target_llm_namespace(args))
     barrier = make_barrier(argparse.Namespace(barrier_checkpoint=args.barrier_checkpoint)) if args.mode == "nbf" else None
     embed_fn = make_embed_fn(argparse.Namespace(barrier_checkpoint=args.barrier_checkpoint, mock=False, embedding=args.embedding)) if args.mode == "nbf" else None
 

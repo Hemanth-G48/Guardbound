@@ -7,6 +7,7 @@ pytest>=7.0
 
 # LLM backends (Phase 1 clients; lazy-imported so core works without them)
 openai>=1.30
+httpx>=0.23          # transport; also used by tests/test_cloud_*.py to fake the endpoint
 anthropic>=0.30
 transformers>=4.40   # local HF targets: Llama-3-8b-instruct, Phi-4
 torch>=2.1           # required by transformers/sentence-transformers

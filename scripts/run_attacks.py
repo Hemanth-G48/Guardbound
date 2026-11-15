@@ -71,6 +71,8 @@ _project_root = str(Path(__file__).resolve().parent.parent)
 if _project_root not in sys.path:
     sys.path.insert(0, _project_root)
 
+import _cloud_common as common  # noqa: E402
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
@@ -175,6 +177,7 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Use backtracking runner for paper-style attacks (crescendo_paper)",
     )
+    common.add_paid_authorization_args(parser)
     return parser.parse_args()
 
 
@@ -209,8 +212,7 @@ def make_target_llm(args: argparse.Namespace):
     target = args.target.lower()
 
     if "gpt" in target or "o1" in target or "chatgpt" in target:
-        from guardbound.llm.openai_client import OpenAIChatLLM
-        return OpenAIChatLLM(model=args.target)
+        return common.build_paid_chat_llm(args.target, args=args)
 
     if "claude" in target or "anthropic" in target:
         from guardbound.llm.anthropic_client import AnthropicChatLLM
@@ -237,8 +239,7 @@ def make_attacker_llm(args: argparse.Namespace):
     attacker = args.attacker.lower()
 
     if "gpt" in attacker or "o1" in attacker or "chatgpt" in attacker:
-        from guardbound.llm.openai_client import OpenAIChatLLM
-        return OpenAIChatLLM(model=args.attacker)
+        return common.build_paid_chat_llm(args.attacker, args=args)
 
     if "claude" in attacker or "anthropic" in attacker:
         from guardbound.llm.anthropic_client import AnthropicChatLLM
@@ -249,8 +250,7 @@ def make_attacker_llm(args: argparse.Namespace):
         return OllamaChatLLM(model=args.attacker.replace("ollama/", ""))
 
     # Default to OpenAI if it looks like a model name
-    from guardbound.llm.openai_client import OpenAIChatLLM
-    return OpenAIChatLLM(model=args.attacker)
+    return common.build_paid_chat_llm(args.attacker, args=args)
 
 
 def make_barrier(args: argparse.Namespace):

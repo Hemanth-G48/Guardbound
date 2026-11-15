@@ -272,6 +272,9 @@ def compute_asr(verdicts: Iterable[ASRVerdict]) -> dict[str, Any]:
         "total_behaviors": total,
         "successful_behaviors": successes,
         "asr": asr,
+        # False when there is no denominator: ASR is undefined, not 0%. Callers
+        # that report a number must refuse to do so in that case.
+        "asr_defined": total > 0,
         "by_attack": by_attack_out,
     }
 

@@ -28,6 +28,8 @@ _project_root = str(Path(__file__).resolve().parent.parent)
 if _project_root not in sys.path:
     sys.path.insert(0, _project_root)
 
+import _cloud_common as common  # noqa: E402
+
 
 def load_dotenv():
     """Load environment variables from .env file."""
@@ -78,6 +80,7 @@ def parse_args():
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--temperature", type=float, default=0.7,
                         help="Temperature for generation (paper: 0.7)")
+    common.add_paid_authorization_args(parser)
     return parser.parse_args()
 
 
@@ -87,17 +90,15 @@ def print_section(title: str):
     print("=" * 70)
 
 
-def setup_target_model(model_name: str):
+def setup_target_model(model_name: str, args=None):
     """Set up target model client based on provider."""
     config = TARGET_MODELS[model_name]
     provider = config["provider"]
     model_id = config["model_id"]
 
     if provider == "openai":
-        api_key = os.environ.get("OPENAI_API_KEY", "")
-        base_url = os.environ.get("OPENAI_BASE_URL", "https://api.openai.com/v1")
-        from guardbound.llm.openai_client import OpenAIChatLLM
-        return OpenAIChatLLM(model_id=model_id, api_key_env=None)
+        return common.build_paid_chat_llm(
+            model_id, args=args, model_kwargs={"api_key_env": None})
 
     elif provider == "anthropic":
         api_key = os.environ.get("ANTHROPIC_API_KEY", "")
@@ -111,11 +112,9 @@ def setup_target_model(model_name: str):
     raise ValueError(f"Unknown provider: {provider}")
 
 
-def setup_judge_model():
+def setup_judge_model(args=None):
     """Set up GPT-4o judge model."""
-    api_key = os.environ.get("OPENAI_API_KEY", "")
-    from guardbound.llm.openai_client import OpenAIChatLLM
-    return OpenAIChatLLM(model_id="gpt-4o-2024-08-06")
+    return common.build_paid_chat_llm("gpt-4o-2024-08-06", args=args)
 
 
 def load_nbf(dynamics_dir: str, nbf_checkpoint: str):
@@ -487,6 +486,12 @@ def main():
     print(f"  NBF steering: {'Enabled' if args.with_nbf else 'Disabled'}")
     print(f"  Temperature: {args.temperature}")
 
+    # Phase 43 (P0-1): authorize before the key is read or a client is built.
+    if not args.dry_run:
+        common.guard_paid_model(
+            TARGET_MODELS[args.target_model]["model_id"], args)
+        common.guard_paid_model("gpt-4o-2024-08-06", args)
+
     api_key = os.environ.get("OPENAI_API_KEY", "")
     if not api_key or api_key == "your_openai_api_key_here":
         if args.dry_run:
@@ -527,8 +532,8 @@ def main():
             print(f"\n  [FAIL] Dry run failed: {e}")
             return 1
 
-    target_llm = setup_target_model(args.target_model)
-    judge_llm = setup_judge_model()
+    target_llm = setup_target_model(args.target_model, args)
+    judge_llm = setup_judge_model(args)
 
     barrier, embed_fn = None, None
     if args.with_nbf:

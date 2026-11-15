@@ -13,6 +13,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
+import _cloud_common as common  # noqa: E402
+
 import torch
 
 from guardbound.config import load_config
@@ -48,6 +50,7 @@ def main() -> int:
     parser.add_argument("--max-turns", type=int, default=8)
     parser.add_argument("--config", default="configs/default.yaml")
     parser.add_argument("-v", "--verbose", action="store_true")
+    common.add_paid_authorization_args(parser)
     args = parser.parse_args()
 
     setup_logging(level=__import__("logging").DEBUG if args.verbose else __import__("logging").INFO)
@@ -81,8 +84,8 @@ def main() -> int:
             Path(args.dynamics_dir), Path(args.predictor_path),
         )
 
-        from guardbound.llm import OpenAIChatLLM
-        target_llm = OpenAIChatLLM("gpt-3.5-turbo-0125")
+        target_llm = common.build_paid_chat_llm(
+            "gpt-3.5-turbo-0125", args=args)
 
         from guardbound.embeddings import SentenceEmbedder
         emb = SentenceEmbedder("all-mpnet-base-v2")
