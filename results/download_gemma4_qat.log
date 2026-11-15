@@ -1,0 +1,7 @@
+[dl] downloading Qwen/Qwen3.5-4B ...
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|##########| 9/9 [00:00<?, ?it/s]
+[dl] DONE Qwen/Qwen3.5-4B -> C:\Users\CSLAB\.cache\huggingface\hub\models--Qwen--Qwen3.5-4B\snapshots\851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a (0.0 min)
+[dl] downloading google/gemma-4-12B-it-qat-w4a16-ct ...
+Fetching 6 files:   0%|          | 0/6 [00:00<?, ?it/s]Fetching 6 files:  33%|###3      | 2/6 [00:00<00:01,  2.46it/s]Fetching 6 files:  67%|######6   | 4/6 [00:01<00:00,  2.51it/s]Fetching 6 files:  83%|########3 | 5/6 [00:13<00:03,  3.77s/it]Fetching 6 files: 100%|##########| 6/6 [02:26<00:00, 42.32s/it]Fetching 6 files: 100%|##########| 6/6 [02:26<00:00, 24.49s/it]
+[dl] DONE google/gemma-4-12B-it-qat-w4a16-ct -> C:\Users\CSLAB\.cache\huggingface\hub\models--google--gemma-4-12B-it-qat-w4a16-ct\snapshots\1d2c2d7f2466070e69d6fb3fd5ce9a7d75f2f6ee (2.5 min)
+[dl] ALL COMPLETE

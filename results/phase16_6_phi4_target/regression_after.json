@@ -1,0 +1,26 @@
+{
+  "phase": "16.6",
+  "command": "python -m pytest tests/ -q --no-header",
+  "result": "728 passed",
+  "failed": 0,
+  "wall_clock_s": 97.94,
+  "baseline_expectation": "728 passed (Phase 16.5 end state)",
+  "delta": 0,
+  "interpretation": "no regression - no production code was modified in this phase, so the suite is bit-for-bit the Phase 16.5 state",
+  "areas_verified_unchanged_by_construction": {
+    "qwen_attacker": "unchanged - provider_factory / local_client not touched in 16.6",
+    "llama_evaluator": "unchanged - same",
+    "glm_backend": "unchanged - glm4v_client / multimodal_client not touched",
+    "ornith_backend": "unchanged - ornith15_client not touched",
+    "attack_parity": "unchanged - attacks/ not touched; parity tests pass",
+    "nbf_parity": "unchanged - models/ not touched; parity tests pass",
+    "f2_classification": "unchanged - as fixed in Phase 16.5; its 18 focused tests pass",
+    "f3_explicit_sampling": "unchanged - as fixed in Phase 16.5; its 3 focused tests pass",
+    "model_switching": "unchanged - model_manager not touched",
+    "gpu_residency_invariant": "unchanged - model_manager not touched",
+    "track_a_files": "unchanged - verified by SHA256"
+  },
+  "unrelated_failures_investigated": 0,
+  "unrelated_failures_suppressed": 0,
+  "new_phi4_tests": "none written - there is no loadable Phi-4 target to test; writing tests against an unloadable model would assert nothing"
+}

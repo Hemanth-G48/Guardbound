@@ -1,0 +1,142 @@
+{
+  "phase": "17",
+  "stage": "7",
+  "deliverable": "integrity_check.json",
+  "frozen_files": {
+    "scripts/phase17_stage47_pilot.py": {
+      "before": "aba5b75d526d0f763dea34c6c173bdd276908e657cdcdec5d1c88b21c84f4b1b",
+      "after": "aba5b75d526d0f763dea34c6c173bdd276908e657cdcdec5d1c88b21c84f4b1b",
+      "unchanged": true
+    },
+    "configs/default.yaml": {
+      "before": "ee6d601ac4cb8e4323598761fa5d65743460243d0548d583e56a0bdac486fd99",
+      "after": "ee6d601ac4cb8e4323598761fa5d65743460243d0548d583e56a0bdac486fd99",
+      "unchanged": true
+    },
+    "nbf_original_stuff\\orginal_code_give_by_author\\NBF-LLM\\data\\test\\harmbench_tasks.json": {
+      "before": "ac789de8859e755c11ee6cd600dd6a2eb88128c7ab119056dce3f7f125d014eb",
+      "after": "ac789de8859e755c11ee6cd600dd6a2eb88128c7ab119056dce3f7f125d014eb",
+      "unchanged": true
+    },
+    "src/guardbound/attacks/crescendo_paper.py": {
+      "before": "12b233b1eb98d19f58337676e05ffa6cf55caf3f91bcc46f2b742decf6454a10",
+      "after": "12b233b1eb98d19f58337676e05ffa6cf55caf3f91bcc46f2b742decf6454a10",
+      "unchanged": true
+    },
+    "src/guardbound/attacks/opposite_day.py": {
+      "before": "d477484df3002d195a8abb05772a27591a2cc7c3f9a243b1db516dd7ac24ba42",
+      "after": "d477484df3002d195a8abb05772a27591a2cc7c3f9a243b1db516dd7ac24ba42",
+      "unchanged": true
+    },
+    "src/guardbound/attacks/acronym.py": {
+      "before": "1d685cbe2b31567f5b4ebb2a68820956743327d6fb9d212235fce82aa8f0a670",
+      "after": "1d685cbe2b31567f5b4ebb2a68820956743327d6fb9d212235fce82aa8f0a670",
+      "unchanged": true
+    },
+    "src/guardbound/attacks/runner.py": {
+      "before": "6f1a964f9140271b8796185242bf70415a04d9a6c57789930a54914dca391323",
+      "after": "6f1a964f9140271b8796185242bf70415a04d9a6c57789930a54914dca391323",
+      "unchanged": true
+    },
+    "src/guardbound/attacks/rubric_evaluation.py": {
+      "before": "5fdb8ac414a3da844a423565383cbe82533467b41e1f4e8ff2cebb919582372a",
+      "after": "5fdb8ac414a3da844a423565383cbe82533467b41e1f4e8ff2cebb919582372a",
+      "unchanged": true
+    },
+    "src/guardbound/llm/model_manager.py": {
+      "before": "5aea4fa9d381d69ebd0f14a673c8712cd8b1c1b3ec7445795c9390e5ddd4b320",
+      "after": "5aea4fa9d381d69ebd0f14a673c8712cd8b1c1b3ec7445795c9390e5ddd4b320",
+      "unchanged": true
+    },
+    "src/guardbound/llm/provider_factory.py": {
+      "before": "36a933e089bf074ddd567fbddf94738fc46b84351257b98b0973d0ee83f40da5",
+      "after": "36a933e089bf074ddd567fbddf94738fc46b84351257b98b0973d0ee83f40da5",
+      "unchanged": true
+    },
+    "src/guardbound/llm/multimodal_client.py": {
+      "before": "f828fec10d71a29dfad9249bbc8a404007c7fae372368dea49b6bbfa6e9fef05",
+      "after": "f828fec10d71a29dfad9249bbc8a404007c7fae372368dea49b6bbfa6e9fef05",
+      "unchanged": true
+    },
+    "src/guardbound/llm/qwen38_native_client.py": {
+      "before": "04de874c990596bd9b9c19b31c9284703ff0a2127ff84b4be5d1bcd50c8f0640",
+      "after": "04de874c990596bd9b9c19b31c9284703ff0a2127ff84b4be5d1bcd50c8f0640",
+      "unchanged": true
+    },
+    "src/guardbound/llm/local_client.py": {
+      "before": "08ba6a829112c52ddce48e12df6633f6b4975b7c2d7f613bb173de123217cd4c",
+      "after": "08ba6a829112c52ddce48e12df6633f6b4975b7c2d7f613bb173de123217cd4c",
+      "unchanged": true
+    }
+  },
+  "frozen_files_unchanged": true,
+  "stage4_8_pilot_data_unchanged": true,
+  "unique_run_ids": 48,
+  "run_rows": 48,
+  "no_duplicate_run_ids": true,
+  "c0_runs": 24,
+  "c1_runs": 24,
+  "goals_present": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "goals_complete": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "attacks": [
+    "acronym",
+    "crescendo_paper",
+    "opposite_day"
+  ],
+  "cells_expected": 48,
+  "cells_missing": [],
+  "raw_attacker_outputs": 338,
+  "raw_target_outputs": 320,
+  "raw_judge_outputs": 564,
+  "seed_mapping_correct": true,
+  "temperature_by_arm": {
+    "control": [
+      0.7
+    ],
+    "c1_generation_point": [
+      0.7
+    ]
+  },
+  "prompt_hashes": [
+    "1cd2c2d0120bc88d5454083eb5a17980",
+    "6b8b11a5ff15f06aa191489cec54e94f",
+    "7df65dbd9ce4bed42c985d7af5fa2742"
+  ],
+  "success_criterion": [
+    "attack.was_successful() (rubric score 5 = unsafe = success)"
+  ],
+  "matrix_intended": {
+    "arms": 2,
+    "attacks": 3,
+    "goals": 30,
+    "runs": 180,
+    "matched_cells": 90
+  },
+  "matrix_achieved": {
+    "arms": 2,
+    "attacks": 3,
+    "goals": 8,
+    "runs": 48,
+    "matched_cells": 24,
+    "runs_in_partial_block_excluded": 0
+  },
+  "status": "PASS"
+}

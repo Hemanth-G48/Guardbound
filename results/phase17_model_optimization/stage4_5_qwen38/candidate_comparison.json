@@ -1,0 +1,948 @@
+{
+  "phase": "17",
+  "stage": "4.5",
+  "deliverable": "candidate_comparison.json",
+  "control": {
+    "candidate_id": "stage4_control",
+    "contract_valid_rate": 0.9467,
+    "semantically_usable_rate": 0.94,
+    "empty_query_rate": 0.0067,
+    "prose_failure": 8,
+    "n": 150,
+    "multi_turn_survival_rate": 0.7667,
+    "usable_run_rate": 0.6667,
+    "mean_completed_turns": 1.267,
+    "latency_s_mean": 11.035,
+    "peak_vram_gib": 17.927
+  },
+  "candidates": {
+    "A0": {
+      "stage": "A",
+      "summary": {
+        "n": 45,
+        "contract_valid": 41,
+        "contract_valid_rate": 0.9111,
+        "direct_json": 40,
+        "frozen_extraction": 1,
+        "json_parse_error": 4,
+        "empty_query": 2,
+        "empty_query_rate": 0.0444,
+        "semantically_usable": 39,
+        "semantically_usable_rate": 0.8667,
+        "prose_failure": 4,
+        "failure_shapes": {
+          "prose": 4
+        },
+        "categories": {
+          "VALID_DIRECT_JSON": 40,
+          "JSON_PARSE_ERROR": 4,
+          "VALID_FROZEN_EXTRACTION": 1
+        },
+        "latency_s": {
+          "mean": 9.75,
+          "median": 9.777,
+          "max": 17.476
+        },
+        "generated_tokens": {
+          "mean": 76.6,
+          "min": 16,
+          "max": 150
+        },
+        "question_chars": {
+          "n": 39,
+          "mean": 271.3,
+          "min": 94,
+          "max": 617
+        }
+      },
+      "contract_valid_ci95": [
+        0.7927,
+        0.9649
+      ],
+      "usable_ci95": [
+        0.7382,
+        0.9374
+      ],
+      "question_metrics": {
+        "n": 39,
+        "mean_chars": 271.3,
+        "median_chars": 255,
+        "distinct_question_ratio": 1.0,
+        "mean_goal_token_overlap": 0.2355,
+        "note": "descriptive only: length, distinctness and lexical overlap with the goal. None of these is a quality score, and a candidate is not preferred because of them."
+      },
+      "diversity_metrics": {
+        "n": 39,
+        "unique_questions": 39,
+        "unique_question_rate": 1.0,
+        "unique_openings": 36,
+        "mean_pairwise_jaccard": 0.0302,
+        "note": "descriptive: lower Jaccard means more varied questions. Reported so a sampling candidate cannot be selected for a validity gain that came from collapsing generation diversity."
+      },
+      "temperature": 0.7,
+      "top_p": 1.0,
+      "prompt_variant": "A0_control",
+      "structured_output_mode": null
+    },
+    "A1": {
+      "stage": "A",
+      "summary": {
+        "n": 45,
+        "contract_valid": 45,
+        "contract_valid_rate": 1.0,
+        "direct_json": 45,
+        "frozen_extraction": 0,
+        "json_parse_error": 0,
+        "empty_query": 1,
+        "empty_query_rate": 0.0222,
+        "semantically_usable": 44,
+        "semantically_usable_rate": 0.9778,
+        "prose_failure": 0,
+        "failure_shapes": {},
+        "categories": {
+          "VALID_DIRECT_JSON": 45
+        },
+        "latency_s": {
+          "mean": 10.01,
+          "median": 10.293,
+          "max": 17.726
+        },
+        "generated_tokens": {
+          "mean": 78.1,
+          "min": 30,
+          "max": 133
+        },
+        "question_chars": {
+          "n": 44,
+          "mean": 245.4,
+          "min": 67,
+          "max": 540
+        }
+      },
+      "contract_valid_ci95": [
+        0.9213,
+        1.0
+      ],
+      "usable_ci95": [
+        0.8843,
+        0.9961
+      ],
+      "question_metrics": {
+        "n": 44,
+        "mean_chars": 245.4,
+        "median_chars": 217.5,
+        "distinct_question_ratio": 1.0,
+        "mean_goal_token_overlap": 0.2049,
+        "note": "descriptive only: length, distinctness and lexical overlap with the goal. None of these is a quality score, and a candidate is not preferred because of them."
+      },
+      "diversity_metrics": {
+        "n": 44,
+        "unique_questions": 44,
+        "unique_question_rate": 1.0,
+        "unique_openings": 41,
+        "mean_pairwise_jaccard": 0.0318,
+        "note": "descriptive: lower Jaccard means more varied questions. Reported so a sampling candidate cannot be selected for a validity gain that came from collapsing generation diversity."
+      },
+      "temperature": 0.7,
+      "top_p": 1.0,
+      "prompt_variant": "A1_json_object_statement",
+      "structured_output_mode": null
+    },
+    "A2": {
+      "stage": "A",
+      "summary": {
+        "n": 45,
+        "contract_valid": 45,
+        "contract_valid_rate": 1.0,
+        "direct_json": 45,
+        "frozen_extraction": 0,
+        "json_parse_error": 0,
+        "empty_query": 1,
+        "empty_query_rate": 0.0222,
+        "semantically_usable": 44,
+        "semantically_usable_rate": 0.9778,
+        "prose_failure": 0,
+        "failure_shapes": {},
+        "categories": {
+          "VALID_DIRECT_JSON": 45
+        },
+        "latency_s": {
+          "mean": 9.877,
+          "median": 9.423,
+          "max": 18.752
+        },
+        "generated_tokens": {
+          "mean": 78.5,
+          "min": 33,
+          "max": 175
+        },
+        "question_chars": {
+          "n": 44,
+          "mean": 249.4,
+          "min": 101,
+          "max": 634
+        }
+      },
+      "contract_valid_ci95": [
+        0.9213,
+        1.0
+      ],
+      "usable_ci95": [
+        0.8843,
+        0.9961
+      ],
+      "question_metrics": {
+        "n": 44,
+        "mean_chars": 249.4,
+        "median_chars": 213.5,
+        "distinct_question_ratio": 1.0,
+        "mean_goal_token_overlap": 0.2345,
+        "note": "descriptive only: length, distinctness and lexical overlap with the goal. None of these is a quality score, and a candidate is not preferred because of them."
+      },
+      "diversity_metrics": {
+        "n": 44,
+        "unique_questions": 44,
+        "unique_question_rate": 1.0,
+        "unique_openings": 39,
+        "mean_pairwise_jaccard": 0.0321,
+        "note": "descriptive: lower Jaccard means more varied questions. Reported so a sampling candidate cannot be selected for a validity gain that came from collapsing generation diversity."
+      },
+      "temperature": 0.7,
+      "top_p": 1.0,
+      "prompt_variant": "A2_field_schema",
+      "structured_output_mode": null
+    },
+    "A3": {
+      "stage": "A",
+      "summary": {
+        "n": 45,
+        "contract_valid": 43,
+        "contract_valid_rate": 0.9556,
+        "direct_json": 43,
+        "frozen_extraction": 0,
+        "json_parse_error": 2,
+        "empty_query": 2,
+        "empty_query_rate": 0.0444,
+        "semantically_usable": 41,
+        "semantically_usable_rate": 0.9111,
+        "prose_failure": 2,
+        "failure_shapes": {
+          "prose": 2
+        },
+        "categories": {
+          "VALID_DIRECT_JSON": 43,
+          "JSON_PARSE_ERROR": 2
+        },
+        "latency_s": {
+          "mean": 9.019,
+          "median": 8.942,
+          "max": 14.009
+        },
+        "generated_tokens": {
+          "mean": 68.1,
+          "min": 12,
+          "max": 118
+        },
+        "question_chars": {
+          "n": 41,
+          "mean": 220.6,
+          "min": 64,
+          "max": 478
+        }
+      },
+      "contract_valid_ci95": [
+        0.8517,
+        0.9877
+      ],
+      "usable_ci95": [
+        0.7927,
+        0.9649
+      ],
+      "question_metrics": {
+        "n": 41,
+        "mean_chars": 220.6,
+        "median_chars": 214,
+        "distinct_question_ratio": 1.0,
+        "mean_goal_token_overlap": 0.2516,
+        "note": "descriptive only: length, distinctness and lexical overlap with the goal. None of these is a quality score, and a candidate is not preferred because of them."
+      },
+      "diversity_metrics": {
+        "n": 41,
+        "unique_questions": 41,
+        "unique_question_rate": 1.0,
+        "unique_openings": 34,
+        "mean_pairwise_jaccard": 0.0343,
+        "note": "descriptive: lower Jaccard means more varied questions. Reported so a sampling candidate cannot be selected for a validity gain that came from collapsing generation diversity."
+      },
+      "temperature": 0.7,
+      "top_p": 1.0,
+      "prompt_variant": "A3_schema_with_example",
+      "structured_output_mode": null
+    },
+    "B0": {
+      "stage": "B",
+      "summary": {
+        "n": 30,
+        "contract_valid": 30,
+        "contract_valid_rate": 1.0,
+        "direct_json": 30,
+        "frozen_extraction": 0,
+        "json_parse_error": 0,
+        "empty_query": 1,
+        "empty_query_rate": 0.0333,
+        "semantically_usable": 29,
+        "semantically_usable_rate": 0.9667,
+        "prose_failure": 0,
+        "failure_shapes": {},
+        "categories": {
+          "VALID_DIRECT_JSON": 30
+        },
+        "latency_s": {
+          "mean": 9.907,
+          "median": 9.966,
+          "max": 15.28
+        },
+        "generated_tokens": {
+          "mean": 78.9,
+          "min": 38,
+          "max": 133
+        },
+        "question_chars": {
+          "n": 29,
+          "mean": 251.0,
+          "min": 113,
+          "max": 470
+        }
+      },
+      "contract_valid_ci95": [
+        0.8865,
+        1.0
+      ],
+      "usable_ci95": [
+        0.8333,
+        0.9941
+      ],
+      "question_metrics": {
+        "n": 29,
+        "mean_chars": 251.0,
+        "median_chars": 221,
+        "distinct_question_ratio": 1.0,
+        "mean_goal_token_overlap": 0.2201,
+        "note": "descriptive only: length, distinctness and lexical overlap with the goal. None of these is a quality score, and a candidate is not preferred because of them."
+      },
+      "diversity_metrics": {
+        "n": 29,
+        "unique_questions": 29,
+        "unique_question_rate": 1.0,
+        "unique_openings": 27,
+        "mean_pairwise_jaccard": 0.0309,
+        "note": "descriptive: lower Jaccard means more varied questions. Reported so a sampling candidate cannot be selected for a validity gain that came from collapsing generation diversity."
+      },
+      "temperature": 0.7,
+      "top_p": 1.0,
+      "prompt_variant": "A1_json_object_statement",
+      "structured_output_mode": null
+    },
+    "B1": {
+      "stage": "B",
+      "summary": {
+        "n": 30,
+        "contract_valid": 30,
+        "contract_valid_rate": 1.0,
+        "direct_json": 30,
+        "frozen_extraction": 0,
+        "json_parse_error": 0,
+        "empty_query": 1,
+        "empty_query_rate": 0.0333,
+        "semantically_usable": 29,
+        "semantically_usable_rate": 0.9667,
+        "prose_failure": 0,
+        "failure_shapes": {},
+        "categories": {
+          "VALID_DIRECT_JSON": 30
+        },
+        "latency_s": {
+          "mean": 9.327,
+          "median": 9.47,
+          "max": 16.454
+        },
+        "generated_tokens": {
+          "mean": 72.5,
+          "min": 38,
+          "max": 136
+        },
+        "question_chars": {
+          "n": 29,
+          "mean": 228.2,
+          "min": 72,
+          "max": 597
+        }
+      },
+      "contract_valid_ci95": [
+        0.8865,
+        1.0
+      ],
+      "usable_ci95": [
+        0.8333,
+        0.9941
+      ],
+      "question_metrics": {
+        "n": 29,
+        "mean_chars": 228.2,
+        "median_chars": 198,
+        "distinct_question_ratio": 1.0,
+        "mean_goal_token_overlap": 0.2615,
+        "note": "descriptive only: length, distinctness and lexical overlap with the goal. None of these is a quality score, and a candidate is not preferred because of them."
+      },
+      "diversity_metrics": {
+        "n": 29,
+        "unique_questions": 29,
+        "unique_question_rate": 1.0,
+        "unique_openings": 25,
+        "mean_pairwise_jaccard": 0.0311,
+        "note": "descriptive: lower Jaccard means more varied questions. Reported so a sampling candidate cannot be selected for a validity gain that came from collapsing generation diversity."
+      },
+      "temperature": 0.5,
+      "top_p": 1.0,
+      "prompt_variant": "A1_json_object_statement",
+      "structured_output_mode": null
+    },
+    "B2": {
+      "stage": "B",
+      "summary": {
+        "n": 30,
+        "contract_valid": 30,
+        "contract_valid_rate": 1.0,
+        "direct_json": 30,
+        "frozen_extraction": 0,
+        "json_parse_error": 0,
+        "empty_query": 0,
+        "empty_query_rate": 0.0,
+        "semantically_usable": 30,
+        "semantically_usable_rate": 1.0,
+        "prose_failure": 0,
+        "failure_shapes": {},
+        "categories": {
+          "VALID_DIRECT_JSON": 30
+        },
+        "latency_s": {
+          "mean": 9.524,
+          "median": 9.212,
+          "max": 16.736
+        },
+        "generated_tokens": {
+          "mean": 74.9,
+          "min": 37,
+          "max": 147
+        },
+        "question_chars": {
+          "n": 30,
+          "mean": 228.9,
+          "min": 72,
+          "max": 544
+        }
+      },
+      "contract_valid_ci95": [
+        0.8865,
+        1.0
+      ],
+      "usable_ci95": [
+        0.8865,
+        1.0
+      ],
+      "question_metrics": {
+        "n": 30,
+        "mean_chars": 228.9,
+        "median_chars": 214.5,
+        "distinct_question_ratio": 1.0,
+        "mean_goal_token_overlap": 0.2939,
+        "note": "descriptive only: length, distinctness and lexical overlap with the goal. None of these is a quality score, and a candidate is not preferred because of them."
+      },
+      "diversity_metrics": {
+        "n": 30,
+        "unique_questions": 30,
+        "unique_question_rate": 1.0,
+        "unique_openings": 27,
+        "mean_pairwise_jaccard": 0.0316,
+        "note": "descriptive: lower Jaccard means more varied questions. Reported so a sampling candidate cannot be selected for a validity gain that came from collapsing generation diversity."
+      },
+      "temperature": 0.3,
+      "top_p": 1.0,
+      "prompt_variant": "A1_json_object_statement",
+      "structured_output_mode": null
+    },
+    "B3": {
+      "stage": "B",
+      "summary": {
+        "n": 30,
+        "contract_valid": 30,
+        "contract_valid_rate": 1.0,
+        "direct_json": 30,
+        "frozen_extraction": 0,
+        "json_parse_error": 0,
+        "empty_query": 1,
+        "empty_query_rate": 0.0333,
+        "semantically_usable": 29,
+        "semantically_usable_rate": 0.9667,
+        "prose_failure": 0,
+        "failure_shapes": {},
+        "categories": {
+          "VALID_DIRECT_JSON": 30
+        },
+        "latency_s": {
+          "mean": 9.512,
+          "median": 9.617,
+          "max": 15.921
+        },
+        "generated_tokens": {
+          "mean": 72.9,
+          "min": 38,
+          "max": 119
+        },
+        "question_chars": {
+          "n": 29,
+          "mean": 224.7,
+          "min": 119,
+          "max": 431
+        }
+      },
+      "contract_valid_ci95": [
+        0.8865,
+        1.0
+      ],
+      "usable_ci95": [
+        0.8333,
+        0.9941
+      ],
+      "question_metrics": {
+        "n": 29,
+        "mean_chars": 224.7,
+        "median_chars": 199,
+        "distinct_question_ratio": 1.0,
+        "mean_goal_token_overlap": 0.2282,
+        "note": "descriptive only: length, distinctness and lexical overlap with the goal. None of these is a quality score, and a candidate is not preferred because of them."
+      },
+      "diversity_metrics": {
+        "n": 29,
+        "unique_questions": 29,
+        "unique_question_rate": 1.0,
+        "unique_openings": 27,
+        "mean_pairwise_jaccard": 0.0319,
+        "note": "descriptive: lower Jaccard means more varied questions. Reported so a sampling candidate cannot be selected for a validity gain that came from collapsing generation diversity."
+      },
+      "temperature": 0.7,
+      "top_p": 0.9,
+      "prompt_variant": "A1_json_object_statement",
+      "structured_output_mode": null
+    },
+    "B4": {
+      "stage": "B",
+      "summary": {
+        "n": 30,
+        "contract_valid": 30,
+        "contract_valid_rate": 1.0,
+        "direct_json": 30,
+        "frozen_extraction": 0,
+        "json_parse_error": 0,
+        "empty_query": 0,
+        "empty_query_rate": 0.0,
+        "semantically_usable": 30,
+        "semantically_usable_rate": 1.0,
+        "prose_failure": 0,
+        "failure_shapes": {},
+        "categories": {
+          "VALID_DIRECT_JSON": 30
+        },
+        "latency_s": {
+          "mean": 9.962,
+          "median": 10.36,
+          "max": 15.016
+        },
+        "generated_tokens": {
+          "mean": 76.7,
+          "min": 38,
+          "max": 131
+        },
+        "question_chars": {
+          "n": 30,
+          "mean": 242.0,
+          "min": 72,
+          "max": 505
+        }
+      },
+      "contract_valid_ci95": [
+        0.8865,
+        1.0
+      ],
+      "usable_ci95": [
+        0.8865,
+        1.0
+      ],
+      "question_metrics": {
+        "n": 30,
+        "mean_chars": 242.0,
+        "median_chars": 212.5,
+        "distinct_question_ratio": 1.0,
+        "mean_goal_token_overlap": 0.3283,
+        "note": "descriptive only: length, distinctness and lexical overlap with the goal. None of these is a quality score, and a candidate is not preferred because of them."
+      },
+      "diversity_metrics": {
+        "n": 30,
+        "unique_questions": 30,
+        "unique_question_rate": 1.0,
+        "unique_openings": 26,
+        "mean_pairwise_jaccard": 0.0351,
+        "note": "descriptive: lower Jaccard means more varied questions. Reported so a sampling candidate cannot be selected for a validity gain that came from collapsing generation diversity."
+      },
+      "temperature": 0.5,
+      "top_p": 0.9,
+      "prompt_variant": "A1_json_object_statement",
+      "structured_output_mode": null
+    },
+    "B5": {
+      "stage": "B",
+      "summary": {
+        "n": 30,
+        "contract_valid": 30,
+        "contract_valid_rate": 1.0,
+        "direct_json": 30,
+        "frozen_extraction": 0,
+        "json_parse_error": 0,
+        "empty_query": 0,
+        "empty_query_rate": 0.0,
+        "semantically_usable": 30,
+        "semantically_usable_rate": 1.0,
+        "prose_failure": 0,
+        "failure_shapes": {},
+        "categories": {
+          "VALID_DIRECT_JSON": 30
+        },
+        "latency_s": {
+          "mean": 9.497,
+          "median": 8.806,
+          "max": 13.624
+        },
+        "generated_tokens": {
+          "mean": 74.4,
+          "min": 37,
+          "max": 116
+        },
+        "question_chars": {
+          "n": 30,
+          "mean": 229.0,
+          "min": 72,
+          "max": 421
+        }
+      },
+      "contract_valid_ci95": [
+        0.8865,
+        1.0
+      ],
+      "usable_ci95": [
+        0.8865,
+        1.0
+      ],
+      "question_metrics": {
+        "n": 30,
+        "mean_chars": 229.0,
+        "median_chars": 207.0,
+        "distinct_question_ratio": 1.0,
+        "mean_goal_token_overlap": 0.2517,
+        "note": "descriptive only: length, distinctness and lexical overlap with the goal. None of these is a quality score, and a candidate is not preferred because of them."
+      },
+      "diversity_metrics": {
+        "n": 30,
+        "unique_questions": 30,
+        "unique_question_rate": 1.0,
+        "unique_openings": 26,
+        "mean_pairwise_jaccard": 0.0347,
+        "note": "descriptive: lower Jaccard means more varied questions. Reported so a sampling candidate cannot be selected for a validity gain that came from collapsing generation diversity."
+      },
+      "temperature": 0.3,
+      "top_p": 0.9,
+      "prompt_variant": "A1_json_object_statement",
+      "structured_output_mode": null
+    },
+    "C0": {
+      "stage": "C",
+      "summary": {
+        "n": 30,
+        "contract_valid": 3,
+        "contract_valid_rate": 0.1,
+        "direct_json": 3,
+        "frozen_extraction": 0,
+        "json_parse_error": 25,
+        "empty_query": 0,
+        "empty_query_rate": 0.0,
+        "semantically_usable": 3,
+        "semantically_usable_rate": 0.1,
+        "prose_failure": 0,
+        "failure_shapes": {
+          "malformed_json": 25,
+          "truncated": 2
+        },
+        "categories": {
+          "JSON_PARSE_ERROR": 25,
+          "VALID_DIRECT_JSON": 3,
+          "TRUNCATED_OUTPUT": 2
+        },
+        "latency_s": {
+          "mean": 18.234,
+          "median": 11.297,
+          "max": 227.649
+        },
+        "generated_tokens": {
+          "mean": 140.7,
+          "min": 39,
+          "max": 1917
+        },
+        "question_chars": {
+          "n": 3,
+          "mean": 280,
+          "min": 113,
+          "max": 473
+        }
+      },
+      "contract_valid_ci95": [
+        0.0346,
+        0.2562
+      ],
+      "usable_ci95": [
+        0.0346,
+        0.2562
+      ],
+      "question_metrics": {
+        "n": 3,
+        "mean_chars": 280,
+        "median_chars": 254,
+        "distinct_question_ratio": 1.0,
+        "mean_goal_token_overlap": 0.3056,
+        "note": "descriptive only: length, distinctness and lexical overlap with the goal. None of these is a quality score, and a candidate is not preferred because of them."
+      },
+      "diversity_metrics": {
+        "n": 3,
+        "unique_questions": 3,
+        "unique_question_rate": 1.0,
+        "unique_openings": 3,
+        "mean_pairwise_jaccard": 0.0159,
+        "note": "descriptive: lower Jaccard means more varied questions. Reported so a sampling candidate cannot be selected for a validity gain that came from collapsing generation diversity."
+      },
+      "temperature": 0.7,
+      "top_p": 1.0,
+      "prompt_variant": "A1_json_object_statement",
+      "structured_output_mode": "constrained_json"
+    },
+    "MT_A1": {
+      "stage": "multiturn",
+      "multiturn": {
+        "runs": 10,
+        "runs_survived": 7,
+        "run_survival_rate": 0.7,
+        "run_survival_ci95": [
+          0.3968,
+          0.8922
+        ],
+        "usable_runs": 7,
+        "usable_run_rate": 0.7,
+        "usable_run_ci95": [
+          0.3968,
+          0.8922
+        ],
+        "attacker_calls": 22,
+        "attacker_calls_valid": 19,
+        "attacker_calls_usable": 19,
+        "empty_query_terminations": 0,
+        "attacker_failure_terminations": 3,
+        "mean_completed_turns": 1.2,
+        "target_calls": 19,
+        "target_eos": 19,
+        "judge_calls": 37,
+        "judge_failures": 0,
+        "peak_vram_gib": 17.927,
+        "wall_s_mean": 186.3
+      },
+      "configuration": {
+        "prompt_variant": "A1_json_object_statement",
+        "temperature": 0.7,
+        "top_p": 1.0
+      },
+      "isolated_source_candidate": "A1",
+      "isolated_reference": {
+        "n": 45,
+        "contract_valid": 45,
+        "contract_valid_rate": 1.0,
+        "direct_json": 45,
+        "frozen_extraction": 0,
+        "json_parse_error": 0,
+        "empty_query": 1,
+        "empty_query_rate": 0.0222,
+        "semantically_usable": 44,
+        "semantically_usable_rate": 0.9778,
+        "prose_failure": 0,
+        "failure_shapes": {},
+        "categories": {
+          "VALID_DIRECT_JSON": 45
+        },
+        "latency_s": {
+          "mean": 10.01,
+          "median": 10.293,
+          "max": 17.726
+        },
+        "generated_tokens": {
+          "mean": 78.1,
+          "min": 30,
+          "max": 133
+        },
+        "question_chars": {
+          "n": 44,
+          "mean": 245.4,
+          "min": 67,
+          "max": 540
+        }
+      }
+    },
+    "MT_B2": {
+      "stage": "multiturn",
+      "multiturn": {
+        "runs": 10,
+        "runs_survived": 10,
+        "run_survival_rate": 1.0,
+        "run_survival_ci95": [
+          0.7225,
+          1.0
+        ],
+        "usable_runs": 10,
+        "usable_run_rate": 1.0,
+        "usable_run_ci95": [
+          0.7225,
+          1.0
+        ],
+        "attacker_calls": 32,
+        "attacker_calls_valid": 32,
+        "attacker_calls_usable": 32,
+        "empty_query_terminations": 0,
+        "attacker_failure_terminations": 0,
+        "mean_completed_turns": 1.8,
+        "target_calls": 32,
+        "target_eos": 32,
+        "judge_calls": 59,
+        "judge_failures": 0,
+        "peak_vram_gib": 17.927,
+        "wall_s_mean": 292.7
+      },
+      "configuration": {
+        "prompt_variant": "A1_json_object_statement",
+        "temperature": 0.3,
+        "top_p": 1.0
+      },
+      "isolated_source_candidate": "B2",
+      "isolated_reference": {
+        "n": 30,
+        "contract_valid": 30,
+        "contract_valid_rate": 1.0,
+        "direct_json": 30,
+        "frozen_extraction": 0,
+        "json_parse_error": 0,
+        "empty_query": 0,
+        "empty_query_rate": 0.0,
+        "semantically_usable": 30,
+        "semantically_usable_rate": 1.0,
+        "prose_failure": 0,
+        "failure_shapes": {},
+        "categories": {
+          "VALID_DIRECT_JSON": 30
+        },
+        "latency_s": {
+          "mean": 9.524,
+          "median": 9.212,
+          "max": 16.736
+        },
+        "generated_tokens": {
+          "mean": 74.9,
+          "min": 37,
+          "max": 147
+        },
+        "question_chars": {
+          "n": 30,
+          "mean": 228.9,
+          "min": 72,
+          "max": 544
+        }
+      }
+    },
+    "MT_control": {
+      "stage": "multiturn",
+      "multiturn": {
+        "runs": 10,
+        "runs_survived": 6,
+        "run_survival_rate": 0.6,
+        "run_survival_ci95": [
+          0.3127,
+          0.8318
+        ],
+        "usable_runs": 6,
+        "usable_run_rate": 0.6,
+        "usable_run_ci95": [
+          0.3127,
+          0.8318
+        ],
+        "attacker_calls": 29,
+        "attacker_calls_valid": 25,
+        "attacker_calls_usable": 25,
+        "empty_query_terminations": 0,
+        "attacker_failure_terminations": 4,
+        "mean_completed_turns": 1.2,
+        "target_calls": 25,
+        "target_eos": 25,
+        "judge_calls": 45,
+        "judge_failures": 0,
+        "peak_vram_gib": 17.927,
+        "wall_s_mean": 228.3
+      },
+      "configuration": {
+        "prompt_variant": "A0_control",
+        "temperature": 0.7,
+        "top_p": 1.0
+      },
+      "isolated_source_candidate": "A0",
+      "isolated_reference": {
+        "n": 45,
+        "contract_valid": 41,
+        "contract_valid_rate": 0.9111,
+        "direct_json": 40,
+        "frozen_extraction": 1,
+        "json_parse_error": 4,
+        "empty_query": 2,
+        "empty_query_rate": 0.0444,
+        "semantically_usable": 39,
+        "semantically_usable_rate": 0.8667,
+        "prose_failure": 4,
+        "failure_shapes": {
+          "prose": 4
+        },
+        "categories": {
+          "VALID_DIRECT_JSON": 40,
+          "JSON_PARSE_ERROR": 4,
+          "VALID_FROZEN_EXTRACTION": 1
+        },
+        "latency_s": {
+          "mean": 9.75,
+          "median": 9.777,
+          "max": 17.476
+        },
+        "generated_tokens": {
+          "mean": 76.6,
+          "min": 16,
+          "max": 150
+        },
+        "question_chars": {
+          "n": 39,
+          "mean": 271.3,
+          "min": 94,
+          "max": 617
+        }
+      }
+    }
+  },
+  "comparison_rule": "A candidate is called better only on the specific metric where its measurement supports it, at the stated sample size. Differences within overlapping 95 % intervals are reported as not established."
+}

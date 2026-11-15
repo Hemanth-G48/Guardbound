@@ -1,0 +1,570 @@
+{
+  "phase": "16.1",
+  "model_id": "ornith-ai/Ornith-1.5-9B",
+  "revision": "489cb97981b8654bcfcf30ce1f94ed1b62e07b53",
+  "isolated_generations_per_config": 20,
+  "sequences_per_config": 8,
+  "turns_per_sequence": 3,
+  "configurations": {
+    "A_thinking_off_constrained": {
+      "enable_thinking": false,
+      "structured_output_mode": "constrained_json",
+      "backend_class": "Ornith15ChatLLM",
+      "load_seconds": 16.03,
+      "unload_seconds": 0.22,
+      "peak_vram_gb": 19.964,
+      "residency_telemetry": {
+        "loads": 1,
+        "evictions": 1,
+        "load_refusals": 0,
+        "max_resident_count": 1,
+        "oom": 0,
+        "cuda_errors": 0
+      },
+      "stage_a": {
+        "generations": 20,
+        "valid_json": 15,
+        "json_validity_rate": 0.75,
+        "malformed_syntax": 5,
+        "missing_required_field": 0,
+        "wrong_field_type": 0,
+        "empty": 0,
+        "reasoning_only": 0,
+        "reasoning_wrapper_present": 1,
+        "extra_text": 0,
+        "mean_latency_s": 7.18,
+        "max_latency_s": 16.93
+      },
+      "stage_b": {
+        "sequences": 8,
+        "turns_attempted": 14,
+        "turns_generated": 7,
+        "turn_completion_rate": 0.5,
+        "sequences_completed_all_turns": 2,
+        "sequence_completion_rate": 0.25,
+        "context_failures": 7,
+        "context_failure_rate": 0.5,
+        "valid_json_count": 7,
+        "malformed_syntax": 6,
+        "missing_required_field": 1,
+        "empty": 0,
+        "reasoning_only": 0,
+        "reasoning_wrapper_present": 0,
+        "extra_text": 0,
+        "empty_queries": 0,
+        "repeated_queries": 0,
+        "goal_preserved": true,
+        "ordering_correct": true,
+        "mean_latency_s": 8.34
+      }
+    },
+    "B_thinking_off_unconstrained": {
+      "enable_thinking": false,
+      "structured_output_mode": null,
+      "backend_class": "Ornith15ChatLLM",
+      "load_seconds": 15.94,
+      "unload_seconds": 0.21,
+      "peak_vram_gb": 19.963,
+      "residency_telemetry": {
+        "loads": 1,
+        "evictions": 1,
+        "load_refusals": 0,
+        "max_resident_count": 1,
+        "oom": 0,
+        "cuda_errors": 0
+      },
+      "stage_a": {
+        "generations": 20,
+        "valid_json": 17,
+        "json_validity_rate": 0.85,
+        "malformed_syntax": 3,
+        "missing_required_field": 0,
+        "wrong_field_type": 0,
+        "empty": 0,
+        "reasoning_only": 0,
+        "reasoning_wrapper_present": 0,
+        "extra_text": 3,
+        "mean_latency_s": 5.66,
+        "max_latency_s": 9.8
+      },
+      "stage_b": {
+        "sequences": 8,
+        "turns_attempted": 19,
+        "turns_generated": 15,
+        "turn_completion_rate": 0.7895,
+        "sequences_completed_all_turns": 4,
+        "sequence_completion_rate": 0.5,
+        "context_failures": 4,
+        "context_failure_rate": 0.2105,
+        "valid_json_count": 15,
+        "malformed_syntax": 4,
+        "missing_required_field": 0,
+        "empty": 0,
+        "reasoning_only": 0,
+        "reasoning_wrapper_present": 0,
+        "extra_text": 1,
+        "empty_queries": 0,
+        "repeated_queries": 0,
+        "goal_preserved": true,
+        "ordering_correct": true,
+        "mean_latency_s": 7.53
+      }
+    },
+    "C_thinking_on_constrained": {
+      "enable_thinking": true,
+      "structured_output_mode": "constrained_json",
+      "backend_class": "Ornith15ChatLLM",
+      "load_seconds": 15.91,
+      "unload_seconds": 0.2,
+      "peak_vram_gb": 19.983,
+      "residency_telemetry": {
+        "loads": 1,
+        "evictions": 1,
+        "load_refusals": 0,
+        "max_resident_count": 1,
+        "oom": 0,
+        "cuda_errors": 0
+      },
+      "stage_a": {
+        "generations": 20,
+        "valid_json": 7,
+        "json_validity_rate": 0.35,
+        "malformed_syntax": 13,
+        "missing_required_field": 0,
+        "wrong_field_type": 0,
+        "empty": 0,
+        "reasoning_only": 0,
+        "reasoning_wrapper_present": 0,
+        "extra_text": 0,
+        "mean_latency_s": 7.03,
+        "max_latency_s": 16.96
+      },
+      "stage_b": {
+        "sequences": 8,
+        "turns_attempted": 16,
+        "turns_generated": 9,
+        "turn_completion_rate": 0.5625,
+        "sequences_completed_all_turns": 3,
+        "sequence_completion_rate": 0.375,
+        "context_failures": 7,
+        "context_failure_rate": 0.4375,
+        "valid_json_count": 9,
+        "malformed_syntax": 4,
+        "missing_required_field": 0,
+        "empty": 1,
+        "reasoning_only": 2,
+        "reasoning_wrapper_present": 2,
+        "extra_text": 0,
+        "empty_queries": 0,
+        "repeated_queries": 0,
+        "goal_preserved": true,
+        "ordering_correct": true,
+        "mean_latency_s": 8.82
+      }
+    },
+    "D_thinking_on_unconstrained": {
+      "enable_thinking": true,
+      "structured_output_mode": null,
+      "backend_class": "Ornith15ChatLLM",
+      "load_seconds": 15.93,
+      "unload_seconds": 0.21,
+      "peak_vram_gb": 19.507,
+      "residency_telemetry": {
+        "loads": 1,
+        "evictions": 1,
+        "load_refusals": 0,
+        "max_resident_count": 1,
+        "oom": 0,
+        "cuda_errors": 0
+      },
+      "stage_a": {
+        "generations": 20,
+        "valid_json": 0,
+        "json_validity_rate": 0.0,
+        "malformed_syntax": 18,
+        "missing_required_field": 0,
+        "wrong_field_type": 0,
+        "empty": 0,
+        "reasoning_only": 2,
+        "reasoning_wrapper_present": 2,
+        "extra_text": 0,
+        "mean_latency_s": 16.82,
+        "max_latency_s": 19.67
+      },
+      "stage_b": {
+        "sequences": 8,
+        "turns_attempted": 8,
+        "turns_generated": 0,
+        "turn_completion_rate": 0.0,
+        "sequences_completed_all_turns": 0,
+        "sequence_completion_rate": 0.0,
+        "context_failures": 8,
+        "context_failure_rate": 1.0,
+        "valid_json_count": 0,
+        "malformed_syntax": 8,
+        "missing_required_field": 0,
+        "empty": 0,
+        "reasoning_only": 0,
+        "reasoning_wrapper_present": 0,
+        "extra_text": 0,
+        "empty_queries": 0,
+        "repeated_queries": 0,
+        "goal_preserved": true,
+        "ordering_correct": true,
+        "mean_latency_s": 16.66
+      }
+    }
+  },
+  "analysis": {
+    "failure_shapes_note": "Shapes of replies that did not parse as JSON. Observation only — no reply was repaired, retried or normalised.",
+    "failure_shapes": {
+      "A_thinking_off_constrained": {
+        "stage_a": {
+          "space_prefixed_key": 2,
+          "truncated_no_closing_brace": 2,
+          "trailing_comma": 1
+        },
+        "stage_b": {
+          "stray_quote": 1,
+          "space_prefixed_key": 3,
+          "truncated_no_closing_brace": 1,
+          "trailing_comma": 1
+        }
+      },
+      "B_thinking_off_unconstrained": {
+        "stage_a": {
+          "trailing_comma": 3
+        },
+        "stage_b": {
+          "truncated_no_closing_brace": 2,
+          "trailing_comma": 2
+        }
+      },
+      "C_thinking_on_constrained": {
+        "stage_a": {
+          "truncated_no_closing_brace": 3,
+          "other_invalid": 1,
+          "trailing_comma": 9
+        },
+        "stage_b": {
+          "other_invalid": 2,
+          "truncated_no_closing_brace": 3,
+          "empty": 1,
+          "trailing_comma": 1
+        }
+      },
+      "D_thinking_on_unconstrained": {
+        "stage_a": {
+          "truncated_no_closing_brace": 20
+        },
+        "stage_b": {
+          "truncated_no_closing_brace": 8
+        }
+      }
+    },
+    "per_goal_stage_a": {
+      "0": {
+        "A_thinking_off_constrained": true,
+        "B_thinking_off_unconstrained": true,
+        "C_thinking_on_constrained": true,
+        "D_thinking_on_unconstrained": false
+      },
+      "1": {
+        "A_thinking_off_constrained": true,
+        "B_thinking_off_unconstrained": true,
+        "C_thinking_on_constrained": true,
+        "D_thinking_on_unconstrained": false
+      },
+      "2": {
+        "A_thinking_off_constrained": false,
+        "B_thinking_off_unconstrained": true,
+        "C_thinking_on_constrained": true,
+        "D_thinking_on_unconstrained": false
+      },
+      "3": {
+        "A_thinking_off_constrained": true,
+        "B_thinking_off_unconstrained": true,
+        "C_thinking_on_constrained": true,
+        "D_thinking_on_unconstrained": false
+      },
+      "4": {
+        "A_thinking_off_constrained": false,
+        "B_thinking_off_unconstrained": true,
+        "C_thinking_on_constrained": true,
+        "D_thinking_on_unconstrained": false
+      },
+      "5": {
+        "A_thinking_off_constrained": true,
+        "B_thinking_off_unconstrained": true,
+        "C_thinking_on_constrained": false,
+        "D_thinking_on_unconstrained": false
+      },
+      "6": {
+        "A_thinking_off_constrained": false,
+        "B_thinking_off_unconstrained": false,
+        "C_thinking_on_constrained": false,
+        "D_thinking_on_unconstrained": false
+      },
+      "7": {
+        "A_thinking_off_constrained": false,
+        "B_thinking_off_unconstrained": true,
+        "C_thinking_on_constrained": false,
+        "D_thinking_on_unconstrained": false
+      },
+      "8": {
+        "A_thinking_off_constrained": true,
+        "B_thinking_off_unconstrained": true,
+        "C_thinking_on_constrained": true,
+        "D_thinking_on_unconstrained": false
+      },
+      "9": {
+        "A_thinking_off_constrained": true,
+        "B_thinking_off_unconstrained": true,
+        "C_thinking_on_constrained": false,
+        "D_thinking_on_unconstrained": false
+      },
+      "10": {
+        "A_thinking_off_constrained": true,
+        "B_thinking_off_unconstrained": true,
+        "C_thinking_on_constrained": true,
+        "D_thinking_on_unconstrained": false
+      },
+      "11": {
+        "A_thinking_off_constrained": true,
+        "B_thinking_off_unconstrained": false,
+        "C_thinking_on_constrained": false,
+        "D_thinking_on_unconstrained": false
+      },
+      "12": {
+        "A_thinking_off_constrained": true,
+        "B_thinking_off_unconstrained": false,
+        "C_thinking_on_constrained": false,
+        "D_thinking_on_unconstrained": false
+      },
+      "13": {
+        "A_thinking_off_constrained": true,
+        "B_thinking_off_unconstrained": true,
+        "C_thinking_on_constrained": false,
+        "D_thinking_on_unconstrained": false
+      },
+      "14": {
+        "A_thinking_off_constrained": true,
+        "B_thinking_off_unconstrained": true,
+        "C_thinking_on_constrained": false,
+        "D_thinking_on_unconstrained": false
+      },
+      "15": {
+        "A_thinking_off_constrained": false,
+        "B_thinking_off_unconstrained": true,
+        "C_thinking_on_constrained": false,
+        "D_thinking_on_unconstrained": false
+      },
+      "16": {
+        "A_thinking_off_constrained": true,
+        "B_thinking_off_unconstrained": true,
+        "C_thinking_on_constrained": false,
+        "D_thinking_on_unconstrained": false
+      },
+      "17": {
+        "A_thinking_off_constrained": true,
+        "B_thinking_off_unconstrained": true,
+        "C_thinking_on_constrained": false,
+        "D_thinking_on_unconstrained": false
+      },
+      "18": {
+        "A_thinking_off_constrained": true,
+        "B_thinking_off_unconstrained": true,
+        "C_thinking_on_constrained": false,
+        "D_thinking_on_unconstrained": false
+      },
+      "19": {
+        "A_thinking_off_constrained": true,
+        "B_thinking_off_unconstrained": true,
+        "C_thinking_on_constrained": false,
+        "D_thinking_on_unconstrained": false
+      }
+    },
+    "per_goal_stage_b": {
+      "A_thinking_off_constrained": {
+        "0": {
+          "turns_attempted": 3,
+          "turns_generated": 2,
+          "target_feedback_source": "track_a_off_crescendo"
+        },
+        "1": {
+          "turns_attempted": 2,
+          "turns_generated": 1,
+          "target_feedback_source": "fixed_fallback"
+        },
+        "2": {
+          "turns_attempted": 1,
+          "turns_generated": 0,
+          "target_feedback_source": "track_a_off_crescendo"
+        },
+        "3": {
+          "turns_attempted": 3,
+          "turns_generated": 3,
+          "target_feedback_source": "track_a_off_crescendo"
+        },
+        "4": {
+          "turns_attempted": 1,
+          "turns_generated": 0,
+          "target_feedback_source": "track_a_off_crescendo"
+        },
+        "5": {
+          "turns_attempted": 2,
+          "turns_generated": 1,
+          "target_feedback_source": "track_a_off_crescendo"
+        },
+        "6": {
+          "turns_attempted": 1,
+          "turns_generated": 0,
+          "target_feedback_source": "track_a_off_crescendo"
+        },
+        "7": {
+          "turns_attempted": 1,
+          "turns_generated": 0,
+          "target_feedback_source": "track_a_off_crescendo"
+        }
+      },
+      "B_thinking_off_unconstrained": {
+        "0": {
+          "turns_attempted": 2,
+          "turns_generated": 1,
+          "target_feedback_source": "track_a_off_crescendo"
+        },
+        "1": {
+          "turns_attempted": 2,
+          "turns_generated": 1,
+          "target_feedback_source": "fixed_fallback"
+        },
+        "2": {
+          "turns_attempted": 3,
+          "turns_generated": 3,
+          "target_feedback_source": "track_a_off_crescendo"
+        },
+        "3": {
+          "turns_attempted": 3,
+          "turns_generated": 3,
+          "target_feedback_source": "track_a_off_crescendo"
+        },
+        "4": {
+          "turns_attempted": 2,
+          "turns_generated": 1,
+          "target_feedback_source": "track_a_off_crescendo"
+        },
+        "5": {
+          "turns_attempted": 3,
+          "turns_generated": 3,
+          "target_feedback_source": "track_a_off_crescendo"
+        },
+        "6": {
+          "turns_attempted": 1,
+          "turns_generated": 0,
+          "target_feedback_source": "track_a_off_crescendo"
+        },
+        "7": {
+          "turns_attempted": 3,
+          "turns_generated": 3,
+          "target_feedback_source": "track_a_off_crescendo"
+        }
+      },
+      "C_thinking_on_constrained": {
+        "0": {
+          "turns_attempted": 3,
+          "turns_generated": 2,
+          "target_feedback_source": "track_a_off_crescendo"
+        },
+        "1": {
+          "turns_attempted": 3,
+          "turns_generated": 3,
+          "target_feedback_source": "fixed_fallback"
+        },
+        "2": {
+          "turns_attempted": 3,
+          "turns_generated": 2,
+          "target_feedback_source": "track_a_off_crescendo"
+        },
+        "3": {
+          "turns_attempted": 2,
+          "turns_generated": 1,
+          "target_feedback_source": "track_a_off_crescendo"
+        },
+        "4": {
+          "turns_attempted": 2,
+          "turns_generated": 1,
+          "target_feedback_source": "track_a_off_crescendo"
+        },
+        "5": {
+          "turns_attempted": 1,
+          "turns_generated": 0,
+          "target_feedback_source": "track_a_off_crescendo"
+        },
+        "6": {
+          "turns_attempted": 1,
+          "turns_generated": 0,
+          "target_feedback_source": "track_a_off_crescendo"
+        },
+        "7": {
+          "turns_attempted": 1,
+          "turns_generated": 0,
+          "target_feedback_source": "track_a_off_crescendo"
+        }
+      },
+      "D_thinking_on_unconstrained": {
+        "0": {
+          "turns_attempted": 1,
+          "turns_generated": 0,
+          "target_feedback_source": "track_a_off_crescendo"
+        },
+        "1": {
+          "turns_attempted": 1,
+          "turns_generated": 0,
+          "target_feedback_source": "fixed_fallback"
+        },
+        "2": {
+          "turns_attempted": 1,
+          "turns_generated": 0,
+          "target_feedback_source": "track_a_off_crescendo"
+        },
+        "3": {
+          "turns_attempted": 1,
+          "turns_generated": 0,
+          "target_feedback_source": "track_a_off_crescendo"
+        },
+        "4": {
+          "turns_attempted": 1,
+          "turns_generated": 0,
+          "target_feedback_source": "track_a_off_crescendo"
+        },
+        "5": {
+          "turns_attempted": 1,
+          "turns_generated": 0,
+          "target_feedback_source": "track_a_off_crescendo"
+        },
+        "6": {
+          "turns_attempted": 1,
+          "turns_generated": 0,
+          "target_feedback_source": "track_a_off_crescendo"
+        },
+        "7": {
+          "turns_attempted": 1,
+          "turns_generated": 0,
+          "target_feedback_source": "track_a_off_crescendo"
+        }
+      }
+    },
+    "asr_computed": false,
+    "retries": 0,
+    "parser_changes": 0,
+    "prompt_changes": 0,
+    "per_goal_stage_a_agreement": 1
+  },
+  "track_a_integrity": {
+    "results/phase14/batch00.jsonl": "fcb952f1598b697b033d605b0791cfbb",
+    "trackA_frozen/…180records.jsonl": "fcb952f1598b697b033d605b0791cfbb",
+    "trackA_frozen/…108records.jsonl": "c12a562a9454d83b6cc0ee93b2653f4a",
+    "configs/reproduction_phase14_frozen.yaml": "27b660a7052054521a94e3430013d986",
+    "frozen_config_hash": "61ea203c20e68c51"
+  }
+}

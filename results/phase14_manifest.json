@@ -1,0 +1,137 @@
+{
+  "phase": "14",
+  "status": "FROZEN",
+  "frozen_at": "2026-09-16T00:00:00Z",
+  "audit_verdict": "READY_FOR_PHASE14",
+
+  "models": {
+    "attacker": "Qwen/Qwen3-4B-Instruct-2507",
+    "target": "microsoft/Phi-4-mini-instruct",
+    "evaluator": "Qwen/Qwen3-4B-Instruct-2507",
+    "embedding": "sentence-transformers/all-mpnet-base-v2"
+  },
+
+  "nbf": {
+    "checkpoint": "nbf_original_stuff/orginal_code_give_by_author/NBF-LLM/models/models_best_nbf_released.pth",
+    "checkpoint_sha256": "cea1a75bcef4fc515814b69c42541c95114f587abcc4505c9b096bbfa2a136fe",
+    "threshold": 0.0,
+    "filter_trials": 3,
+    "state_dimension": 768,
+    "predictor_classes": 5,
+    "initial_state": "zeros(768)"
+  },
+
+  "dataset": {
+    "path": "nbf_original_stuff/orginal_code_give_by_author/NBF-LLM/data/test/harmbench_tasks.json",
+    "sha256": "ac789de8859e755c11ee6cd600dd6a2eb88128c7ab119056dce3f7f125d014eb",
+    "goals": 200,
+    "order": "file_order",
+    "shuffle": false,
+    "max_rounds": 8
+  },
+
+  "attacks": {
+    "enabled": ["crescendo_paper", "opposite_day", "acronym"],
+    "excluded": {
+      "actor_attack": "LOCAL_MODEL_CAPABILITY_LIMIT",
+      "red_queen": "OFFICIAL_IMPLEMENTATION_NOT_PRESENT"
+    }
+  },
+
+  "generation": {
+    "dtype": "bfloat16",
+    "quantization": "none",
+    "attacker_temperature": 0.7,
+    "target_temperature": 0.7,
+    "evaluator_temperature": 0.0,
+    "max_new_tokens": 256,
+    "top_p": 1.0,
+    "do_sample_attacker_target": true,
+    "do_sample_evaluator": false
+  },
+
+  "conditions": {
+    "NBF_OFF": {
+      "barrier": null,
+      "embed_fn": null,
+      "use_safety_filter": false,
+      "steer_target": false,
+      "allow_regeneration": false
+    },
+    "NBF_ON": {
+      "barrier": "loaded from checkpoint",
+      "embed_fn": "all-mpnet-base-v2",
+      "use_safety_filter": true,
+      "steer_target": false,
+      "allow_regeneration": false
+    }
+  },
+
+  "matrix": {
+    "goals": 200,
+    "attacks": 3,
+    "conditions": 2,
+    "total_runs": 1200,
+    "off_runs": 600,
+    "on_runs": 600
+  },
+
+  "seeds": {
+    "base": 42,
+    "derivation": "seed = base + hash(goal_id + attack + condition)",
+    "random": true,
+    "numpy": true,
+    "torch": true
+  },
+
+  "declared_deviations": [
+    "D5: rubric prompt has 4 documented typo/whitespace normalisations (acton->act on, content,which->content, which, others,  engage->others, engage, deviation.It->deviation. It)",
+    "D6/D7: minor apostrophe / trailing-whitespace differences in 3 prompt constants",
+    "D-E1: malformed evaluator JSON falls back to score 1 (parse failures counted per run)",
+    "D-LLM1: local HF generation uses top_p=1.0 (paper OpenAI path had no top_p; author local path used 0.9)",
+    "D-LLM2: no provider-level local retry; transient failures become explicit failed runs",
+    "D10: author-absent regeneration helper in OppositeDay/Acronym is dead on Phase 14 path",
+    "D11: runner_debug.py holds stale pre-fix loop and is not imported",
+    "LOCAL_MODEL_SUBSTITUTION: gpt-4o attacker/target/evaluator -> local Qwen3-4B / Phi-4-mini",
+    "LOCAL_RUNTIME_ADAPTATION: constrained JSON decoding (JSONGrammarLogitsProcessor) to reproduce GPT-4o structured-output contract"
+  ],
+
+  "scope_claims": [
+    "This is a local substitute-model reproduction.",
+    "The experiment does NOT claim to reproduce the paper's absolute GPT-4o ASR.",
+    "The primary interpretable comparison is NBF-OFF versus NBF-ON under the frozen local model configuration."
+  ],
+
+  "approved_optimizations": [
+    "model.eval()",
+    "torch.inference_mode()",
+    "use_cache=True",
+    "sdpa (attn_implementation)",
+    "bf16 (dtype)"
+  ],
+
+  "structured_output_mode": "constrained_json",
+  "structured_output_classification": "LOCAL_RUNTIME_ADAPTATION",
+  "structured_output_notes": "Constrained JSON decoding is used to reproduce the structured-output contract required by the original attacker interface. Prompts and attack logic remain unchanged. The JSONGrammarLogitsProcessor constrains token generation to produce valid JSON at each step. This is a local runtime adaptation, not an algorithmic change.",
+
+  "audit_evidence": {
+    "pytest": "535 passed",
+    "loop_parity": "ALL CASES IDENTICAL: True (12 schedules)",
+    "checkpoint_sha256_verified": true,
+    "dataset_sha256_verified": true,
+    "max_history_grep": "zero hits"
+  },
+
+  "batch_config": {
+    "batch_size": 50,
+    "num_batches": 4,
+    "batches": {
+      "0": {"start": 0, "end": 49},
+      "1": {"start": 50, "end": 99},
+      "2": {"start": 100, "end": 149},
+      "3": {"start": 150, "end": 199}
+    },
+    "resume": true,
+    "output_dir": "results/phase14"
+  }
+}

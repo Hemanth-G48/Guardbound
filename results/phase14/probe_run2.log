@@ -1,0 +1,245 @@
+[probe] MEASUREMENT ONLY — no experiment code modified, no batch data touched
+[probe] resuming: 2 completed rows loaded from results\phase14\probe_json_compliance.jsonl (skipped, included in the summary)
+[probe] goals=10 attacks=['crescendo_paper', 'opposite_day', 'acronym'] condition=off max_turns=8 dataset_sha=ac789de8859e
+[probe] output=results\phase14\probe_json_compliance.jsonl
+[transformers] This model config has set a `rope_parameters['original_max_position_embeddings']` field, to be used together with `max_position_embeddings` to determine a scaling factor. Please set the `factor` field of `rope_parameters`with this ratio instead -- we recommend the use of this field over `original_max_position_embeddings`, as it is compatible with most model architectures.
+[probe] OFF_crescendo_000 SKIP (already recorded)
+[probe] OFF_opposite_day_000 SKIP (already recorded)
+[transformers] The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights:   0%|          | 1/398 [00:03<26:14,  3.97s/it]Loading weights:   3%|2         | 11/398 [00:04<01:44,  3.72it/s]Loading weights:   6%|6         | 25/398 [00:07<01:42,  3.63it/s]Loading weights:   9%|9         | 36/398 [00:08<00:59,  6.13it/s]Loading weights:  12%|#2        | 48/398 [00:08<00:35,  9.81it/s]Loading weights:  15%|#5        | 60/398 [00:08<00:23, 14.56it/s]Loading weights:  19%|#8        | 75/398 [00:08<00:14, 22.38it/s]Loading weights:  22%|##2       | 88/398 [00:08<00:10, 30.60it/s]Loading weights:  26%|##5       | 102/398 [00:08<00:07, 40.60it/s]Loading weights:  29%|##8       | 114/398 [00:08<00:05, 48.65it/s]Loading weights:  32%|###1      | 126/398 [00:08<00:04, 57.69it/s]Loading weights:  35%|###5      | 140/398 [00:08<00:03, 71.37it/s]Loading weights:  35%|###5      | 140/398 [00:20<00:03, 71.37it/s]Loading weights:  35%|###5      | 140/398 [00:22<00:41,  6.24it/s]
+[phase14_probe] probe run failed: OFF_acronym_000
+Traceback (most recent call last):
+  File "C:\Users\CSLAB\Desktop\hemanth\Guardbound\scripts\_phase14_json_probe.py", line 133, in run_probe
+    row = await P14.run_one_phase14(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<13 lines>...
+    )
+    ^
+  File "C:\Users\CSLAB\Desktop\hemanth\Guardbound\scripts\phase14_full_reproduction.py", line 461, in run_one_phase14
+    conv = await run_attack_with_backtracking_async(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<13 lines>...
+    )
+    ^
+  File "C:\Users\CSLAB\Desktop\hemanth\Guardbound\src\guardbound\attacks\runner.py", line 972, in run_attack_with_backtracking_async
+    query, _ = attack.generate_question_for_turn(
+               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        goal=goal,
+        ^^^^^^^^^^
+        turn_num=effective_round,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+        last_response=attack_echo_response,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\CSLAB\Desktop\hemanth\Guardbound\src\guardbound\attacks\acronym.py", line 525, in generate_question_for_turn
+    question, summary = generate_acronym_step(
+                        ~~~~~~~~~~~~~~~~~~~~~^
+        round_num=turn_num,
+        ^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+        max_rounds=self._max_turns,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\CSLAB\Desktop\hemanth\Guardbound\src\guardbound\attacks\acronym.py", line 176, in generate_acronym_step
+    result = attacker_llm.generate(messages, json_format=True)
+  File "C:\Users\CSLAB\Desktop\hemanth\Guardbound\scripts\phase14_full_reproduction.py", line 224, in generate
+    out = self._inner.generate(*args, **kwargs)
+  File "C:\Users\CSLAB\Desktop\hemanth\Guardbound\src\guardbound\llm\local_client.py", line 289, in generate
+    pipe = self._get_pipeline()
+  File "C:\Users\CSLAB\Desktop\hemanth\Guardbound\src\guardbound\llm\local_client.py", line 240, in _get_pipeline
+    self._pipeline = pipeline(
+                     ~~~~~~~~^
+        "text-generation",
+        ^^^^^^^^^^^^^^^^^^
+    ...<8 lines>...
+        ),
+        ^^
+    )
+    ^
+  File "C:\Users\CSLAB\anaconda3\Lib\site-packages\transformers\pipelines\__init__.py", line 1033, in pipeline
+    model = load_model(
+        adapter_path if adapter_path is not None else model,
+    ...<4 lines>...
+        **model_kwargs,
+    )
+  File "C:\Users\CSLAB\anaconda3\Lib\site-packages\transformers\pipelines\base.py", line 276, in load_model
+    raise ValueError(
+        f"Could not load model {model} with any of the following classes: {class_tuple}. See the original errors:\n\n{error}\n"
+    )
+ValueError: Could not load model Qwen/Qwen3-4B-Instruct-2507 with any of the following classes: (<class 'transformers.models.auto.modeling_auto.AutoModelForCausalLM'>, <class 'transformers.models.qwen3.modeling_qwen3.Qwen3ForCausalLM'>). See the original errors:
+
+while loading with AutoModelForCausalLM, an error is thrown:
+Traceback (most recent call last):
+  File "C:\Users\CSLAB\anaconda3\Lib\site-packages\transformers\pipelines\base.py", line 240, in load_model
+    model = model_class.from_pretrained(model, **kwargs)
+  File "C:\Users\CSLAB\anaconda3\Lib\site-packages\transformers\models\auto\auto_factory.py", line 402, in from_pretrained
+    return model_class.from_pretrained(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        pretrained_model_name_or_path, *model_args, config=config, **hub_kwargs, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\CSLAB\anaconda3\Lib\site-packages\transformers\modeling_utils.py", line 4393, in from_pretrained
+    loading_info, disk_offload_index = cls._load_pretrained_model(model, state_dict, checkpoint_files, load_config)
+                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CSLAB\anaconda3\Lib\site-packages\transformers\modeling_utils.py", line 4528, in _load_pretrained_model
+    loading_info, disk_offload_index = convert_and_load_state_dict_in_model(
+                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        model=model,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        disk_offload_index=disk_offload_index,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\CSLAB\anaconda3\Lib\site-packages\transformers\core_model_loading.py", line 1754, in convert_and_load_state_dict_in_model
+    realized_value = mapping.convert(
+        first_param_name,
+    ...<3 lines>...
+        loading_info=loading_info,
+    )
+  File "C:\Users\CSLAB\anaconda3\Lib\site-packages\transformers\core_model_loading.py", line 1008, in convert
+    collected_tensors = self.materialize_tensors()
+  File "C:\Users\CSLAB\anaconda3\Lib\site-packages\transformers\core_model_loading.py", line 970, in materialize_tensors
+    tensors = [future.result() for future in tensors if future.result() is not None]
+                                                        ~~~~~~~~~~~~~^^
+  File "C:\Users\CSLAB\anaconda3\Lib\concurrent\futures\_base.py", line 456, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\CSLAB\anaconda3\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\CSLAB\anaconda3\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\CSLAB\anaconda3\Lib\site-packages\transformers\core_model_loading.py", line 1262, in _job
+    return _materialize_copy(tensor, device, dtype)
+  File "C:\Users\CSLAB\anaconda3\Lib\site-packages\transformers\core_model_loading.py", line 1240, in _materialize_copy
+    tensor = tensor.to(device=device, dtype=dtype)
+RuntimeError: CUDA error: unknown error
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\CSLAB\anaconda3\Lib\site-packages\transformers\pipelines\base.py", line 256, in load_model
+    model = model_class.from_pretrained(model, **fp32_kwargs)
+  File "C:\Users\CSLAB\anaconda3\Lib\site-packages\transformers\models\auto\auto_factory.py", line 402, in from_pretrained
+    return model_class.from_pretrained(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        pretrained_model_name_or_path, *model_args, config=config, **hub_kwargs, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\CSLAB\anaconda3\Lib\site-packages\transformers\modeling_utils.py", line 4393, in from_pretrained
+    loading_info, disk_offload_index = cls._load_pretrained_model(model, state_dict, checkpoint_files, load_config)
+                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CSLAB\anaconda3\Lib\site-packages\transformers\modeling_utils.py", line 4473, in _load_pretrained_model
+    caching_allocator_warmup(model, expanded_device_map, load_config.hf_quantizer)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CSLAB\anaconda3\Lib\site-packages\transformers\modeling_utils.py", line 5096, in caching_allocator_warmup
+    free_device_memory, total_device_memory = accelerator_module.mem_get_info(index)
+                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\CSLAB\anaconda3\Lib\site-packages\torch\cuda\memory.py", line 836, in mem_get_info
+    return torch.cuda.cudart().cudaMemGetInfo(device)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+RuntimeError: CUDA error: unknown error
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+
+while loading with Qwen3ForCausalLM, an error is thrown:
+Traceback (most recent call last):
+  File "C:\Users\CSLAB\anaconda3\Lib\site-packages\transformers\pipelines\base.py", line 240, in load_model
+    model = model_class.from_pretrained(model, **kwargs)
+  File "C:\Users\CSLAB\anaconda3\Lib\site-packages\transformers\modeling_utils.py", line 4393, in from_pretrained
+    loading_info, disk_offload_index = cls._load_pretrained_model(model, state_dict, checkpoint_files, load_config)
+                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CSLAB\anaconda3\Lib\site-packages\transformers\modeling_utils.py", line 4473, in _load_pretrained_model
+    caching_allocator_warmup(model, expanded_device_map, load_config.hf_quantizer)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CSLAB\anaconda3\Lib\site-packages\transformers\modeling_utils.py", line 5096, in caching_allocator_warmup
+    free_device_memory, total_device_memory = accelerator_module.mem_get_info(index)
+                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\CSLAB\anaconda3\Lib\site-packages\torch\cuda\memory.py", line 836, in mem_get_info
+    return torch.cuda.cudart().cudaMemGetInfo(device)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+RuntimeError: CUDA error: unknown error
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\CSLAB\anaconda3\Lib\site-packages\transformers\pipelines\base.py", line 256, in load_model
+    model = model_class.from_pretrained(model, **fp32_kwargs)
+  File "C:\Users\CSLAB\anaconda3\Lib\site-packages\transformers\modeling_utils.py", line 4393, in from_pretrained
+    loading_info, disk_offload_index = cls._load_pretrained_model(model, state_dict, checkpoint_files, load_config)
+                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CSLAB\anaconda3\Lib\site-packages\transformers\modeling_utils.py", line 4473, in _load_pretrained_model
+    caching_allocator_warmup(model, expanded_device_map, load_config.hf_quantizer)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CSLAB\anaconda3\Lib\site-packages\transformers\modeling_utils.py", line 5096, in caching_allocator_warmup
+    free_device_memory, total_device_memory = accelerator_module.mem_get_info(index)
+                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\CSLAB\anaconda3\Lib\site-packages\torch\cuda\memory.py", line 836, in mem_get_info
+    return torch.cuda.cudart().cudaMemGetInfo(device)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+RuntimeError: CUDA error: unknown error
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+
+
+
+[probe] OFF_acronym_000 class=INFRASTRUCTURE_ERROR turns=0 generations=1 runtime=31s
+Traceback (most recent call last):
+  File "C:\Users\CSLAB\Desktop\hemanth\Guardbound\scripts\_phase14_json_probe.py", line 235, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\CSLAB\Desktop\hemanth\Guardbound\scripts\_phase14_json_probe.py", line 231, in main
+    sys.exit(asyncio.run(run_probe(args)))
+             ~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\CSLAB\anaconda3\Lib\asyncio\runners.py", line 195, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "C:\Users\CSLAB\anaconda3\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\CSLAB\anaconda3\Lib\asyncio\base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "C:\Users\CSLAB\Desktop\hemanth\Guardbound\scripts\_phase14_json_probe.py", line 113, in run_probe
+    P14._seed_all(seed)
+    ~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\CSLAB\Desktop\hemanth\Guardbound\scripts\phase14_full_reproduction.py", line 426, in _seed_all
+    torch.manual_seed(seed)
+    ~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\CSLAB\anaconda3\Lib\site-packages\torch\_compile.py", line 51, in inner
+    return disable_fn(*args, **kwargs)
+  File "C:\Users\CSLAB\anaconda3\Lib\site-packages\torch\_dynamo\eval_frame.py", line 838, in _fn
+    return fn(*args, **kwargs)
+  File "C:\Users\CSLAB\anaconda3\Lib\site-packages\torch\random.py", line 46, in manual_seed
+    torch.cuda.manual_seed_all(seed)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\CSLAB\anaconda3\Lib\site-packages\torch\cuda\random.py", line 128, in manual_seed_all
+    _lazy_call(cb, seed_all=True)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CSLAB\anaconda3\Lib\site-packages\torch\cuda\__init__.py", line 302, in _lazy_call
+    callable()
+    ~~~~~~~~^^
+  File "C:\Users\CSLAB\anaconda3\Lib\site-packages\torch\cuda\random.py", line 126, in cb
+    default_generator.manual_seed(seed)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+RuntimeError: CUDA error: unknown error
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+

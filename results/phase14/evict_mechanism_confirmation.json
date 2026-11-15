@@ -1,0 +1,95 @@
+{
+  "steps": [
+    {
+      "label": "baseline (clean)",
+      "pytorch_allocated_gb": 0.0,
+      "driver_free_gb": 24.385,
+      "cache_entries": 0,
+      "cache_keys": []
+    },
+    {
+      "label": "after loading attacker (cold 13.1s)",
+      "pytorch_allocated_gb": 8.412,
+      "driver_free_gb": 15.931,
+      "cache_entries": 1,
+      "cache_keys": [
+        "Qwen/Qwen3.5-4B_cuda"
+      ]
+    },
+    {
+      "label": "after loading target   (cold 10.9s)",
+      "pytorch_allocated_gb": 16.084,
+      "driver_free_gb": 8.237,
+      "cache_entries": 2,
+      "cache_keys": [
+        "Qwen/Qwen3.5-4B_cuda",
+        "microsoft/Phi-4-mini-instruct_cuda"
+      ]
+    },
+    {
+      "label": "(1) after ModelManager._evict('target')",
+      "pytorch_allocated_gb": 16.084,
+      "driver_free_gb": 8.237,
+      "cache_entries": 2,
+      "cache_keys": [
+        "Qwen/Qwen3.5-4B_cuda",
+        "microsoft/Phi-4-mini-instruct_cuda"
+      ]
+    },
+    {
+      "label": "(2) re-activated target (0.00s)",
+      "pytorch_allocated_gb": 16.084,
+      "driver_free_gb": 8.237,
+      "cache_entries": 2,
+      "cache_keys": [
+        "Qwen/Qwen3.5-4B_cuda",
+        "microsoft/Phi-4-mini-instruct_cuda"
+      ]
+    },
+    {
+      "label": "(3) cache.clear(), attacker handle KEPT",
+      "pytorch_allocated_gb": 8.412,
+      "driver_free_gb": 15.931,
+      "cache_entries": 0,
+      "cache_keys": []
+    },
+    {
+      "label": "(4) cache.clear() + attacker handle nulled",
+      "pytorch_allocated_gb": 8.412,
+      "driver_free_gb": 15.931,
+      "cache_entries": 0,
+      "cache_keys": []
+    },
+    {
+      "label": "(4b) local handle also released",
+      "pytorch_allocated_gb": 0.0,
+      "driver_free_gb": 24.353,
+      "cache_entries": 0,
+      "cache_keys": []
+    },
+    {
+      "label": "(5) genuine RELOAD of target (11.3s)",
+      "pytorch_allocated_gb": 7.672,
+      "driver_free_gb": 16.678,
+      "cache_entries": 1,
+      "cache_keys": [
+        "microsoft/Phi-4-mini-instruct_cuda"
+      ]
+    },
+    {
+      "label": "final cleanup",
+      "pytorch_allocated_gb": 0.0,
+      "driver_free_gb": 24.353,
+      "cache_entries": 0,
+      "cache_keys": []
+    }
+  ],
+  "summary": {
+    "attacker_cold_load_s": 13.12,
+    "target_cold_load_s": 10.89,
+    "vram_freed_by_ModelManager_evict_gb": 0.0,
+    "reactivation_after_evict_s": 0.0,
+    "genuine_reload_after_real_eviction_s": 11.25,
+    "conclusion": "_evict() frees no VRAM because _pipeline_cache keeps the weights AND _get_pipeline() then returns them instantly. A real eviction requires BOTH dropping the backend's _pipeline attribute AND popping the _pipeline_cache entry; only then does VRAM drop, at the cost of a full cold reload."
+  }
+}

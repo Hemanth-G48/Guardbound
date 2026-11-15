@@ -1,0 +1,112 @@
+{
+  "phase": "17",
+  "stage": "5",
+  "deliverable": "stage5_summary.json",
+  "real_calls_analysed": 371,
+  "controlled_calls": {
+    "context_length": 180,
+    "instruction_position": 150,
+    "prev_output": 150,
+    "temperature": 90
+  },
+  "first_vs_later": {
+    "question": "call 1 vs later calls",
+    "table": [
+      [
+        89,
+        1
+      ],
+      [
+        221,
+        60
+      ]
+    ],
+    "p_value": 0.0,
+    "rate_row1": 0.9889,
+    "rate_row2": 0.7865,
+    "risk_difference": 0.2024,
+    "note": ""
+  },
+  "context_bucket_table": {
+    "0-1500": {
+      "label": "0-1500 tokens",
+      "calls": 166,
+      "json_valid": 149,
+      "validity_rate": 0.8976,
+      "ci95_wilson": [
+        0.8421,
+        0.9351
+      ],
+      "prose_failures": 17,
+      "prose_rate": 0.1024,
+      "mean_output_tokens": 99.2
+    },
+    "1500-2000": {
+      "label": "1500-2000 tokens",
+      "calls": 117,
+      "json_valid": 96,
+      "validity_rate": 0.8205,
+      "ci95_wilson": [
+        0.7411,
+        0.8795
+      ],
+      "prose_failures": 20,
+      "prose_rate": 0.1709,
+      "mean_output_tokens": 88.3
+    },
+    "2000-2500": {
+      "label": "2000-2500 tokens",
+      "calls": 48,
+      "json_valid": 35,
+      "validity_rate": 0.7292,
+      "ci95_wilson": [
+        0.59,
+        0.8343
+      ],
+      "prose_failures": 13,
+      "prose_rate": 0.2708,
+      "mean_output_tokens": 110.9
+    },
+    "2500-3000": {
+      "label": "2500-3000 tokens",
+      "calls": 32,
+      "json_valid": 25,
+      "validity_rate": 0.7812,
+      "ci95_wilson": [
+        0.6124,
+        0.8898
+      ],
+      "prose_failures": 7,
+      "prose_rate": 0.2188,
+      "mean_output_tokens": 126.3
+    },
+    "3000-100000": {
+      "label": "3000-100000 tokens",
+      "calls": 8,
+      "json_valid": 5,
+      "validity_rate": 0.625,
+      "ci95_wilson": [
+        0.3057,
+        0.8632
+      ],
+      "prose_failures": 3,
+      "prose_rate": 0.375,
+      "mean_output_tokens": 115.8
+    }
+  },
+  "exploratory_tests": 16,
+  "min_p_value": 0.0,
+  "bonferroni_threshold": 0.003125,
+  "figures": [
+    "plot1_validity_vs_call_index.png",
+    "plot2_validity_vs_context_length.png",
+    "plot3_prose_rate_vs_context_length.png",
+    "plot4_previous_output_vs_next_validity.png",
+    "plot5_output_length_vs_context.png",
+    "plot6_controlled_depth_validity.png",
+    "plot7_instruction_position.png",
+    "plot8_previous_output_ablation.png",
+    "plot9_temperature.png"
+  ],
+  "replay_present": true
+}

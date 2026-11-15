@@ -1,0 +1,30 @@
+{
+  "phase": "17",
+  "stage": "4",
+  "deliverable": "sensitivity_analysis",
+  "status": "THEORETICAL APPROXIMATION \u2014 not an experimental result",
+  "model": "P(survive a run of k calls) \u2248 p^k, assuming independent calls",
+  "measured_per_call_validity": {
+    "isolated": 0.9467,
+    "within_survival_runs": 0.9186
+  },
+  "measured_mean_calls_per_run": 2.87,
+  "predicted_survival_at_that_run_length": {
+    "isolated": {
+      "3_calls": 0.8484,
+      "5_calls": 0.7603,
+      "8_calls": 0.645,
+      "12_calls": 0.518,
+      "16_calls": 0.4161
+    },
+    "within_runs": {
+      "3_calls": 0.7752,
+      "5_calls": 0.6541,
+      "8_calls": 0.507,
+      "12_calls": 0.361,
+      "16_calls": 0.2571
+    }
+  },
+  "observed_run_survival": 0.7666666666666667,
+  "comparison_note": "The approximation assumes per-call independence, which the measurements do not establish; it is reported only to show how a per-call rate compounds over a run, and the observed survival is the figure that matters."
+}

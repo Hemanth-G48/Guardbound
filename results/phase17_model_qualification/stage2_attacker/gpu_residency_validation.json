@@ -1,0 +1,235 @@
+{
+  "phase": "17",
+  "stage": "2",
+  "deliverable": "gpu_residency_validation.json",
+  "contract": {
+    "invariant": "max resident models = 1; VRAM returns to baseline on release",
+    "gates": "pre-load, post-load, per-run floor and ceiling are unchanged; only the pre-load estimate now describes the declared load precision"
+  },
+  "candidates": {
+    "qwen38": {
+      "model_id": "Qwen/Qwen3.8-27B",
+      "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+      "part_g_load_release": {
+        "load_ok": true,
+        "load_seconds": 100.44,
+        "quantization": "nf4",
+        "vram_baseline_free_gib": 22.71,
+        "vram_after_load_gib": 16.456,
+        "vram_peak_gib": 16.641,
+        "cache_entry_removed": true,
+        "vram_after_release_free_gib": 22.495,
+        "vram_after_release_allocated_gib": 0.008,
+        "returned_near_baseline": true,
+        "release_seconds": 0.5
+      },
+      "part_l_switching": {
+        "cycles": 3,
+        "roles": [
+          "attacker",
+          "target",
+          "judge"
+        ],
+        "max_resident_models_observed": 1,
+        "residency_rule_held": true,
+        "cache_empty_after_unload": true,
+        "final_vram_allocated_gib": 0.008,
+        "final_vram_free_gib": 22.495,
+        "per_role": [
+          {
+            "role": "attacker",
+            "cycle": 0,
+            "loaded_class": "Qwen3_5ForCausalLM",
+            "resident_count": 1,
+            "free_gib": 5.942,
+            "tokenizer": "Qwen/Qwen3.8-27B"
+          },
+          {
+            "role": "target",
+            "cycle": 0,
+            "loaded_class": "LlamaForCausalLM",
+            "resident_count": 1,
+            "free_gib": 7.677,
+            "tokenizer": "meta-llama/Meta-Llama-3-8B-Instruct"
+          },
+          {
+            "role": "judge",
+            "cycle": 0,
+            "loaded_class": "Qwen3ForCausalLM",
+            "resident_count": 1,
+            "free_gib": 7.378,
+            "tokenizer": "Qwen/Qwen3-8B"
+          },
+          {
+            "role": "attacker",
+            "cycle": 1,
+            "loaded_class": "Qwen3_5ForCausalLM",
+            "resident_count": 1,
+            "free_gib": 5.942,
+            "tokenizer": "Qwen/Qwen3.8-27B"
+          },
+          {
+            "role": "target",
+            "cycle": 1,
+            "loaded_class": "LlamaForCausalLM",
+            "resident_count": 1,
+            "free_gib": 7.677,
+            "tokenizer": "meta-llama/Meta-Llama-3-8B-Instruct"
+          },
+          {
+            "role": "judge",
+            "cycle": 1,
+            "loaded_class": "Qwen3ForCausalLM",
+            "resident_count": 1,
+            "free_gib": 7.378,
+            "tokenizer": "Qwen/Qwen3-8B"
+          },
+          {
+            "role": "attacker",
+            "cycle": 2,
+            "loaded_class": "Qwen3_5ForCausalLM",
+            "resident_count": 1,
+            "free_gib": 5.942,
+            "tokenizer": "Qwen/Qwen3.8-27B"
+          },
+          {
+            "role": "target",
+            "cycle": 2,
+            "loaded_class": "LlamaForCausalLM",
+            "resident_count": 1,
+            "free_gib": 7.677,
+            "tokenizer": "meta-llama/Meta-Llama-3-8B-Instruct"
+          },
+          {
+            "role": "judge",
+            "cycle": 2,
+            "loaded_class": "Qwen3ForCausalLM",
+            "resident_count": 1,
+            "free_gib": 7.378,
+            "tokenizer": "Qwen/Qwen3-8B"
+          }
+        ],
+        "errors": []
+      }
+    },
+    "qwen36": {
+      "model_id": "Qwen/Qwen3.6-27B",
+      "revision": "6a9e13bd6fc8f0983b9b99948120bc37f49c13e9",
+      "part_g_load_release": {
+        "load_ok": true,
+        "load_seconds": 94.44,
+        "quantization": "nf4",
+        "vram_baseline_free_gib": 22.71,
+        "vram_after_load_gib": 16.456,
+        "vram_peak_gib": 16.641,
+        "cache_entry_removed": true,
+        "vram_after_release_free_gib": 22.495,
+        "vram_after_release_allocated_gib": 0.008,
+        "returned_near_baseline": true,
+        "release_seconds": 0.5
+      },
+      "part_l_switching": {
+        "cycles": 3,
+        "roles": [
+          "attacker",
+          "target",
+          "judge"
+        ],
+        "max_resident_models_observed": 1,
+        "residency_rule_held": true,
+        "cache_empty_after_unload": true,
+        "final_vram_allocated_gib": 0.008,
+        "final_vram_free_gib": 22.495,
+        "per_role": [
+          {
+            "role": "attacker",
+            "cycle": 0,
+            "loaded_class": "Qwen3_5ForCausalLM",
+            "resident_count": 1,
+            "free_gib": 5.942,
+            "tokenizer": "Qwen/Qwen3.6-27B"
+          },
+          {
+            "role": "target",
+            "cycle": 0,
+            "loaded_class": "LlamaForCausalLM",
+            "resident_count": 1,
+            "free_gib": 7.677,
+            "tokenizer": "meta-llama/Meta-Llama-3-8B-Instruct"
+          },
+          {
+            "role": "judge",
+            "cycle": 0,
+            "loaded_class": "Qwen3ForCausalLM",
+            "resident_count": 1,
+            "free_gib": 7.378,
+            "tokenizer": "Qwen/Qwen3-8B"
+          },
+          {
+            "role": "attacker",
+            "cycle": 1,
+            "loaded_class": "Qwen3_5ForCausalLM",
+            "resident_count": 1,
+            "free_gib": 5.942,
+            "tokenizer": "Qwen/Qwen3.6-27B"
+          },
+          {
+            "role": "target",
+            "cycle": 1,
+            "loaded_class": "LlamaForCausalLM",
+            "resident_count": 1,
+            "free_gib": 7.677,
+            "tokenizer": "meta-llama/Meta-Llama-3-8B-Instruct"
+          },
+          {
+            "role": "judge",
+            "cycle": 1,
+            "loaded_class": "Qwen3ForCausalLM",
+            "resident_count": 1,
+            "free_gib": 7.378,
+            "tokenizer": "Qwen/Qwen3-8B"
+          },
+          {
+            "role": "attacker",
+            "cycle": 2,
+            "loaded_class": "Qwen3_5ForCausalLM",
+            "resident_count": 1,
+            "free_gib": 5.942,
+            "tokenizer": "Qwen/Qwen3.6-27B"
+          },
+          {
+            "role": "target",
+            "cycle": 2,
+            "loaded_class": "LlamaForCausalLM",
+            "resident_count": 1,
+            "free_gib": 7.677,
+            "tokenizer": "meta-llama/Meta-Llama-3-8B-Instruct"
+          },
+          {
+            "role": "judge",
+            "cycle": 2,
+            "loaded_class": "Qwen3ForCausalLM",
+            "resident_count": 1,
+            "free_gib": 7.378,
+            "tokenizer": "Qwen/Qwen3-8B"
+          }
+        ],
+        "errors": []
+      }
+    },
+    "ministral": {
+      "model_id": "mistralai/Ministral-3-14B-Reasoning-2512",
+      "revision": "51f9210f3cd20f3452a80d5819d15dc61cc50630"
+    },
+    "devstral": {
+      "model_id": "mistralai/Devstral-Small-2-24B-Instruct-2512",
+      "revision": "55c5b41e98c2dbd21b0c8afffc540dcfc9eb5128"
+    }
+  },
+  "verdict": {
+    "candidates_with_measurements": 2,
+    "all_reported_max_resident_one": true,
+    "all_releases_returned_near_baseline": true,
+    "note": "Zero candidates had a residency failure. Candidates without measured blocks were never loaded (see each candidate's interface probe for why)."
+  }
+}

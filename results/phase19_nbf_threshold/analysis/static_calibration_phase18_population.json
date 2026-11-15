@@ -1,0 +1,254 @@
+{
+  "phase": 19,
+  "deliverable": "analysis/static_calibration_phase18_population.json",
+  "population": {
+    "source": "frozen Phase 18 C1 + NBF ON arm (threshold 0.0), READ-ONLY",
+    "evaluations": 825,
+    "runs": 90,
+    "runs_with_any_evaluation": 87,
+    "observed_filtered_at_T0": 266,
+    "observed_filtering_rate_at_T0": 0.3224,
+    "score_definition": "P(class5) - max(P(class1..4))"
+  },
+  "histogram": [
+    {
+      "bin": "[-1.100, -0.010)",
+      "lo": -1.1,
+      "hi": -0.01,
+      "count": 190,
+      "share": 0.2303
+    },
+    {
+      "bin": "[-0.010, -0.005)",
+      "lo": -0.01,
+      "hi": -0.005,
+      "count": 11,
+      "share": 0.0133
+    },
+    {
+      "bin": "[-0.005, -0.002)",
+      "lo": -0.005,
+      "hi": -0.002,
+      "count": 9,
+      "share": 0.0109
+    },
+    {
+      "bin": "[-0.002, -0.001)",
+      "lo": -0.002,
+      "hi": -0.001,
+      "count": 57,
+      "share": 0.0691
+    },
+    {
+      "bin": "[-0.001, +0.000)",
+      "lo": -0.001,
+      "hi": 0.0,
+      "count": 292,
+      "share": 0.3539
+    },
+    {
+      "bin": "[+0.000, +0.001)",
+      "lo": 0.0,
+      "hi": 0.001,
+      "count": 139,
+      "share": 0.1685
+    },
+    {
+      "bin": "[+0.001, +0.002)",
+      "lo": 0.001,
+      "hi": 0.002,
+      "count": 75,
+      "share": 0.0909
+    },
+    {
+      "bin": "[+0.002, +0.005)",
+      "lo": 0.002,
+      "hi": 0.005,
+      "count": 52,
+      "share": 0.063
+    },
+    {
+      "bin": "[+0.005, +0.010)",
+      "lo": 0.005,
+      "hi": 0.01,
+      "count": 0,
+      "share": 0.0
+    },
+    {
+      "bin": "[+0.010, +1.100)",
+      "lo": 0.01,
+      "hi": 1.1,
+      "count": 0,
+      "share": 0.0
+    }
+  ],
+  "concentration": {
+    "within_pm_0.001": {
+      "count": 431,
+      "share": 0.5224
+    },
+    "within_pm_0.005": {
+      "count": 624,
+      "share": 0.7564
+    },
+    "below_minus_0.010": 190,
+    "at_or_above_plus_0.010": 0
+  },
+  "static_threshold_sweep": [
+    {
+      "tag": "Tm010",
+      "threshold": -0.01,
+      "filtered": 635,
+      "accepted": 190,
+      "filtering_rate": 0.7697,
+      "delta_vs_T000_filtered": 369,
+      "delta_vs_T000_rate": 0.4473
+    },
+    {
+      "tag": "Tm005",
+      "threshold": -0.005,
+      "filtered": 624,
+      "accepted": 201,
+      "filtering_rate": 0.7564,
+      "delta_vs_T000_filtered": 358,
+      "delta_vs_T000_rate": 0.4339,
+      "migrated_from_previous_threshold": -11
+    },
+    {
+      "tag": "Tm002",
+      "threshold": -0.002,
+      "filtered": 615,
+      "accepted": 210,
+      "filtering_rate": 0.7455,
+      "delta_vs_T000_filtered": 349,
+      "delta_vs_T000_rate": 0.423,
+      "migrated_from_previous_threshold": -9
+    },
+    {
+      "tag": "Tm001",
+      "threshold": -0.001,
+      "filtered": 558,
+      "accepted": 267,
+      "filtering_rate": 0.6764,
+      "delta_vs_T000_filtered": 292,
+      "delta_vs_T000_rate": 0.3539,
+      "migrated_from_previous_threshold": -57
+    },
+    {
+      "tag": "T000",
+      "threshold": 0.0,
+      "filtered": 266,
+      "accepted": 559,
+      "filtering_rate": 0.3224,
+      "delta_vs_T000_filtered": 0,
+      "delta_vs_T000_rate": 0.0,
+      "migrated_from_previous_threshold": -292
+    },
+    {
+      "tag": "Tp001",
+      "threshold": 0.001,
+      "filtered": 127,
+      "accepted": 698,
+      "filtering_rate": 0.1539,
+      "delta_vs_T000_filtered": -139,
+      "delta_vs_T000_rate": -0.1685,
+      "migrated_from_previous_threshold": -139
+    },
+    {
+      "tag": "Tp002",
+      "threshold": 0.002,
+      "filtered": 52,
+      "accepted": 773,
+      "filtering_rate": 0.063,
+      "delta_vs_T000_filtered": -214,
+      "delta_vs_T000_rate": -0.2594,
+      "migrated_from_previous_threshold": -75
+    },
+    {
+      "tag": "Tp005",
+      "threshold": 0.005,
+      "filtered": 0,
+      "accepted": 825,
+      "filtering_rate": 0.0,
+      "delta_vs_T000_filtered": -266,
+      "delta_vs_T000_rate": -0.3224,
+      "migrated_from_previous_threshold": -52
+    },
+    {
+      "tag": "Tp010",
+      "threshold": 0.01,
+      "filtered": 0,
+      "accepted": 825,
+      "filtering_rate": 0.0,
+      "delta_vs_T000_filtered": -266,
+      "delta_vs_T000_rate": -0.3224,
+      "migrated_from_previous_threshold": 0
+    }
+  ],
+  "adjacent_step_response": [
+    {
+      "from": "Tm010",
+      "to": "Tm005",
+      "threshold_delta": 0.005,
+      "candidates_flipped": -11,
+      "rate_delta": -0.0133
+    },
+    {
+      "from": "Tm005",
+      "to": "Tm002",
+      "threshold_delta": 0.003,
+      "candidates_flipped": -9,
+      "rate_delta": -0.0109
+    },
+    {
+      "from": "Tm002",
+      "to": "Tm001",
+      "threshold_delta": 0.001,
+      "candidates_flipped": -57,
+      "rate_delta": -0.0691
+    },
+    {
+      "from": "Tm001",
+      "to": "T000",
+      "threshold_delta": 0.001,
+      "candidates_flipped": -292,
+      "rate_delta": -0.354
+    },
+    {
+      "from": "T000",
+      "to": "Tp001",
+      "threshold_delta": 0.001,
+      "candidates_flipped": -139,
+      "rate_delta": -0.1685
+    },
+    {
+      "from": "Tp001",
+      "to": "Tp002",
+      "threshold_delta": 0.001,
+      "candidates_flipped": -75,
+      "rate_delta": -0.0909
+    },
+    {
+      "from": "Tp002",
+      "to": "Tp005",
+      "threshold_delta": 0.003,
+      "candidates_flipped": -52,
+      "rate_delta": -0.063
+    },
+    {
+      "from": "Tp005",
+      "to": "Tp010",
+      "threshold_delta": 0.005,
+      "candidates_flipped": 0,
+      "rate_delta": 0.0
+    }
+  ],
+  "total_migration_across_range": {
+    "most_aggressive_Tm010_filtered": 635,
+    "most_permissive_Tp010_filtered": 0,
+    "candidates_flipped_end_to_end": 635,
+    "rate_change_end_to_end": 0.7697
+  },
+  "direction_note": "score >= threshold -> FILTER, therefore a LOWER threshold filters MORE. Tm010 is the most aggressive arm, Tp010 the most permissive.",
+  "caveat": "STATIC counterfactual over the frozen T=0 trajectory population. In the live arms trajectories diverge at the first flipped decision, so these rates bound the filtering response rather than predicting the dynamic arms."
+}

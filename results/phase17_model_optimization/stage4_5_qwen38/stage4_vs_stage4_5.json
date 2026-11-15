@@ -1,0 +1,52 @@
+{
+  "phase": "17",
+  "stage": "4.5",
+  "deliverable": "stage4_vs_stage4_5.json",
+  "purpose": "the control was re-measured inside this study (same configuration, current session) so candidate comparisons rest on contemporaneous measurements; the Stage 4 numbers are carried for reference",
+  "stage4_frozen": {
+    "isolated_n": 150,
+    "contract_valid_rate": 0.9467,
+    "semantically_usable_rate": 0.94,
+    "multi_turn_runs": 30,
+    "run_survival_rate": 0.7667,
+    "usable_run_rate": 0.6667
+  },
+  "stage4_5_control_rerun": {
+    "n": 45,
+    "contract_valid": 41,
+    "contract_valid_rate": 0.9111,
+    "direct_json": 40,
+    "frozen_extraction": 1,
+    "json_parse_error": 4,
+    "empty_query": 2,
+    "empty_query_rate": 0.0444,
+    "semantically_usable": 39,
+    "semantically_usable_rate": 0.8667,
+    "prose_failure": 4,
+    "failure_shapes": {
+      "prose": 4
+    },
+    "categories": {
+      "VALID_DIRECT_JSON": 40,
+      "JSON_PARSE_ERROR": 4,
+      "VALID_FROZEN_EXTRACTION": 1
+    },
+    "latency_s": {
+      "mean": 9.75,
+      "median": 9.777,
+      "max": 17.476
+    },
+    "generated_tokens": {
+      "mean": 76.6,
+      "min": 16,
+      "max": 150
+    },
+    "question_chars": {
+      "n": 39,
+      "mean": 271.3,
+      "min": 94,
+      "max": 617
+    }
+  },
+  "note": "Stage 4's isolated sample used a different history construction (synthetic round history) than this study's 5-round distribution; the comparison is therefore between contemporaneous candidates first, and to Stage 4 second."
+}

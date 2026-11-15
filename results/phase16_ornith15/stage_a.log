@@ -1,0 +1,46 @@
+[qualify] profile=ornith15 config=C:\Users\CSLAB\Desktop\hemanth\Guardbound\configs\attacker_ornith15.yaml qual_dir=C:\Users\CSLAB\Desktop\hemanth\Guardbound\results\phase16_ornith15\qualification
+23:12:06 | INFO    | guardbound.llm.provider_factory | [factory] attacker -> local backend=ornith15 model=ornith-ai/Ornith-1.5-9B revision=489cb97981b8654bcfcf30ce1f94ed1b62e07b53 max_new_tokens=256 structured_output_mode=constrained_json residency=sequential
+23:12:06 | INFO    | guardbound.llm.model_manager | [model-manager] activate role=attacker vram=0.00GB free=24.38GB {'model_id': 'ornith-ai/Ornith-1.5-9B'}
+23:12:11 | INFO    | numexpr.utils | Note: NumExpr detected 24 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 16.
+23:12:11 | INFO    | numexpr.utils | NumExpr defaulting to 16 threads.
+23:12:11 | INFO    | guardbound.llm.multimodal_client | Loading Ornith-1.5-9B model: ornith-ai/Ornith-1.5-9B (revision=489cb97981b8654bcfcf30ce1f94ed1b62e07b53, dtype=bfloat16, device_map=cuda)
+Loading weights:   0%|          | 0/760 [00:00<?, ?it/s]Loading weights:   0%|          | 1/760 [00:01<13:43,  1.08s/it]Loading weights:   0%|          | 2/760 [00:01<11:23,  1.11it/s]Loading weights:   2%|1         | 14/760 [00:01<01:08, 10.94it/s]Loading weights:   4%|3         | 27/760 [00:02<00:32, 22.85it/s]Loading weights:   5%|4         | 36/760 [00:02<00:23, 31.22it/s]Loading weights:   6%|5         | 44/760 [00:02<00:19, 36.21it/s]Loading weights:   7%|6         | 51/760 [00:02<00:17, 40.43it/s]Loading weights:   9%|8         | 66/760 [00:02<00:12, 57.17it/s]Loading weights:  10%|#         | 76/760 [00:02<00:10, 64.35it/s]Loading weights:  11%|#1        | 85/760 [00:02<00:10, 63.81it/s]Loading weights:  12%|#2        | 95/760 [00:03<00:09, 67.09it/s]Loading weights:  14%|#3        | 103/760 [00:03<00:10, 61.68it/s]Loading weights:  16%|#5        | 119/760 [00:03<00:08, 77.21it/s]Loading weights:  17%|#6        | 129/760 [00:03<00:07, 79.16it/s]Loading weights:  18%|#8        | 138/760 [00:03<00:08, 76.12it/s]Loading weights:  19%|#9        | 148/760 [00:03<00:08, 76.40it/s]Loading weights:  21%|##        | 156/760 [00:03<00:08, 68.15it/s]Loading weights:  23%|##2       | 172/760 [00:03<00:07, 82.15it/s]Loading weights:  24%|##3       | 181/760 [00:04<00:06, 83.48it/s]Loading weights:  25%|##5       | 190/760 [00:04<00:07, 76.69it/s]Loading weights:  26%|##6       | 200/760 [00:04<00:07, 75.94it/s]Loading weights:  27%|##7       | 208/760 [00:04<00:08, 67.45it/s]Loading weights:  30%|##9       | 225/760 [00:04<00:06, 84.57it/s]Loading weights:  31%|###       | 234/760 [00:04<00:06, 84.19it/s]Loading weights:  32%|###1      | 243/760 [00:04<00:06, 78.01it/s]Loading weights:  33%|###3      | 254/760 [00:05<00:06, 80.53it/s]Loading weights:  35%|###4      | 263/760 [00:05<00:06, 72.48it/s]Loading weights:  37%|###6      | 278/760 [00:05<00:05, 83.63it/s]Loading weights:  38%|###7      | 288/760 [00:05<00:05, 86.65it/s]Loading weights:  39%|###9      | 297/760 [00:05<00:05, 78.66it/s]Loading weights:  40%|####      | 307/760 [00:05<00:05, 77.46it/s]Loading weights:  41%|####1     | 315/760 [00:05<00:06, 68.49it/s]Loading weights:  44%|####3     | 331/760 [00:06<00:05, 82.57it/s]Loading weights:  45%|####4     | 341/760 [00:06<00:04, 85.61it/s]Loading weights:  46%|####6     | 350/760 [00:06<00:05, 77.96it/s]Loading weights:  47%|####7     | 360/760 [00:06<00:05, 77.55it/s]Loading weights:  48%|####8     | 368/760 [00:06<00:05, 68.69it/s]Loading weights:  50%|#####     | 382/760 [00:06<00:04, 85.39it/s]Loading weights:  52%|#####1    | 392/760 [00:06<00:04, 83.99it/s]Loading weights:  53%|#####2    | 401/760 [00:06<00:04, 72.41it/s]Loading weights:  54%|#####4    | 413/760 [00:07<00:04, 71.24it/s]Loading weights:  55%|#####5    | 421/760 [00:07<00:04, 69.47it/s]Loading weights:  63%|######3   | 479/760 [00:07<00:01, 186.31it/s]Loading weights:  76%|#######5  | 575/760 [00:07<00:00, 374.59it/s]Loading weights:  88%|########8 | 671/760 [00:07<00:00, 526.14it/s]Loading weights:  99%|#########9| 753/760 [00:07<00:00, 579.39it/s]Loading weights: 100%|##########| 760/760 [00:07<00:00, 99.14it/s] 
+23:12:22 | INFO    | guardbound.llm.ornith15_client | Ornith-1.5-9B native class: Qwen3_5ForConditionalGeneration (declared: ['Qwen3_5ForConditionalGeneration'])
+23:12:22 | INFO    | guardbound.llm.model_manager | [model-manager] load role=attacker vram=18.82GB free=5.52GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'action': 'load', 'duration_s': 15.763, 'free_before_gb': 24.38463488, 'free_after_gb': 5.516558336, 'reserved_before_gb': 0.0, 'estimated_gb': 19.306, 'measured_gb': 18.82, 'driver_free_delta_gb': 18.868, 'device_map': 'cuda'}
+23:12:22 | INFO    | guardbound.llm.multimodal_client | Loading Ornith-1.5-9B processor: ornith-ai/Ornith-1.5-9B
+23:12:30 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=4.61GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[A] probe 0: parsed  (8.33s)
+23:12:35 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=4.61GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[A] probe 1: parsed  (4.9s)
+23:12:41 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=4.61GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[A] probe 2: parsed  (5.88s)
+23:12:46 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=4.61GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[A] probe 3: parsed  (4.83s)
+23:12:50 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=4.61GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[A] probe 4: parsed  (4.54s)
+23:12:58 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=4.61GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[A] probe 5: raised json_like_malformed (7.7s)
+23:13:03 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=4.61GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[A] probe 6: parsed  (5.38s)
+23:13:07 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=4.61GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[A] probe 7: raised json_like_malformed (4.09s)
+23:13:12 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=4.61GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[A] probe 8: parsed  (4.65s)
+23:13:17 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=4.61GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[A] probe 9: parsed  (4.44s)
+23:13:17 | INFO    | guardbound.llm.model_manager | [model-manager] evict role=attacker vram=0.01GB free=24.31GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'action': 'evict', 'duration_s': 0.212, 'free_before_gb': 4.614782976, 'free_after_gb': 24.313331712, 'freed_gb': 19.699, 'cache_released': False}
+23:13:17 | INFO    | guardbound.llm.model_manager | [model-manager] unload_all vram=0.01GB free=24.31GB 
+[qualify] wrote C:\Users\CSLAB\Desktop\hemanth\Guardbound\results\phase16_ornith15\qualification\stage_A.json
+{
+  "generations": 10,
+  "valid_json": 8,
+  "invalid_json": 2,
+  "json_validity_rate": 0.8,
+  "empty_outputs": 0,
+  "reasoning_only_outputs": 0,
+  "json_like_malformed": 2,
+  "other_text_outputs": 0,
+  "empty_queries": 0,
+  "latency_mean_s": 5.47,
+  "latency_max_s": 8.33
+}

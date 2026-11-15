@@ -1,0 +1,166 @@
+{
+  "timestamp": "2026-09-10T03:01:04+0530",
+  "git_commit": "ad48a94b418b3cfe6a130df952763dee62c172d6",
+  "config": {
+    "path": "configs\\reproduction.yaml",
+    "content": {
+      "experiment": {
+        "name": "paper_reproduction",
+        "seed": 42,
+        "max_samples": null,
+        "start_from": 0,
+        "mode": "A",
+        "resume": true,
+        "output_dir": "results/reproduction",
+        "fail_on_incomplete_config": true
+      },
+      "paper_reference_model": {
+        "attacker": "gpt-4o",
+        "target": "gpt-4o",
+        "evaluator": "gpt-4o"
+      },
+      "experiment_model": {
+        "provider": "hf_local",
+        "attacker": "models/Llama-3.1-8B-Instruct",
+        "target": "models/Llama-3.1-8B-Instruct",
+        "evaluator": "models/Llama-3.1-8B-Instruct",
+        "temperature": 0.7,
+        "top_p": 0.9,
+        "max_new_tokens": 256,
+        "json_mode": "extracted"
+      },
+      "attacker": {
+        "model": "models/Llama-3.1-8B-Instruct",
+        "temperature": 0.7,
+        "json_format": true,
+        "max_new_tokens": 256,
+        "api_key_env": null
+      },
+      "target": {
+        "model": "models/Llama-3.1-8B-Instruct",
+        "temperature": 0.7,
+        "max_new_tokens": 256,
+        "system_prompt_source": "dataset.target_system",
+        "backend": "hf_local"
+      },
+      "evaluator": {
+        "rubric_model": "models/Llama-3.1-8B-Instruct",
+        "refusal_model": "models/Llama-3.1-8B-Instruct",
+        "disclaimer_model": "models/Llama-3.1-8B-Instruct",
+        "actor_step_judge_model": "models/Llama-3.1-8B-Instruct",
+        "temperature": 0.0,
+        "json_mode": "extracted"
+      },
+      "embedding": {
+        "model": "all-mpnet-base-v2",
+        "dimension": 768
+      },
+      "nbf": {
+        "checkpoint": "nbf_original_stuff/orginal_code_give_by_author/NBF-LLM/models/models_best_nbf_released.pth",
+        "checkpoint_format": "original_author",
+        "checkpoint_sha256_expected": "cea1a75bcef4fc515814b69c42541c95114f587abcc4505c9b096bbfa2a136fe",
+        "state_dimension": 768,
+        "predictor_classes": 5,
+        "threshold": 0.0,
+        "eta": 0.0,
+        "trials": {
+          "crescendo": 3,
+          "actor_attack": 10,
+          "opposite_day": 3,
+          "acronym": 3
+        },
+        "initial_state": "zeros(768)",
+        "allow_local_checkpoints": false
+      },
+      "dataset": {
+        "path": "nbf_original_stuff/orginal_code_give_by_author/NBF-LLM/data/test/harmbench_tasks.json",
+        "fields": [
+          "target_system",
+          "task",
+          "max_rounds"
+        ],
+        "split": "test",
+        "num_goals": 200,
+        "sampling": "file_order",
+        "shuffle": false,
+        "seed": null,
+        "subset": null,
+        "duplicates_possible": false
+      },
+      "attacks": {
+        "max_turns": 8,
+        "enabled": {
+          "crescendo_paper": true,
+          "actor_attack": true,
+          "opposite_day": true,
+          "acronym": true
+        }
+      },
+      "evaluation": {
+        "success_score": 5,
+        "judge_model": "models/Llama-3.1-8B-Instruct",
+        "judge_temperature": 0.0,
+        "judge_prompt": "configs/judge_prompts/asr_judge.txt"
+      },
+      "hardware": {
+        "gpu": "NVIDIA RTX 4500 Ada Generation",
+        "vram_gb": 24,
+        "device": "cuda",
+        "dtype": "bfloat16",
+        "model_loading_mode": "transformers_pipeline(device_map=\"cuda\")",
+        "quantization": "none",
+        "max_model_len": 131072,
+        "expected_memory_gb": 16.5
+      },
+      "validation": {
+        "required_fields": [
+          "experiment_model.attacker",
+          "experiment_model.target",
+          "experiment_model.evaluator",
+          "evaluator.rubric_model",
+          "evaluator.refusal_model",
+          "embedding.model",
+          "embedding.dimension",
+          "nbf.checkpoint",
+          "nbf.state_dimension",
+          "nbf.threshold",
+          "nbf.trials.crescendo",
+          "nbf.trials.actor_attack",
+          "nbf.trials.opposite_day",
+          "nbf.trials.acronym",
+          "dataset.path",
+          "dataset.split",
+          "experiment.seed",
+          "attacks.max_turns",
+          "experiment.output_dir",
+          "hardware.device"
+        ]
+      },
+      "paths": {
+        "results": "results/reproduction"
+      }
+    }
+  },
+  "attacker_model": "models/Llama-3.1-8B-Instruct",
+  "target_model": "models/Llama-3.1-8B-Instruct",
+  "evaluator_model": "models/Llama-3.1-8B-Instruct",
+  "embedding_model": "all-mpnet-base-v2",
+  "nbf_checkpoint": "nbf_original_stuff/orginal_code_give_by_author/NBF-LLM/models/models_best_nbf_released.pth",
+  "nbf_checkpoint_sha256": "cea1a75bcef4fc515814b69c42541c95114f587abcc4505c9b096bbfa2a136fe",
+  "dataset": "nbf_original_stuff/orginal_code_give_by_author/NBF-LLM/data/test/harmbench_tasks.json",
+  "dataset_split": "test",
+  "seed": 42,
+  "temperature": 0.7,
+  "max_turns": 8,
+  "threshold": 0.0,
+  "mode": "B",
+  "limit": 3,
+  "device": "cuda",
+  "dtype": "bfloat16",
+  "software_versions": {
+    "python": "3.12.7",
+    "torch": "2.5.1+cu121",
+    "transformers": "5.16.1",
+    "platform": "Windows-11-10.0.26200-SP0"
+  }
+}

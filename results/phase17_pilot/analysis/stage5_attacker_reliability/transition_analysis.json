@@ -1,0 +1,37 @@
+{
+  "phase": "17",
+  "stage": "5",
+  "deliverable": "transition_analysis.json",
+  "source": "frozen Stage 4.8 records (371 calls, 90 runs)",
+  "observed_transitions": {
+    "valid->valid": 221,
+    "valid->invalid": 60
+  },
+  "structural_note": "an invalid attacker call terminates its run in the frozen pipeline, so invalid->valid and invalid->invalid transitions cannot occur and are not reported as if they had been observed",
+  "valid_to_valid_rate": 0.7865,
+  "previous_output_length_median_chars": 517,
+  "previous_output_length_vs_next_validity": {
+    "previous_short_valid_rate": 0.8112,
+    "previous_long_valid_rate": 0.7609,
+    "n_short_pairs": 143,
+    "n_long_pairs": 138,
+    "test": {
+      "question": "previous attacker output length (median split) vs next-call validity",
+      "table": [
+        [
+          116,
+          27
+        ],
+        [
+          105,
+          33
+        ]
+      ],
+      "p_value": 0.31249,
+      "rate_row1": 0.8112,
+      "rate_row2": 0.7609,
+      "risk_difference": 0.0503,
+      "note": ""
+    }
+  }
+}

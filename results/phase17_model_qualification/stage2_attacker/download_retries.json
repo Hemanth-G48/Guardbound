@@ -1,0 +1,45 @@
+{
+  "phase": "17",
+  "stage": "2",
+  "deliverable": "download_retries.json",
+  "note": "Every controlled reattempt is recorded here, per candidate. The Xet transfer backend stalled outright on this machine (0 bytes in ten minutes while holding 37 sockets); the classic HTTP path with parallelism is used instead.",
+  "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+  "candidates": {
+    "Qwen/Qwen3.8-27B": {
+      "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+      "attempts": [
+        {
+          "started_utc": "2026-09-29T11:33:58Z",
+          "duration_s": 1940.3,
+          "bytes_before": 21167232154,
+          "bytes_after": 74641142584,
+          "delta_gib": 49.801,
+          "ended_with": "child_exited_0",
+          "attempt": 1,
+          "files_present": 32,
+          "files_expected": 32,
+          "cache_gib": 69.515,
+          "effective_rate_mib_s": 26.28
+        }
+      ]
+    },
+    "Qwen/Qwen3.6-27B": {
+      "revision": "6a9e13bd6fc8f0983b9b99948120bc37f49c13e9",
+      "attempts": [
+        {
+          "started_utc": "2026-09-29T12:31:48Z",
+          "duration_s": 1220.2,
+          "bytes_before": 4348,
+          "bytes_after": 55586107980,
+          "delta_gib": 51.769,
+          "ended_with": "child_exited_0",
+          "attempt": 1,
+          "files_present": 29,
+          "files_expected": 29,
+          "cache_gib": 51.769,
+          "effective_rate_mib_s": 43.44
+        }
+      ]
+    }
+  }
+}

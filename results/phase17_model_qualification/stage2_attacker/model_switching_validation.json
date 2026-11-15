@@ -1,0 +1,260 @@
+{
+  "phase": "17",
+  "stage": "2",
+  "deliverable": "model_switching_validation.json",
+  "contract": {
+    "sequence": "ATTACKER -> release -> TARGET -> release -> JUDGE -> release -> ATTACKER",
+    "checks": [
+      "correct model identity (loaded class, model_id attribute)",
+      "correct tokenizer",
+      "no stale references (cache inspected per step)",
+      "max resident models = 1",
+      "VRAM returned after the sequence"
+    ]
+  },
+  "candidates": {
+    "qwen38": {
+      "trace": [
+        {
+          "step": 0,
+          "role": "attacker",
+          "resident_models": [
+            "Qwen/Qwen3.8-27B"
+          ],
+          "resident_count": 1,
+          "loaded_class": "Qwen3_5ForCausalLM",
+          "tokenizer_name": "Qwen/Qwen3.8-27B",
+          "model_id_attribute": "Qwen/Qwen3.8-27B",
+          "quantization": "nf4",
+          "cache_keys": [
+            "Qwen/Qwen3.8-27B_{'': 0}"
+          ],
+          "vram": {
+            "allocated_gib": 16.456,
+            "reserved_gib": 16.715,
+            "peak_allocated_gib": 16.582,
+            "driver_free_gib": 5.966,
+            "driver_total_gib": 23.994
+          }
+        },
+        {
+          "step": 1,
+          "role": "target",
+          "resident_models": [
+            "meta-llama/Meta-Llama-3-8B-Instruct"
+          ],
+          "resident_count": 1,
+          "loaded_class": "LlamaForCausalLM",
+          "tokenizer_name": "meta-llama/Meta-Llama-3-8B-Instruct",
+          "model_id_attribute": "meta-llama/Meta-Llama-3-8B-Instruct",
+          "quantization": null,
+          "cache_keys": [
+            "meta-llama/Meta-Llama-3-8B-Instruct_{'': 0}"
+          ],
+          "vram": {
+            "allocated_gib": 14.958,
+            "reserved_gib": 14.959,
+            "peak_allocated_gib": 16.582,
+            "driver_free_gib": 7.722,
+            "driver_total_gib": 23.994
+          }
+        },
+        {
+          "step": 2,
+          "role": "evaluator",
+          "resident_models": [
+            "Qwen/Qwen3-8B"
+          ],
+          "resident_count": 1,
+          "loaded_class": "Qwen3ForCausalLM",
+          "tokenizer_name": "Qwen/Qwen3-8B",
+          "model_id_attribute": "Qwen/Qwen3-8B",
+          "quantization": null,
+          "cache_keys": [
+            "Qwen/Qwen3-8B_{'': 0}"
+          ],
+          "vram": {
+            "allocated_gib": 15.256,
+            "reserved_gib": 15.258,
+            "peak_allocated_gib": 16.582,
+            "driver_free_gib": 7.423,
+            "driver_total_gib": 23.994
+          }
+        },
+        {
+          "step": 3,
+          "role": "attacker",
+          "resident_models": [
+            "Qwen/Qwen3.8-27B"
+          ],
+          "resident_count": 1,
+          "loaded_class": "Qwen3_5ForCausalLM",
+          "tokenizer_name": "Qwen/Qwen3.8-27B",
+          "model_id_attribute": "Qwen/Qwen3.8-27B",
+          "quantization": "nf4",
+          "cache_keys": [
+            "Qwen/Qwen3.8-27B_{'': 0}"
+          ],
+          "vram": {
+            "allocated_gib": 16.456,
+            "reserved_gib": 16.713,
+            "peak_allocated_gib": 16.582,
+            "driver_free_gib": 5.968,
+            "driver_total_gib": 23.994
+          }
+        }
+      ],
+      "released_at_end": [
+        "attacker"
+      ],
+      "max_resident_models": 1,
+      "vram_after_release": {
+        "allocated_gib": 0.0,
+        "reserved_gib": 0.002,
+        "peak_allocated_gib": 16.582,
+        "driver_free_gib": 22.679,
+        "driver_total_gib": 23.994
+      }
+    },
+    "qwen36": {
+      "trace": [
+        {
+          "step": 0,
+          "role": "attacker",
+          "resident_models": [
+            "Qwen/Qwen3.6-27B"
+          ],
+          "resident_count": 1,
+          "loaded_class": "Qwen3_5ForCausalLM",
+          "tokenizer_name": "Qwen/Qwen3.6-27B",
+          "model_id_attribute": "Qwen/Qwen3.6-27B",
+          "quantization": "nf4",
+          "cache_keys": [
+            "Qwen/Qwen3.6-27B_{'': 0}"
+          ],
+          "vram": {
+            "allocated_gib": 16.464,
+            "reserved_gib": 17.393,
+            "peak_allocated_gib": 17.495,
+            "driver_free_gib": 5.271,
+            "driver_total_gib": 23.994
+          }
+        },
+        {
+          "step": 1,
+          "role": "target",
+          "resident_models": [
+            "meta-llama/Meta-Llama-3-8B-Instruct"
+          ],
+          "resident_count": 1,
+          "loaded_class": "LlamaForCausalLM",
+          "tokenizer_name": "meta-llama/Meta-Llama-3-8B-Instruct",
+          "model_id_attribute": "meta-llama/Meta-Llama-3-8B-Instruct",
+          "quantization": null,
+          "cache_keys": [
+            "meta-llama/Meta-Llama-3-8B-Instruct_{'': 0}"
+          ],
+          "vram": {
+            "allocated_gib": 14.965,
+            "reserved_gib": 14.986,
+            "peak_allocated_gib": 17.495,
+            "driver_free_gib": 7.677,
+            "driver_total_gib": 23.994
+          }
+        },
+        {
+          "step": 2,
+          "role": "evaluator",
+          "resident_models": [
+            "Qwen/Qwen3-8B"
+          ],
+          "resident_count": 1,
+          "loaded_class": "Qwen3ForCausalLM",
+          "tokenizer_name": "Qwen/Qwen3-8B",
+          "model_id_attribute": "Qwen/Qwen3-8B",
+          "quantization": null,
+          "cache_keys": [
+            "Qwen/Qwen3-8B_{'': 0}"
+          ],
+          "vram": {
+            "allocated_gib": 15.264,
+            "reserved_gib": 15.285,
+            "peak_allocated_gib": 17.495,
+            "driver_free_gib": 7.378,
+            "driver_total_gib": 23.994
+          }
+        },
+        {
+          "step": 3,
+          "role": "attacker",
+          "resident_models": [
+            "Qwen/Qwen3.6-27B"
+          ],
+          "resident_count": 1,
+          "loaded_class": "Qwen3_5ForCausalLM",
+          "tokenizer_name": "Qwen/Qwen3.6-27B",
+          "model_id_attribute": "Qwen/Qwen3.6-27B",
+          "quantization": "nf4",
+          "cache_keys": [
+            "Qwen/Qwen3.6-27B_{'': 0}"
+          ],
+          "vram": {
+            "allocated_gib": 16.464,
+            "reserved_gib": 16.721,
+            "peak_allocated_gib": 17.495,
+            "driver_free_gib": 5.942,
+            "driver_total_gib": 23.994
+          }
+        }
+      ],
+      "released_at_end": [
+        "attacker"
+      ],
+      "max_resident_models": 1,
+      "vram_after_release": {
+        "allocated_gib": 0.008,
+        "reserved_gib": 0.168,
+        "peak_allocated_gib": 17.495,
+        "driver_free_gib": 22.495,
+        "driver_total_gib": 23.994
+      }
+    }
+  },
+  "superseded_switching_traces": {
+    "qwen38": {
+      "recorded": {
+        "max_resident_models": 0,
+        "vram_after_release": {
+          "allocated_gib": 0.008,
+          "reserved_gib": 0.168,
+          "peak_allocated_gib": 18.441,
+          "driver_free_gib": 22.495,
+          "driver_total_gib": 23.994
+        },
+        "trace": [
+          {
+            "step": 0,
+            "role": "attacker",
+            "error": "AttributeError: 'HFLocalChatLLM' object has no attribute '_inner'"
+          },
+          {
+            "step": 1,
+            "role": "target",
+            "error": "AttributeError: 'HFLocalChatLLM' object has no attribute '_inner'"
+          },
+          {
+            "step": 2,
+            "role": "judge",
+            "error": "KeyError: 'judge'"
+          },
+          {
+            "step": 3,
+            "role": "attacker",
+            "error": "AttributeError: 'HFLocalChatLLM' object has no attribute '_inner'"
+          }
+        ]
+      },
+      "reason": "Harness defect, not a model or residency result: every step recorded an exception instead of a load, so no identity, resident-count or VRAM claim could be read from it. Re-measured by scripts/phase17_stage2_multiturn_switching_fix.py; the corrected block in candidates.qwen38 is the measurement."
+    }
+  }
+}

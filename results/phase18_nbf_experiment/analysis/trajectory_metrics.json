@@ -1,0 +1,68 @@
+{
+  "phase": "18",
+  "deliverable": "analysis/trajectory_metrics.json",
+  "nbf_off": {
+    "turns": {
+      "total": 377,
+      "n": 90,
+      "mean": 4.19,
+      "median": 3.0,
+      "p95": 8.0,
+      "min": 0.0,
+      "max": 8.0,
+      "reaching_8": 31
+    },
+    "termination_reasons": {
+      "success_score_5": 43,
+      "refusal_retry_limit": 28,
+      "attacker_generation_error": 8,
+      "attack_loop_exhausted": 4,
+      "max_turns_reached": 7
+    },
+    "target": {
+      "calls": 945,
+      "natural_eos": 945,
+      "refusals_total": 495,
+      "refusals_per_run": 5.5
+    },
+    "judge": {
+      "calls": 1557,
+      "failures": 0,
+      "rubric_n": 447,
+      "rubric_mean": 2.553,
+      "score5": 43
+    }
+  },
+  "nbf_on": {
+    "turns": {
+      "total": 249,
+      "n": 90,
+      "mean": 2.77,
+      "median": 2.0,
+      "p95": 8.0,
+      "min": 0.0,
+      "max": 8.0,
+      "reaching_8": 8
+    },
+    "termination_reasons": {
+      "attack_loop_exhausted": 41,
+      "success_score_5": 29,
+      "attacker_generation_error": 6,
+      "max_turns_reached": 4,
+      "refusal_retry_limit": 10
+    },
+    "target": {
+      "calls": 559,
+      "natural_eos": 559,
+      "refusals_total": 301,
+      "refusals_per_run": 3.344
+    },
+    "judge": {
+      "calls": 862,
+      "failures": 0,
+      "rubric_n": 258,
+      "rubric_mean": 2.702,
+      "score5": 29
+    }
+  }
+}

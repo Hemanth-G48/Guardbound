@@ -1,0 +1,28 @@
+{
+  "phase": "18-extension",
+  "deliverable": "analysis/runtime_gpu.json",
+  "nbf_off": {
+    "n": 30,
+    "mean": 608.14,
+    "median": 442.79,
+    "p95": 1643.97,
+    "min": 74.57,
+    "max": 1785.14,
+    "throughput_runs_per_hour": 5.92,
+    "peak_vram_gib": 18.378,
+    "oom": 1
+  },
+  "nbf_on": {
+    "n": 30,
+    "mean": 443.61,
+    "median": 365.65,
+    "p95": 1176.53,
+    "min": 57.73,
+    "max": 1227.83,
+    "throughput_runs_per_hour": 8.12,
+    "peak_vram_gib": 18.378,
+    "oom": 0
+  },
+  "total_wall_clock_h": 8.76,
+  "note": "fewer OOMs or lower runtime on the NBF arm is a trajectory/budget effect, not evidence that the NBF is intrinsically cheaper"
+}

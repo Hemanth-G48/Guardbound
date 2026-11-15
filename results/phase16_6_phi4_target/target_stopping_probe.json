@@ -1,0 +1,45 @@
+{
+  "phase": "16.6",
+  "test": "F1 target stopping probe (20 generations across crescendo / opposite_day / acronym)",
+  "status": "NOT RUN",
+  "blocked_reason": "MODEL_NOT_FEASIBLE_AT_REQUIRED_PRECISION - microsoft/phi-4 cannot be loaded at bfloat16 on this GPU, so no target generation could be produced",
+  "metrics": {
+    "output_tokens": null,
+    "natural_eos": null,
+    "eos_rate": null,
+    "mid_word_termination": null,
+    "mid_sentence_termination": null,
+    "stop_sequence_termination": null,
+    "max_token_termination": null,
+    "latency": null,
+    "peak_vram": null,
+    "termination_reason": null
+  },
+  "not_measured_reason": "not measured - reported as null, never estimated",
+  "previous_target_reference_values": {
+    "model": "microsoft/Phi-4-mini-instruct",
+    "source": "Phase 16.4/16.5 measurements of the 180 frozen Track A records and the Phase 16.5 uncapped probe",
+    "recorded_frozen_max_new_tokens_256": {
+      "responses_measured": 929,
+      "mean_tokens": 254.9,
+      "median_tokens": 256,
+      "max_tokens": 256,
+      "at_cap_pct": 95.0,
+      "under_200_tokens_pct": 0.0,
+      "mid_sentence_pct": 93.9,
+      "natural_eos_rate": 0.0
+    },
+    "phase16_5_uncapped_probe": {
+      "cases": 8,
+      "natural_eos": 1,
+      "eos_rate_pct": 12.5,
+      "mean_tokens": 1191,
+      "median_tokens": 1300,
+      "max_tokens": 1310,
+      "mid_sentence_pct": 87.5,
+      "stopped_by": "probe wall-clock bound",
+      "note": "cap removed, no substitution ceiling; the target did not terminate on its own in 7 of 8 cases"
+    }
+  },
+  "conclusion": "the F1 question for Phi-4 is UNANSWERED because Phi-4 could not be run; it is not answered negatively"
+}

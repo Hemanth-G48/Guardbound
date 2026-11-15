@@ -1,0 +1,96 @@
+{
+  "model_id": "Qwen/Qwen3.8-27B",
+  "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+  "declared_architecture": "Qwen3_5ForConditionalGeneration",
+  "backend": "Qwen38NativeChatLLM",
+  "quantization": "nf4",
+  "dtype": "bfloat16",
+  "requested_class": "AutoModelForImageTextToText",
+  "max_new_tokens_declared": null,
+  "top_p": 1.0,
+  "chat_template_kwargs": {
+    "enable_thinking": false
+  },
+  "vram_baseline": {
+    "allocated_gib": 0.0,
+    "reserved_gib": 0.0,
+    "peak_allocated_gib": 0.0,
+    "driver_free_gib": 22.71,
+    "driver_total_gib": 23.994
+  },
+  "load_ok": true,
+  "load_seconds": 98.91,
+  "vram_after_load": {
+    "allocated_gib": 16.688,
+    "reserved_gib": 16.877,
+    "peak_allocated_gib": 16.728,
+    "driver_free_gib": 5.804,
+    "driver_total_gib": 23.994
+  },
+  "cache_keys": [],
+  "loaded_class": "Qwen3_5ForConditionalGeneration",
+  "loaded_class_matches_declared": true,
+  "config_architectures": [
+    "Qwen3_5ForConditionalGeneration"
+  ],
+  "text_config_model_type": "qwen3_5_text",
+  "census": {
+    "model_class": "Qwen3_5ForConditionalGeneration",
+    "linear4bit_modules": 606,
+    "plain_linear_modules": 1,
+    "total_params": 14953501936,
+    "params_in_4bit_layers": 12403508080,
+    "frac_params_quantized": 0.8295,
+    "unquantized_param_counts_by_module": {
+      "Embedding": 1274052608,
+      "Linear": 1271398400
+    },
+    "has_vision_tower": true
+  },
+  "transformers_load_report": {
+    "messages": [],
+    "missing_keys_reported": false,
+    "unused_keys_reported": false,
+    "unexpected_keys_reported": false,
+    "size_mismatch_reported": false
+  },
+  "parameter_reconciliation": {
+    "checkpoint_tensors": 1199,
+    "model_tensors": 4214,
+    "matched": 1184,
+    "missing_from_checkpoint": 0,
+    "unused_in_model": 15,
+    "quantization_metadata_params": 3030,
+    "missing_sample": [],
+    "unused_sample": [
+      "mtp.fc.weight",
+      "mtp.layers.0.input_layernorm.weight",
+      "mtp.layers.0.mlp.down_proj.weight",
+      "mtp.layers.0.mlp.gate_proj.weight",
+      "mtp.layers.0.mlp.up_proj.weight",
+      "mtp.layers.0.post_attention_layernorm.weight",
+      "mtp.layers.0.self_attn.k_norm.weight",
+      "mtp.layers.0.self_attn.k_proj.weight",
+      "mtp.layers.0.self_attn.o_proj.weight",
+      "mtp.layers.0.self_attn.q_norm.weight"
+    ]
+  },
+  "release": {
+    "cache_entry_removed": false,
+    "seconds": 0.35,
+    "vram_before_release": {
+      "allocated_gib": 16.696,
+      "reserved_gib": 19.211,
+      "peak_allocated_gib": 17.799,
+      "driver_free_gib": 3.452,
+      "driver_total_gib": 23.994
+    },
+    "vram_after_release": {
+      "allocated_gib": 0.008,
+      "reserved_gib": 0.119,
+      "peak_allocated_gib": 17.799,
+      "driver_free_gib": 22.544,
+      "driver_total_gib": 23.994
+    }
+  }
+}

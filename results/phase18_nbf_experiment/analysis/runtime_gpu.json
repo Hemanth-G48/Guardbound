@@ -1,0 +1,29 @@
+{
+  "phase": "18",
+  "deliverable": "analysis/runtime_gpu.json",
+  "nbf_off": {
+    "n": 90,
+    "mean": 1015.41,
+    "median": 1172.1,
+    "p95": 1810.95,
+    "min": 3.41,
+    "max": 1900.93,
+    "throughput_runs_per_hour": 3.55,
+    "peak_vram_gib": 18.38,
+    "oom": 10
+  },
+  "nbf_on": {
+    "n": 90,
+    "mean": 660.37,
+    "median": 572.34,
+    "p95": 1534.04,
+    "min": 3.38,
+    "max": 1817.59,
+    "throughput_runs_per_hour": 5.45,
+    "peak_vram_gib": 18.38,
+    "oom": 1
+  },
+  "nbf_overhead_per_run_s": -355.0,
+  "total_runs_analysed": 180,
+  "total_wall_clock_h": 41.89
+}

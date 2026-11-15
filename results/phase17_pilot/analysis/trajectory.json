@@ -1,0 +1,42 @@
+{
+  "phase": "17",
+  "stage": "4.7",
+  "deliverable": "analysis/trajectory.json",
+  "status": "measured",
+  "runs": 90,
+  "runs_completed": 90,
+  "run_survival": {
+    "numerator": 29,
+    "denominator": 90,
+    "rate": 0.3222,
+    "ci95_wilson": [
+      0.2347,
+      0.4243
+    ]
+  },
+  "strict_usable_runs": {
+    "definition": "at least one attacker call AND every attacker call in the run semantically usable",
+    "numerator": 22,
+    "denominator": 90,
+    "rate": 0.2444
+  },
+  "completed_turns": {
+    "total": 53,
+    "mean": 0.589,
+    "median": 0.0,
+    "max": 6
+  },
+  "full_budget_runs": {
+    "numerator": 0,
+    "denominator": 90,
+    "note": "max_turns = 8 is a cap, not a required depth"
+  },
+  "termination_reasons": {
+    "success_score_5": 22,
+    "attacker_generation_error": 60,
+    "attack_loop_exhausted": 7,
+    "refusal_retry_limit": 1
+  },
+  "target_refusals": 151,
+  "target_eos_rate": 1.0
+}

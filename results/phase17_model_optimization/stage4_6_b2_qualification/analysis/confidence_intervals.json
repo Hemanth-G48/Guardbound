@@ -1,0 +1,93 @@
+{
+  "phase": "17",
+  "stage": "4.6",
+  "deliverable": "confidence_intervals.json",
+  "interval_method": "Wilson score interval, 95 %",
+  "phase_analysed": "30runs_2turns",
+  "intervals": {
+    "control": {
+      "run_survival": {
+        "numerator": 23,
+        "denominator": 30,
+        "rate": 0.7667,
+        "rate_pct": "76.7%",
+        "ci95_wilson": [
+          0.5907,
+          0.8821
+        ]
+      },
+      "usable_run_strict": {
+        "numerator": 22,
+        "denominator": 30,
+        "rate": 0.7333,
+        "rate_pct": "73.3%",
+        "ci95_wilson": [
+          0.5555,
+          0.8582
+        ]
+      },
+      "attacker_call_validity": {
+        "numerator": 96,
+        "denominator": 103,
+        "rate": 0.932,
+        "ci95_wilson": [
+          0.8663,
+          0.9667
+        ],
+        "direct_json": 93,
+        "frozen_extraction": 3
+      },
+      "attacker_call_semantic_usability": {
+        "numerator": 95,
+        "denominator": 103,
+        "rate": 0.9223,
+        "ci95_wilson": [
+          0.8542,
+          0.9601
+        ]
+      }
+    },
+    "b2": {
+      "run_survival": {
+        "numerator": 26,
+        "denominator": 30,
+        "rate": 0.8667,
+        "rate_pct": "86.7%",
+        "ci95_wilson": [
+          0.7032,
+          0.9469
+        ]
+      },
+      "usable_run_strict": {
+        "numerator": 26,
+        "denominator": 30,
+        "rate": 0.8667,
+        "rate_pct": "86.7%",
+        "ci95_wilson": [
+          0.7032,
+          0.9469
+        ]
+      },
+      "attacker_call_validity": {
+        "numerator": 107,
+        "denominator": 111,
+        "rate": 0.964,
+        "ci95_wilson": [
+          0.911,
+          0.9859
+        ],
+        "direct_json": 106,
+        "frozen_extraction": 1
+      },
+      "attacker_call_semantic_usability": {
+        "numerator": 107,
+        "denominator": 111,
+        "rate": 0.964,
+        "ci95_wilson": [
+          0.911,
+          0.9859
+        ]
+      }
+    }
+  }
+}

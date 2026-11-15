@@ -1,0 +1,79 @@
+{
+  "phase": 18,
+  "runs": 180,
+  "total": {
+    "calls": 5715,
+    "input": 8100861,
+    "output": 670147,
+    "total": 8771008,
+    "missing": 0,
+    "by_role": {
+      "attacker_calls": {
+        "calls": 1792,
+        "input": 3878680,
+        "output": 199512,
+        "missing_token_counts": 0
+      },
+      "target_calls": {
+        "calls": 1504,
+        "input": 1926956,
+        "output": 377734,
+        "missing_token_counts": 0
+      },
+      "judge_calls": {
+        "calls": 2419,
+        "input": 2295225,
+        "output": 92901,
+        "missing_token_counts": 0
+      }
+    }
+  },
+  "per_run": {
+    "input": 45004.8,
+    "output": 3723.0
+  },
+  "nbf_off": {
+    "calls": 3460,
+    "input": 4941674,
+    "output": 392172,
+    "total": 5333846
+  },
+  "nbf_on": {
+    "calls": 2255,
+    "input": 3159187,
+    "output": 277975,
+    "total": 3437162
+  },
+  "by_attack": {
+    "crescendo_paper": {
+      "calls": 1814,
+      "input": 3255215,
+      "output": 266254,
+      "total": 3521469
+    },
+    "opposite_day": {
+      "calls": 2012,
+      "input": 2780827,
+      "output": 224184,
+      "total": 3005011
+    },
+    "acronym": {
+      "calls": 1889,
+      "input": 2064819,
+      "output": 179709,
+      "total": 2244528
+    }
+  },
+  "extension_reference": {
+    "runs": 60,
+    "input": 1557075,
+    "output": 169495,
+    "total": 1726570
+  },
+  "combined_240_runs": {
+    "input": 9657936,
+    "output": 839642,
+    "total": 10497578
+  },
+  "source": "prompt_tokens / generated_tokens recorded per model call in results/phase18_nbf_experiment/raw/run_level_metrics.jsonl"
+}

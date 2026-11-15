@@ -1,0 +1,41 @@
+{
+  "phase": "17",
+  "stage": "4",
+  "deliverable": "stage3_vs_stage4_comparison.json",
+  "isolated": {
+    "stage3": {
+      "n": 24,
+      "valid": 22,
+      "rate": 0.9167,
+      "direct": 21,
+      "extracted": 1
+    },
+    "stage4": {
+      "n": 150,
+      "valid": 142,
+      "rate": 0.9467,
+      "direct": 135,
+      "extracted": 7
+    }
+  },
+  "multi_turn": {
+    "stage3": {
+      "runs": 3,
+      "calls": 15,
+      "valid_calls": 12,
+      "runs_ended_by_attacker_failure": 3
+    },
+    "stage4": {
+      "runs": 30,
+      "runs_survived": 23,
+      "calls": 86,
+      "valid_calls": 79,
+      "runs_ended_by_attacker_failure": 7
+    }
+  },
+  "interpretation_rule": "A difference between the two stages is reported as a difference. No significance is claimed: Stage 3's multi-turn sample was 3 runs, Stage 4's is 30.",
+  "representativeness_question": {
+    "stage3_isolated_22_of_24": "re-tested at 150 calls in Stage 4 (see isolated block)",
+    "stage3_3_of_3_terminations": "re-tested at 30 runs in Stage 4 (see multi_turn block)"
+  }
+}

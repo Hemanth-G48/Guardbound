@@ -1,0 +1,23 @@
+{
+  "phase": "18",
+  "deliverable": "analysis/matched_analysis.json",
+  "test_pre_specified": "exact McNemar (two-sided), the project's established matched test for paired binary outcomes (Stages 6 and 7)",
+  "matched_cells": 90,
+  "contingency": {
+    "off_success_on_success": 20,
+    "off_success_on_failure": 23,
+    "off_failure_on_success": 9,
+    "off_failure_on_failure": 38
+  },
+  "mcnemar": {
+    "discordant": 32,
+    "exact_two_sided_p": 0.020062
+  },
+  "off_cell_rate": 0.4778,
+  "on_cell_rate": 0.3222,
+  "paired_turns": {
+    "mean_difference": -1.422,
+    "median_difference": -1.0,
+    "n_pairs": 90
+  }
+}

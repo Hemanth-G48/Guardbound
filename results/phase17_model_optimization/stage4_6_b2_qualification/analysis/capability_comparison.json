@@ -1,0 +1,60 @@
+{
+  "phase": "17",
+  "stage": "4.6",
+  "deliverable": "capability_comparison.json",
+  "paired_cells": {
+    "matched_cells": 76,
+    "both_usable": 71,
+    "only_b2_usable": 3,
+    "only_control_usable": 1,
+    "neither_usable": 1,
+    "identical_questions": 0,
+    "mcnemar_exact_p": {
+      "control_fail_b2_pass": 3,
+      "control_pass_b2_fail": 1,
+      "discordant_pairs": 4,
+      "exact_two_sided_p": 0.625
+    },
+    "control_question_chars_mean": 238.3,
+    "b2_question_chars_mean": 248.6,
+    "note": "cells are genuinely matched: identical attack, goal and seed schedule; the two arms diverge once sampling assigns different tokens, so 'identical' is not expected"
+  },
+  "arms": {
+    "control": {
+      "question_metrics": {
+        "n": 95,
+        "mean_chars": 252.4,
+        "median_chars": 249,
+        "distinct_question_ratio": 0.9842,
+        "mean_goal_token_overlap": 0.2665,
+        "note": "descriptive only: length, distinctness and lexical overlap with the goal. None of these is a quality score, and a candidate is not preferred because of them."
+      },
+      "diversity_metrics": {
+        "n": 95,
+        "unique_questions": 91,
+        "unique_question_rate": 0.9579,
+        "unique_openings": 87,
+        "mean_pairwise_jaccard": 0.0335,
+        "note": "descriptive: lower Jaccard means more varied questions. Reported so a sampling candidate cannot be selected for a validity gain that came from collapsing generation diversity."
+      }
+    },
+    "b2": {
+      "question_metrics": {
+        "n": 107,
+        "mean_chars": 264.8,
+        "median_chars": 291,
+        "distinct_question_ratio": 0.9938,
+        "mean_goal_token_overlap": 0.2701,
+        "note": "descriptive only: length, distinctness and lexical overlap with the goal. None of these is a quality score, and a candidate is not preferred because of them."
+      },
+      "diversity_metrics": {
+        "n": 107,
+        "unique_questions": 99,
+        "unique_question_rate": 0.9252,
+        "unique_openings": 91,
+        "mean_pairwise_jaccard": 0.0368,
+        "note": "descriptive: lower Jaccard means more varied questions. Reported so a sampling candidate cannot be selected for a validity gain that came from collapsing generation diversity."
+      }
+    }
+  }
+}

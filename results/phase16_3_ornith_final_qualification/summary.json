@@ -1,0 +1,124 @@
+{
+  "phase": "16.3",
+  "title": "Ornith-1.5-9B final attacker qualification gate",
+  "type": "read_only_qualification_review",
+  "date_utc": "2026-09-28",
+  "candidate": {
+    "model_id": "ornith-ai/Ornith-1.5-9B",
+    "revision": "489cb97981b8654bcfcf30ce1f94ed1b62e07b53",
+    "dtype": "bfloat16",
+    "quantization": "none",
+    "backend": "ornith15",
+    "enable_thinking": false,
+    "structured_output_mode": null,
+    "temperature": 0.7,
+    "max_new_tokens": 256
+  },
+  "evidence_verification": {
+    "checks_run": 20,
+    "checks_passed": 20,
+    "stage_a_records": 20,
+    "stage_a_valid_json": 17,
+    "stage_a_rejected": 3,
+    "stage_a_failure_classes": {"VALID_JSON": 17, "EXTRA_TEXT": 3},
+    "stage_b_records": 19,
+    "stage_b_successful_generations": 15,
+    "stage_b_context_failures": 4,
+    "stage_b_complete_3_turn_sequences": 4,
+    "raw_outputs_preserved": true,
+    "accepted_via_direct_json_loads": 32,
+    "accepted_via_structural_extraction": 0,
+    "retries": 0,
+    "parser_repairs": 0,
+    "fallbacks": 0,
+    "prompt_modifications": 0,
+    "attack_modifications": 0,
+    "nbf_modifications": 0,
+    "determinism_run1_vs_run2_raw_text": {"stage_a": "20/20", "stage_b": "19/19"},
+    "determinism_16_1_vs_16_2_raw_text": {"stage_a": "20/20", "stage_b": "19/19"}
+  },
+  "reproducibility": {
+    "verdict": "PASS",
+    "note": "Byte-identical raw outputs under identical seeds; demonstrates determinism and confirms the earlier measurement rather than being an independent statistical replication."
+  },
+  "interface_reliability": {
+    "gate_found": true,
+    "gate_source": "results/PHASE14_7_18_RUN_PRODUCTION_VALIDATION.md section 17 Decision Gate",
+    "gate_criterion": "No systematic JSON/parser issue - isolated to 1 run; not a recurring pattern",
+    "numeric_threshold_defined": false,
+    "threshold_invented_here": false,
+    "criterion_met_by_candidate": false,
+    "criterion_met_reason": "15-21% per-generation rejection recurring on the same goals; not isolated to one run"
+  },
+  "measured_rates": {
+    "ornith_config_b_stage_a_per_generation": 0.15,
+    "ornith_config_b_stage_b_per_generation": 0.2105,
+    "qwen3_4b_instruct_2507_frozen_track_a_per_call": 0.0091,
+    "qwen3_5_4b_phase14_2_per_call": 0.647,
+    "sources": {
+      "qwen3_4b": "computed from results/phase15_pilot_30/trackA_frozen (n=180): 1978 attacker JSON calls, 18 parse failures",
+      "qwen3_5_4b": "results/PHASE14_7_18_RUN_PRODUCTION_VALIDATION.md section 16"
+    }
+  },
+  "coverage_implication": {
+    "planned_matrix_runs": 1200,
+    "planned_matrix_basis": "200 goals x 3 attacks x 2 NBF conditions (ActorAttack and RedQueen excluded by the frozen study)",
+    "mean_attacker_calls_per_run_measured": 10.99,
+    "expected_share_of_runs_surviving_attacker_calls": {
+      "qwen3_4b_frozen": 0.90,
+      "ornith_config_b_stage_a": 0.154,
+      "ornith_config_b_stage_b": 0.066,
+      "qwen3_5_4b_reference": 0.0
+    },
+    "expected_runs_terminating_on_attacker_json_failure": {
+      "qwen3_4b_frozen": "\u2248 120 of 1200 (\u224810%)",
+      "ornith_config_b": "\u2248 1015-1121 of 1200 (85-93%)"
+    },
+    "asr_computed": false,
+    "json_failure_is_not_attack_failure": true,
+    "estimate_caveat": "extrapolated from a 20-generation / 19-turn diagnostic under an independence assumption the project documents as unproven"
+  },
+  "failure_handling_frozen_behaviour": {
+    "json_failure_terminates_attack": true,
+    "raw_output_retained": true,
+    "run_counted_in_denominator": true,
+    "retry": false,
+    "parser_repair": false,
+    "fallback": false,
+    "failed_generation_affects_later_turns": false,
+    "success_criterion_changed": false
+  },
+  "candidate_comparison": {
+    "ranking_performed": false,
+    "models": ["Qwen/Qwen3-4B-Instruct-2507", "Qwen/Qwen3.5-4B",
+               "zai-org/GLM-4.6V-Flash", "ornith-ai/Ornith-1.5-9B"]
+  },
+  "integrity": {
+    "track_a_180_records_sha256_prefix": "FCB952F1598B697B033D605B0791CFBB",
+    "track_a_108_snapshot_sha256_prefix": "C12A562A9454D83B6CC0EE93B2653F4A",
+    "frozen_config_sha256_prefix": "27B660A7052054521A94E3430013D986",
+    "frozen_config_hash": "61ea203c20e68c51",
+    "track_a_unchanged": true,
+    "production_code_modified": [],
+    "files_written": [
+      "results/phase16_3_ornith_final_qualification/qualification_report.md",
+      "results/phase16_3_ornith_final_qualification/summary.json"
+    ]
+  },
+  "decision": {
+    "technical_backend": "PASS",
+    "reproducibility": "PASS",
+    "frozen_interface_compatibility": "PARTIAL",
+    "existing_reliability_gate": "FOUND",
+    "methodological_exceptions_required": "NO",
+    "attacker_qualification": "CONDITIONALLY QUALIFIED",
+    "pilot_90_run": "NOT AUTHORIZED",
+    "condition": [
+      "Frozen failure handling preserved verbatim: JSON_PARSE_ERROR terminates the run, raw output retained, run stays in the denominator, no retry/repair/fallback/prompt or parameter change.",
+      "The expected coverage loss (85-93% of ~1200 runs terminating on an attacker JSON failure at ~11 calls/run, vs ~10% for the frozen attacker) is declared and accepted before any run, with JSON_PARSE_ERROR records reported separately from attack outcomes."
+    ]
+  },
+  "asr_experiment_launched": false,
+  "pilot_launched": false,
+  "generation_experiment_run_this_phase": false
+}

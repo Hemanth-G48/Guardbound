@@ -1,0 +1,13 @@
+{
+  "phase": "17",
+  "stage": "4.9",
+  "deliverable": "infrastructure_analysis.json",
+  "oom_events": 0,
+  "cuda_failures": 0,
+  "infrastructure_failures": 0,
+  "peak_vram_gib": 17.927,
+  "peak_vram_min_gib": 17.926,
+  "runs_with_infrastructure_error_field": 0,
+  "conclusion": "no observed infrastructure constraint influenced the outcomes; every run that failed did so on the attacker contract, and VRAM was identical on all 90 runs",
+  "environment_note": "a separate operator GPU job was running throughout (results/phase17_pilot/logs/environment_observation_concurrent_gpu_job.md)"
+}

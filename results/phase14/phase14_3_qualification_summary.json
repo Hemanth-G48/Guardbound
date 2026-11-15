@@ -1,0 +1,227 @@
+{
+  "proposed_stack": {
+    "attacker": "Qwen/Qwen3-4B-Instruct-2507",
+    "target": "microsoft/Phi-4-mini-instruct",
+    "evaluator": "Qwen/Qwen3.5-4B"
+  },
+  "seed": 42,
+  "probe_goals": 8,
+  "cases": 11,
+  "max_rounds": 8,
+  "attacker": {
+    "role": "attacker",
+    "model": "Qwen/Qwen3-4B-Instruct-2507",
+    "total_calls": 48,
+    "valid_json": 48,
+    "invalid_json": 0,
+    "required_fields_success": 48,
+    "parser_accepted": 48,
+    "parser_failures": 0,
+    "parser_crashes": 0,
+    "json_validity_rate": 1.0,
+    "required_field_success_rate": 1.0,
+    "contract_success_rate": 1.0,
+    "failure_types": {
+      "OK": 48
+    },
+    "mean_latency_s": 5.79,
+    "max_latency_s": 12.55,
+    "max_prompt_chars": 9655,
+    "wall_seconds": 278.0,
+    "peak_vram_gb": 9.579,
+    "free_vram_gb": 15.217983488,
+    "residency": {
+      "resident_roles": [
+        "evaluator"
+      ],
+      "resident_model_ids": [
+        "Qwen/Qwen3.5-4B"
+      ],
+      "resident_count": 1,
+      "pinned_roles": [],
+      "free_gb": 15.217983488,
+      "allocated_gb": 8.420050944,
+      "reserved_gb": 9.116319744,
+      "cached_free_gb": 0.696
+    },
+    "loads": 3,
+    "evictions": 2,
+    "mean_load_s": 9.38,
+    "mean_evict_s": 0.173,
+    "load_refusals": 0,
+    "by_contract": {
+      "acronym.generate_acronym_step": {
+        "calls": 16,
+        "valid_json": 16,
+        "required_fields": 16,
+        "accepted": 16,
+        "acceptance_rate": 1.0,
+        "failure_types": {
+          "OK": 16
+        },
+        "mean_latency_s": 6.14
+      },
+      "crescendo_paper.generate_crescendo_step": {
+        "calls": 16,
+        "valid_json": 16,
+        "required_fields": 16,
+        "accepted": 16,
+        "acceptance_rate": 1.0,
+        "failure_types": {
+          "OK": 16
+        },
+        "mean_latency_s": 6.41
+      },
+      "opposite_day.generate_opposite_day_step": {
+        "calls": 16,
+        "valid_json": 16,
+        "required_fields": 16,
+        "accepted": 16,
+        "acceptance_rate": 1.0,
+        "failure_types": {
+          "OK": 16
+        },
+        "mean_latency_s": 4.81
+      }
+    },
+    "usable_generatedQuestion": 48,
+    "usable_lastResponseSummary": 24,
+    "usable_output_rate": 0.5
+  },
+  "evaluator": {
+    "role": "evaluator",
+    "model": "Qwen/Qwen3.5-4B",
+    "total_calls": 77,
+    "valid_json": 57,
+    "invalid_json": 20,
+    "required_fields_success": 57,
+    "parser_accepted": 57,
+    "parser_failures": 20,
+    "parser_crashes": 5,
+    "json_validity_rate": 0.7403,
+    "required_field_success_rate": 0.7403,
+    "contract_success_rate": 0.7403,
+    "failure_types": {
+      "MODEL_CAPABILITY_FAILURE": 20,
+      "OK": 57
+    },
+    "mean_latency_s": 2.77,
+    "max_latency_s": 16.34,
+    "max_prompt_chars": 4957,
+    "wall_seconds": 213.9,
+    "peak_vram_gb": 9.579,
+    "free_vram_gb": 15.217983488,
+    "residency": {
+      "resident_roles": [
+        "evaluator"
+      ],
+      "resident_model_ids": [
+        "Qwen/Qwen3.5-4B"
+      ],
+      "resident_count": 1,
+      "pinned_roles": [],
+      "free_gb": 15.217983488,
+      "allocated_gb": 8.420050944,
+      "reserved_gb": 9.116319744,
+      "cached_free_gb": 0.696
+    },
+    "loads": 3,
+    "evictions": 2,
+    "mean_load_s": 9.38,
+    "mean_evict_s": 0.173,
+    "load_refusals": 0,
+    "by_contract": {
+      "acronym.check_disclaimer": {
+        "calls": 11,
+        "valid_json": 6,
+        "required_fields": 6,
+        "accepted": 6,
+        "acceptance_rate": 0.5455,
+        "failure_types": {
+          "MODEL_CAPABILITY_FAILURE": 5,
+          "OK": 6
+        },
+        "mean_latency_s": 4.34
+      },
+      "acronym.llm_check_refusal": {
+        "calls": 11,
+        "valid_json": 6,
+        "required_fields": 6,
+        "accepted": 6,
+        "acceptance_rate": 0.5455,
+        "failure_types": {
+          "MODEL_CAPABILITY_FAILURE": 5,
+          "OK": 6
+        },
+        "mean_latency_s": 3.97
+      },
+      "acronym.llm_evaluate_with_rubric": {
+        "calls": 11,
+        "valid_json": 11,
+        "required_fields": 11,
+        "accepted": 11,
+        "acceptance_rate": 1.0,
+        "failure_types": {
+          "OK": 11
+        },
+        "mean_latency_s": 0.75
+      },
+      "crescendo_paper.llm_check_refusal": {
+        "calls": 11,
+        "valid_json": 6,
+        "required_fields": 6,
+        "accepted": 6,
+        "acceptance_rate": 0.5455,
+        "failure_types": {
+          "MODEL_CAPABILITY_FAILURE": 5,
+          "OK": 6
+        },
+        "mean_latency_s": 4.97
+      },
+      "crescendo_paper.llm_evaluate_with_rubric": {
+        "calls": 11,
+        "valid_json": 11,
+        "required_fields": 11,
+        "accepted": 11,
+        "acceptance_rate": 1.0,
+        "failure_types": {
+          "OK": 11
+        },
+        "mean_latency_s": 0.76
+      },
+      "opposite_day.llm_check_refusal": {
+        "calls": 11,
+        "valid_json": 6,
+        "required_fields": 6,
+        "accepted": 6,
+        "acceptance_rate": 0.5455,
+        "failure_types": {
+          "MODEL_CAPABILITY_FAILURE": 5,
+          "OK": 6
+        },
+        "mean_latency_s": 3.88
+      },
+      "opposite_day.llm_evaluate_with_rubric": {
+        "calls": 11,
+        "valid_json": 11,
+        "required_fields": 11,
+        "accepted": 11,
+        "acceptance_rate": 1.0,
+        "failure_types": {
+          "OK": 11
+        },
+        "mean_latency_s": 0.74
+      }
+    },
+    "refusal_parse_success": {
+      "calls": 44,
+      "accepted": 24,
+      "rate": 0.5455
+    },
+    "rubric_parse_success": {
+      "calls": 33,
+      "accepted": 33,
+      "rate": 1.0
+    }
+  }
+}

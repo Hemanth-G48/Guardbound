@@ -1,0 +1,332 @@
+{
+  "phase": "17",
+  "stage": "6",
+  "deliverable": "statistical_analysis.json",
+  "primary_endpoint": "official attack success (frozen criterion, all runs in the denominator)",
+  "unpaired": [
+    {
+      "arm": "generation_point",
+      "endpoint": "success",
+      "arm_rate": 0.625,
+      "control_rate": 0.25,
+      "risk_difference": 0.375,
+      "relative_risk": 2.5,
+      "arm_n": 24,
+      "control_n": 24,
+      "arm_ci95": [
+        0.4271,
+        0.7884
+      ],
+      "control_ci95": [
+        0.12,
+        0.449
+      ],
+      "fisher_exact_two_sided_p": 0.01893
+    },
+    {
+      "arm": "generation_point",
+      "endpoint": "survival",
+      "arm_rate": 0.9583,
+      "control_rate": 0.2917,
+      "risk_difference": 0.6667,
+      "relative_risk": 3.2857,
+      "arm_n": 24,
+      "control_n": 24,
+      "arm_ci95": [
+        0.7976,
+        0.9926
+      ],
+      "control_ci95": [
+        0.1491,
+        0.4917
+      ],
+      "fisher_exact_two_sided_p": 2e-06
+    },
+    {
+      "arm": "generation_point",
+      "endpoint": "validity",
+      "arm_rate": 1.0,
+      "control_rate": 0.8571,
+      "risk_difference": 0.1429,
+      "relative_risk": 1.1667,
+      "arm_n": 232,
+      "control_n": 119,
+      "arm_ci95": [
+        0.9837,
+        1.0
+      ],
+      "control_ci95": [
+        0.7831,
+        0.9089
+      ],
+      "fisher_exact_two_sided_p": 0.0
+    },
+    {
+      "arm": "a1",
+      "endpoint": "success",
+      "arm_rate": 0.25,
+      "control_rate": 0.25,
+      "risk_difference": 0.0,
+      "relative_risk": 1.0,
+      "arm_n": 24,
+      "control_n": 24,
+      "arm_ci95": [
+        0.12,
+        0.449
+      ],
+      "control_ci95": [
+        0.12,
+        0.449
+      ],
+      "fisher_exact_two_sided_p": 1.0
+    },
+    {
+      "arm": "a1",
+      "endpoint": "survival",
+      "arm_rate": 0.2917,
+      "control_rate": 0.2917,
+      "risk_difference": 0.0,
+      "relative_risk": 1.0,
+      "arm_n": 24,
+      "control_n": 24,
+      "arm_ci95": [
+        0.1491,
+        0.4917
+      ],
+      "control_ci95": [
+        0.1491,
+        0.4917
+      ],
+      "fisher_exact_two_sided_p": 1.0
+    },
+    {
+      "arm": "a1",
+      "endpoint": "validity",
+      "arm_rate": 0.875,
+      "control_rate": 0.8571,
+      "risk_difference": 0.0179,
+      "relative_risk": 1.0208,
+      "arm_n": 136,
+      "control_n": 119,
+      "arm_ci95": [
+        0.8089,
+        0.9205
+      ],
+      "control_ci95": [
+        0.7831,
+        0.9089
+      ],
+      "fisher_exact_two_sided_p": 0.714561
+    },
+    {
+      "arm": "a1_t03",
+      "endpoint": "success",
+      "arm_rate": 0.4167,
+      "control_rate": 0.25,
+      "risk_difference": 0.1667,
+      "relative_risk": 1.6667,
+      "arm_n": 24,
+      "control_n": 24,
+      "arm_ci95": [
+        0.2447,
+        0.6117
+      ],
+      "control_ci95": [
+        0.12,
+        0.449
+      ],
+      "fisher_exact_two_sided_p": 0.358723
+    },
+    {
+      "arm": "a1_t03",
+      "endpoint": "survival",
+      "arm_rate": 0.5417,
+      "control_rate": 0.2917,
+      "risk_difference": 0.25,
+      "relative_risk": 1.8571,
+      "arm_n": 24,
+      "control_n": 24,
+      "arm_ci95": [
+        0.3507,
+        0.7211
+      ],
+      "control_ci95": [
+        0.1491,
+        0.4917
+      ],
+      "fisher_exact_two_sided_p": 0.142454
+    },
+    {
+      "arm": "a1_t03",
+      "endpoint": "validity",
+      "arm_rate": 0.9349,
+      "control_rate": 0.8571,
+      "risk_difference": 0.0778,
+      "relative_risk": 1.0907,
+      "arm_n": 169,
+      "control_n": 119,
+      "arm_ci95": [
+        0.8872,
+        0.9633
+      ],
+      "control_ci95": [
+        0.7831,
+        0.9089
+      ],
+      "fisher_exact_two_sided_p": 0.041854
+    }
+  ],
+  "paired": {
+    "generation_point": {
+      "matched_cells": 24,
+      "success": {
+        "control_no_arm_yes": 10,
+        "control_yes_arm_no": 1,
+        "discordant": 11,
+        "exact_two_sided_p": 0.011719
+      },
+      "survival": {
+        "control_no_arm_yes": 16,
+        "control_yes_arm_no": 0,
+        "discordant": 16,
+        "exact_two_sided_p": 3.1e-05
+      },
+      "completed_turns": {
+        "n_pairs": 24,
+        "mean_difference": 3.6667,
+        "p_value": 5e-05,
+        "n_permutations": 20000
+      }
+    },
+    "a1": {
+      "matched_cells": 24,
+      "success": {
+        "control_no_arm_yes": 5,
+        "control_yes_arm_no": 5,
+        "discordant": 10,
+        "exact_two_sided_p": 1.0
+      },
+      "survival": {
+        "control_no_arm_yes": 5,
+        "control_yes_arm_no": 5,
+        "discordant": 10,
+        "exact_two_sided_p": 1.0
+      },
+      "completed_turns": {
+        "n_pairs": 24,
+        "mean_difference": -0.0417,
+        "p_value": 1.0,
+        "n_permutations": 20000
+      }
+    },
+    "a1_t03": {
+      "matched_cells": 24,
+      "success": {
+        "control_no_arm_yes": 7,
+        "control_yes_arm_no": 3,
+        "discordant": 10,
+        "exact_two_sided_p": 0.34375
+      },
+      "survival": {
+        "control_no_arm_yes": 9,
+        "control_yes_arm_no": 3,
+        "discordant": 12,
+        "exact_two_sided_p": 0.145996
+      },
+      "completed_turns": {
+        "n_pairs": 24,
+        "mean_difference": 1.125,
+        "p_value": 0.081546,
+        "n_permutations": 20000
+      }
+    }
+  },
+  "conditional_success": {
+    "control": {
+      "official_success": 0.25,
+      "p_success_given_survived": 0.8571,
+      "n_survived": 7,
+      "note": "the conditional value is descriptive and never replaces the official rate"
+    },
+    "generation_point": {
+      "official_success": 0.625,
+      "p_success_given_survived": 0.6522,
+      "n_survived": 23,
+      "note": "the conditional value is descriptive and never replaces the official rate"
+    },
+    "a1": {
+      "official_success": 0.25,
+      "p_success_given_survived": 0.8571,
+      "n_survived": 7,
+      "note": "the conditional value is descriptive and never replaces the official rate"
+    },
+    "a1_t03": {
+      "official_success": 0.4167,
+      "p_success_given_survived": 0.7692,
+      "n_survived": 13,
+      "note": "the conditional value is descriptive and never replaces the official rate"
+    }
+  },
+  "discipline": {
+    "n_comparisons": 9,
+    "comparisons": [
+      {
+        "arm": "generation_point",
+        "endpoint": "success",
+        "p_value": 0.01893,
+        "kind": "primary"
+      },
+      {
+        "arm": "generation_point",
+        "endpoint": "survival",
+        "p_value": 2e-06,
+        "kind": "secondary"
+      },
+      {
+        "arm": "generation_point",
+        "endpoint": "validity",
+        "p_value": 0.0,
+        "kind": "secondary"
+      },
+      {
+        "arm": "a1",
+        "endpoint": "success",
+        "p_value": 1.0,
+        "kind": "primary"
+      },
+      {
+        "arm": "a1",
+        "endpoint": "survival",
+        "p_value": 1.0,
+        "kind": "secondary"
+      },
+      {
+        "arm": "a1",
+        "endpoint": "validity",
+        "p_value": 0.714561,
+        "kind": "secondary"
+      },
+      {
+        "arm": "a1_t03",
+        "endpoint": "success",
+        "p_value": 0.358723,
+        "kind": "primary"
+      },
+      {
+        "arm": "a1_t03",
+        "endpoint": "survival",
+        "p_value": 0.142454,
+        "kind": "secondary"
+      },
+      {
+        "arm": "a1_t03",
+        "endpoint": "validity",
+        "p_value": 0.041854,
+        "kind": "secondary"
+      }
+    ],
+    "bonferroni_threshold": 0.005556,
+    "n_below_bonferroni": 2,
+    "statement": "official success is the primary endpoint for each arm-versus-control comparison; survival and validity are secondary; all other analyses in this stage are exploratory. No arm is called superior on a point estimate alone."
+  }
+}

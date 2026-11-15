@@ -1,0 +1,125 @@
+{
+  "phase": "17",
+  "stage": "3",
+  "deliverable": "causallm_vs_native_comparison.json",
+  "same_for_both_paths": {
+    "checkpoint": "Qwen/Qwen3.8-27B",
+    "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+    "quantization": "4-bit NF4 PTQ (bitsandbytes, BF16 compute, double quant)",
+    "generation": "temperature 0.7 per attack call, top_p 1.0, max_new_tokens UNSET",
+    "harness": "production generate_crescendo_step prompt and call signature"
+  },
+  "architecture": {
+    "declared": "Qwen3_5ForConditionalGeneration",
+    "causallm_path": {
+      "auto_class": "AutoModelForCausalLM",
+      "loaded_class": "Qwen3_5ForCausalLM",
+      "checkpoint_declared": "Qwen3_5ForConditionalGeneration",
+      "matches": false,
+      "stage2_recorded": {
+        "checkpoint_declared_architectures": [
+          "Qwen3_5ForConditionalGeneration"
+        ],
+        "loaded_config_architectures": [],
+        "loaded_class": "Qwen3_5ForCausalLM",
+        "loaded_class_matches_checkpoint": false,
+        "auto_class_resolved": "AutoModelForCausalLM (via pipeline('text-generation'))",
+        "note": "The checkpoint's declaration comes from the Hub metadata recorded in Part F. This project already refuses a class the checkpoint does not declare (see Ornith15ChatLLM.verify_native_architecture), so the comparison is reported even though the load technically succeeds."
+      },
+      "stage2_earlier_variant_was_vacuous": true
+    },
+    "native_path": {
+      "auto_class": "AutoModelForImageTextToText",
+      "loaded_class": "Qwen3_5ForConditionalGeneration",
+      "checkpoint_declared": "Qwen3_5ForConditionalGeneration",
+      "matches": true
+    }
+  },
+  "quantization": {
+    "causallm_path": {
+      "linear4bit_modules": 496,
+      "plain_linear_modules": 1,
+      "total_params": 14720720384,
+      "frac_params_quantized": 0.8271,
+      "vram_after_load_gib": 16.456,
+      "load_seconds": 100.44
+    },
+    "native_path": {
+      "linear4bit_modules": 606,
+      "plain_linear_modules": 1,
+      "total_params": 14953501936,
+      "frac_params_quantized": 0.8295,
+      "vram_after_load_gib": 16.688,
+      "load_seconds": 98.91
+    }
+  },
+  "generation": {
+    "causallm_path": {
+      "n_cases": 24,
+      "valid_json_total": 23,
+      "valid_json_direct": 20,
+      "valid_json_via_extraction": 3,
+      "json_parse_error": 1,
+      "validity_rate": 0.9583,
+      "empty_query": 0,
+      "missing_generatedQuestion": 1,
+      "missing_lastResponseSummary": 1,
+      "wrong_generatedQuestion_type": 0,
+      "production_step_errors": 1,
+      "latency_s": {
+        "n": 24,
+        "mean": 11.734,
+        "median": 8.599,
+        "min": 3.783,
+        "max": 47.373,
+        "stdev": 9.577
+      },
+      "generated_tokens": {
+        "n": 24,
+        "generated_mean": 84.4,
+        "generated_min": 15,
+        "generated_max": 447,
+        "prompt_mean": 1678.0,
+        "prompt_max": 1689
+      },
+      "termination": {
+        "stopping_criteria": 23,
+        "eos": 1
+      }
+    },
+    "native_path": {
+      "n_cases": 24,
+      "valid_json_total": 22,
+      "valid_json_direct": 21,
+      "valid_json_via_extraction": 1,
+      "json_parse_error": 2,
+      "validity_rate": 0.9167,
+      "empty_query": 0,
+      "missing_generatedQuestion": 2,
+      "missing_lastResponseSummary": 2,
+      "wrong_generatedQuestion_type": 0,
+      "production_step_errors": 2,
+      "latency_s": {
+        "n": 24,
+        "mean": 8.855,
+        "median": 8.142,
+        "min": 2.975,
+        "max": 13.333,
+        "stdev": 2.803
+      },
+      "generated_tokens": {
+        "n": 24,
+        "generated_mean": 68,
+        "generated_min": 13,
+        "generated_max": 114,
+        "prompt_mean": 1678.0,
+        "prompt_max": 1689
+      },
+      "termination": {
+        "stopping_criteria": 22,
+        "eos": 2
+      }
+    }
+  },
+  "selection_rule": "Architectural correctness first, then interface compatibility, runtime stability, resource feasibility and behavioural reliability. JSON validity is reported as a measured quantity and is NOT the selection criterion \u2014 a higher rate from the substituted class would not make it the correct class."
+}

@@ -1,0 +1,6 @@
+{"timestamp": "2026-09-13T22:36:18", "model": "Qwen/Qwen3-4B-Instruct-2507", "test": "actor_extract_harm_target", "error": "'\\n  \"target\"'"}
+{"timestamp": "2026-09-13T22:36:29", "model": "Qwen/Qwen3-4B-Instruct-2507", "test": "actor_extraction", "error": "'\\n    \"actors\"'"}
+{"timestamp": "2026-09-13T22:36:30", "model": "Qwen/Qwen3-4B-Instruct-2507", "test": "actor_initial_queries", "error": "'\\n    \"questions\"'"}
+{"timestamp": "2026-09-13T22:36:30", "model": "Qwen/Qwen3-4B-Instruct-2507", "test": "crescendo_first_question", "error": "'\\ngeneratedQuestion'"}
+{"timestamp": "2026-09-13T22:36:30", "model": "Qwen/Qwen3-4B-Instruct-2507", "test": "opposite_day_first_question", "error": "'\\ngeneratedQuestion'"}
+{"timestamp": "2026-09-13T22:36:30", "model": "Qwen/Qwen3-4B-Instruct-2507", "test": "acronym_first_question", "error": "'\\ngeneratedQuestion'"}

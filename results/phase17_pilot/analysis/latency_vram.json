@@ -1,0 +1,31 @@
+{
+  "phase": "17",
+  "stage": "4.7",
+  "deliverable": "analysis/latency_vram.json",
+  "status": "measured",
+  "runs": 90,
+  "wall_clock_seconds_total": 31640.7,
+  "run_duration_seconds": {
+    "mean": 351.6,
+    "median": 310.3,
+    "p95": 853.7,
+    "max": 1332.837
+  },
+  "throughput_runs_per_hour": 10.24,
+  "attacker_call_latency_s": {
+    "mean": 43.54,
+    "median": 48.0,
+    "p95": 61.42
+  },
+  "generated_tokens": {
+    "mean": 100.0,
+    "max": 1000
+  },
+  "peak_vram_gib": 17.927,
+  "oom_count": 0,
+  "cuda_failures": 0,
+  "infrastructure_failures": 0,
+  "runs_with_attacker_errors": 61,
+  "runs_with_any_recorded_error": 61,
+  "error_label_note": "'cuda_failures'/'infrastructure_failures' count runs whose failure class is CUDA/OOM or infrastructure; attacker-side generation errors are reported separately and are not infrastructure failures"
+}

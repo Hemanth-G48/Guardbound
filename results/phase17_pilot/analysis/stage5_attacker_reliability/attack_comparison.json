@@ -1,0 +1,164 @@
+{
+  "phase": "17",
+  "stage": "5",
+  "deliverable": "attack_comparison.json",
+  "framing": "observed measurements; no attack is ranked, and the per-attack context profiles are the explanatory variable of interest",
+  "attacks": {
+    "Crescendo": {
+      "calls": 109,
+      "validity": {
+        "numerator": 90,
+        "denominator": 109,
+        "rate": 0.8257,
+        "ci95_wilson": [
+          0.7437,
+          0.8855
+        ]
+      },
+      "later_call_validity": {
+        "numerator": 60,
+        "denominator": 79,
+        "rate": 0.7595,
+        "ci95_wilson": [
+          0.6546,
+          0.8403
+        ]
+      },
+      "context_tokens": {
+        "n": 109,
+        "mean": 2245.4,
+        "median": 2302,
+        "p95": 3145,
+        "min": 1591,
+        "max": 3553
+      },
+      "output_tokens": {
+        "n": 109,
+        "mean": 98.5,
+        "median": 102,
+        "p95": 173,
+        "min": 16,
+        "max": 246
+      },
+      "prose_failures": 19,
+      "empty_question_failures": 5,
+      "mean_call_depth_reached": null
+    },
+    "OppositeDay": {
+      "calls": 134,
+      "validity": {
+        "numerator": 117,
+        "denominator": 134,
+        "rate": 0.8731,
+        "ci95_wilson": [
+          0.8062,
+          0.9193
+        ]
+      },
+      "later_call_validity": {
+        "numerator": 87,
+        "denominator": 104,
+        "rate": 0.8365,
+        "ci95_wilson": [
+          0.7537,
+          0.8954
+        ]
+      },
+      "context_tokens": {
+        "n": 134,
+        "mean": 1332.6,
+        "median": 1272.0,
+        "p95": 2066,
+        "min": 821,
+        "max": 2514
+      },
+      "output_tokens": {
+        "n": 134,
+        "mean": 83.5,
+        "median": 77.5,
+        "p95": 146,
+        "min": 6,
+        "max": 185
+      },
+      "prose_failures": 17,
+      "empty_question_failures": 1,
+      "mean_call_depth_reached": null
+    },
+    "Acronym": {
+      "calls": 128,
+      "validity": {
+        "numerator": 103,
+        "denominator": 128,
+        "rate": 0.8047,
+        "ci95_wilson": [
+          0.7276,
+          0.8641
+        ]
+      },
+      "later_call_validity": {
+        "numerator": 74,
+        "denominator": 98,
+        "rate": 0.7551,
+        "ci95_wilson": [
+          0.6614,
+          0.8296
+        ]
+      },
+      "context_tokens": {
+        "n": 128,
+        "mean": 1406.4,
+        "median": 1247.0,
+        "p95": 2167,
+        "min": 1016,
+        "max": 2472
+      },
+      "output_tokens": {
+        "n": 128,
+        "mean": 118.5,
+        "median": 96.5,
+        "p95": 174,
+        "min": 2,
+        "max": 1000
+      },
+      "prose_failures": 24,
+      "empty_question_failures": 1,
+      "mean_call_depth_reached": null
+    }
+  },
+  "context_matched_band": {
+    "band_tokens": [
+      1500,
+      2200
+    ],
+    "per_attack_validity": {
+      "Crescendo": {
+        "numerator": 42,
+        "denominator": 47,
+        "rate": 0.8936,
+        "ci95_wilson": [
+          0.7741,
+          0.9537
+        ]
+      },
+      "OppositeDay": {
+        "numerator": 39,
+        "denominator": 48,
+        "rate": 0.8125,
+        "ci95_wilson": [
+          0.6806,
+          0.8981
+        ]
+      },
+      "Acronym": {
+        "numerator": 27,
+        "denominator": 39,
+        "rate": 0.6923,
+        "ci95_wilson": [
+          0.5358,
+          0.8143
+        ]
+      }
+    },
+    "note": "if attack differences persist inside a matched context band, they are not explained by context length alone; with these sample sizes this is descriptive"
+  }
+}

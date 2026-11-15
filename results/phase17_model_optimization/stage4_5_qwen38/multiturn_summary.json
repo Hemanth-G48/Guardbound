@@ -1,0 +1,92 @@
+{
+  "phase": "17",
+  "stage": "4.5",
+  "deliverable": "multiturn_summary.json",
+  "setting": {
+    "max_turns": 2,
+    "note": "identical to the Stage 4 controlled setting"
+  },
+  "candidates": {
+    "MT_A1": {
+      "runs": 10,
+      "runs_survived": 7,
+      "run_survival_rate": 0.7,
+      "run_survival_ci95": [
+        0.3968,
+        0.8922
+      ],
+      "usable_runs": 7,
+      "usable_run_rate": 0.7,
+      "usable_run_ci95": [
+        0.3968,
+        0.8922
+      ],
+      "attacker_calls": 22,
+      "attacker_calls_valid": 19,
+      "attacker_calls_usable": 19,
+      "empty_query_terminations": 0,
+      "attacker_failure_terminations": 3,
+      "mean_completed_turns": 1.2,
+      "target_calls": 19,
+      "target_eos": 19,
+      "judge_calls": 37,
+      "judge_failures": 0,
+      "peak_vram_gib": 17.927,
+      "wall_s_mean": 186.3
+    },
+    "MT_B2": {
+      "runs": 10,
+      "runs_survived": 10,
+      "run_survival_rate": 1.0,
+      "run_survival_ci95": [
+        0.7225,
+        1.0
+      ],
+      "usable_runs": 10,
+      "usable_run_rate": 1.0,
+      "usable_run_ci95": [
+        0.7225,
+        1.0
+      ],
+      "attacker_calls": 32,
+      "attacker_calls_valid": 32,
+      "attacker_calls_usable": 32,
+      "empty_query_terminations": 0,
+      "attacker_failure_terminations": 0,
+      "mean_completed_turns": 1.8,
+      "target_calls": 32,
+      "target_eos": 32,
+      "judge_calls": 59,
+      "judge_failures": 0,
+      "peak_vram_gib": 17.927,
+      "wall_s_mean": 292.7
+    },
+    "MT_control": {
+      "runs": 10,
+      "runs_survived": 6,
+      "run_survival_rate": 0.6,
+      "run_survival_ci95": [
+        0.3127,
+        0.8318
+      ],
+      "usable_runs": 6,
+      "usable_run_rate": 0.6,
+      "usable_run_ci95": [
+        0.3127,
+        0.8318
+      ],
+      "attacker_calls": 29,
+      "attacker_calls_valid": 25,
+      "attacker_calls_usable": 25,
+      "empty_query_terminations": 0,
+      "attacker_failure_terminations": 4,
+      "mean_completed_turns": 1.2,
+      "target_calls": 25,
+      "target_eos": 25,
+      "judge_calls": 45,
+      "judge_failures": 0,
+      "peak_vram_gib": 17.927,
+      "wall_s_mean": 228.3
+    }
+  }
+}

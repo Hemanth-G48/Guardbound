@@ -1,0 +1,150 @@
+{
+  "candidate": "devstral",
+  "requested_model_id": "mistralai/Devstral-Small-2-24B-Instruct-2512",
+  "record_type": "identity_and_provisioning",
+  "weights_downloaded_by_this_script": false,
+  "api_status": 200,
+  "exists": true,
+  "model_id": "mistralai/Devstral-Small-2-24B-Instruct-2512",
+  "revision": "55c5b41e98c2dbd21b0c8afffc540dcfc9eb5128",
+  "author": "mistralai",
+  "last_modified": "2026-07-15T12:20:36.000Z",
+  "gated": false,
+  "private": false,
+  "pipeline_tag": null,
+  "library_name": "vllm",
+  "tags": [
+    "vllm",
+    "safetensors",
+    "mistral3",
+    "mistral-common",
+    "arxiv:2501.19399",
+    "base_model:mistralai/Mistral-Small-3.1-24B-Base-2503",
+    "base_model:quantized:mistralai/Mistral-Small-3.1-24B-Base-2503",
+    "license:apache-2.0",
+    "fp8",
+    "deploy:azure",
+    "region:us"
+  ],
+  "revision_resolution": {
+    "status": 200,
+    "resolved": true,
+    "sha": "55c5b41e98c2dbd21b0c8afffc540dcfc9eb5128",
+    "error": null
+  },
+  "files": {
+    "file_count": 22,
+    "weight_file_count": 8,
+    "weight_files": [
+      "consolidated-00001-of-00002.safetensors",
+      "consolidated-00002-of-00002.safetensors",
+      "model-00001-of-00006.safetensors",
+      "model-00002-of-00006.safetensors",
+      "model-00003-of-00006.safetensors",
+      "model-00004-of-00006.safetensors",
+      "model-00005-of-00006.safetensors",
+      "model-00006-of-00006.safetensors"
+    ],
+    "weight_bytes": 51586095296,
+    "weight_gib": 48.043,
+    "config_file_present": {
+      "config.json": true,
+      "generation_config.json": true,
+      "tokenizer.json": true,
+      "tokenizer_config.json": true,
+      "chat_template.jinja": true,
+      "special_tokens_map.json": false,
+      "model.safetensors.index.json": true
+    },
+    "total_revision_bytes": 51620249351,
+    "total_revision_gib": 48.075
+  },
+  "safetensors": {
+    "available": true,
+    "parameters_by_dtype": {
+      "BF16": 1781550080,
+      "F8_E4M3": 22229811200
+    },
+    "parameter_count": 24011361840,
+    "parameter_class": "24.01B"
+  },
+  "architecture": {
+    "architectures": [
+      "Mistral3ForConditionalGeneration"
+    ],
+    "model_type": "mistral3",
+    "max_position_embeddings": null,
+    "hidden_size": null,
+    "num_hidden_layers": null,
+    "vocab_size": null,
+    "torch_dtype": null,
+    "quantization_config": {
+      "modules_to_not_convert": [
+        "model.vision_tower",
+        "model.multi_modal_projector",
+        "lm_head"
+      ],
+      "quant_method": "fp8"
+    }
+  },
+  "config_json": {
+    "status": 200,
+    "model_type": "mistral3",
+    "architectures": [
+      "Mistral3ForConditionalGeneration"
+    ],
+    "max_position_embeddings": null,
+    "num_hidden_layers": null,
+    "hidden_size": null,
+    "quantization_config": {
+      "activation_scheme": "static",
+      "dequantize": false,
+      "modules_to_not_convert": [
+        "model.vision_tower",
+        "model.multi_modal_projector",
+        "lm_head"
+      ],
+      "quant_method": "fp8",
+      "weight_block_size": null
+    },
+    "torch_dtype": null
+  },
+  "tokenizer_config": {
+    "status": 200,
+    "has_chat_template": false,
+    "chat_template_kwarg_keys": [],
+    "enable_thinking_in_template": false,
+    "bos_token": "<s>",
+    "eos_token": "</s>",
+    "pad_token": "<pad>",
+    "model_max_length": 1000000000000000019884624838656
+  },
+  "instruction_tuned_evidence": {
+    "tags_indicating_instruct_or_chat": [],
+    "card_data": {
+      "library_name": "vllm",
+      "inference": false,
+      "base_model": [
+        "mistralai/Mistral-Small-3.1-24B-Base-2503"
+      ],
+      "extra_gated_description": "If you want to learn more about how we process your personal data, please read our <a href=\"https://mistral.ai/terms/\">Privacy Policy</a>.",
+      "tags": [
+        "mistral-common"
+      ],
+      "license": "apache-2.0"
+    },
+    "note": "Recorded from the repo's own tags/cardData. No flag is asserted here that the repository does not itself declare."
+  },
+  "reference_precision": "FP8 (native checkpoint)",
+  "local": {
+    "cache_dir": "C:\\Users\\CSLAB\\.cache\\huggingface\\hub\\models--mistralai--Devstral-Small-2-24B-Instruct-2512",
+    "cache_dir_present": false,
+    "present_locally": false
+  },
+  "disk_at_resolution": {
+    "free_bytes": 193311305728,
+    "free_gib": 180.04,
+    "estimated_download_gib": 48.043,
+    "note": "The HF cache on this machine cannot use symlinks, so a cached model occupies roughly twice the weight size (blob copy + snapshot copy)."
+  }
+}

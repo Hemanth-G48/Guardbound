@@ -1,0 +1,118 @@
+{
+  "phase": "17",
+  "deliverable": "cache_eviction.json",
+  "approval": "user approved the full eviction list",
+  "free_before_gib": 28.4,
+  "evicted": [
+    {
+      "cache_dir": "C:\\Users\\CSLAB\\.cache\\huggingface\\hub\\models--unsloth--gemma-3-12b-it",
+      "name": "models--unsloth--gemma-3-12b-it",
+      "size_gib": 22.74,
+      "reason": "not referenced by any frozen config",
+      "existed": true
+    },
+    {
+      "cache_dir": "C:\\Users\\CSLAB\\.cache\\huggingface\\hub\\models--google--gemma-4-12B-it",
+      "name": "models--google--gemma-4-12B-it",
+      "size_gib": 22.31,
+      "reason": "not referenced by any frozen config",
+      "existed": true
+    },
+    {
+      "cache_dir": "C:\\Users\\CSLAB\\.cache\\huggingface\\hub\\models--meta-llama--Llama-3.1-8B-Instruct",
+      "name": "models--meta-llama--Llama-3.1-8B-Instruct",
+      "size_gib": 20.78,
+      "reason": "not in the Phase 17 contract",
+      "existed": true
+    },
+    {
+      "cache_dir": "C:\\Users\\CSLAB\\.cache\\huggingface\\hub\\models--zai-org--GLM-4.6V-Flash",
+      "name": "models--zai-org--GLM-4.6V-Flash",
+      "size_gib": 19.19,
+      "reason": "Phase 15 qualification: NOT QUALIFIED",
+      "existed": true
+    },
+    {
+      "cache_dir": "C:\\Users\\CSLAB\\.cache\\huggingface\\hub\\models--ornith-ai--Ornith-1.5-9B",
+      "name": "models--ornith-ai--Ornith-1.5-9B",
+      "size_gib": 18.0,
+      "reason": "Phase 16.3: pilot NOT AUTHORIZED",
+      "existed": true
+    },
+    {
+      "cache_dir": "C:\\Users\\CSLAB\\.cache\\huggingface\\hub\\models--google--gemma-4-12B-it-qat-w4a16-ct",
+      "name": "models--google--gemma-4-12B-it-qat-w4a16-ct",
+      "size_gib": 9.59,
+      "reason": "unused by any config",
+      "existed": true
+    },
+    {
+      "cache_dir": "C:\\Users\\CSLAB\\.cache\\huggingface\\hub\\models--Qwen--Qwen3.5-4B",
+      "name": "models--Qwen--Qwen3.5-4B",
+      "size_gib": 8.7,
+      "reason": "superseded attacker model",
+      "existed": true
+    },
+    {
+      "cache_dir": "C:\\Users\\CSLAB\\.cache\\huggingface\\hub\\models--google--gemma-3-4b-it",
+      "name": "models--google--gemma-3-4b-it",
+      "size_gib": 8.05,
+      "reason": "unused by any config",
+      "existed": true
+    },
+    {
+      "cache_dir": "C:\\Users\\CSLAB\\.cache\\huggingface\\hub\\models--microsoft--phi-4",
+      "name": "models--microsoft--phi-4",
+      "size_gib": 6.4,
+      "reason": "Phase 16.6: MODEL_NOT_FEASIBLE_AT_REQUIRED_PRECISION",
+      "existed": true
+    }
+  ],
+  "retained": [
+    {
+      "cache_dir": "C:\\Users\\CSLAB\\.cache\\huggingface\\hub\\models--meta-llama--Meta-Llama-3-8B-Instruct",
+      "name": "models--meta-llama--Meta-Llama-3-8B-Instruct",
+      "size_gib": 29.93,
+      "reason": "Phase 17 fixed TARGET",
+      "existed": true
+    },
+    {
+      "cache_dir": "C:\\Users\\CSLAB\\.cache\\huggingface\\hub\\models--meta-llama--Llama-3.2-3B-Instruct",
+      "name": "models--meta-llama--Llama-3.2-3B-Instruct",
+      "size_gib": 11.98,
+      "reason": "frozen Track A judge \u2014 keeps the reference path runnable",
+      "existed": true
+    },
+    {
+      "cache_dir": "C:\\Users\\CSLAB\\.cache\\huggingface\\hub\\models--Qwen--Qwen3-4B-Instruct-2507",
+      "name": "models--Qwen--Qwen3-4B-Instruct-2507",
+      "size_gib": 7.51,
+      "reason": "frozen Track A incumbent attacker",
+      "existed": true
+    },
+    {
+      "cache_dir": "C:\\Users\\CSLAB\\.cache\\huggingface\\hub\\models--microsoft--Phi-4-mini-instruct",
+      "name": "models--microsoft--Phi-4-mini-instruct",
+      "size_gib": 7.17,
+      "reason": "frozen Track A target",
+      "existed": true
+    },
+    {
+      "cache_dir": "C:\\Users\\CSLAB\\.cache\\huggingface\\hub\\models--sentence-transformers--all-mpnet-base-v2",
+      "name": "models--sentence-transformers--all-mpnet-base-v2",
+      "size_gib": 0.6,
+      "reason": "NBF embedding model",
+      "existed": true
+    },
+    {
+      "cache_dir": "C:\\Users\\CSLAB\\.cache\\huggingface\\hub\\models--hanjianghu--NBF-LLM",
+      "name": "models--hanjianghu--NBF-LLM",
+      "size_gib": 0.01,
+      "reason": "author reference artifacts",
+      "existed": true
+    }
+  ],
+  "note": "Authoritative reference: HuggingFace Hub. These are public, re-downloadable weights that no frozen configuration references.",
+  "free_after_gib": 164.15,
+  "freed_gib": 135.76
+}

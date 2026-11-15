@@ -1,0 +1,116 @@
+{
+  "phase": "17",
+  "stage": "4.5",
+  "deliverable": "control_baseline.json",
+  "source": "results/phase17_model_qualification/stage4_qwen38_reliability/",
+  "configuration": {
+    "model_id": "Qwen/Qwen3.8-27B",
+    "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+    "architecture": "Qwen3_5ForConditionalGeneration",
+    "loader": "AutoModelForImageTextToText",
+    "processor": "Qwen3VLProcessor",
+    "quantization": "nf4",
+    "compute_dtype": "bfloat16",
+    "double_quant": true,
+    "temperature": 0.7,
+    "top_p": 1.0,
+    "max_new_tokens": null,
+    "enable_thinking": false,
+    "prompt": "frozen production prompt",
+    "structured_decoding": null
+  },
+  "isolated": {
+    "n": 150,
+    "valid_total": 142,
+    "valid_rate": 0.9467,
+    "valid_direct_json": 135,
+    "valid_frozen_extraction": 7,
+    "failures": 8,
+    "failure_rate": 0.0533,
+    "categories": {
+      "VALID_DIRECT_JSON": 135,
+      "JSON_PARSE_ERROR": 8,
+      "VALID_FROZEN_EXTRACTION": 7
+    },
+    "failure_shapes": {
+      "prose": 8
+    },
+    "termination_distribution": {
+      "stopping_criteria": 142,
+      "eos": 8
+    },
+    "latency_s": {
+      "mean": 11.035,
+      "median": 11.119,
+      "max": 19.228,
+      "min": 2.548
+    },
+    "generated_tokens": {
+      "mean": 77.9,
+      "min": 7,
+      "max": 146
+    },
+    "prompt_tokens": {
+      "mean": 1511.2,
+      "min": 817,
+      "max": 2357
+    },
+    "empty_query": 1,
+    "semantically_usable": 141
+  },
+  "multi_turn": {
+    "runs": 30,
+    "runs_survived": 23,
+    "runs_terminated_by_attacker_failure": 7,
+    "run_survival_rate": 0.7667,
+    "attacker_calls_attempted": 86,
+    "attacker_calls_valid": 79,
+    "attacker_calls_invalid": 7,
+    "per_call_validity_within_runs": 0.9186,
+    "mean_completed_turns": 1.267,
+    "mean_attacker_calls_per_run": 2.87,
+    "termination_causes": {
+      "completed_without_attacker_failure": 23,
+      "AttackGenerationError": 7
+    },
+    "survival_modes": {
+      "survived_full_turn_budget": 18,
+      "terminated_by_empty_query": 3,
+      "terminated_by_attacker_failure": 7,
+      "ended_early_without_attacker_failure": 2
+    },
+    "usable_runs_turns_ge_1": 20,
+    "usable_run_rate": 0.6667,
+    "attacker_calls_with_empty_query": 3,
+    "turns_completed_histogram": {
+      "0": 10,
+      "1": 2,
+      "2": 18
+    },
+    "failure_categories": {
+      "JSON_PARSE_ERROR": 7
+    },
+    "failure_turn_distribution": {
+      "2": 1,
+      "3": 1,
+      "4": 2,
+      "5": 1,
+      "6": 1,
+      "8": 1
+    },
+    "target_calls": 76,
+    "target_eos": 76,
+    "target_hit_budget": 0,
+    "judge_calls": 143,
+    "judge_failures": 0,
+    "peak_vram_gib": 17.927,
+    "wall_s": {
+      "n": 30,
+      "mean": 237.882,
+      "median": 226.776,
+      "min": 35.253,
+      "max": 636.453
+    }
+  },
+  "note": "the frozen Stage 4 configuration; never modified by this study"
+}

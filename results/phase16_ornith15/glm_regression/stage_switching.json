@@ -1,0 +1,93 @@
+{
+  "stage": "switching",
+  "steps": [
+    {
+      "model": "qwen",
+      "profile": "qwen3",
+      "resident_model_ids": [
+        "Qwen/Qwen3-4B-Instruct-2507"
+      ],
+      "resident_count": 1,
+      "identity_ok": true,
+      "backend": "HFLocalChatLLM",
+      "allocated_before_gb": 0.0,
+      "allocated_after_load_gb": 8.045,
+      "load_events": [
+        {
+          "model_id": "Qwen/Qwen3-4B-Instruct-2507",
+          "duration_s": 8.572,
+          "measured_gb": 8.045
+        }
+      ],
+      "weights_actually_loaded": true,
+      "model_id_in_events": [
+        "Qwen/Qwen3-4B-Instruct-2507"
+      ],
+      "allocated_after_unload_gb": 0.0,
+      "after_unload_resident": 0,
+      "freed_ok": true,
+      "ok": true,
+      "seconds": 14.13
+    },
+    {
+      "model": "glm46v",
+      "profile": "glm46v",
+      "resident_model_ids": [
+        "zai-org/GLM-4.6V-Flash"
+      ],
+      "resident_count": 1,
+      "identity_ok": true,
+      "backend": "GLM4VChatLLM",
+      "allocated_before_gb": 0.0,
+      "allocated_after_load_gb": 20.586,
+      "load_events": [
+        {
+          "model_id": "zai-org/GLM-4.6V-Flash",
+          "duration_s": 11.066,
+          "measured_gb": 20.586
+        }
+      ],
+      "weights_actually_loaded": true,
+      "model_id_in_events": [
+        "zai-org/GLM-4.6V-Flash"
+      ],
+      "allocated_after_unload_gb": 0.0,
+      "after_unload_resident": 0,
+      "freed_ok": true,
+      "ok": true,
+      "seconds": 11.44
+    },
+    {
+      "model": "qwen_again",
+      "profile": "qwen3",
+      "resident_model_ids": [
+        "Qwen/Qwen3-4B-Instruct-2507"
+      ],
+      "resident_count": 1,
+      "identity_ok": true,
+      "backend": "HFLocalChatLLM",
+      "allocated_before_gb": 0.0,
+      "allocated_after_load_gb": 8.045,
+      "load_events": [
+        {
+          "model_id": "Qwen/Qwen3-4B-Instruct-2507",
+          "duration_s": 8.128,
+          "measured_gb": 8.045
+        }
+      ],
+      "weights_actually_loaded": true,
+      "model_id_in_events": [
+        "Qwen/Qwen3-4B-Instruct-2507"
+      ],
+      "allocated_after_unload_gb": 0.0,
+      "after_unload_resident": 0,
+      "freed_ok": true,
+      "ok": true,
+      "seconds": 8.82
+    }
+  ],
+  "candidate_profile": "glm46v",
+  "passed": true,
+  "no_cross_model_state": true,
+  "no_vram_leak": true
+}

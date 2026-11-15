@@ -1,0 +1,152 @@
+{
+  "phase": 19,
+  "deliverable": "analysis/matched_vs_t0.json",
+  "test_pre_specified": "exact McNemar (two-sided) over matched cells",
+  "reference": "frozen Phase 18 C1 + NBF ON arm (threshold 0.0)",
+  "thresholds": {
+    "Tm010": {
+      "threshold": -0.01,
+      "cells": 3,
+      "contingency": {
+        "t0_success_threshold_success": 1,
+        "t0_success_threshold_failure": 0,
+        "t0_failure_threshold_success": 0,
+        "t0_failure_threshold_failure": 2
+      },
+      "discordant_t0_favouring": 0,
+      "discordant_threshold_favouring": 0,
+      "mcnemar": {
+        "discordant": 0,
+        "exact_two_sided_p": 1.0
+      }
+    },
+    "Tm005": {
+      "threshold": -0.005,
+      "cells": 3,
+      "contingency": {
+        "t0_success_threshold_success": 1,
+        "t0_success_threshold_failure": 0,
+        "t0_failure_threshold_success": 0,
+        "t0_failure_threshold_failure": 2
+      },
+      "discordant_t0_favouring": 0,
+      "discordant_threshold_favouring": 0,
+      "mcnemar": {
+        "discordant": 0,
+        "exact_two_sided_p": 1.0
+      }
+    },
+    "Tm002": {
+      "threshold": -0.002,
+      "cells": 3,
+      "contingency": {
+        "t0_success_threshold_success": 1,
+        "t0_success_threshold_failure": 0,
+        "t0_failure_threshold_success": 0,
+        "t0_failure_threshold_failure": 2
+      },
+      "discordant_t0_favouring": 0,
+      "discordant_threshold_favouring": 0,
+      "mcnemar": {
+        "discordant": 0,
+        "exact_two_sided_p": 1.0
+      }
+    },
+    "Tm001": {
+      "threshold": -0.001,
+      "cells": 3,
+      "contingency": {
+        "t0_success_threshold_success": 1,
+        "t0_success_threshold_failure": 0,
+        "t0_failure_threshold_success": 0,
+        "t0_failure_threshold_failure": 2
+      },
+      "discordant_t0_favouring": 0,
+      "discordant_threshold_favouring": 0,
+      "mcnemar": {
+        "discordant": 0,
+        "exact_two_sided_p": 1.0
+      }
+    },
+    "T000": {
+      "threshold": 0.0,
+      "cells": 3,
+      "contingency": {
+        "t0_success_threshold_success": 1,
+        "t0_success_threshold_failure": 0,
+        "t0_failure_threshold_success": 1,
+        "t0_failure_threshold_failure": 1
+      },
+      "discordant_t0_favouring": 0,
+      "discordant_threshold_favouring": 1,
+      "mcnemar": {
+        "discordant": 1,
+        "exact_two_sided_p": 1.0
+      }
+    },
+    "Tp001": {
+      "threshold": 0.001,
+      "cells": 3,
+      "contingency": {
+        "t0_success_threshold_success": 1,
+        "t0_success_threshold_failure": 0,
+        "t0_failure_threshold_success": 1,
+        "t0_failure_threshold_failure": 1
+      },
+      "discordant_t0_favouring": 0,
+      "discordant_threshold_favouring": 1,
+      "mcnemar": {
+        "discordant": 1,
+        "exact_two_sided_p": 1.0
+      }
+    },
+    "Tp002": {
+      "threshold": 0.002,
+      "cells": 3,
+      "contingency": {
+        "t0_success_threshold_success": 1,
+        "t0_success_threshold_failure": 0,
+        "t0_failure_threshold_success": 1,
+        "t0_failure_threshold_failure": 1
+      },
+      "discordant_t0_favouring": 0,
+      "discordant_threshold_favouring": 1,
+      "mcnemar": {
+        "discordant": 1,
+        "exact_two_sided_p": 1.0
+      }
+    },
+    "Tp005": {
+      "threshold": 0.005,
+      "cells": 3,
+      "contingency": {
+        "t0_success_threshold_success": 1,
+        "t0_success_threshold_failure": 0,
+        "t0_failure_threshold_success": 2,
+        "t0_failure_threshold_failure": 0
+      },
+      "discordant_t0_favouring": 0,
+      "discordant_threshold_favouring": 2,
+      "mcnemar": {
+        "discordant": 2,
+        "exact_two_sided_p": 0.5
+      }
+    },
+    "Tp010": {
+      "threshold": 0.01,
+      "cells": 3,
+      "contingency": {
+        "t0_success_threshold_success": 1,
+        "t0_success_threshold_failure": 0,
+        "t0_failure_threshold_success": 2,
+        "t0_failure_threshold_failure": 0
+      },
+      "discordant_t0_favouring": 0,
+      "discordant_threshold_favouring": 2,
+      "mcnemar": {
+        "discordant": 2,
+        "exact_two_sided_p": 0.5
+      }
+    }
+  }
+}

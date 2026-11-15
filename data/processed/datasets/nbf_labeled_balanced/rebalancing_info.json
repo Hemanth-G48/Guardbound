@@ -1,0 +1,6 @@
+{
+  "strategy": "undersampled_label_5_at_turn0",
+  "original_turn0_label5_count": 955,
+  "new_turn0_label5_count": 500,
+  "target_label5": 500
+}

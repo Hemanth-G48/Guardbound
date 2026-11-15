@@ -1,0 +1,323 @@
+{
+  "phase": 19,
+  "deliverable": "analysis/matched_vs_off.json",
+  "test_pre_specified": "exact McNemar (two-sided) over matched goal x attack cells (Phase 18 methodology)",
+  "reference": "frozen Phase 18 C1 + NBF OFF arm (threshold-independent)",
+  "thresholds": {
+    "Tm010": {
+      "cells": 3,
+      "vs_phase18_off": {
+        "contingency": {
+          "off_success_threshold_success": 1,
+          "off_success_threshold_failure": 2,
+          "off_failure_threshold_success": 0,
+          "off_failure_threshold_failure": 0
+        },
+        "discordant_off_favouring": 2,
+        "discordant_threshold_favouring": 0,
+        "mcnemar": {
+          "discordant": 2,
+          "exact_two_sided_p": 0.5
+        },
+        "absolute_difference": -0.1444
+      },
+      "vs_phase18_t0": {
+        "cells": 3,
+        "contingency": {
+          "t0_success_threshold_success": 1,
+          "t0_success_threshold_failure": 0,
+          "t0_failure_threshold_success": 0,
+          "t0_failure_threshold_failure": 2
+        },
+        "discordant_t0_favouring": 0,
+        "discordant_threshold_favouring": 0,
+        "mcnemar": {
+          "discordant": 0,
+          "exact_two_sided_p": 1.0
+        }
+      },
+      "mean_paired_turn_difference_vs_off": -1.667,
+      "threshold": -0.01
+    },
+    "Tm005": {
+      "cells": 3,
+      "vs_phase18_off": {
+        "contingency": {
+          "off_success_threshold_success": 1,
+          "off_success_threshold_failure": 2,
+          "off_failure_threshold_success": 0,
+          "off_failure_threshold_failure": 0
+        },
+        "discordant_off_favouring": 2,
+        "discordant_threshold_favouring": 0,
+        "mcnemar": {
+          "discordant": 2,
+          "exact_two_sided_p": 0.5
+        },
+        "absolute_difference": -0.1444
+      },
+      "vs_phase18_t0": {
+        "cells": 3,
+        "contingency": {
+          "t0_success_threshold_success": 1,
+          "t0_success_threshold_failure": 0,
+          "t0_failure_threshold_success": 0,
+          "t0_failure_threshold_failure": 2
+        },
+        "discordant_t0_favouring": 0,
+        "discordant_threshold_favouring": 0,
+        "mcnemar": {
+          "discordant": 0,
+          "exact_two_sided_p": 1.0
+        }
+      },
+      "mean_paired_turn_difference_vs_off": -1.667,
+      "threshold": -0.005
+    },
+    "Tm002": {
+      "cells": 3,
+      "vs_phase18_off": {
+        "contingency": {
+          "off_success_threshold_success": 1,
+          "off_success_threshold_failure": 2,
+          "off_failure_threshold_success": 0,
+          "off_failure_threshold_failure": 0
+        },
+        "discordant_off_favouring": 2,
+        "discordant_threshold_favouring": 0,
+        "mcnemar": {
+          "discordant": 2,
+          "exact_two_sided_p": 0.5
+        },
+        "absolute_difference": -0.1444
+      },
+      "vs_phase18_t0": {
+        "cells": 3,
+        "contingency": {
+          "t0_success_threshold_success": 1,
+          "t0_success_threshold_failure": 0,
+          "t0_failure_threshold_success": 0,
+          "t0_failure_threshold_failure": 2
+        },
+        "discordant_t0_favouring": 0,
+        "discordant_threshold_favouring": 0,
+        "mcnemar": {
+          "discordant": 0,
+          "exact_two_sided_p": 1.0
+        }
+      },
+      "mean_paired_turn_difference_vs_off": -1.667,
+      "threshold": -0.002
+    },
+    "Tm001": {
+      "cells": 3,
+      "vs_phase18_off": {
+        "contingency": {
+          "off_success_threshold_success": 1,
+          "off_success_threshold_failure": 2,
+          "off_failure_threshold_success": 0,
+          "off_failure_threshold_failure": 0
+        },
+        "discordant_off_favouring": 2,
+        "discordant_threshold_favouring": 0,
+        "mcnemar": {
+          "discordant": 2,
+          "exact_two_sided_p": 0.5
+        },
+        "absolute_difference": -0.1444
+      },
+      "vs_phase18_t0": {
+        "cells": 3,
+        "contingency": {
+          "t0_success_threshold_success": 1,
+          "t0_success_threshold_failure": 0,
+          "t0_failure_threshold_success": 0,
+          "t0_failure_threshold_failure": 2
+        },
+        "discordant_t0_favouring": 0,
+        "discordant_threshold_favouring": 0,
+        "mcnemar": {
+          "discordant": 0,
+          "exact_two_sided_p": 1.0
+        }
+      },
+      "mean_paired_turn_difference_vs_off": -2,
+      "threshold": -0.001
+    },
+    "T000": {
+      "cells": 3,
+      "vs_phase18_off": {
+        "contingency": {
+          "off_success_threshold_success": 2,
+          "off_success_threshold_failure": 1,
+          "off_failure_threshold_success": 0,
+          "off_failure_threshold_failure": 0
+        },
+        "discordant_off_favouring": 1,
+        "discordant_threshold_favouring": 0,
+        "mcnemar": {
+          "discordant": 1,
+          "exact_two_sided_p": 1.0
+        },
+        "absolute_difference": 0.1889
+      },
+      "vs_phase18_t0": {
+        "cells": 3,
+        "contingency": {
+          "t0_success_threshold_success": 1,
+          "t0_success_threshold_failure": 0,
+          "t0_failure_threshold_success": 1,
+          "t0_failure_threshold_failure": 1
+        },
+        "discordant_t0_favouring": 0,
+        "discordant_threshold_favouring": 1,
+        "mcnemar": {
+          "discordant": 1,
+          "exact_two_sided_p": 1.0
+        }
+      },
+      "mean_paired_turn_difference_vs_off": -1.667,
+      "threshold": 0.0
+    },
+    "Tp001": {
+      "cells": 3,
+      "vs_phase18_off": {
+        "contingency": {
+          "off_success_threshold_success": 2,
+          "off_success_threshold_failure": 1,
+          "off_failure_threshold_success": 0,
+          "off_failure_threshold_failure": 0
+        },
+        "discordant_off_favouring": 1,
+        "discordant_threshold_favouring": 0,
+        "mcnemar": {
+          "discordant": 1,
+          "exact_two_sided_p": 1.0
+        },
+        "absolute_difference": 0.1889
+      },
+      "vs_phase18_t0": {
+        "cells": 3,
+        "contingency": {
+          "t0_success_threshold_success": 1,
+          "t0_success_threshold_failure": 0,
+          "t0_failure_threshold_success": 1,
+          "t0_failure_threshold_failure": 1
+        },
+        "discordant_t0_favouring": 0,
+        "discordant_threshold_favouring": 1,
+        "mcnemar": {
+          "discordant": 1,
+          "exact_two_sided_p": 1.0
+        }
+      },
+      "mean_paired_turn_difference_vs_off": -1.333,
+      "threshold": 0.001
+    },
+    "Tp002": {
+      "cells": 3,
+      "vs_phase18_off": {
+        "contingency": {
+          "off_success_threshold_success": 2,
+          "off_success_threshold_failure": 1,
+          "off_failure_threshold_success": 0,
+          "off_failure_threshold_failure": 0
+        },
+        "discordant_off_favouring": 1,
+        "discordant_threshold_favouring": 0,
+        "mcnemar": {
+          "discordant": 1,
+          "exact_two_sided_p": 1.0
+        },
+        "absolute_difference": 0.1889
+      },
+      "vs_phase18_t0": {
+        "cells": 3,
+        "contingency": {
+          "t0_success_threshold_success": 1,
+          "t0_success_threshold_failure": 0,
+          "t0_failure_threshold_success": 1,
+          "t0_failure_threshold_failure": 1
+        },
+        "discordant_t0_favouring": 0,
+        "discordant_threshold_favouring": 1,
+        "mcnemar": {
+          "discordant": 1,
+          "exact_two_sided_p": 1.0
+        }
+      },
+      "mean_paired_turn_difference_vs_off": 1,
+      "threshold": 0.002
+    },
+    "Tp005": {
+      "cells": 3,
+      "vs_phase18_off": {
+        "contingency": {
+          "off_success_threshold_success": 3,
+          "off_success_threshold_failure": 0,
+          "off_failure_threshold_success": 0,
+          "off_failure_threshold_failure": 0
+        },
+        "discordant_off_favouring": 0,
+        "discordant_threshold_favouring": 0,
+        "mcnemar": {
+          "discordant": 0,
+          "exact_two_sided_p": 1.0
+        },
+        "absolute_difference": 0.5222
+      },
+      "vs_phase18_t0": {
+        "cells": 3,
+        "contingency": {
+          "t0_success_threshold_success": 1,
+          "t0_success_threshold_failure": 0,
+          "t0_failure_threshold_success": 2,
+          "t0_failure_threshold_failure": 0
+        },
+        "discordant_t0_favouring": 0,
+        "discordant_threshold_favouring": 2,
+        "mcnemar": {
+          "discordant": 2,
+          "exact_two_sided_p": 0.5
+        }
+      },
+      "mean_paired_turn_difference_vs_off": 0.333,
+      "threshold": 0.005
+    },
+    "Tp010": {
+      "cells": 3,
+      "vs_phase18_off": {
+        "contingency": {
+          "off_success_threshold_success": 3,
+          "off_success_threshold_failure": 0,
+          "off_failure_threshold_success": 0,
+          "off_failure_threshold_failure": 0
+        },
+        "discordant_off_favouring": 0,
+        "discordant_threshold_favouring": 0,
+        "mcnemar": {
+          "discordant": 0,
+          "exact_two_sided_p": 1.0
+        },
+        "absolute_difference": 0.5222
+      },
+      "vs_phase18_t0": {
+        "cells": 3,
+        "contingency": {
+          "t0_success_threshold_success": 1,
+          "t0_success_threshold_failure": 0,
+          "t0_failure_threshold_success": 2,
+          "t0_failure_threshold_failure": 0
+        },
+        "discordant_t0_favouring": 0,
+        "discordant_threshold_favouring": 2,
+        "mcnemar": {
+          "discordant": 2,
+          "exact_two_sided_p": 0.5
+        }
+      },
+      "mean_paired_turn_difference_vs_off": 0.333,
+      "threshold": 0.01
+    }
+  }
+}

@@ -1,0 +1,131 @@
+{
+  "phase": "16.5",
+  "captured_utc": "2026-09-28T20:27:06.816092+00:00",
+  "purpose": "read-only baseline captured BEFORE any Phase 16.5 modification",
+  "git": {
+    "commit": "b46d6fd7ed37b7a6ee9e643476ae2b2263b85624",
+    "branch": "main",
+    "worktree_sha256_prefix16": "47015ef18ab01831",
+    "dirty": true,
+    "porcelain_lines": 20,
+    "porcelain": [
+      "M scripts/phase14_full_reproduction.py",
+      " M src/guardbound/llm/model_manager.py",
+      " M src/guardbound/llm/provider_factory.py",
+      " M tests/test_phase14_8_telemetry.py",
+      "?? .commandcode/",
+      "?? .obsidian/",
+      "?? PHASE_15_GLM_ATTACKER_IMPLEMENTATION_REPORT.md",
+      "?? PHASE_16_ORNITH15_ATTACKER_BACKEND_REPORT.md",
+      "?? configs/attacker_glm46v.yaml",
+      "?? configs/attacker_ornith15.yaml",
+      "?? scripts/diagnose_ornith15_structured_output.py",
+      "?? scripts/qualify_glm_attacker.py",
+      "?? scripts/qualify_ornith15_attacker.py",
+      "?? scripts/validate_ornith15_config_b.py",
+      "?? src/guardbound/llm/attacker_profiles.py",
+      "?? src/guardbound/llm/glm4v_client.py",
+      "?? src/guardbound/llm/multimodal_client.py",
+      "?? src/guardbound/llm/ornith15_client.py",
+      "?? tests/test_glm_attacker_backend.py",
+      "?? tests/test_ornith15_attacker_backend.py"
+    ]
+  },
+  "hashes": {
+    "configs/reproduction_phase14_frozen.yaml": "27b660a7052054521a94e3430013d9863964e825157056d3861228250f19a358",
+    "frozen_config_hash": "61ea203c20e68c51",
+    "dataset": "ac789de8859e755c11ee6cd600dd6a2eb88128c7ab119056dce3f7f125d014eb",
+    "nbf_checkpoint": "cea1a75bcef4fc515814b69c42541c95114f587abcc4505c9b096bbfa2a136fe",
+    "trackA_180": "fcb952f1598b697b033d605b0791cfbb64a010f8e43cd1adf3d0edc359d8a092",
+    "trackA_108_snapshot": "c12a562a9454d83b6cc0ee93b2653f4aa5ab058c5ac3e50ceed4ef7a8ec57fb3"
+  },
+  "model_revisions": {
+    "attacker": {
+      "id": "Qwen/Qwen3-4B-Instruct-2507",
+      "max_new_tokens": 256,
+      "temperature": 0.7
+    },
+    "target": {
+      "id": "microsoft/Phi-4-mini-instruct",
+      "max_new_tokens": 256,
+      "temperature": 0.7
+    },
+    "evaluator": {
+      "id": "meta-llama/Llama-3.2-3B-Instruct",
+      "max_new_tokens": 256,
+      "temperature": 0.0
+    },
+    "embedding": "all-mpnet-base-v2"
+  },
+  "generation_parameters_current": {
+    "declared_in_manifest_top_p": 1.0,
+    "actually_passed_top_p": null,
+    "actually_passed_top_k": null,
+    "note": "the loader never passes top_p/top_k, so the models' own generation_config.json governs sampling (Phase 16.4 F3)",
+    "target_max_new_tokens": 256,
+    "inherited_from_generation_config": {
+      "Qwen/Qwen3-4B-Instruct-2507": {
+        "generation_config.json": {
+          "top_p": 0.8,
+          "top_k": 20,
+          "temperature": 0.7,
+          "do_sample": true,
+          "max_new_tokens": null,
+          "max_length": null
+        }
+      },
+      "microsoft/Phi-4-mini-instruct": {
+        "generation_config.json": {
+          "top_p": null,
+          "top_k": null,
+          "temperature": null,
+          "do_sample": null,
+          "max_new_tokens": null,
+          "max_length": null
+        }
+      },
+      "meta-llama/Llama-3.2-3B-Instruct": {
+        "generation_config.json": {
+          "top_p": 0.9,
+          "top_k": null,
+          "temperature": 0.6,
+          "do_sample": true,
+          "max_new_tokens": null,
+          "max_length": null
+        }
+      }
+    }
+  },
+  "evidence_inventory": {
+    "phase15_pilot": {
+      "path": "results/phase15_pilot_30/trackA_frozen",
+      "files": 4,
+      "total_bytes": 8448487
+    },
+    "phase16_1": {
+      "path": "results/phase16_1_ornith_diagnostic",
+      "files": 26,
+      "total_bytes": 506333
+    },
+    "phase16_2": {
+      "path": "results/phase16_2_ornith_config_b",
+      "files": 8,
+      "total_bytes": 326800
+    },
+    "phase16_3": {
+      "path": "results/phase16_3_ornith_final_qualification",
+      "files": 2,
+      "total_bytes": 21473
+    },
+    "phase16_4": {
+      "path": "results/phase16_4_whole_codebase_audit",
+      "files": 5,
+      "total_bytes": 55364
+    },
+    "phase14": {
+      "path": "results/phase14",
+      "files": 27,
+      "total_bytes": 5567318
+    }
+  }
+}

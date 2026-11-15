@@ -1,0 +1,27 @@
+{
+  "label": "EXTENDED COMBINED ANALYSIS (descriptive) \u2014 NOT the original Phase 18 result",
+  "warning": "The 90-cell Phase 18 result remains the primary frozen result. This 120-cell figure combines it with the extension and must never be presented as the original Phase 18 result.",
+  "phase18_cells": 90,
+  "extension_cells": 30,
+  "total_cells": 120,
+  "combined_nbf_off": {
+    "successes": 66,
+    "runs": 120,
+    "rate": 0.55,
+    "ci95_wilson": [
+      0.4608,
+      0.6361
+    ]
+  },
+  "combined_nbf_on": {
+    "successes": 46,
+    "runs": 120,
+    "rate": 0.3833,
+    "ci95_wilson": [
+      0.3012,
+      0.4727
+    ]
+  },
+  "combined_difference": -0.1667,
+  "statistical_status": "descriptive only \u2014 no combined-test p-value is claimed as primary; the extension's pre-specified test is its own 30-cell exact McNemar"
+}

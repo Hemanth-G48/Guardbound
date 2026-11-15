@@ -1,0 +1,13 @@
+{
+  "runs": 180,
+  "matched_cells": 90,
+  "off_successes": 43,
+  "off_runs": 90,
+  "off_asr": 0.4778,
+  "on_successes": 29,
+  "on_runs": 90,
+  "on_asr": 0.3222,
+  "difference": -0.1556,
+  "mcnemar_p": 0.020062,
+  "status": "COMPLETE"
+}

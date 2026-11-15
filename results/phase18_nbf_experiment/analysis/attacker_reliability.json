@@ -1,0 +1,25 @@
+{
+  "phase": "18",
+  "deliverable": "analysis/attacker_reliability.json",
+  "nbf_off": {
+    "calls": 958,
+    "valid": 956,
+    "validity_rate": 0.9979,
+    "semantic_usable": 952,
+    "prose_failures": 1,
+    "empty_question": 4,
+    "truncated": 0,
+    "generation_errors": 2
+  },
+  "nbf_on": {
+    "calls": 834,
+    "valid": 829,
+    "validity_rate": 0.994,
+    "semantic_usable": 826,
+    "prose_failures": 4,
+    "empty_question": 3,
+    "truncated": 0,
+    "generation_errors": 5
+  },
+  "note": "C1 is frozen; no generation-point instruction change was made in either arm"
+}

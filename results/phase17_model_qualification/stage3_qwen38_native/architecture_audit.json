@@ -1,0 +1,220 @@
+{
+  "phase": "17",
+  "stage": "3",
+  "deliverable": "architecture_audit.json",
+  "scope": "Qwen/Qwen3.8-27B only",
+  "model_id": "Qwen/Qwen3.8-27B",
+  "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+  "snapshot_path": "C:\\Users\\CSLAB\\.cache\\huggingface\\hub\\models--Qwen--Qwen3.8-27B\\snapshots\\1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+  "checkpoint_config": {
+    "architectures": [
+      "Qwen3_5ForConditionalGeneration"
+    ],
+    "model_type": "qwen3_5",
+    "language_model_only": false,
+    "tie_word_embeddings": false,
+    "image_token_id": 248056,
+    "video_token_id": 248057,
+    "vision_start_token_id": 248053,
+    "vision_end_token_id": 248054,
+    "transformers_version": "5.8.0.dev0",
+    "text_config": {
+      "model_type": "qwen3_5_text",
+      "hidden_size": 5120,
+      "num_hidden_layers": 64,
+      "intermediate_size": 17408,
+      "num_attention_heads": 24,
+      "num_key_value_heads": 4,
+      "vocab_size": 248320,
+      "max_position_embeddings": 262144,
+      "mtp_num_hidden_layers": 1,
+      "layer_type_histogram": {
+        "full_attention": 16,
+        "linear_attention": 48
+      }
+    },
+    "vision_config": {
+      "deepstack_visual_indexes": [],
+      "depth": 27,
+      "hidden_act": "gelu_pytorch_tanh",
+      "hidden_size": 1152,
+      "in_channels": 3,
+      "initializer_range": 0.02,
+      "intermediate_size": 4304,
+      "model_type": "qwen3_5",
+      "num_heads": 16,
+      "num_position_embeddings": 2304,
+      "out_hidden_size": 5120,
+      "patch_size": 16,
+      "spatial_merge_size": 2,
+      "temporal_patch_size": 2
+    },
+    "generation_config": {
+      "bos_token_id": 248044,
+      "do_sample": true,
+      "eos_token_id": [
+        248046,
+        248044
+      ],
+      "pad_token_id": 248044,
+      "temperature": 1.0,
+      "top_k": 20,
+      "top_p": 0.95
+    },
+    "processor_class_declared": "Qwen3VLProcessor",
+    "image_processor_type": "Qwen2VLImageProcessorFast",
+    "video_processor_type": "Qwen3VLVideoProcessor",
+    "tokenizer_class": "Qwen2Tokenizer",
+    "model_max_length": 262144,
+    "chat_template_present": true
+  },
+  "checkpoint_tensors": {
+    "count": 1199,
+    "declared_total_size_bytes": 55562855904.0,
+    "name_roots": [
+      "lm_head",
+      "model",
+      "mtp"
+    ],
+    "prefixes": {
+      "lm_head.weight": 1,
+      "model.language_model.embed_tokens": 1,
+      "model.language_model.layers": 848,
+      "model.language_model.norm": 1,
+      "model.visual.blocks": 324,
+      "model.visual.merger": 6,
+      "model.visual.patch_embed": 2,
+      "model.visual.pos_embed": 1,
+      "mtp.fc.weight": 1,
+      "mtp.layers.0": 11,
+      "mtp.norm.weight": 1,
+      "mtp.pre_fc_norm_embedding.weight": 1,
+      "mtp.pre_fc_norm_hidden.weight": 1
+    }
+  },
+  "auto_config": {
+    "class": "Qwen3_5Config",
+    "model_type": "qwen3_5"
+  },
+  "auto_class_resolution": {
+    "AutoModelForImageTextToText": {
+      "available": true,
+      "maps_config_to": "Qwen3_5ForConditionalGeneration",
+      "structure": {
+        "auto_class": "AutoModelForImageTextToText",
+        "available": true,
+        "instantiated": true,
+        "class": "Qwen3_5ForConditionalGeneration",
+        "tensor_count": 49,
+        "prefixes": {
+          "lm_head.weight": 1,
+          "model.language_model.embed_tokens": 1,
+          "model.language_model.layers": 25,
+          "model.language_model.norm": 1,
+          "model.visual.blocks": 12,
+          "model.visual.merger": 6,
+          "model.visual.patch_embed": 2,
+          "model.visual.pos_embed": 1
+        },
+        "has_vision_tower": true,
+        "text_prefix_sample": [
+          "model.language_model.layers.0.linear_attn.dt_bias",
+          "model.language_model.layers.0.linear_attn.A_log",
+          "model.language_model.layers.0.linear_attn.conv1d.weight",
+          "model.language_model.layers.0.linear_attn.norm.weight"
+        ]
+      }
+    },
+    "AutoModelForMultimodalLM": {
+      "available": true,
+      "maps_config_to": "Qwen3_5ForConditionalGeneration",
+      "structure": {
+        "auto_class": "AutoModelForMultimodalLM",
+        "available": true,
+        "instantiated": true,
+        "class": "Qwen3_5ForConditionalGeneration",
+        "tensor_count": 49,
+        "prefixes": {
+          "lm_head.weight": 1,
+          "model.language_model.embed_tokens": 1,
+          "model.language_model.layers": 25,
+          "model.language_model.norm": 1,
+          "model.visual.blocks": 12,
+          "model.visual.merger": 6,
+          "model.visual.patch_embed": 2,
+          "model.visual.pos_embed": 1
+        },
+        "has_vision_tower": true,
+        "text_prefix_sample": [
+          "model.language_model.layers.0.linear_attn.dt_bias",
+          "model.language_model.layers.0.linear_attn.A_log",
+          "model.language_model.layers.0.linear_attn.conv1d.weight",
+          "model.language_model.layers.0.linear_attn.norm.weight"
+        ]
+      }
+    },
+    "AutoModelForCausalLM": {
+      "available": true,
+      "maps_config_to": "Qwen3_5ForCausalLM",
+      "structure": {
+        "auto_class": "AutoModelForCausalLM",
+        "available": true,
+        "instantiated": true,
+        "class": "Qwen3_5ForCausalLM",
+        "tensor_count": 28,
+        "prefixes": {
+          "lm_head.weight": 1,
+          "model.embed_tokens.weight": 1,
+          "model.layers.0": 14,
+          "model.layers.1": 11,
+          "model.norm.weight": 1
+        },
+        "has_vision_tower": false,
+        "text_prefix_sample": [
+          "model.layers.0.linear_attn.dt_bias",
+          "model.layers.0.linear_attn.A_log",
+          "model.layers.0.linear_attn.conv1d.weight",
+          "model.layers.0.linear_attn.norm.weight"
+        ]
+      }
+    }
+  },
+  "transformers_version": "5.16.1",
+  "processor_probe": {
+    "loaded": true,
+    "processor_class": "Qwen3VLProcessor",
+    "tokenizer_class": "Qwen2Tokenizer",
+    "image_processor_class": "Qwen2VLImageProcessor",
+    "video_processor_class": "Qwen3VLVideoProcessor",
+    "declared_processor_class": "Qwen3VLProcessor",
+    "matches_declared": true,
+    "has_chat_template": true,
+    "eos_token": "<|im_end|>",
+    "eos_token_id": 248046,
+    "pad_token": "<|endoftext|>",
+    "pad_token_id": 248044
+  },
+  "structural_verdict": {
+    "checkpoint_declares": [
+      "Qwen3_5ForConditionalGeneration"
+    ],
+    "checkpoint_contains_vision_tower": true,
+    "native_class": "Qwen3_5ForConditionalGeneration",
+    "native_class_expects_vision_tower": true,
+    "native_text_prefix_sample": [
+      "model.language_model.layers.0.linear_attn.dt_bias",
+      "model.language_model.layers.0.linear_attn.A_log",
+      "model.language_model.layers.0.linear_attn.conv1d.weight",
+      "model.language_model.layers.0.linear_attn.norm.weight"
+    ],
+    "causallm_class": "Qwen3_5ForCausalLM",
+    "causallm_expects_vision_tower": false,
+    "causallm_text_prefix_sample": [
+      "model.layers.0.linear_attn.dt_bias",
+      "model.layers.0.linear_attn.A_log",
+      "model.layers.0.linear_attn.conv1d.weight",
+      "model.layers.0.linear_attn.norm.weight"
+    ],
+    "interpretation": "A class whose expected parameter names match the checkpoint's own index can consume the published checkpoint as-is. A class that expects a different naming structure is a substitution, whatever transformers reports about missing keys."
+  }
+}

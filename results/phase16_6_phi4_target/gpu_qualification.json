@@ -1,0 +1,34 @@
+{
+  "phase": "16.6",
+  "gpu": {
+    "name": "NVIDIA RTX 4500 Ada Generation",
+    "total_gb": 25.763,
+    "free_before_load_gb": 24.385
+  },
+  "load_attempted": false,
+  "load_not_attempted_reason": "the weights are not present locally (only ~6.87 GB of an in-progress download) and the arithmetic verdict (29.319 GB needed vs 24.385 GB free) makes a load impossible; downloading 29.3 GB solely to observe a predicted CUDA OOM was not done",
+  "measured": {
+    "model_load_time_s": null,
+    "allocated_vram_gb": null,
+    "reserved_vram_gb": null,
+    "peak_vram_gb": null,
+    "free_after_load_gb": null,
+    "generation_latency_s": null,
+    "unload_time_s": null,
+    "pytorch_cache_release": null
+  },
+  "not_measured_reason": "no load was possible; every value is reported as null rather than estimated",
+  "existing_residency_architecture": {
+    "unchanged": true,
+    "gates": {
+      "pre_load_headroom_gb": 3.0,
+      "post_load_free_gb": 1.5,
+      "per_run_free_gb": 6.0,
+      "ceiling_reserved_gb": 22.0
+    },
+    "max_resident_models": 2,
+    "note": "Phase 16.4 measured the frozen stack's peak at 20.397 GB with rotation; adding a 29.319 GB target would exceed both the card and the 22.0 GB reservation ceiling"
+  },
+  "regression_of_gpu_safety_gates": false,
+  "oom_or_cuda_errors": 0
+}

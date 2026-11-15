@@ -1,0 +1,731 @@
+{
+  "phase": "17",
+  "stage": "3",
+  "deliverable": "native_residency_validation.json",
+  "roles": {
+    "attacker": "Qwen/Qwen3.8-27B",
+    "target": "meta-llama/Meta-Llama-3-8B-Instruct",
+    "judge": "Qwen/Qwen3-8B"
+  },
+  "cycles": 3,
+  "trace": [
+    {
+      "cycle": 0,
+      "role": "attacker",
+      "driver_free_before_activate_gib": 22.71,
+      "model_class": "Qwen3_5ForConditionalGeneration",
+      "declared_architectures": [
+        "Qwen3_5ForConditionalGeneration"
+      ],
+      "quantization": "nf4",
+      "processor_class": "Qwen3VLProcessor",
+      "tokenizer_class": "Qwen2Tokenizer",
+      "tokenizer_name": "Qwen/Qwen3.8-27B",
+      "resident_models": [
+        "Qwen/Qwen3.8-27B"
+      ],
+      "resident_count": 1,
+      "cache_keys": [],
+      "vram": {
+        "allocated_gib": 16.688,
+        "reserved_gib": 16.877,
+        "peak_allocated_gib": 16.728,
+        "driver_free_gib": 5.804,
+        "driver_total_gib": 23.994
+      }
+    },
+    {
+      "cycle": 0,
+      "role": "target",
+      "driver_free_before_activate_gib": 5.804,
+      "model_class": "LlamaForCausalLM",
+      "declared_architectures": [
+        "LlamaForCausalLM"
+      ],
+      "quantization": null,
+      "processor_class": null,
+      "tokenizer_class": "TokenizersBackend",
+      "tokenizer_name": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "resident_models": [
+        "meta-llama/Meta-Llama-3-8B-Instruct"
+      ],
+      "resident_count": 1,
+      "cache_keys": [
+        "meta-llama/Meta-Llama-3-8B-Instruct_{'': 0}"
+      ],
+      "vram": {
+        "allocated_gib": 14.958,
+        "reserved_gib": 14.959,
+        "peak_allocated_gib": 16.728,
+        "driver_free_gib": 7.722,
+        "driver_total_gib": 23.994
+      }
+    },
+    {
+      "cycle": 0,
+      "role": "evaluator",
+      "driver_free_before_activate_gib": 7.722,
+      "model_class": "Qwen3ForCausalLM",
+      "declared_architectures": [
+        "Qwen3ForCausalLM"
+      ],
+      "quantization": null,
+      "processor_class": null,
+      "tokenizer_class": "Qwen2Tokenizer",
+      "tokenizer_name": "Qwen/Qwen3-8B",
+      "resident_models": [
+        "Qwen/Qwen3-8B"
+      ],
+      "resident_count": 1,
+      "cache_keys": [
+        "Qwen/Qwen3-8B_{'': 0}"
+      ],
+      "vram": {
+        "allocated_gib": 15.256,
+        "reserved_gib": 15.258,
+        "peak_allocated_gib": 16.728,
+        "driver_free_gib": 7.423,
+        "driver_total_gib": 23.994
+      }
+    },
+    {
+      "cycle": 1,
+      "role": "attacker",
+      "driver_free_before_activate_gib": 22.679,
+      "model_class": "Qwen3_5ForConditionalGeneration",
+      "declared_architectures": [
+        "Qwen3_5ForConditionalGeneration"
+      ],
+      "quantization": "nf4",
+      "processor_class": "Qwen3VLProcessor",
+      "tokenizer_class": "Qwen2Tokenizer",
+      "tokenizer_name": "Qwen/Qwen3.8-27B",
+      "resident_models": [
+        "Qwen/Qwen3.8-27B"
+      ],
+      "resident_count": 1,
+      "cache_keys": [],
+      "vram": {
+        "allocated_gib": 16.687,
+        "reserved_gib": 16.875,
+        "peak_allocated_gib": 16.728,
+        "driver_free_gib": 5.806,
+        "driver_total_gib": 23.994
+      }
+    },
+    {
+      "cycle": 1,
+      "role": "target",
+      "driver_free_before_activate_gib": 5.806,
+      "model_class": "LlamaForCausalLM",
+      "declared_architectures": [
+        "LlamaForCausalLM"
+      ],
+      "quantization": null,
+      "processor_class": null,
+      "tokenizer_class": "TokenizersBackend",
+      "tokenizer_name": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "resident_models": [
+        "meta-llama/Meta-Llama-3-8B-Instruct"
+      ],
+      "resident_count": 1,
+      "cache_keys": [
+        "meta-llama/Meta-Llama-3-8B-Instruct_{'': 0}"
+      ],
+      "vram": {
+        "allocated_gib": 14.958,
+        "reserved_gib": 14.959,
+        "peak_allocated_gib": 16.728,
+        "driver_free_gib": 7.722,
+        "driver_total_gib": 23.994
+      }
+    },
+    {
+      "cycle": 1,
+      "role": "evaluator",
+      "driver_free_before_activate_gib": 7.722,
+      "model_class": "Qwen3ForCausalLM",
+      "declared_architectures": [
+        "Qwen3ForCausalLM"
+      ],
+      "quantization": null,
+      "processor_class": null,
+      "tokenizer_class": "Qwen2Tokenizer",
+      "tokenizer_name": "Qwen/Qwen3-8B",
+      "resident_models": [
+        "Qwen/Qwen3-8B"
+      ],
+      "resident_count": 1,
+      "cache_keys": [
+        "Qwen/Qwen3-8B_{'': 0}"
+      ],
+      "vram": {
+        "allocated_gib": 15.256,
+        "reserved_gib": 15.258,
+        "peak_allocated_gib": 16.728,
+        "driver_free_gib": 7.423,
+        "driver_total_gib": 23.994
+      }
+    },
+    {
+      "cycle": 2,
+      "role": "attacker",
+      "driver_free_before_activate_gib": 22.679,
+      "model_class": "Qwen3_5ForConditionalGeneration",
+      "declared_architectures": [
+        "Qwen3_5ForConditionalGeneration"
+      ],
+      "quantization": "nf4",
+      "processor_class": "Qwen3VLProcessor",
+      "tokenizer_class": "Qwen2Tokenizer",
+      "tokenizer_name": "Qwen/Qwen3.8-27B",
+      "resident_models": [
+        "Qwen/Qwen3.8-27B"
+      ],
+      "resident_count": 1,
+      "cache_keys": [],
+      "vram": {
+        "allocated_gib": 16.687,
+        "reserved_gib": 16.875,
+        "peak_allocated_gib": 16.728,
+        "driver_free_gib": 5.806,
+        "driver_total_gib": 23.994
+      }
+    },
+    {
+      "cycle": 2,
+      "role": "target",
+      "driver_free_before_activate_gib": 5.806,
+      "model_class": "LlamaForCausalLM",
+      "declared_architectures": [
+        "LlamaForCausalLM"
+      ],
+      "quantization": null,
+      "processor_class": null,
+      "tokenizer_class": "TokenizersBackend",
+      "tokenizer_name": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "resident_models": [
+        "meta-llama/Meta-Llama-3-8B-Instruct"
+      ],
+      "resident_count": 1,
+      "cache_keys": [
+        "meta-llama/Meta-Llama-3-8B-Instruct_{'': 0}"
+      ],
+      "vram": {
+        "allocated_gib": 14.958,
+        "reserved_gib": 14.959,
+        "peak_allocated_gib": 16.728,
+        "driver_free_gib": 7.722,
+        "driver_total_gib": 23.994
+      }
+    },
+    {
+      "cycle": 2,
+      "role": "evaluator",
+      "driver_free_before_activate_gib": 7.722,
+      "model_class": "Qwen3ForCausalLM",
+      "declared_architectures": [
+        "Qwen3ForCausalLM"
+      ],
+      "quantization": null,
+      "processor_class": null,
+      "tokenizer_class": "Qwen2Tokenizer",
+      "tokenizer_name": "Qwen/Qwen3-8B",
+      "resident_models": [
+        "Qwen/Qwen3-8B"
+      ],
+      "resident_count": 1,
+      "cache_keys": [
+        "Qwen/Qwen3-8B_{'': 0}"
+      ],
+      "vram": {
+        "allocated_gib": 15.256,
+        "reserved_gib": 15.258,
+        "peak_allocated_gib": 16.728,
+        "driver_free_gib": 7.423,
+        "driver_total_gib": 23.994
+      }
+    }
+  ],
+  "errors": [],
+  "max_resident_models": 1,
+  "attacker_identity_correct": true,
+  "cache_empty_after_unload": true,
+  "vram_after_release": {
+    "allocated_gib": 0.0,
+    "reserved_gib": 0.002,
+    "peak_allocated_gib": 16.728,
+    "driver_free_gib": 22.679,
+    "driver_total_gib": 23.994
+  },
+  "events": [
+    {
+      "event": "activate",
+      "role": "attacker",
+      "run_id": null,
+      "timestamp": 1790708554.2673216,
+      "vram_gb": 0.0,
+      "free_gb": 24.38463488,
+      "resident": [
+        "Qwen/Qwen3.8-27B"
+      ],
+      "model_id": "Qwen/Qwen3.8-27B"
+    },
+    {
+      "event": "load",
+      "role": "attacker",
+      "run_id": null,
+      "timestamp": 1790708582.5562334,
+      "vram_gb": 17.918793728,
+      "free_gb": 6.231687168,
+      "resident": [
+        "Qwen/Qwen3.8-27B"
+      ],
+      "model_id": "Qwen/Qwen3.8-27B",
+      "action": "load",
+      "duration_s": 28.189,
+      "free_before_gb": 24.38463488,
+      "free_after_gb": 6.231687168,
+      "reserved_before_gb": 0.0,
+      "estimated_gb": 18.391,
+      "measured_gb": 17.919,
+      "driver_free_delta_gb": 18.153,
+      "device_map": {
+        "": 0
+      }
+    },
+    {
+      "event": "evict",
+      "role": "attacker",
+      "run_id": null,
+      "timestamp": 1790708586.7292116,
+      "vram_gb": 1.024e-06,
+      "free_gb": 24.351080448,
+      "resident": [],
+      "model_id": "Qwen/Qwen3.8-27B",
+      "action": "evict",
+      "duration_s": 0.346,
+      "free_before_gb": 6.231687168,
+      "free_after_gb": 24.351080448,
+      "freed_gb": 18.119,
+      "cache_released": false
+    },
+    {
+      "event": "activate",
+      "role": "target",
+      "run_id": null,
+      "timestamp": 1790708586.729661,
+      "vram_gb": 1.024e-06,
+      "free_gb": 24.351080448,
+      "resident": [
+        "meta-llama/Meta-Llama-3-8B-Instruct"
+      ],
+      "model_id": "meta-llama/Meta-Llama-3-8B-Instruct"
+    },
+    {
+      "event": "load",
+      "role": "target",
+      "run_id": null,
+      "timestamp": 1790708599.5099523,
+      "vram_gb": 16.060524544,
+      "free_gb": 8.291090432,
+      "resident": [
+        "meta-llama/Meta-Llama-3-8B-Instruct"
+      ],
+      "model_id": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "action": "load",
+      "duration_s": 12.646,
+      "free_before_gb": 24.351080448,
+      "free_after_gb": 8.291090432,
+      "reserved_before_gb": 0.002097152,
+      "estimated_gb": 16.061,
+      "measured_gb": 16.061,
+      "driver_free_delta_gb": 16.06,
+      "device_map": {
+        "": 0
+      }
+    },
+    {
+      "event": "evict",
+      "role": "target",
+      "run_id": null,
+      "timestamp": 1790708599.93211,
+      "vram_gb": 1.024e-06,
+      "free_gb": 24.351080448,
+      "resident": [],
+      "model_id": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "action": "evict",
+      "duration_s": 0.283,
+      "free_before_gb": 8.291090432,
+      "free_after_gb": 24.351080448,
+      "freed_gb": 16.06,
+      "cache_released": true
+    },
+    {
+      "event": "activate",
+      "role": "evaluator",
+      "run_id": null,
+      "timestamp": 1790708599.932589,
+      "vram_gb": 1.024e-06,
+      "free_gb": 24.351080448,
+      "resident": [
+        "Qwen/Qwen3-8B"
+      ],
+      "model_id": "Qwen/Qwen3-8B"
+    },
+    {
+      "event": "load",
+      "role": "evaluator",
+      "run_id": null,
+      "timestamp": 1790708612.8670514,
+      "vram_gb": 16.3814912,
+      "free_gb": 7.970226176,
+      "resident": [
+        "Qwen/Qwen3-8B"
+      ],
+      "model_id": "Qwen/Qwen3-8B",
+      "action": "load",
+      "duration_s": 12.798,
+      "free_before_gb": 24.351080448,
+      "free_after_gb": 7.970226176,
+      "reserved_before_gb": 0.002097152,
+      "estimated_gb": 16.382,
+      "measured_gb": 16.381,
+      "driver_free_delta_gb": 16.381,
+      "device_map": {
+        "": 0
+      }
+    },
+    {
+      "event": "evict",
+      "role": "evaluator",
+      "run_id": null,
+      "timestamp": 1790708613.3164928,
+      "vram_gb": 1.024e-06,
+      "free_gb": 24.351080448,
+      "resident": [],
+      "model_id": "Qwen/Qwen3-8B",
+      "action": "evict",
+      "duration_s": 0.302,
+      "free_before_gb": 7.970226176,
+      "free_after_gb": 24.351080448,
+      "freed_gb": 16.381,
+      "cache_released": true
+    },
+    {
+      "event": "activate",
+      "role": "attacker",
+      "run_id": null,
+      "timestamp": 1790708613.317148,
+      "vram_gb": 1.024e-06,
+      "free_gb": 24.351080448,
+      "resident": [
+        "Qwen/Qwen3.8-27B"
+      ],
+      "model_id": "Qwen/Qwen3.8-27B"
+    },
+    {
+      "event": "load",
+      "role": "attacker",
+      "run_id": null,
+      "timestamp": 1790708643.1490588,
+      "vram_gb": 17.917751296,
+      "free_gb": 6.23378432,
+      "resident": [
+        "Qwen/Qwen3.8-27B"
+      ],
+      "model_id": "Qwen/Qwen3.8-27B",
+      "action": "load",
+      "duration_s": 29.693,
+      "free_before_gb": 24.351080448,
+      "free_after_gb": 6.23378432,
+      "reserved_before_gb": 0.002097152,
+      "estimated_gb": 17.919,
+      "measured_gb": 17.918,
+      "driver_free_delta_gb": 18.117,
+      "device_map": {
+        "": 0
+      }
+    },
+    {
+      "event": "evict",
+      "role": "attacker",
+      "run_id": null,
+      "timestamp": 1790708647.3541903,
+      "vram_gb": 1.024e-06,
+      "free_gb": 24.351080448,
+      "resident": [],
+      "model_id": "Qwen/Qwen3.8-27B",
+      "action": "evict",
+      "duration_s": 0.34,
+      "free_before_gb": 6.23378432,
+      "free_after_gb": 24.351080448,
+      "freed_gb": 18.117,
+      "cache_released": false
+    },
+    {
+      "event": "activate",
+      "role": "target",
+      "run_id": null,
+      "timestamp": 1790708647.3546383,
+      "vram_gb": 1.024e-06,
+      "free_gb": 24.351080448,
+      "resident": [
+        "meta-llama/Meta-Llama-3-8B-Instruct"
+      ],
+      "model_id": "meta-llama/Meta-Llama-3-8B-Instruct"
+    },
+    {
+      "event": "load",
+      "role": "target",
+      "run_id": null,
+      "timestamp": 1790708660.4061966,
+      "vram_gb": 16.060524544,
+      "free_gb": 8.291090432,
+      "resident": [
+        "meta-llama/Meta-Llama-3-8B-Instruct"
+      ],
+      "model_id": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "action": "load",
+      "duration_s": 12.912,
+      "free_before_gb": 24.351080448,
+      "free_after_gb": 8.291090432,
+      "reserved_before_gb": 0.002097152,
+      "estimated_gb": 16.061,
+      "measured_gb": 16.061,
+      "driver_free_delta_gb": 16.06,
+      "device_map": {
+        "": 0
+      }
+    },
+    {
+      "event": "evict",
+      "role": "target",
+      "run_id": null,
+      "timestamp": 1790708660.8394291,
+      "vram_gb": 1.024e-06,
+      "free_gb": 24.351080448,
+      "resident": [],
+      "model_id": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "action": "evict",
+      "duration_s": 0.288,
+      "free_before_gb": 8.291090432,
+      "free_after_gb": 24.351080448,
+      "freed_gb": 16.06,
+      "cache_released": true
+    },
+    {
+      "event": "activate",
+      "role": "evaluator",
+      "run_id": null,
+      "timestamp": 1790708660.8399527,
+      "vram_gb": 1.024e-06,
+      "free_gb": 24.351080448,
+      "resident": [
+        "Qwen/Qwen3-8B"
+      ],
+      "model_id": "Qwen/Qwen3-8B"
+    },
+    {
+      "event": "load",
+      "role": "evaluator",
+      "run_id": null,
+      "timestamp": 1790708673.2711203,
+      "vram_gb": 16.3814912,
+      "free_gb": 7.970226176,
+      "resident": [
+        "Qwen/Qwen3-8B"
+      ],
+      "model_id": "Qwen/Qwen3-8B",
+      "action": "load",
+      "duration_s": 12.295,
+      "free_before_gb": 24.351080448,
+      "free_after_gb": 7.970226176,
+      "reserved_before_gb": 0.002097152,
+      "estimated_gb": 16.381,
+      "measured_gb": 16.381,
+      "driver_free_delta_gb": 16.381,
+      "device_map": {
+        "": 0
+      }
+    },
+    {
+      "event": "evict",
+      "role": "evaluator",
+      "run_id": null,
+      "timestamp": 1790708673.727363,
+      "vram_gb": 1.024e-06,
+      "free_gb": 24.351080448,
+      "resident": [],
+      "model_id": "Qwen/Qwen3-8B",
+      "action": "evict",
+      "duration_s": 0.308,
+      "free_before_gb": 7.970226176,
+      "free_after_gb": 24.351080448,
+      "freed_gb": 16.381,
+      "cache_released": true
+    },
+    {
+      "event": "activate",
+      "role": "attacker",
+      "run_id": null,
+      "timestamp": 1790708673.728058,
+      "vram_gb": 1.024e-06,
+      "free_gb": 24.351080448,
+      "resident": [
+        "Qwen/Qwen3.8-27B"
+      ],
+      "model_id": "Qwen/Qwen3.8-27B"
+    },
+    {
+      "event": "load",
+      "role": "attacker",
+      "run_id": null,
+      "timestamp": 1790708702.1834338,
+      "vram_gb": 17.917751296,
+      "free_gb": 6.23378432,
+      "resident": [
+        "Qwen/Qwen3.8-27B"
+      ],
+      "model_id": "Qwen/Qwen3.8-27B",
+      "action": "load",
+      "duration_s": 28.318,
+      "free_before_gb": 24.351080448,
+      "free_after_gb": 6.23378432,
+      "reserved_before_gb": 0.002097152,
+      "estimated_gb": 17.919,
+      "measured_gb": 17.918,
+      "driver_free_delta_gb": 18.117,
+      "device_map": {
+        "": 0
+      }
+    },
+    {
+      "event": "evict",
+      "role": "attacker",
+      "run_id": null,
+      "timestamp": 1790708706.3862953,
+      "vram_gb": 1.024e-06,
+      "free_gb": 24.351080448,
+      "resident": [],
+      "model_id": "Qwen/Qwen3.8-27B",
+      "action": "evict",
+      "duration_s": 0.344,
+      "free_before_gb": 6.23378432,
+      "free_after_gb": 24.351080448,
+      "freed_gb": 18.117,
+      "cache_released": false
+    },
+    {
+      "event": "activate",
+      "role": "target",
+      "run_id": null,
+      "timestamp": 1790708706.3867576,
+      "vram_gb": 1.024e-06,
+      "free_gb": 24.351080448,
+      "resident": [
+        "meta-llama/Meta-Llama-3-8B-Instruct"
+      ],
+      "model_id": "meta-llama/Meta-Llama-3-8B-Instruct"
+    },
+    {
+      "event": "load",
+      "role": "target",
+      "run_id": null,
+      "timestamp": 1790708719.5234637,
+      "vram_gb": 16.060524544,
+      "free_gb": 8.291090432,
+      "resident": [
+        "meta-llama/Meta-Llama-3-8B-Instruct"
+      ],
+      "model_id": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "action": "load",
+      "duration_s": 12.998,
+      "free_before_gb": 24.351080448,
+      "free_after_gb": 8.291090432,
+      "reserved_before_gb": 0.002097152,
+      "estimated_gb": 16.061,
+      "measured_gb": 16.061,
+      "driver_free_delta_gb": 16.06,
+      "device_map": {
+        "": 0
+      }
+    },
+    {
+      "event": "evict",
+      "role": "target",
+      "run_id": null,
+      "timestamp": 1790708719.947701,
+      "vram_gb": 1.024e-06,
+      "free_gb": 24.351080448,
+      "resident": [],
+      "model_id": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "action": "evict",
+      "duration_s": 0.281,
+      "free_before_gb": 8.291090432,
+      "free_after_gb": 24.351080448,
+      "freed_gb": 16.06,
+      "cache_released": true
+    },
+    {
+      "event": "activate",
+      "role": "evaluator",
+      "run_id": null,
+      "timestamp": 1790708719.9481778,
+      "vram_gb": 1.024e-06,
+      "free_gb": 24.351080448,
+      "resident": [
+        "Qwen/Qwen3-8B"
+      ],
+      "model_id": "Qwen/Qwen3-8B"
+    },
+    {
+      "event": "load",
+      "role": "evaluator",
+      "run_id": null,
+      "timestamp": 1790708732.7996104,
+      "vram_gb": 16.3814912,
+      "free_gb": 7.970226176,
+      "resident": [
+        "Qwen/Qwen3-8B"
+      ],
+      "model_id": "Qwen/Qwen3-8B",
+      "action": "load",
+      "duration_s": 12.715,
+      "free_before_gb": 24.351080448,
+      "free_after_gb": 7.970226176,
+      "reserved_before_gb": 0.002097152,
+      "estimated_gb": 16.381,
+      "measured_gb": 16.381,
+      "driver_free_delta_gb": 16.381,
+      "device_map": {
+        "": 0
+      }
+    },
+    {
+      "event": "evict",
+      "role": "evaluator",
+      "run_id": null,
+      "timestamp": 1790708733.2512975,
+      "vram_gb": 1.024e-06,
+      "free_gb": 24.351080448,
+      "resident": [],
+      "model_id": "Qwen/Qwen3-8B",
+      "action": "evict",
+      "duration_s": 0.303,
+      "free_before_gb": 7.970226176,
+      "free_after_gb": 24.351080448,
+      "freed_gb": 16.381,
+      "cache_released": true
+    },
+    {
+      "event": "unload_all",
+      "role": null,
+      "run_id": null,
+      "timestamp": 1790708733.251751,
+      "vram_gb": 1.024e-06,
+      "free_gb": 24.351080448,
+      "resident": []
+    }
+  ]
+}

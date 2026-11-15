@@ -1,16 +1,10 @@
 # Generated / local artifacts
-data/raw/*
-data/processed/*
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 
-checkpoints/*
 !checkpoints/.gitkeep
 
-results/*
 !results/.gitkeep
-
-runs/*
 
 # Environment / secrets
 .env
@@ -21,6 +15,7 @@ runs/*
 *.pem
 *.key
 *.pdf
+!2503.00187v3.pdf
 
 # Python
 __pycache__/
@@ -40,6 +35,7 @@ build/
 .obsidian/
 *.base
 .commandcode/
+**/.git.disabled/
 
 # Local test-run artifacts
 _phase*.xml
@@ -57,10 +53,8 @@ Thumbs.db
 .coverage
 htmlcov/
 
-# Local model weights and reference material (large binaries / external code)
+# Local model weights (not part of this asset commit; copy separately)
 /models/
-/nbf_original_stuff/
-/NBF-LLM-Dialogue-Embedding/
 
 # Jupyter
 .ipynb_checkpoints/

@@ -1,0 +1,332 @@
+{
+  "phase": "17",
+  "stage": "1",
+  "deliverable": "model_switching_validation.json",
+  "sequence": [
+    "TARGET (cold)",
+    "TARGET -> JUDGE",
+    "JUDGE -> TARGET",
+    "TARGET -> JUDGE (2nd cycle)",
+    "JUDGE -> TARGET (2nd cycle)"
+  ],
+  "identity_source": "verified from the loaded weights (config.architectures, model.name_or_path, tokenizer.name_or_path) \u2014 never by asserting the requested id back to itself",
+  "steps": [
+    {
+      "step": 1,
+      "label": "TARGET (cold)",
+      "role": "target",
+      "model_id": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "requested_model_id": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "loaded_name_or_path": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "loaded_architectures": [
+        "LlamaForCausalLM"
+      ],
+      "loaded_model_type": "llama",
+      "matches_expected_arch": true,
+      "tokenizer_name_or_path": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "tokenizer_vocab_size": 128000,
+      "chat_template_chars": 389,
+      "load_seconds": 22.26,
+      "generate_seconds": 0.39,
+      "generated_ok": true,
+      "vram_before_load": {
+        "allocated_gib": 0.0,
+        "reserved_gib": 0.0,
+        "peak_gib": 0.0,
+        "free_gib": 23.994
+      },
+      "vram_after_load": {
+        "allocated_gib": 14.958,
+        "reserved_gib": 14.961,
+        "peak_gib": 14.958,
+        "free_gib": 9.033
+      },
+      "vram_after_generate": {
+        "allocated_gib": 14.965,
+        "reserved_gib": 14.984,
+        "peak_gib": 14.97,
+        "free_gib": 9.009
+      },
+      "released": true,
+      "release_seconds": 0.63,
+      "vram_before_release_alloc_gib": 14.965,
+      "vram_after_release": {
+        "allocated_gib": 0.008,
+        "reserved_gib": 0.02,
+        "peak_gib": 14.97,
+        "free_gib": 23.974
+      },
+      "vram_reclaimed_gib": 14.958
+    },
+    {
+      "step": 2,
+      "label": "TARGET -> JUDGE",
+      "role": "judge",
+      "model_id": "Qwen/Qwen3-8B",
+      "requested_model_id": "Qwen/Qwen3-8B",
+      "loaded_name_or_path": "Qwen/Qwen3-8B",
+      "loaded_architectures": [
+        "Qwen3ForCausalLM"
+      ],
+      "loaded_model_type": "qwen3",
+      "matches_expected_arch": true,
+      "tokenizer_name_or_path": "Qwen/Qwen3-8B",
+      "tokenizer_vocab_size": 151643,
+      "chat_template_chars": 4168,
+      "load_seconds": 18.37,
+      "generate_seconds": 0.17,
+      "generated_ok": true,
+      "vram_before_load": {
+        "allocated_gib": 0.008,
+        "reserved_gib": 0.02,
+        "peak_gib": 0.008,
+        "free_gib": 23.974
+      },
+      "vram_after_load": {
+        "allocated_gib": 15.264,
+        "reserved_gib": 15.287,
+        "peak_gib": 15.264,
+        "free_gib": 8.707
+      },
+      "vram_after_generate": {
+        "allocated_gib": 15.264,
+        "reserved_gib": 15.291,
+        "peak_gib": 15.269,
+        "free_gib": 8.703
+      },
+      "released": true,
+      "release_seconds": 0.74,
+      "vram_before_release_alloc_gib": 15.264,
+      "vram_after_release": {
+        "allocated_gib": 0.008,
+        "reserved_gib": 0.02,
+        "peak_gib": 15.269,
+        "free_gib": 23.974
+      },
+      "vram_reclaimed_gib": 15.256
+    },
+    {
+      "step": 3,
+      "label": "JUDGE -> TARGET",
+      "role": "target",
+      "model_id": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "requested_model_id": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "loaded_name_or_path": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "loaded_architectures": [
+        "LlamaForCausalLM"
+      ],
+      "loaded_model_type": "llama",
+      "matches_expected_arch": true,
+      "tokenizer_name_or_path": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "tokenizer_vocab_size": 128000,
+      "chat_template_chars": 389,
+      "load_seconds": 13.34,
+      "generate_seconds": 0.11,
+      "generated_ok": true,
+      "vram_before_load": {
+        "allocated_gib": 0.008,
+        "reserved_gib": 0.02,
+        "peak_gib": 0.008,
+        "free_gib": 23.974
+      },
+      "vram_after_load": {
+        "allocated_gib": 14.965,
+        "reserved_gib": 14.988,
+        "peak_gib": 14.965,
+        "free_gib": 9.005
+      },
+      "vram_after_generate": {
+        "allocated_gib": 14.965,
+        "reserved_gib": 14.992,
+        "peak_gib": 14.97,
+        "free_gib": 9.001
+      },
+      "released": true,
+      "release_seconds": 0.46,
+      "vram_before_release_alloc_gib": 14.965,
+      "vram_after_release": {
+        "allocated_gib": 0.008,
+        "reserved_gib": 0.02,
+        "peak_gib": 14.97,
+        "free_gib": 23.974
+      },
+      "vram_reclaimed_gib": 14.958
+    },
+    {
+      "step": 4,
+      "label": "TARGET -> JUDGE (2nd cycle)",
+      "role": "judge",
+      "model_id": "Qwen/Qwen3-8B",
+      "requested_model_id": "Qwen/Qwen3-8B",
+      "loaded_name_or_path": "Qwen/Qwen3-8B",
+      "loaded_architectures": [
+        "Qwen3ForCausalLM"
+      ],
+      "loaded_model_type": "qwen3",
+      "matches_expected_arch": true,
+      "tokenizer_name_or_path": "Qwen/Qwen3-8B",
+      "tokenizer_vocab_size": 151643,
+      "chat_template_chars": 4168,
+      "load_seconds": 18.33,
+      "generate_seconds": 0.13,
+      "generated_ok": true,
+      "vram_before_load": {
+        "allocated_gib": 0.008,
+        "reserved_gib": 0.02,
+        "peak_gib": 0.008,
+        "free_gib": 23.974
+      },
+      "vram_after_load": {
+        "allocated_gib": 15.264,
+        "reserved_gib": 15.287,
+        "peak_gib": 15.264,
+        "free_gib": 8.707
+      },
+      "vram_after_generate": {
+        "allocated_gib": 15.264,
+        "reserved_gib": 15.291,
+        "peak_gib": 15.269,
+        "free_gib": 8.703
+      },
+      "released": true,
+      "release_seconds": 0.6,
+      "vram_before_release_alloc_gib": 15.264,
+      "vram_after_release": {
+        "allocated_gib": 0.008,
+        "reserved_gib": 0.02,
+        "peak_gib": 15.269,
+        "free_gib": 23.974
+      },
+      "vram_reclaimed_gib": 15.256
+    },
+    {
+      "step": 5,
+      "label": "JUDGE -> TARGET (2nd cycle)",
+      "role": "target",
+      "model_id": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "requested_model_id": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "loaded_name_or_path": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "loaded_architectures": [
+        "LlamaForCausalLM"
+      ],
+      "loaded_model_type": "llama",
+      "matches_expected_arch": true,
+      "tokenizer_name_or_path": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "tokenizer_vocab_size": 128000,
+      "chat_template_chars": 389,
+      "load_seconds": 13.59,
+      "generate_seconds": 0.11,
+      "generated_ok": true,
+      "vram_before_load": {
+        "allocated_gib": 0.008,
+        "reserved_gib": 0.02,
+        "peak_gib": 0.008,
+        "free_gib": 23.974
+      },
+      "vram_after_load": {
+        "allocated_gib": 14.965,
+        "reserved_gib": 14.988,
+        "peak_gib": 14.965,
+        "free_gib": 9.005
+      },
+      "vram_after_generate": {
+        "allocated_gib": 14.965,
+        "reserved_gib": 14.992,
+        "peak_gib": 14.97,
+        "free_gib": 9.001
+      },
+      "released": true,
+      "release_seconds": 0.77,
+      "vram_before_release_alloc_gib": 14.965,
+      "vram_after_release": {
+        "allocated_gib": 0.008,
+        "reserved_gib": 0.02,
+        "peak_gib": 14.97,
+        "free_gib": 23.974
+      },
+      "vram_reclaimed_gib": 14.958
+    }
+  ],
+  "checks": [
+    {
+      "check": "target_architecture_consistent_across_reloads",
+      "passed": true,
+      "observed": [
+        [
+          "LlamaForCausalLM"
+        ]
+      ]
+    },
+    {
+      "check": "target_identity_matches_request",
+      "passed": true,
+      "observed": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "check": "judge_architecture_consistent_across_reloads",
+      "passed": true,
+      "observed": [
+        [
+          "Qwen3ForCausalLM"
+        ]
+      ]
+    },
+    {
+      "check": "judge_identity_matches_request",
+      "passed": true,
+      "observed": [
+        true,
+        true
+      ]
+    },
+    {
+      "check": "no_cross_role_architecture_contamination",
+      "passed": true,
+      "note": "each role always loaded its own architecture"
+    },
+    {
+      "check": "tokenizer_not_contaminated",
+      "passed": true,
+      "observed": [
+        {
+          "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+          "tokenizer": "meta-llama/Meta-Llama-3-8B-Instruct"
+        },
+        {
+          "model": "Qwen/Qwen3-8B",
+          "tokenizer": "Qwen/Qwen3-8B"
+        },
+        {
+          "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+          "tokenizer": "meta-llama/Meta-Llama-3-8B-Instruct"
+        },
+        {
+          "model": "Qwen/Qwen3-8B",
+          "tokenizer": "Qwen/Qwen3-8B"
+        },
+        {
+          "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+          "tokenizer": "meta-llama/Meta-Llama-3-8B-Instruct"
+        }
+      ]
+    },
+    {
+      "check": "no_vram_leak_across_cycles",
+      "passed": true,
+      "baseline_alloc_gib": 0.0,
+      "final_alloc_gib": 0.008
+    },
+    {
+      "check": "single_resident_model_enforced",
+      "passed": true,
+      "note": "both roles are ~15 GiB; two resident would exceed the 23.99 GiB card",
+      "max_allocated_observed_gib": 15.264
+    }
+  ],
+  "all_checks_passed": true,
+  "verdict": "SWITCHING_SAFE"
+}

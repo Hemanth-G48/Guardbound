@@ -1,0 +1,87 @@
+{
+  "phase": "17",
+  "stage": "6",
+  "deliverable": "failure_cascade.json",
+  "arms": {
+    "control": {
+      "runs": 24,
+      "runs_with_attacker_call": 24,
+      "runs_with_valid_attacker_call": 24,
+      "runs_reaching_target": 23,
+      "runs_reaching_judge": 23,
+      "runs_with_rubric_score": 20,
+      "successful_runs": 6,
+      "termination_reasons": {
+        "success_score_5": 6,
+        "attacker_generation_error": 17,
+        "attack_loop_exhausted": 1
+      },
+      "failure_classes": {
+        "natural_termination": 6,
+        "attacker_generation_error": 17,
+        "attacker_output_unusable": 1
+      }
+    },
+    "generation_point": {
+      "runs": 24,
+      "runs_with_attacker_call": 24,
+      "runs_with_valid_attacker_call": 24,
+      "runs_reaching_target": 23,
+      "runs_reaching_judge": 23,
+      "runs_with_rubric_score": 23,
+      "successful_runs": 15,
+      "termination_reasons": {
+        "success_score_5": 15,
+        "refusal_retry_limit": 7,
+        "attacker_generation_error": 1,
+        "attack_loop_exhausted": 1
+      },
+      "failure_classes": {
+        "natural_termination": 22,
+        "cuda_oom_failure": 1,
+        "attacker_output_unusable": 1
+      }
+    },
+    "a1": {
+      "runs": 24,
+      "runs_with_attacker_call": 24,
+      "runs_with_valid_attacker_call": 24,
+      "runs_reaching_target": 23,
+      "runs_reaching_judge": 23,
+      "runs_with_rubric_score": 23,
+      "successful_runs": 6,
+      "termination_reasons": {
+        "success_score_5": 6,
+        "attacker_generation_error": 15,
+        "refusal_retry_limit": 2,
+        "attack_loop_exhausted": 1
+      },
+      "failure_classes": {
+        "natural_termination": 6,
+        "attacker_generation_error": 17,
+        "attacker_output_unusable": 1
+      }
+    },
+    "a1_t03": {
+      "runs": 24,
+      "runs_with_attacker_call": 24,
+      "runs_with_valid_attacker_call": 24,
+      "runs_reaching_target": 23,
+      "runs_reaching_judge": 23,
+      "runs_with_rubric_score": 23,
+      "successful_runs": 10,
+      "termination_reasons": {
+        "success_score_5": 10,
+        "attacker_generation_error": 11,
+        "max_turns_reached": 1,
+        "refusal_retry_limit": 1,
+        "attack_loop_exhausted": 1
+      },
+      "failure_classes": {
+        "natural_termination": 12,
+        "attacker_generation_error": 11,
+        "attacker_output_unusable": 1
+      }
+    }
+  }
+}

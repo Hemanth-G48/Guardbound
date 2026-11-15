@@ -1,0 +1,108 @@
+{
+  "model_id": "google/gemma-3-4b-it",
+  "steps": [
+    {
+      "stage": "model_info",
+      "id": "google/gemma-3-4b-it",
+      "gated": "manual",
+      "revision": "093f9f388b31de276ce2de164bdc2081324b9767",
+      "files": 15
+    },
+    {
+      "stage": "access_probe",
+      "config_accessible": true,
+      "path": "C:\\Users\\CSLAB\\.cache\\huggingface\\hub\\models--google--gemma-3-4b-it\\snapshots\\093f9f388b31de276ce2de164bdc2081324b9767\\config.json"
+    },
+    {
+      "stage": "download",
+      "snapshot": "C:\\Users\\CSLAB\\.cache\\huggingface\\hub\\models--google--gemma-3-4b-it\\snapshots\\093f9f388b31de276ce2de164bdc2081324b9767",
+      "seconds": 254.7
+    }
+  ],
+  "gated": "manual",
+  "revision": "093f9f388b31de276ce2de164bdc2081324b9767",
+  "snapshot_path": "C:\\Users\\CSLAB\\.cache\\huggingface\\hub\\models--google--gemma-3-4b-it\\snapshots\\093f9f388b31de276ce2de164bdc2081324b9767",
+  "verification": {
+    "snapshot_path": "C:\\Users\\CSLAB\\.cache\\huggingface\\hub\\models--google--gemma-3-4b-it\\snapshots\\093f9f388b31de276ce2de164bdc2081324b9767",
+    "revision": "093f9f388b31de276ce2de164bdc2081324b9767",
+    "model_type": "gemma3",
+    "architectures": [
+      "Gemma3ForConditionalGeneration"
+    ],
+    "torch_dtype": "bfloat16",
+    "file_count": 15,
+    "files": [
+      ".gitattributes",
+      "README.md",
+      "added_tokens.json",
+      "chat_template.json",
+      "config.json",
+      "generation_config.json",
+      "model-00001-of-00002.safetensors",
+      "model-00002-of-00002.safetensors",
+      "model.safetensors.index.json",
+      "preprocessor_config.json",
+      "processor_config.json",
+      "special_tokens_map.json",
+      "tokenizer.json",
+      "tokenizer.model",
+      "tokenizer_config.json"
+    ],
+    "safetensors_shards": 2,
+    "weights_gb": 8.6,
+    "snapshot_total_gb": 8.64,
+    "weights_index_total_bytes": 8600158944,
+    "approx_params_B_from_index": 8.6,
+    "has_tokenizer_config": true,
+    "has_chat_template": true,
+    "chat_template_source": "tokenizer_config.json",
+    "has_generation_config": true,
+    "tokenizer_files": [
+      "added_tokens.json",
+      "special_tokens_map.json",
+      "tokenizer.json",
+      "tokenizer.model",
+      "tokenizer_config.json"
+    ],
+    "use_default_system_prompt": false,
+    "bos_token": "<bos>",
+    "eos_token": "<eos>",
+    "pad_token": "<pad>",
+    "is_config_only": false
+  },
+  "load_test": {
+    "vram_before": [
+      0.0,
+      0.0,
+      24.385,
+      25.763
+    ],
+    "load_seconds": 8.41,
+    "vram_after": [
+      8.6,
+      8.603,
+      15.751,
+      25.763
+    ],
+    "footprint_gb": 8.634,
+    "peak_allocated_gb": 8.6,
+    "param_placement": {
+      "cuda:0": 4300079472
+    },
+    "dtype_loaded": "torch.bfloat16",
+    "device": "cuda:0",
+    "load_ok": true,
+    "chat_template_shapes": {
+      "system_user": "ok",
+      "user_only": "ok"
+    },
+    "vram_after_unload": [
+      0.0,
+      0.002,
+      24.351,
+      25.763
+    ]
+  },
+  "cuda_errors": 0,
+  "oom_events": 0
+}

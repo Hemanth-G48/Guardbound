@@ -1,0 +1,93 @@
+{
+  "stage": "switching",
+  "steps": [
+    {
+      "model": "qwen",
+      "profile": "qwen3",
+      "resident_model_ids": [
+        "Qwen/Qwen3-4B-Instruct-2507"
+      ],
+      "resident_count": 1,
+      "identity_ok": true,
+      "backend": "HFLocalChatLLM",
+      "allocated_before_gb": 0.0,
+      "allocated_after_load_gb": 8.045,
+      "load_events": [
+        {
+          "model_id": "Qwen/Qwen3-4B-Instruct-2507",
+          "duration_s": 8.599,
+          "measured_gb": 8.045
+        }
+      ],
+      "weights_actually_loaded": true,
+      "model_id_in_events": [
+        "Qwen/Qwen3-4B-Instruct-2507"
+      ],
+      "allocated_after_unload_gb": 0.0,
+      "after_unload_resident": 0,
+      "freed_ok": true,
+      "ok": true,
+      "seconds": 14.27
+    },
+    {
+      "model": "Ornith-1.5-9B",
+      "profile": "ornith15",
+      "resident_model_ids": [
+        "ornith-ai/Ornith-1.5-9B"
+      ],
+      "resident_count": 1,
+      "identity_ok": true,
+      "backend": "Ornith15ChatLLM",
+      "allocated_before_gb": 0.0,
+      "allocated_after_load_gb": 18.82,
+      "load_events": [
+        {
+          "model_id": "ornith-ai/Ornith-1.5-9B",
+          "duration_s": 10.413,
+          "measured_gb": 18.82
+        }
+      ],
+      "weights_actually_loaded": true,
+      "model_id_in_events": [
+        "ornith-ai/Ornith-1.5-9B"
+      ],
+      "allocated_after_unload_gb": 0.0,
+      "after_unload_resident": 0,
+      "freed_ok": true,
+      "ok": true,
+      "seconds": 10.79
+    },
+    {
+      "model": "qwen_again",
+      "profile": "qwen3",
+      "resident_model_ids": [
+        "Qwen/Qwen3-4B-Instruct-2507"
+      ],
+      "resident_count": 1,
+      "identity_ok": true,
+      "backend": "HFLocalChatLLM",
+      "allocated_before_gb": 0.0,
+      "allocated_after_load_gb": 8.045,
+      "load_events": [
+        {
+          "model_id": "Qwen/Qwen3-4B-Instruct-2507",
+          "duration_s": 8.052,
+          "measured_gb": 8.045
+        }
+      ],
+      "weights_actually_loaded": true,
+      "model_id_in_events": [
+        "Qwen/Qwen3-4B-Instruct-2507"
+      ],
+      "allocated_after_unload_gb": 0.0,
+      "after_unload_resident": 0,
+      "freed_ok": true,
+      "ok": true,
+      "seconds": 8.71
+    }
+  ],
+  "candidate_profile": "ornith15",
+  "passed": true,
+  "no_cross_model_state": true,
+  "no_vram_leak": true
+}

@@ -1,0 +1,40 @@
+[qualify] profile=ornith15 config=C:\Users\CSLAB\Desktop\hemanth\Guardbound\configs\attacker_ornith15.yaml qual_dir=C:\Users\CSLAB\Desktop\hemanth\Guardbound\results\phase16_ornith15\qualification
+23:10:30 | INFO    | httpx | HTTP Request: HEAD https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+23:10:30 | INFO    | httpx | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/Qwen/Qwen3-4B-Instruct-2507/cdbee75f17c01a7cc42f958dc650907174af0554/config.json "HTTP/1.1 200 OK"
+23:10:31 | INFO    | numexpr.utils | Note: NumExpr detected 24 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 16.
+23:10:31 | INFO    | numexpr.utils | NumExpr defaulting to 16 threads.
+23:10:32 | INFO    | guardbound.llm.provider_factory | [factory] attacker -> local backend=hf_local model=Qwen/Qwen3-4B-Instruct-2507 revision=None max_new_tokens=256 structured_output_mode=constrained_json residency=pinned
+23:10:32 | INFO    | guardbound.llm.model_manager | [model-manager] activate role=attacker vram=0.00GB free=24.38GB {'model_id': 'Qwen/Qwen3-4B-Instruct-2507'}
+23:10:32 | INFO    | guardbound.llm.local_client | Loading HuggingFace model: Qwen/Qwen3-4B-Instruct-2507
+[transformers] The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights:   0%|          | 1/398 [00:00<02:45,  2.40it/s]Loading weights:   4%|3         | 15/398 [00:00<00:10, 36.48it/s]Loading weights:   8%|7         | 31/398 [00:00<00:05, 67.65it/s]Loading weights:  12%|#1        | 47/398 [00:00<00:03, 90.47it/s]Loading weights:  15%|#5        | 60/398 [00:00<00:03, 96.26it/s]Loading weights:  20%|#9        | 78/398 [00:00<00:02, 118.76it/s]Loading weights:  23%|##3       | 92/398 [00:01<00:02, 120.04it/s]Loading weights:  27%|##7       | 108/398 [00:01<00:02, 128.79it/s]Loading weights:  31%|###1      | 124/398 [00:01<00:02, 134.90it/s]Loading weights:  35%|###4      | 139/398 [00:01<00:01, 132.60it/s]Loading weights:  39%|###9      | 157/398 [00:01<00:01, 138.84it/s]Loading weights:  43%|####3     | 172/398 [00:01<00:01, 135.78it/s]Loading weights:  48%|####7     | 190/398 [00:01<00:01, 140.82it/s]Loading weights:  52%|#####1    | 205/398 [00:01<00:01, 137.62it/s]Loading weights:  56%|#####5    | 222/398 [00:01<00:01, 140.23it/s]Loading weights:  60%|#####9    | 237/398 [00:02<00:01, 137.24it/s]Loading weights:  64%|######4   | 256/398 [00:02<00:00, 144.51it/s]Loading weights:  68%|######8   | 271/398 [00:02<00:00, 140.01it/s]Loading weights:  73%|#######2  | 289/398 [00:02<00:00, 144.23it/s]Loading weights:  76%|#######6  | 304/398 [00:02<00:00, 140.03it/s]Loading weights:  81%|########  | 322/398 [00:02<00:00, 144.98it/s]Loading weights:  85%|########4 | 337/398 [00:02<00:00, 139.85it/s]Loading weights:  89%|########9 | 355/398 [00:02<00:00, 142.98it/s]Loading weights:  93%|#########2| 370/398 [00:03<00:00, 138.79it/s]Loading weights:  97%|#########7| 388/398 [00:03<00:00, 143.28it/s]Loading weights: 100%|##########| 398/398 [00:03<00:00, 123.75it/s]
+[transformers] The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+23:10:41 | INFO    | guardbound.llm.model_manager | [model-manager] load role=attacker vram=8.04GB free=16.34GB {'model_id': 'Qwen/Qwen3-4B-Instruct-2507', 'action': 'load', 'duration_s': 8.663, 'free_before_gb': 24.38463488, 'free_after_gb': 16.335765504, 'reserved_before_gb': 0.0, 'estimated_gb': 8.045, 'measured_gb': 8.045, 'driver_free_delta_gb': 8.049, 'device_map': 'cuda'}
+[qwen] load: ok=True (8.82s)
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.7 json=True ctx_tokens=1539 new_tokens=34 time=2.4s
+23:10:43 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=8.05GB free=15.07GB {'model_id': 'Qwen/Qwen3-4B-Instruct-2507', 'note': 'resident'}
+[qwen] generation: ok=True (2.44s)
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.7 json=True ctx_tokens=31 new_tokens=16 time=0.6s
+23:10:44 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=8.05GB free=15.06GB {'model_id': 'Qwen/Qwen3-4B-Instruct-2507', 'note': 'resident'}
+[qwen] json_parsing: ok=True (0.65s)
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.7 json=True ctx_tokens=1539 new_tokens=34 time=2.2s
+23:10:46 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=8.05GB free=15.06GB {'model_id': 'Qwen/Qwen3-4B-Instruct-2507', 'note': 'resident'}
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.7 json=True ctx_tokens=1633 new_tokens=57 time=3.4s
+23:10:49 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=8.05GB free=14.37GB {'model_id': 'Qwen/Qwen3-4B-Instruct-2507', 'note': 'resident'}
+[qwen] multi_turn: ok=True (5.6s)
+23:10:49 | INFO    | guardbound.llm.model_manager | [model-manager] evict role=attacker vram=0.01GB free=24.31GB {'model_id': 'Qwen/Qwen3-4B-Instruct-2507', 'action': 'evict', 'duration_s': 0.172, 'free_before_gb': 14.374928384, 'free_after_gb': 24.313331712, 'freed_gb': 9.938, 'cache_released': True}
+23:10:49 | INFO    | guardbound.llm.model_manager | [model-manager] unload_all vram=0.01GB free=24.31GB 
+[qwen] unload: ok=True (0.17s)
+[qualify] wrote C:\Users\CSLAB\Desktop\hemanth\Guardbound\results\phase16_ornith15\qualification\stage_qwen.json
+{
+  "stage": "qwen_regression",
+  "attacker": {
+    "model_id": "Qwen/Qwen3-4B-Instruct-2507",
+    "revision": null,
+    "backend": "hf_local",
+    "dtype": "bfloat16",
+    "quantization": "none",
+    "residency_mode": "pinned"
+  },
+  "passed": true
+}

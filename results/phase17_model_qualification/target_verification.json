@@ -1,0 +1,117 @@
+{
+  "phase": "17",
+  "deliverable": "target_verification.json",
+  "target": {
+    "model_id": "meta-llama/Meta-Llama-3-8B-Instruct",
+    "revision": "8afb486c1db24fe5011ec46dfbe5b5dccdb575c2",
+    "parameter_count": "8.03B (declared by HF safetensors metadata)",
+    "architecture": [
+      "LlamaForCausalLM"
+    ],
+    "model_type": "llama",
+    "num_hidden_layers": 32,
+    "hidden_size": 4096,
+    "vocab_size": 128256,
+    "dtype": "bfloat16",
+    "quantization": "none (bf16, unquantized)",
+    "context_length": 8192,
+    "generation_config_on_disk": {
+      "temperature": 0.6,
+      "top_p": 0.9,
+      "do_sample": true,
+      "max_length": 4096,
+      "eos_token_id": [
+        128001,
+        128009
+      ]
+    },
+    "generation": {
+      "temperature": 0.7,
+      "top_p": 1.0,
+      "top_k": "NOT SPECIFIED",
+      "do_sample": true,
+      "max_new_tokens": "NOT SPECIFIED",
+      "max_length": "NOT SPECIFIED",
+      "eos_token_id": [
+        128001,
+        128009
+      ],
+      "stop_sequences": "NOT SPECIFIED",
+      "pad_token_id": 128009
+    },
+    "tokenizer": {
+      "eos_token": "<|eot_id|>",
+      "bos_token": "<|begin_of_text|>",
+      "pad_token": null,
+      "chat_template_chars": 389
+    },
+    "source_of_each_value": {
+      "model_id": "Phase 17 contract (substitution)",
+      "revision": "resolved from the local snapshot on this machine",
+      "temperature": "Phase 17 contract; paper reference (GPT-4o) NOT SPECIFIED",
+      "top_p": "Phase 17 contract; explicitly passed so nothing is silently inherited",
+      "top_k": "Llama-3 has no top_k convention in its generation config -> NOT SPECIFIED",
+      "max_new_tokens": "deliberately NOT SPECIFIED in Phase 17. Phase 16.5 established that a fixed 256-token budget truncated 95.0% of the previous target's responses with 0% natural EOS, making attack success unmeasurable.",
+      "pad_token_id": "Llama-3 ships pad_token=null; eos reused, as HF requires"
+    },
+    "paper_reference": {
+      "paper_target": "gpt-4o",
+      "paper_source": "frozen config paper_reference block, configs/reproduction_phase14_frozen.yaml",
+      "consequence": "Llama-3-8B-Instruct is a local substitution for the paper's GPT-4o target. No Llama-specific generation value can be called paper-specified."
+    }
+  },
+  "judge": {
+    "model_id": "Qwen/Qwen3-8B",
+    "revision": "b968826d9c46dd6066d109eabc6255188de91218",
+    "note": "Resolved by the user after the contract's original id (Qwen/Qwen3-8B-Instruct-2507) was verified not to exist on HuggingFace.",
+    "parameter_count": "8.19B (declared by HF safetensors metadata; 15.27 GiB bf16 on disk)",
+    "architecture": [
+      "Qwen3ForCausalLM"
+    ],
+    "model_type": "qwen3",
+    "num_hidden_layers": 36,
+    "hidden_size": 4096,
+    "vocab_size": 151936,
+    "dtype": "bfloat16",
+    "quantization": "none (bf16, unquantized)",
+    "context_length": 40960,
+    "generation_config_on_disk": {
+      "temperature": 0.6,
+      "top_p": 0.95,
+      "top_k": 20,
+      "do_sample": true,
+      "eos_token_id": [
+        151645,
+        151643
+      ]
+    },
+    "generation": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "top_k": "NOT SPECIFIED",
+      "do_sample": false,
+      "max_new_tokens": "NOT SPECIFIED",
+      "enable_thinking": false
+    },
+    "tokenizer": {
+      "eos_token": "<|im_end|>",
+      "pad_token": "<|endoftext|>",
+      "chat_template_chars": 4168,
+      "template_accepts_enable_thinking": true
+    },
+    "structured_output": {
+      "mechanism": "prompted JSON + the project's frozen structural extraction",
+      "json_schema": "score integer 1-5 with a reasoning field",
+      "note": "No constrained decoding is enabled for the judge unless the frozen parser path already provides it. Recorded, not assumed."
+    },
+    "risk_flagged_before_qualification": {
+      "hybrid_thinking_model": true,
+      "evidence": "generation_config sets top_k=20/top_p=0.95/temperature=0.6 and the chat template branches on enable_thinking; Qwen3 defaults to thinking mode.",
+      "measured_risk": "If thinking is not disabled the judge emits reasoning before its JSON, which Section 6 measures as reasoning-leakage rather than silently stripping."
+    }
+  },
+  "target_config_hash": "ec657141be3ce3b3977b840c6baf943f3474cd7407613f5d942f904b7520c679",
+  "judge_config_hash": "f2433e3b2a25bde9e98a1736503015a31b82134d472a50a42018f8e4ea352357",
+  "hash_method": "sha256 over canonical JSON (sorted keys, no whitespace) of the role block",
+  "invariant": "Both hashes must be identical for every attacker candidate. Section 4 requires asserting the target configuration does not change during the phase."
+}

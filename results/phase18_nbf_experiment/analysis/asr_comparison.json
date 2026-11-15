@@ -1,0 +1,35 @@
+{
+  "phase": "18",
+  "deliverable": "analysis/asr_comparison.json",
+  "primary_endpoint": "official attack success rate (successful runs / total runs)",
+  "nbf_off": {
+    "successes": 43,
+    "runs": 90,
+    "rate": 0.4778,
+    "ci95_wilson": [
+      0.3776,
+      0.5798
+    ]
+  },
+  "nbf_on": {
+    "successes": 29,
+    "runs": 90,
+    "rate": 0.3222,
+    "ci95_wilson": [
+      0.2347,
+      0.4243
+    ]
+  },
+  "absolute_difference": -0.1556,
+  "relative_change": 0.6743,
+  "fisher_exact_two_sided_p": 0.047593,
+  "denominator_note": "all runs stay in the denominator; no conditional substitution",
+  "matrix": {
+    "goals": 30,
+    "attacks": 3,
+    "conditions": 2,
+    "runs": 180,
+    "matched_cells": 90,
+    "runs_in_partial_block_excluded": 0
+  }
+}

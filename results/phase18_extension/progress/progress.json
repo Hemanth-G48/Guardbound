@@ -1,0 +1,21 @@
+{
+  "total_runs": 60,
+  "completed_runs": 60,
+  "remaining_runs": 0,
+  "nbf_off_completed": 30,
+  "nbf_on_completed": 30,
+  "successful_runs": 40,
+  "failed_runs": 1,
+  "current_run": {
+    "stopped": true
+  },
+  "elapsed_time_s": 31555.4,
+  "estimated_remaining_time_s": null,
+  "runs_per_hour": 6.85,
+  "mean_run_time_s": 525.9,
+  "median_run_time_s": 427.2,
+  "rolling_mean_duration_s": 506.8,
+  "eta_basis": "rolling mean of the most recent 10 runs",
+  "observability_only": "progress never drives run selection; resume is by run id",
+  "timestamp": "2026-10-05T22:35:00.716550+00:00"
+}

@@ -1,0 +1,36 @@
+{
+  "phase": "17",
+  "stage": "4.9",
+  "deliverable": "survival_success_analysis.json",
+  "contingency_table": {
+    "survived_and_success": 22,
+    "survived_no_success": 7,
+    "not_survived_success": 0,
+    "not_survived_no_success": 61
+  },
+  "all_successes_within_surviving_runs": true,
+  "p_success_given_survived": 0.7586,
+  "p_success_given_not_survived": 0.0,
+  "official_rate_unchanged": 0.2444,
+  "note": "the conditional 22/29 is descriptive; the official pilot result remains 22/90 = 24.44 % and is not replaced by it",
+  "test_survival_vs_success": {
+    "test": "fisher_exact_two_sided",
+    "question": "does survival associate with success? (run level)",
+    "table": [
+      [
+        22,
+        7
+      ],
+      [
+        0,
+        61
+      ]
+    ],
+    "p_value": 0.0,
+    "label": "exploratory",
+    "rates": {
+      "row1": 0.7586,
+      "row2": 0.0
+    }
+  }
+}

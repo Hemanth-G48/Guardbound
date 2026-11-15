@@ -1,0 +1,54 @@
+{
+  "qwen38": {
+    "model_id": "Qwen/Qwen3.8-27B",
+    "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+    "exists": true,
+    "architecture": [
+      "Qwen3_5ForConditionalGeneration"
+    ],
+    "parameters": "27.78B",
+    "weight_gib": 51.747,
+    "context_length": null,
+    "reference_precision": "BF16",
+    "present_locally": false
+  },
+  "qwen36": {
+    "model_id": "Qwen/Qwen3.6-27B",
+    "revision": "6a9e13bd6fc8f0983b9b99948120bc37f49c13e9",
+    "exists": true,
+    "architecture": [
+      "Qwen3_5ForConditionalGeneration"
+    ],
+    "parameters": "27.78B",
+    "weight_gib": 51.747,
+    "context_length": null,
+    "reference_precision": "BF16",
+    "present_locally": false
+  },
+  "ministral": {
+    "model_id": "mistralai/Ministral-3-14B-Reasoning-2512",
+    "revision": "51f9210f3cd20f3452a80d5819d15dc61cc50630",
+    "exists": true,
+    "architecture": [
+      "Mistral3ForConditionalGeneration"
+    ],
+    "parameters": "13.95B",
+    "weight_gib": 51.949,
+    "context_length": null,
+    "reference_precision": "BF16",
+    "present_locally": false
+  },
+  "devstral": {
+    "model_id": "mistralai/Devstral-Small-2-24B-Instruct-2512",
+    "revision": "55c5b41e98c2dbd21b0c8afffc540dcfc9eb5128",
+    "exists": true,
+    "architecture": [
+      "Mistral3ForConditionalGeneration"
+    ],
+    "parameters": "24.01B",
+    "weight_gib": 48.043,
+    "context_length": null,
+    "reference_precision": "FP8 (native checkpoint)",
+    "present_locally": false
+  }
+}

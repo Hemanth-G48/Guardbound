@@ -1,0 +1,278 @@
+{
+  "phase": "17",
+  "stage": "5",
+  "deliverable": "controlled_comparisons.json",
+  "framing": "each diagnostic condition against its own control condition, same context unless stated; all exploratory",
+  "comparisons": {
+    "context_length:C1->C5": {
+      "question": "8 previous turns vs 1 previous turn",
+      "table": [
+        [
+          17,
+          13
+        ],
+        [
+          30,
+          0
+        ]
+      ],
+      "p_value": 4.6e-05,
+      "rate_row1": 0.5667,
+      "rate_row2": 1.0,
+      "risk_difference": -0.4333,
+      "note": "",
+      "mean_context_tokens": {
+        "control": 1262.7,
+        "treatment": 2030.7
+      }
+    },
+    "context_length:C0->C5": {
+      "question": "8 previous turns vs no history",
+      "table": [
+        [
+          17,
+          13
+        ],
+        [
+          30,
+          0
+        ]
+      ],
+      "p_value": 4.6e-05,
+      "rate_row1": 0.5667,
+      "rate_row2": 1.0,
+      "risk_difference": -0.4333,
+      "note": "",
+      "mean_context_tokens": {
+        "control": 1150.7,
+        "treatment": 2030.7
+      }
+    },
+    "instruction_position:I0->I1": {
+      "question": "instruction as final user message vs original position",
+      "table": [
+        [
+          30,
+          0
+        ],
+        [
+          25,
+          5
+        ]
+      ],
+      "p_value": 0.052186,
+      "rate_row1": 1.0,
+      "rate_row2": 0.8333,
+      "risk_difference": 0.1667,
+      "note": "",
+      "mean_context_tokens": {
+        "control": 1595.7,
+        "treatment": 1627.7
+      }
+    },
+    "instruction_position:I0->I4": {
+      "question": "A1 wording appended vs original position",
+      "table": [
+        [
+          30,
+          0
+        ],
+        [
+          25,
+          5
+        ]
+      ],
+      "p_value": 0.052186,
+      "rate_row1": 1.0,
+      "rate_row2": 0.8333,
+      "risk_difference": 0.1667,
+      "note": "",
+      "mean_context_tokens": {
+        "control": 1595.7,
+        "treatment": 1624.7
+      }
+    },
+    "instruction_position:I0->I2": {
+      "question": "instruction repeated at system end vs original position",
+      "table": [
+        [
+          28,
+          2
+        ],
+        [
+          25,
+          5
+        ]
+      ],
+      "p_value": 0.42381,
+      "rate_row1": 0.9333,
+      "rate_row2": 0.8333,
+      "risk_difference": 0.1,
+      "note": "",
+      "mean_context_tokens": {
+        "control": 1595.7,
+        "treatment": 1623.7
+      }
+    },
+    "instruction_position:I0->I3": {
+      "question": "schema at system end vs original position",
+      "table": [
+        [
+          26,
+          4
+        ],
+        [
+          25,
+          5
+        ]
+      ],
+      "p_value": 1.0,
+      "rate_row1": 0.8667,
+      "rate_row2": 0.8333,
+      "risk_difference": 0.0333,
+      "note": "",
+      "mean_context_tokens": {
+        "control": 1595.7,
+        "treatment": 1616.7
+      }
+    },
+    "prev_output:P0->P1": {
+      "question": "previous attacker output removed vs full history",
+      "table": [
+        [
+          24,
+          6
+        ],
+        [
+          25,
+          5
+        ]
+      ],
+      "p_value": 1.0,
+      "rate_row1": 0.8,
+      "rate_row2": 0.8333,
+      "risk_difference": -0.0333,
+      "note": "",
+      "mean_context_tokens": {
+        "control": 1595.7,
+        "treatment": 1484.7
+      }
+    },
+    "prev_output:P0->P2": {
+      "question": "previous output = minimal JSON vs full history",
+      "table": [
+        [
+          22,
+          8
+        ],
+        [
+          25,
+          5
+        ]
+      ],
+      "p_value": 0.532092,
+      "rate_row1": 0.7333,
+      "rate_row2": 0.8333,
+      "risk_difference": -0.1,
+      "note": "",
+      "mean_context_tokens": {
+        "control": 1595.7,
+        "treatment": 1582.7
+      }
+    },
+    "prev_output:P0->P3": {
+      "question": "previous output = prose vs full history",
+      "table": [
+        [
+          25,
+          5
+        ],
+        [
+          25,
+          5
+        ]
+      ],
+      "p_value": 1.0,
+      "rate_row1": 0.8333,
+      "rate_row2": 0.8333,
+      "risk_difference": 0.0,
+      "note": "",
+      "mean_context_tokens": {
+        "control": 1595.7,
+        "treatment": 1606.7
+      }
+    },
+    "prev_output:P0->P4": {
+      "question": "previous output = long valid JSON vs full history",
+      "table": [
+        [
+          30,
+          0
+        ],
+        [
+          25,
+          5
+        ]
+      ],
+      "p_value": 0.052186,
+      "rate_row1": 1.0,
+      "rate_row2": 0.8333,
+      "risk_difference": 0.1667,
+      "note": "",
+      "mean_context_tokens": {
+        "control": 1595.7,
+        "treatment": 1671.7
+      }
+    },
+    "temperature:T0.7->T0.5": {
+      "question": "T=0.5 vs T=0.7 at fixed context",
+      "table": [
+        [
+          29,
+          1
+        ],
+        [
+          25,
+          5
+        ]
+      ],
+      "p_value": 0.19451,
+      "rate_row1": 0.9667,
+      "rate_row2": 0.8333,
+      "risk_difference": 0.1333,
+      "note": "",
+      "mean_context_tokens": {
+        "control": 1595.7,
+        "treatment": 1595.7
+      }
+    },
+    "temperature:T0.7->T0.3": {
+      "question": "T=0.3 vs T=0.7 at fixed context",
+      "table": [
+        [
+          30,
+          0
+        ],
+        [
+          25,
+          5
+        ]
+      ],
+      "p_value": 0.052186,
+      "rate_row1": 1.0,
+      "rate_row2": 0.8333,
+      "risk_difference": 0.1667,
+      "note": "",
+      "mean_context_tokens": {
+        "control": 1595.7,
+        "treatment": 1595.7
+      }
+    }
+  },
+  "test_discipline": {
+    "n_exploratory_tests_total": 16,
+    "bonferroni_threshold": 0.003125,
+    "n_below_bonferroni": 3,
+    "statement": "all comparisons are exploratory on one diagnostic run each; effect sizes and intervals are the primary report, and no single p-value is presented as a confirmed effect"
+  }
+}

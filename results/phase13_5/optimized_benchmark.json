@@ -1,0 +1,190 @@
+{
+  "environment": {
+    "python": "3.13.9",
+    "torch": "2.7.1+cu118",
+    "transformers": "5.16.1",
+    "cuda": "11.8",
+    "gpu": "NVIDIA RTX 4500 Ada Generation",
+    "vram_total_gb": 25.76,
+    "tf32_enabled": false,
+    "cudnn_benchmark": false,
+    "default_dtype": "torch.float32"
+  },
+  "stages": {
+    "model_direct": {
+      "attacker": {
+        "model_id": "Qwen/Qwen3-4B-Instruct-2507",
+        "role": "attacker",
+        "model_size_params": "4B",
+        "cold_load_sec": 11.64,
+        "warm_load_sec": 8.1,
+        "evict_sec": 0.167,
+        "cold_vram_gb": 8.045,
+        "after_evict_vram_gb": 8.053,
+        "gen_time_mean_sec": 2.992,
+        "gen_time_min_sec": 2.602,
+        "gen_time_max_sec": 3.484,
+        "input_tokens": 31,
+        "output_tokens": 68,
+        "tokens_per_sec_mean": 22.7,
+        "tokens_per_sec_min": 19.5,
+        "tokens_per_sec_max": 26.1,
+        "gpu_stats": {
+          "count": 0
+        },
+        "max_new_tokens": 256,
+        "temperature": 0.7
+      },
+      "target": {
+        "model_id": "microsoft/Phi-4-mini-instruct",
+        "role": "target",
+        "model_size_params": "3.8B",
+        "cold_load_sec": 10.519,
+        "warm_load_sec": 9.889,
+        "evict_sec": 0.141,
+        "cold_vram_gb": 7.681,
+        "after_evict_vram_gb": 7.681,
+        "gen_time_mean_sec": 8.235,
+        "gen_time_min_sec": 8.151,
+        "gen_time_max_sec": 8.301,
+        "input_tokens": 22,
+        "output_tokens": 251,
+        "tokens_per_sec_mean": 30.5,
+        "tokens_per_sec_min": 30.2,
+        "tokens_per_sec_max": 30.8,
+        "gpu_stats": {
+          "count": 0
+        },
+        "max_new_tokens": 256,
+        "temperature": 0.7
+      },
+      "evaluator": {
+        "model_id": "Qwen/Qwen3-4B-Instruct-2507",
+        "role": "evaluator",
+        "model_size_params": "4B",
+        "cold_load_sec": 8.232,
+        "warm_load_sec": 8.165,
+        "evict_sec": 0.174,
+        "cold_vram_gb": 8.054,
+        "after_evict_vram_gb": 8.053,
+        "gen_time_mean_sec": 2.809,
+        "gen_time_min_sec": 2.668,
+        "gen_time_max_sec": 3.152,
+        "input_tokens": 31,
+        "output_tokens": 68,
+        "tokens_per_sec_mean": 24.2,
+        "tokens_per_sec_min": 21.6,
+        "tokens_per_sec_max": 25.5,
+        "gpu_stats": {
+          "count": 0
+        },
+        "max_new_tokens": 256,
+        "temperature": 0.0
+      }
+    },
+    "model_lifecycle": {
+      "cycle_events": [
+        {
+          "step": 0,
+          "role": "attacker",
+          "activate_sec": 0.0,
+          "vram_after_gb": 0.009,
+          "was_cache_hit": false,
+          "event_type": "activate"
+        },
+        {
+          "step": 1,
+          "role": "target",
+          "activate_sec": 0.0,
+          "vram_after_gb": 0.009,
+          "was_cache_hit": false,
+          "event_type": "activate"
+        },
+        {
+          "step": 2,
+          "role": "evaluator",
+          "activate_sec": 0.124,
+          "vram_after_gb": 0.009,
+          "was_cache_hit": false,
+          "event_type": "activate"
+        },
+        {
+          "step": 3,
+          "role": "attacker",
+          "activate_sec": 0.0,
+          "vram_after_gb": 0.009,
+          "was_cache_hit": false,
+          "event_type": "activate"
+        },
+        {
+          "step": 4,
+          "role": "target",
+          "activate_sec": 0.0,
+          "vram_after_gb": 0.009,
+          "was_cache_hit": false,
+          "event_type": "activate"
+        },
+        {
+          "step": 5,
+          "role": "evaluator",
+          "activate_sec": 0.127,
+          "vram_after_gb": 0.009,
+          "was_cache_hit": false,
+          "event_type": "activate"
+        },
+        {
+          "step": 6,
+          "role": "attacker",
+          "activate_sec": 0.0,
+          "vram_after_gb": 0.009,
+          "was_cache_hit": false,
+          "event_type": "activate"
+        },
+        {
+          "step": 7,
+          "role": "target",
+          "activate_sec": 0.0,
+          "vram_after_gb": 0.009,
+          "was_cache_hit": false,
+          "event_type": "activate"
+        },
+        {
+          "step": 8,
+          "role": "evaluator",
+          "activate_sec": 0.121,
+          "vram_after_gb": 0.009,
+          "was_cache_hit": false,
+          "event_type": "activate"
+        }
+      ],
+      "total_activate_time_sec": 0.373,
+      "num_activations": 9,
+      "num_evictions": 3,
+      "num_deferred_evictions": 3,
+      "num_vram_samples": 0,
+      "peak_vram_gb": 0.009,
+      "model_ids": {
+        "attacker": "Qwen/Qwen3-4B-Instruct-2507",
+        "target": "microsoft/Phi-4-mini-instruct",
+        "evaluator": "Qwen/Qwen3-4B-Instruct-2507"
+      },
+      "shared_model_pairs": {
+        "attacker": "Qwen/Qwen3-4B-Instruct-2507",
+        "target": "microsoft/Phi-4-mini-instruct",
+        "evaluator": "Qwen/Qwen3-4B-Instruct-2507"
+      }
+    },
+    "nbf": {
+      "embedding_time_mean_ms": 7.13,
+      "embedding_time_max_ms": 10.27,
+      "nbf_forward_time_mean_ms": 0.32,
+      "nbf_forward_time_max_ms": 0.69,
+      "nbf_combine_time_mean_ms": 7.58,
+      "nbf_combine_time_max_ms": 11.32,
+      "nbf_vram_gb": 0.4588,
+      "param_count": 50405,
+      "num_measurements": 30
+    },
+    "pipeline_runs": []
+  }
+}

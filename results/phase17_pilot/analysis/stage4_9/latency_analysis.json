@@ -1,0 +1,94 @@
+{
+  "phase": "17",
+  "stage": "4.9",
+  "deliverable": "latency_analysis.json",
+  "all_runs": {
+    "n": 90,
+    "mean": 351.564,
+    "median": 310.322,
+    "p95": 857.901,
+    "min": 2.679,
+    "max": 1332.837
+  },
+  "early_attacker_failure_runs": {
+    "n": 61,
+    "mean": 391.421,
+    "median": 356.016,
+    "p95": 889.047,
+    "min": 12.977,
+    "max": 1332.837
+  },
+  "surviving_runs": {
+    "n": 29,
+    "mean": 267.726,
+    "median": 163.908,
+    "p95": 822.236,
+    "min": 2.679,
+    "max": 853.663
+  },
+  "successful_runs": {
+    "n": 22,
+    "mean": 347.98,
+    "median": 205.173,
+    "p95": 822.236,
+    "min": 42.943,
+    "max": 853.663
+  },
+  "attacker_call_latency_s": {
+    "n": 371,
+    "mean": 43.536,
+    "median": 48.001,
+    "p95": 61.463,
+    "min": 2.679,
+    "max": 165.85
+  },
+  "generated_tokens_per_attacker_call": {
+    "n": 371,
+    "mean": 99.968,
+    "median": 93.0,
+    "p95": 163.0,
+    "min": 2.0,
+    "max": 1000.0
+  },
+  "duration_by_termination_reason": {
+    "attack_loop_exhausted": {
+      "n": 7,
+      "mean": 15.499,
+      "median": 3.686,
+      "p95": 87.426,
+      "min": 2.679,
+      "max": 87.426
+    },
+    "attacker_generation_error": {
+      "n": 60,
+      "mean": 375.731,
+      "median": 354.711,
+      "p95": 889.047,
+      "min": 12.977,
+      "max": 899.002
+    },
+    "refusal_retry_limit": {
+      "n": 1,
+      "mean": 1332.837,
+      "median": 1332.837,
+      "p95": 1332.837,
+      "min": 1332.837,
+      "max": 1332.837
+    },
+    "success_score_5": {
+      "n": 22,
+      "mean": 347.98,
+      "median": 205.173,
+      "p95": 822.236,
+      "min": 42.943,
+      "max": 853.663
+    }
+  },
+  "bimodality": {
+    "note": "the distribution is bi-modal because failed runs abort at the first unusable attacker call whereas survivors run whole turns",
+    "runs_under_120s": 28,
+    "runs_120_to_600s": 44,
+    "runs_600s_and_over": 18
+  },
+  "contention_caveat": "measured while a separate operator GPU job was active; absolute durations are contention-affected"
+}

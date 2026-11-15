@@ -1,0 +1,224 @@
+{
+  "steps": [
+    {
+      "step": "0_baseline",
+      "pytorch_allocated_gb": 0.0,
+      "driver_free_gb": 24.385,
+      "driver_total_gb": 25.763,
+      "pytorch_reserved_gb": 0.0
+    },
+    {
+      "step": "attacker_loaded",
+      "pytorch_allocated_gb": 8.412,
+      "driver_free_gb": 15.931,
+      "driver_total_gb": 25.763,
+      "pytorch_reserved_gb": 8.422,
+      "cold_load_s": 23.53,
+      "free_delta_gb": 8.454
+    },
+    {
+      "step": "attacker_after_generation",
+      "pytorch_allocated_gb": 8.42,
+      "driver_free_gb": 15.828,
+      "driver_total_gb": 25.763,
+      "pytorch_reserved_gb": 8.506,
+      "gen_s": 4.12,
+      "reply_chars": 300
+    },
+    {
+      "step": "target_loaded",
+      "pytorch_allocated_gb": 16.092,
+      "driver_free_gb": 8.209,
+      "driver_total_gb": 25.763,
+      "pytorch_reserved_gb": 16.125,
+      "cold_load_s": 18.67,
+      "free_delta_gb": 7.619
+    },
+    {
+      "step": "target_after_generation",
+      "pytorch_allocated_gb": 16.092,
+      "driver_free_gb": 8.209,
+      "driver_total_gb": 25.763,
+      "pytorch_reserved_gb": 16.125,
+      "gen_s": 2.4,
+      "reply_chars": 263
+    },
+    {
+      "step": "6a_before_evict",
+      "pytorch_allocated_gb": 16.092,
+      "driver_free_gb": 8.209,
+      "driver_total_gb": 25.763,
+      "pytorch_reserved_gb": 16.125
+    },
+    {
+      "step": "6b_after_ModelManager._evict",
+      "pytorch_allocated_gb": 16.092,
+      "driver_free_gb": 8.23,
+      "driver_total_gb": 25.763,
+      "pytorch_reserved_gb": 16.104
+    },
+    {
+      "step": "7_after_manual_cache_purge",
+      "pytorch_allocated_gb": 8.42,
+      "driver_free_gb": 15.912,
+      "driver_total_gb": 25.763,
+      "pytorch_reserved_gb": 8.422
+    },
+    {
+      "step": "8a_before_evaluator",
+      "pytorch_allocated_gb": 8.42,
+      "driver_free_gb": 15.912,
+      "driver_total_gb": 25.763,
+      "pytorch_reserved_gb": 8.422
+    },
+    {
+      "step": "evaluator_loaded",
+      "pytorch_allocated_gb": 16.465,
+      "driver_free_gb": 7.867,
+      "driver_total_gb": 25.763,
+      "pytorch_reserved_gb": 16.467,
+      "cold_load_s": 17.76,
+      "free_delta_gb": 8.045
+    },
+    {
+      "step": "evaluator_after_generation",
+      "pytorch_allocated_gb": 16.465,
+      "driver_free_gb": 7.826,
+      "driver_total_gb": 25.763,
+      "pytorch_reserved_gb": 16.509,
+      "gen_s": 2.57,
+      "reply_chars": 232
+    },
+    {
+      "step": "9_final",
+      "pytorch_allocated_gb": 8.42,
+      "driver_free_gb": 15.912,
+      "driver_total_gb": 25.763,
+      "pytorch_reserved_gb": 8.422
+    }
+  ],
+  "models": {
+    "attacker": {
+      "model_id": "Qwen/Qwen3.5-4B",
+      "load": "OK",
+      "cold_load_s": 23.53,
+      "weights_footprint_gb": 8.454,
+      "load_step": {
+        "step": "attacker_loaded",
+        "pytorch_allocated_gb": 8.412,
+        "driver_free_gb": 15.931,
+        "driver_total_gb": 25.763,
+        "pytorch_reserved_gb": 8.422,
+        "cold_load_s": 23.53,
+        "free_delta_gb": 8.454
+      },
+      "gen_step": {
+        "step": "attacker_after_generation",
+        "pytorch_allocated_gb": 8.42,
+        "driver_free_gb": 15.828,
+        "driver_total_gb": 25.763,
+        "pytorch_reserved_gb": 8.506,
+        "gen_s": 4.12,
+        "reply_chars": 300
+      },
+      "gen_s": 4.12,
+      "peak_alloc_during_gen_gb": 8.493
+    },
+    "target": {
+      "model_id": "microsoft/Phi-4-mini-instruct",
+      "load": "OK",
+      "cold_load_s": 18.67,
+      "weights_footprint_gb": 7.619,
+      "load_step": {
+        "step": "target_loaded",
+        "pytorch_allocated_gb": 16.092,
+        "driver_free_gb": 8.209,
+        "driver_total_gb": 25.763,
+        "pytorch_reserved_gb": 16.125,
+        "cold_load_s": 18.67,
+        "free_delta_gb": 7.619
+      },
+      "gen_step": {
+        "step": "target_after_generation",
+        "pytorch_allocated_gb": 16.092,
+        "driver_free_gb": 8.209,
+        "driver_total_gb": 25.763,
+        "pytorch_reserved_gb": 16.125,
+        "gen_s": 2.4,
+        "reply_chars": 263
+      },
+      "gen_s": 2.4,
+      "peak_alloc_during_gen_gb": 16.108
+    },
+    "evaluator": {
+      "model_id": "Qwen/Qwen3-4B-Instruct-2507",
+      "load": "OK",
+      "cold_load_s": 17.76,
+      "weights_footprint_gb": 8.045,
+      "load_step": {
+        "step": "evaluator_loaded",
+        "pytorch_allocated_gb": 16.465,
+        "driver_free_gb": 7.867,
+        "driver_total_gb": 25.763,
+        "pytorch_reserved_gb": 16.467,
+        "cold_load_s": 17.76,
+        "free_delta_gb": 8.045
+      },
+      "gen_step": {
+        "step": "evaluator_after_generation",
+        "pytorch_allocated_gb": 16.465,
+        "driver_free_gb": 7.826,
+        "driver_total_gb": 25.763,
+        "pytorch_reserved_gb": 16.509,
+        "gen_s": 2.57,
+        "reply_chars": 232
+      },
+      "gen_s": 2.57,
+      "peak_alloc_during_gen_gb": 16.485
+    }
+  },
+  "evict_test": {
+    "model": "microsoft/Phi-4-mini-instruct",
+    "before_evict": [
+      16.092,
+      8.209,
+      25.763,
+      16.125
+    ],
+    "after_evict": [
+      16.092,
+      8.23,
+      25.763,
+      16.104
+    ],
+    "driver_free_delta_gb": 0.021,
+    "pipeline_cache_after_evict": [
+      "Qwen/Qwen3.5-4B_cuda",
+      "microsoft/Phi-4-mini-instruct_cuda"
+    ],
+    "verdict": "_evict() DOES NOT release VRAM - weights still held by _pipeline_cache",
+    "purge_driver_free_delta_gb": 7.682,
+    "pipeline_cache_after_purge": []
+  },
+  "feasibility": {
+    "attacker_weights_gb": 8.454,
+    "target_weights_gb": 7.619,
+    "two_model_weights_gb": 16.073,
+    "driver_free_now_gb": 8.209,
+    "driver_total_gb": 25.763,
+    "measured_2model_peak_gb_from_report": 22.33,
+    "kv_and_activation_gb_2model": 6.257,
+    "evaluator_weights_gb_on_disk": 8.05,
+    "predicted_3model_peak_gb": 30.38,
+    "predicted_headroom_gb": -4.617,
+    "verdict": "INFEASIBLE - predicted peak exceeds usable VRAM"
+  },
+  "baseline": {
+    "step": "0_baseline",
+    "pytorch_allocated_gb": 0.0,
+    "driver_free_gb": 24.385,
+    "driver_total_gb": 25.763,
+    "pytorch_reserved_gb": 0.0
+  },
+  "cleanup_ok": false
+}

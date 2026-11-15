@@ -1,0 +1,54 @@
+{
+  "phase": "16.6",
+  "question": "can microsoft/phi-4 serve as the local target under the reference precision on this hardware?",
+  "reference_model_verification": {
+    "exact_model_string_in_reference": "microsoft/phi-4",
+    "evidence": "nbf_original_stuff/orginal_code_give_by_author/NBF-LLM/attacks/utils/generate.py:12  ->  model_id = \"microsoft/phi-4\"",
+    "hf_identifier": "microsoft/phi-4",
+    "revision_available_locally": "2db69c1c3e91a05d2c64a3185acfbaf36f744e25",
+    "architecture": "Phi3ForCausalLM (model_type phi3)",
+    "instruction_tuned": "yes (phi-4 is the instruction-tuned release; the reference also points to a finetuned variant at generate.py:10 for the LoRA baseline)",
+    "precision_in_reference": "torch_dtype=torch.bfloat16 (generate.py:20)",
+    "quantization_in_reference": "none",
+    "device_map_in_reference": "\"auto\" (generate.py:21)",
+    "revision_pinned_in_reference": false
+  },
+  "local_availability": {
+    "weights_present": false,
+    "cached_bytes": 6.871,
+    "cached_state": "6 *.incomplete blobs; no completed shards; only config.json + model.safetensors.index.json are complete",
+    "tokenizer_present": false,
+    "tokenizer_load_result": "FAILED - ValueError: Couldn't instantiate the backend tokenizer (tokenizer files not downloaded)"
+  },
+  "footprint": {
+    "parameters_exact": 14659507200,
+    "parameters_b": 14.66,
+    "method": "model built from the real config on the meta device (zero memory) and counted; cross-checked against the hub weight index",
+    "bf16_gb": 29.319,
+    "fp16_gb": 29.319,
+    "fp32_gb": 58.638,
+    "cross_check_index_total_size_bytes": 29319014400,
+    "cross_check_index_total_gb": 29.319,
+    "cross_check_agrees": true
+  },
+  "feasibility": {
+    "gpu_total_gb": 25.763,
+    "gpu_free_gb": 24.385,
+    "required_gb_bf16": 29.319,
+    "shortfall_gb": 4.934,
+    "fits": false,
+    "gate_arithmetic": {
+      "pre_load": "needs free >= 32.319 GB, have 24.385 GB -> REFUSED",
+      "post_load": "residual = -4.934 GB vs 1.5 GB floor -> REFUSED"
+    },
+    "verdict": "MODEL_NOT_FEASIBLE_AT_REQUIRED_PRECISION"
+  },
+  "rejected_workarounds": {
+    "quantization_8bit": "REJECTED - reference used bf16 with no quantization; Phase 16.6 section 4 forbids quantizing to force a fit",
+    "quantization_4bit": "REJECTED - same reason",
+    "cpu_offload_device_map_auto": "REJECTED without operator approval - would technically run (the reference itself passes device_map='auto'), but it offloads ~5 GB to host RAM, departs from the frozen pipeline's device_map='cuda' + VRAM-gate design, and is the class of workaround section 4 prohibits",
+    "larger_gpu": "NOT AVAILABLE - no other GPU on this host"
+  },
+  "stopping_test_performed": false,
+  "stopping_test_blocked_reason": "the model cannot be loaded at the reference precision, so no generation could be measured"
+}

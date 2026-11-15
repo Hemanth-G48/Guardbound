@@ -1,0 +1,402 @@
+{
+  "phase": "17",
+  "stage": "0_feasibility",
+  "budgets": {
+    "gpu_total_mib": 24570,
+    "gpu_total_gib": 23.994,
+    "runtime_allowance_gib": 3.0,
+    "disk_free_bytes": 30989635584,
+    "disk_free_gib": 28.861
+  },
+  "method": "HF API metadata via curl; no weights downloaded. Download size is the main-revision weight footprint, NOT usedStorage (which sums all revisions and format copies). Feasibility compares against measured GPU total and measured free disk.",
+  "candidates": {
+    "target": {
+      "repo_id": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "accessible": true,
+      "http_status": 200,
+      "gated": "manual",
+      "revision": "8afb486c1db24fe5011ec46dfbe5b5dccdb575c2",
+      "pipeline_tag": "text-generation",
+      "library_name": "transformers",
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "auto_model": "AutoModelForCausalLM",
+      "processor": "AutoTokenizer",
+      "total_params": 8030261248,
+      "total_params_billions": 8.03,
+      "param_map": {
+        "BF16": 8030261248
+      },
+      "shipped_dtypes": [
+        "BF16"
+      ],
+      "is_reference_precision": true,
+      "repo_used_storage_gib": 57.88,
+      "local_cache_gib": 29.93,
+      "weight_footprint_gib": 14.96,
+      "already_cached": true,
+      "additional_download_gib": 0.0,
+      "fits_vram": true,
+      "fits_disk": true,
+      "verdict": "FEASIBLE_AT_REFERENCE_PRECISION",
+      "blocking_reasons": []
+    },
+    "attacker_A_bonsai": {
+      "repo_id": "prism-ml/Ternary-Bonsai-2-27B-mlx-2bit",
+      "accessible": true,
+      "http_status": 200,
+      "gated": false,
+      "revision": "fcba37d2117a7077eac6b613b2668d14d9779edd",
+      "pipeline_tag": "text-generation",
+      "library_name": "mlx",
+      "architectures": [],
+      "model_type": "prism_hadamard_qwen35",
+      "auto_model": null,
+      "processor": null,
+      "total_params": 27359638768,
+      "total_params_billions": 27.36,
+      "param_map": {
+        "F32": 29148672,
+        "U32": 26869760000,
+        "F16": 460730096
+      },
+      "shipped_dtypes": [
+        "F16",
+        "F32",
+        "U32"
+      ],
+      "is_reference_precision": false,
+      "repo_used_storage_gib": 8.02,
+      "local_cache_gib": 0.0,
+      "weight_footprint_gib": 101.06,
+      "already_cached": false,
+      "additional_download_gib": 101.06,
+      "fits_vram": false,
+      "fits_disk": false,
+      "verdict": "INFEASIBLE_QUANTIZED",
+      "blocking_reasons": [
+        "vram: 101.06 GiB weights + 3.0 GiB allowance > 23.99 GiB",
+        "disk: needs 101.06 GiB download > 28.86 GiB free"
+      ]
+    },
+    "attacker_B_qwen38": {
+      "repo_id": "Qwen/Qwen3.8-27B",
+      "accessible": true,
+      "http_status": 200,
+      "gated": false,
+      "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+      "pipeline_tag": "image-text-to-text",
+      "library_name": "transformers",
+      "architectures": [
+        "Qwen3_5ForConditionalGeneration"
+      ],
+      "model_type": "qwen3_5",
+      "auto_model": "AutoModelForMultimodalLM",
+      "processor": "AutoProcessor",
+      "total_params": 27781427952,
+      "total_params_billions": 27.78,
+      "param_map": {
+        "BF16": 27781427952
+      },
+      "shipped_dtypes": [
+        "BF16"
+      ],
+      "is_reference_precision": true,
+      "repo_used_storage_gib": 51.8,
+      "local_cache_gib": 0.0,
+      "weight_footprint_gib": 51.75,
+      "already_cached": false,
+      "additional_download_gib": 51.75,
+      "fits_vram": false,
+      "fits_disk": false,
+      "verdict": "INFEASIBLE_AT_REFERENCE_PRECISION",
+      "blocking_reasons": [
+        "vram: 51.75 GiB weights + 3.0 GiB allowance > 23.99 GiB",
+        "disk: needs 51.75 GiB download > 28.86 GiB free"
+      ]
+    },
+    "attacker_C_qwen36": {
+      "repo_id": "Qwen/Qwen3.6-27B",
+      "accessible": true,
+      "http_status": 200,
+      "gated": false,
+      "revision": "6a9e13bd6fc8f0983b9b99948120bc37f49c13e9",
+      "pipeline_tag": "image-text-to-text",
+      "library_name": "transformers",
+      "architectures": [
+        "Qwen3_5ForConditionalGeneration"
+      ],
+      "model_type": "qwen3_5",
+      "auto_model": "AutoModelForMultimodalLM",
+      "processor": "AutoProcessor",
+      "total_params": 27781427952,
+      "total_params_billions": 27.78,
+      "param_map": {
+        "BF16": 27781427952
+      },
+      "shipped_dtypes": [
+        "BF16"
+      ],
+      "is_reference_precision": true,
+      "repo_used_storage_gib": 51.76,
+      "local_cache_gib": 0.0,
+      "weight_footprint_gib": 51.75,
+      "already_cached": false,
+      "additional_download_gib": 51.75,
+      "fits_vram": false,
+      "fits_disk": false,
+      "verdict": "INFEASIBLE_AT_REFERENCE_PRECISION",
+      "blocking_reasons": [
+        "vram: 51.75 GiB weights + 3.0 GiB allowance > 23.99 GiB",
+        "disk: needs 51.75 GiB download > 28.86 GiB free"
+      ]
+    },
+    "attacker_D_ministral": {
+      "repo_id": "mistralai/Ministral-3-14B-Reasoning-2512",
+      "accessible": true,
+      "http_status": 200,
+      "gated": false,
+      "revision": "51f9210f3cd20f3452a80d5819d15dc61cc50630",
+      "pipeline_tag": null,
+      "library_name": "vllm",
+      "architectures": [
+        "Mistral3ForConditionalGeneration"
+      ],
+      "model_type": "mistral3",
+      "auto_model": null,
+      "processor": null,
+      "total_params": 13945031680,
+      "total_params_billions": 13.95,
+      "param_map": {
+        "BF16": 13945031680
+      },
+      "shipped_dtypes": [
+        "BF16"
+      ],
+      "is_reference_precision": true,
+      "repo_used_storage_gib": 51.98,
+      "local_cache_gib": 0.0,
+      "weight_footprint_gib": 25.97,
+      "already_cached": false,
+      "additional_download_gib": 25.97,
+      "fits_vram": false,
+      "fits_disk": true,
+      "verdict": "INFEASIBLE_AT_REFERENCE_PRECISION",
+      "blocking_reasons": [
+        "vram: 25.97 GiB weights + 3.0 GiB allowance > 23.99 GiB"
+      ]
+    },
+    "attacker_E_devstral": {
+      "repo_id": "mistralai/Devstral-Small-2-24B-Instruct-2512",
+      "accessible": true,
+      "http_status": 200,
+      "gated": false,
+      "revision": "55c5b41e98c2dbd21b0c8afffc540dcfc9eb5128",
+      "pipeline_tag": null,
+      "library_name": "vllm",
+      "architectures": [
+        "Mistral3ForConditionalGeneration"
+      ],
+      "model_type": "mistral3",
+      "auto_model": null,
+      "processor": null,
+      "total_params": 24011361840,
+      "total_params_billions": 24.01,
+      "param_map": {
+        "BF16": 1781550080,
+        "F8_E4M3": 22229811200
+      },
+      "shipped_dtypes": [
+        "BF16",
+        "F8_E4M3"
+      ],
+      "is_reference_precision": false,
+      "repo_used_storage_gib": 48.11,
+      "local_cache_gib": 0.0,
+      "weight_footprint_gib": 24.02,
+      "already_cached": false,
+      "additional_download_gib": 24.02,
+      "fits_vram": false,
+      "fits_disk": true,
+      "verdict": "INFEASIBLE_QUANTIZED",
+      "blocking_reasons": [
+        "vram: 24.02 GiB weights + 3.0 GiB allowance > 23.99 GiB"
+      ]
+    }
+  },
+  "quantized_probes": {
+    "attacker_B_qwen38": [
+      {
+        "repo_id": "Qwen/Qwen3.8-27B-FP8",
+        "accessible": true,
+        "http_status": 200,
+        "gated": false,
+        "revision": "017b9c7af6b5689d5dd426a76e0bc077eb5ca20a",
+        "pipeline_tag": "image-text-to-text",
+        "library_name": "transformers",
+        "architectures": [
+          "Qwen3_5ForConditionalGeneration"
+        ],
+        "model_type": "qwen3_5",
+        "auto_model": "AutoModelForMultimodalLM",
+        "processor": "AutoProcessor",
+        "total_params": 27781427952,
+        "total_params_billions": 27.78,
+        "param_map": {
+          "BF16": 3082220272,
+          "F8_E4M3": 24699207680
+        },
+        "shipped_dtypes": [
+          "BF16",
+          "F8_E4M3"
+        ],
+        "is_reference_precision": false,
+        "repo_used_storage_gib": 28.76,
+        "local_cache_gib": 0.0,
+        "weight_footprint_gib": 28.74,
+        "already_cached": false,
+        "additional_download_gib": 28.74,
+        "fits_vram": false,
+        "fits_disk": true,
+        "verdict": "INFEASIBLE_QUANTIZED",
+        "blocking_reasons": [
+          "vram: 28.74 GiB weights + 3.0 GiB allowance > 23.99 GiB"
+        ]
+      },
+      {
+        "repo_id": "Qwen/Qwen3.8-27B-AWQ",
+        "accessible": false,
+        "http_status": 401,
+        "error": "401 \u2014 repo does not exist, or is gated and not accessible with this token",
+        "verdict": "BLOCKED",
+        "blocking_reasons": [
+          "401 \u2014 repo does not exist, or is gated and not accessible with this token"
+        ]
+      },
+      {
+        "repo_id": "Qwen/Qwen3.8-27B-GPTQ-Int4",
+        "accessible": false,
+        "http_status": 401,
+        "error": "401 \u2014 repo does not exist, or is gated and not accessible with this token",
+        "verdict": "BLOCKED",
+        "blocking_reasons": [
+          "401 \u2014 repo does not exist, or is gated and not accessible with this token"
+        ]
+      }
+    ],
+    "attacker_C_qwen36": [
+      {
+        "repo_id": "Qwen/Qwen3.6-27B-FP8",
+        "accessible": true,
+        "http_status": 200,
+        "gated": false,
+        "revision": "e89b16ebf1988b3d6befa7de50abc2d76f26eb09",
+        "pipeline_tag": "image-text-to-text",
+        "library_name": "transformers",
+        "architectures": [
+          "Qwen3_5ForConditionalGeneration"
+        ],
+        "model_type": "qwen3_5",
+        "auto_model": "AutoModelForMultimodalLM",
+        "processor": "AutoProcessor",
+        "total_params": 27782935472,
+        "total_params_billions": 27.78,
+        "param_map": {
+          "BF16": 3083727792,
+          "F8_E4M3": 24699207680
+        },
+        "shipped_dtypes": [
+          "BF16",
+          "F8_E4M3"
+        ],
+        "is_reference_precision": false,
+        "repo_used_storage_gib": 28.76,
+        "local_cache_gib": 0.0,
+        "weight_footprint_gib": 28.75,
+        "already_cached": false,
+        "additional_download_gib": 28.75,
+        "fits_vram": false,
+        "fits_disk": true,
+        "verdict": "INFEASIBLE_QUANTIZED",
+        "blocking_reasons": [
+          "vram: 28.75 GiB weights + 3.0 GiB allowance > 23.99 GiB"
+        ]
+      },
+      {
+        "repo_id": "Qwen/Qwen3.6-27B-AWQ",
+        "accessible": false,
+        "http_status": 401,
+        "error": "401 \u2014 repo does not exist, or is gated and not accessible with this token",
+        "verdict": "BLOCKED",
+        "blocking_reasons": [
+          "401 \u2014 repo does not exist, or is gated and not accessible with this token"
+        ]
+      },
+      {
+        "repo_id": "Qwen/Qwen3.6-27B-GPTQ-Int4",
+        "accessible": false,
+        "http_status": 401,
+        "error": "401 \u2014 repo does not exist, or is gated and not accessible with this token",
+        "verdict": "BLOCKED",
+        "blocking_reasons": [
+          "401 \u2014 repo does not exist, or is gated and not accessible with this token"
+        ]
+      }
+    ],
+    "attacker_D_ministral": [
+      {
+        "repo_id": "mistralai/Ministral-3-14B-Reasoning-2512-FP8",
+        "accessible": false,
+        "http_status": 401,
+        "error": "401 \u2014 repo does not exist, or is gated and not accessible with this token",
+        "verdict": "BLOCKED",
+        "blocking_reasons": [
+          "401 \u2014 repo does not exist, or is gated and not accessible with this token"
+        ]
+      },
+      {
+        "repo_id": "mistralai/Ministral-3-14B-Reasoning-2512-GGUF",
+        "accessible": true,
+        "http_status": 200,
+        "gated": false,
+        "revision": "fe3b038f30334729263d860d5dadbaa34e0f2a18",
+        "pipeline_tag": null,
+        "library_name": "vllm",
+        "architectures": [],
+        "model_type": null,
+        "auto_model": null,
+        "processor": null,
+        "total_params": null,
+        "total_params_billions": null,
+        "param_map": {},
+        "shipped_dtypes": [],
+        "is_reference_precision": false,
+        "repo_used_storage_gib": 55.99,
+        "local_cache_gib": 0.0,
+        "weight_footprint_gib": null,
+        "already_cached": false,
+        "additional_download_gib": 0.0,
+        "fits_vram": null,
+        "fits_disk": true,
+        "verdict": "INFEASIBLE_QUANTIZED",
+        "blocking_reasons": [
+          "no safetensors dtype breakdown \u2014 not a transformers-shaped checkpoint"
+        ]
+      }
+    ],
+    "attacker_E_devstral": [
+      {
+        "repo_id": "mistralai/Devstral-Small-2-24B-Instruct-2512-GGUF",
+        "accessible": false,
+        "http_status": 401,
+        "error": "401 \u2014 repo does not exist, or is gated and not accessible with this token",
+        "verdict": "BLOCKED",
+        "blocking_reasons": [
+          "401 \u2014 repo does not exist, or is gated and not accessible with this token"
+        ]
+      }
+    ]
+  }
+}

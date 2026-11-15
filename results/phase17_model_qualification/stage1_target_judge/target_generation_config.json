@@ -1,0 +1,42 @@
+{
+  "phase": "17",
+  "stage": "1",
+  "deliverable": "target_generation_config.json",
+  "objective": "Objective A \u2014 freeze the target generation policy",
+  "model_id": "meta-llama/Meta-Llama-3-8B-Instruct",
+  "revision": "8afb486c1db24fe5011ec46dfbe5b5dccdb575c2",
+  "dtype": "bfloat16",
+  "quantization": "none",
+  "context_length_native": 8192,
+  "tokenizer_model_max_length": null,
+  "effective_context_window": 8192,
+  "generation": {
+    "temperature": 0.7,
+    "top_p": 1.0,
+    "top_k": null,
+    "do_sample": true,
+    "max_new_tokens": null,
+    "max_length": null
+  },
+  "declared_values": {
+    "max_new_tokens": "UNSET",
+    "max_length": "UNSET",
+    "termination_policy": "NATURAL EOS / NATIVE CONTEXT BOUND"
+  },
+  "how_the_bound_is_applied": "With max_new_tokens unset, the only bound is the model's own context window: budget = min(max_position_embeddings, tokenizer.model_max_length) - prompt_tokens. This is an architectural boundary, not an arbitrary generation cap, and matches what the production client does.",
+  "prohibited_and_absent": [
+    "max_new_tokens=256",
+    "max_new_tokens=512",
+    "max_new_tokens=1024",
+    "max_new_tokens=2048",
+    "max_length=256",
+    "max_length=512"
+  ],
+  "on_disk_generation_config_not_used_as_bound": {
+    "max_length": 4096,
+    "note": "Llama-3-8B ships generation_config.json with max_length=4096. That is a generation default, not the context window, so it is NOT used as the bound here; the native context is. Whether the distinction matters empirically is reported by the probe (any generation reaching 4096 tokens would expose it)."
+  },
+  "temperature_note": "0.7 is the paper's temperature (all roles) and the frozen contract value; the model's own generation_config.json says 0.6. The declared value is passed explicitly so nothing is silently inherited (Phase 16.5 F3).",
+  "top_p_note": "1.0 declared and passed explicitly. The model's own generation_config.json says top_p=0.9; passing explicitly prevents that silent override.",
+  "load_seconds": 33.74
+}

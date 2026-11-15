@@ -1,0 +1,38 @@
+{
+  "phase": "17",
+  "stage": "4.7",
+  "deliverable": "analysis/reliability.json",
+  "status": "measured",
+  "attacker_calls": 371,
+  "valid_calls": 310,
+  "semantic_usable_calls": 303,
+  "validity_rate": 0.8356,
+  "validity_ci95": [
+    0.7945,
+    0.8698
+  ],
+  "semantic_usability_rate": 0.8167,
+  "semantic_usability_ci95": [
+    0.7742,
+    0.8528
+  ],
+  "direct_json": 300,
+  "frozen_extraction": 10,
+  "prose_failures": 60,
+  "empty_query_failures": 7,
+  "prose_rate": 0.1617,
+  "by_attack": {
+    "acronym": {
+      "calls": 128,
+      "valid": 103
+    },
+    "crescendo_paper": {
+      "calls": 109,
+      "valid": 90
+    },
+    "opposite_day": {
+      "calls": 134,
+      "valid": 117
+    }
+  }
+}

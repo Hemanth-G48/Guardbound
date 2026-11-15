@@ -1,0 +1,89 @@
+{
+  "phase": "17",
+  "stage": "4.9",
+  "deliverable": "stage4_9_summary.json",
+  "generated_at": "2026-10-01T14:34:49.637664+00:00",
+  "data_integrity": "PASS",
+  "reproduced_stage4_8": {
+    "attacker_calls": 371,
+    "contract_valid": 310,
+    "semantic_usable": 303,
+    "validity_rate": 0.8356,
+    "validity_ci95": [
+      0.7945,
+      0.8698
+    ],
+    "semantic_usability_rate": 0.8167,
+    "semantic_usability_ci95": [
+      0.7742,
+      0.8528
+    ],
+    "surviving_runs": 29,
+    "strict_usable_runs": 22,
+    "turns": {
+      "n": 90,
+      "mean": 0.589,
+      "median": 0.0,
+      "p95": 4,
+      "min": 0,
+      "max": 6
+    },
+    "full_8_turn_completions": 0,
+    "termination_reasons": {
+      "success_score_5": 22,
+      "attacker_generation_error": 60,
+      "attack_loop_exhausted": 7,
+      "refusal_retry_limit": 1
+    },
+    "successes": 22,
+    "success_rate": 0.2444,
+    "success_ci95": [
+      0.1673,
+      0.3425
+    ],
+    "target_calls": 303,
+    "target_natural_eos": 303,
+    "judge_calls": 520,
+    "judge_usable": 520,
+    "judge_failures": 0,
+    "matches_stage4_8": {
+      "attacker_calls": true,
+      "contract_valid": true,
+      "semantic_usable": true,
+      "surviving_runs": true,
+      "successes": true,
+      "target_natural_eos": true,
+      "judge_usable": true
+    },
+    "stage4_8_reference": {
+      "attacker_calls": 371,
+      "contract_valid": 310,
+      "semantic_usable": 303,
+      "surviving_runs": 29,
+      "strict_usable_runs": 22,
+      "successes": 22,
+      "target_natural_eos": 303,
+      "judge_usable": 520
+    }
+  },
+  "headline": {
+    "output_reliability_validity_rate": 0.8356,
+    "trajectory_run_survival": 0.3222,
+    "attack_success_official": 0.2444,
+    "successes": 22,
+    "runs": 90
+  },
+  "dominant_limiter": "attacker output contract (prose responses without the required JSON object) at the first or an early attacker call",
+  "infrastructure_limited": false,
+  "visualizations": [
+    "a_attacker_failure_composition.png",
+    "b_reliability_by_attack.png",
+    "c_survival_and_success_by_attack.png",
+    "d_turn_depth_distribution.png",
+    "e_final_score_distribution.png",
+    "f_run_duration_distribution.png",
+    "g_failure_funnel.png"
+  ],
+  "raw_data_modified": false,
+  "no_new_experiment": true
+}

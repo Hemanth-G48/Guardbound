@@ -1,0 +1,263 @@
+{
+  "phase": "17",
+  "stage": "4.7",
+  "deliverable": "analysis/eta_validation.json",
+  "verdict": "ETA VALIDATED \u2014 RUN-LEVEL TIMING",
+  "requirement": {
+    "run_duration": "run_end_time - run_start_time, measured around the whole run",
+    "primary_eta": "average completed-run duration x remaining completed runs",
+    "preliminary": "elapsed_experiment_time / completed_runs (before 5 runs)",
+    "rolling": "mean of the most recent 10 completed runs (from the 5th run on)",
+    "progress": "completed_runs / total_runs",
+    "must_not_use": [
+      "attacker-call duration",
+      "target-call duration",
+      "judge-call duration",
+      "token-generation duration"
+    ]
+  },
+  "implementation": {
+    "file": "scripts/phase17_stage47_pilot.py",
+    "class": "ProgressTracker",
+    "run_duration_source": "run_and_record(): duration = round(time.time() - started_at, 3)",
+    "fed_to_tracker_by": "tracker.finish_run(attack_short, record[\"duration_s\"], failed)",
+    "call_level_timings": "present only in the run records (engineering metrics); no occurrence of latency_s/wall_s anywhere in the pilot script",
+    "avg_run_display": "elapsed / completed_runs (the spec's preliminary formula), shown alongside 'Last run'; the ETA uses the rolling mean",
+    "no_resume_semantics": true
+  },
+  "checks": [
+    {
+      "check": "only finish_run appends run durations",
+      "ok": true,
+      "observed": {
+        "append_sites": 1
+      },
+      "expected": 1,
+      "note": ""
+    },
+    {
+      "check": "no per-call timing in the pilot script's estimate path",
+      "ok": true,
+      "observed": {
+        "latency_s_occurrences": 0,
+        "wall_s_occurrences": 0
+      },
+      "expected": {
+        "latency_s": 0,
+        "wall_s": 0
+      },
+      "note": "call-level durations live in the shared record helpers, never in the tracker"
+    },
+    {
+      "check": "finish_run is called once per completed run, with the run duration",
+      "ok": true,
+      "observed": {
+        "finish_run_call_sites": 1
+      },
+      "expected": 1,
+      "note": ""
+    },
+    {
+      "check": "run duration is measured around the whole run",
+      "ok": true,
+      "observed": {
+        "measurement": "duration = time.time() - started_at"
+      },
+      "expected": "run_end - run_start",
+      "note": ""
+    },
+    {
+      "check": "progress at 10/90",
+      "ok": true,
+      "observed": {
+        "completed": 10,
+        "percent": 11.1
+      },
+      "expected": {
+        "completed": 10,
+        "percent": 11.1
+      },
+      "note": ""
+    },
+    {
+      "check": "progress at 45/90",
+      "ok": true,
+      "observed": {
+        "completed": 45,
+        "percent": 50.0
+      },
+      "expected": {
+        "completed": 45,
+        "percent": 50.0
+      },
+      "note": ""
+    },
+    {
+      "check": "progress at 90/90",
+      "ok": true,
+      "observed": {
+        "completed": 90,
+        "percent": 100.0
+      },
+      "expected": {
+        "completed": 90,
+        "percent": 100.0
+      },
+      "note": ""
+    },
+    {
+      "check": "ETA == 80 x 500 s == 40,000 s (11.1 h)",
+      "ok": true,
+      "observed": {
+        "eta_seconds": 40000.0,
+        "eta_hours": 11.11
+      },
+      "expected": 40000.0,
+      "note": ""
+    },
+    {
+      "check": "ETA label is the rolling estimate at 10 runs",
+      "ok": true,
+      "observed": "rolling estimate (last 10 runs)",
+      "expected": "rolling estimate (last 10 runs)",
+      "note": ""
+    },
+    {
+      "check": "Runs/min is run-level (60/500 = 0.12)",
+      "ok": true,
+      "observed": 0.12,
+      "expected": 0.12,
+      "note": ""
+    },
+    {
+      "check": "Avg/run is elapsed/completed (spec formula)",
+      "ok": true,
+      "observed": 500.0,
+      "expected": 500.0,
+      "note": ""
+    },
+    {
+      "check": "preliminary ETA at 1 run(s)",
+      "ok": true,
+      "observed": 48060.0,
+      "expected": 48060.0,
+      "note": "label='preliminary estimate'"
+    },
+    {
+      "check": "preliminary ETA at 2 run(s)",
+      "ok": true,
+      "observed": 45760.0,
+      "expected": 45760.0,
+      "note": "label='preliminary estimate'"
+    },
+    {
+      "check": "preliminary ETA at 3 run(s)",
+      "ok": true,
+      "observed": 44660.0,
+      "expected": 44660.0,
+      "note": "label='preliminary estimate'"
+    },
+    {
+      "check": "preliminary ETA at 4 run(s)",
+      "ok": true,
+      "observed": 43860.0,
+      "expected": 43860.0,
+      "note": "label='preliminary estimate'"
+    },
+    {
+      "check": "switch to rolling at the 5th completed run",
+      "ok": true,
+      "observed": "rolling estimate (last 5 runs)",
+      "expected": "rolling estimate (last 5 runs)",
+      "note": ""
+    },
+    {
+      "check": "rolling ETA == mean(last 10) x remaining",
+      "ok": true,
+      "observed": 42500.0,
+      "expected": 42500.0,
+      "note": ""
+    },
+    {
+      "check": "no completed runs -> no fabricated ETA",
+      "ok": true,
+      "observed": {
+        "eta": null,
+        "label": "estimating..."
+      },
+      "expected": {
+        "eta": null,
+        "label": "estimating..."
+      },
+      "note": ""
+    },
+    {
+      "check": "rolling uses exactly the last 10 runs",
+      "ok": true,
+      "observed": 34000.0,
+      "expected": 34000.0,
+      "note": "label='rolling estimate (last 10 runs)'"
+    },
+    {
+      "check": "old, unrepresentative runs are excluded from the ETA",
+      "ok": true,
+      "observed": {
+        "rolling_eta": 34000.0
+      },
+      "expected": "differs from an all-runs average",
+      "note": ""
+    },
+    {
+      "check": "smoke-run replay: preliminary ETA = mean(smoke run durations) x remaining",
+      "ok": true,
+      "observed": 43484.54,
+      "expected": 43484.54,
+      "note": "real durations=[535.953, 509.276, 454.238]"
+    },
+    {
+      "check": "90-run-scale replay of 80 real run durations: ETA = mean(last 10) x 10",
+      "ok": true,
+      "observed": 3562.77,
+      "expected": 3562.77,
+      "note": "replayed real durations n=80 from Stage 4.6; rolling mean=356.3s"
+    },
+    {
+      "check": "estimated_remaining_seconds == rolling mean x remaining",
+      "ok": true,
+      "observed": 40000.0,
+      "expected": 40000.0,
+      "note": ""
+    },
+    {
+      "check": "average_run_seconds == mean(completed run durations)",
+      "ok": true,
+      "observed": 500.0,
+      "expected": 500.0,
+      "note": ""
+    },
+    {
+      "check": "rolling_run_seconds == mean(last 10 completed runs)",
+      "ok": true,
+      "observed": 500.0,
+      "expected": 500.0,
+      "note": ""
+    },
+    {
+      "check": "progress file declares observability-only semantics",
+      "ok": true,
+      "observed": "this file never drives run selection, retries or resume",
+      "expected": "observability-only statement present",
+      "note": ""
+    }
+  ],
+  "checks_passed": "26/26",
+  "real_durations_replayed": {
+    "smoke_runs_stage4_7": [
+      535.953,
+      509.276,
+      454.238
+    ],
+    "stage4_6_runs": 80,
+    "note": "replayed through the tracker to exercise the estimator; these are real measured run durations from this pipeline, not pilot data"
+  }
+}

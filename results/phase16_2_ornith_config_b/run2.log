@@ -1,0 +1,95 @@
+00:55:58 | INFO    | guardbound.llm.provider_factory | [factory] attacker -> local backend=ornith15 model=ornith-ai/Ornith-1.5-9B revision=489cb97981b8654bcfcf30ce1f94ed1b62e07b53 max_new_tokens=256 structured_output_mode=None residency=sequential
+00:55:58 | INFO    | guardbound.llm.model_manager | [model-manager] activate role=attacker vram=0.00GB free=24.38GB {'model_id': 'ornith-ai/Ornith-1.5-9B'}
+00:56:02 | INFO    | numexpr.utils | Note: NumExpr detected 24 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 16.
+00:56:02 | INFO    | numexpr.utils | NumExpr defaulting to 16 threads.
+00:56:03 | INFO    | guardbound.llm.multimodal_client | Loading Ornith-1.5-9B model: ornith-ai/Ornith-1.5-9B (revision=489cb97981b8654bcfcf30ce1f94ed1b62e07b53, dtype=bfloat16, device_map=cuda)
+Loading weights:   0%|          | 0/760 [00:00<?, ?it/s]Loading weights:   0%|          | 1/760 [00:01<13:52,  1.10s/it]Loading weights:   0%|          | 2/760 [00:01<11:22,  1.11it/s]Loading weights:   2%|1         | 14/760 [00:01<01:08, 10.95it/s]Loading weights:   4%|3         | 27/760 [00:02<00:33, 21.86it/s]Loading weights:   5%|5         | 41/760 [00:02<00:20, 34.91it/s]Loading weights:   6%|6         | 49/760 [00:02<00:19, 36.31it/s]Loading weights:   9%|8         | 65/760 [00:02<00:12, 55.17it/s]Loading weights:  10%|9         | 75/760 [00:02<00:11, 61.07it/s]Loading weights:  11%|#1        | 85/760 [00:02<00:11, 60.32it/s]Loading weights:  12%|#2        | 94/760 [00:03<00:10, 62.02it/s]Loading weights:  13%|#3        | 102/760 [00:03<00:11, 58.56it/s]Loading weights:  16%|#5        | 119/760 [00:03<00:08, 76.64it/s]Loading weights:  17%|#6        | 129/760 [00:03<00:07, 80.41it/s]Loading weights:  18%|#8        | 138/760 [00:03<00:08, 74.53it/s]Loading weights:  19%|#9        | 148/760 [00:03<00:08, 75.42it/s]Loading weights:  21%|##        | 156/760 [00:03<00:08, 67.55it/s]Loading weights:  23%|##2       | 172/760 [00:03<00:07, 81.96it/s]Loading weights:  24%|##3       | 182/760 [00:04<00:06, 82.66it/s]Loading weights:  25%|##5       | 191/760 [00:04<00:07, 78.43it/s]Loading weights:  26%|##6       | 200/760 [00:04<00:07, 75.76it/s]Loading weights:  27%|##7       | 208/760 [00:04<00:08, 67.47it/s]Loading weights:  29%|##9       | 223/760 [00:04<00:06, 86.39it/s]Loading weights:  31%|###       | 233/760 [00:04<00:06, 84.80it/s]Loading weights:  32%|###1      | 242/760 [00:04<00:07, 72.89it/s]Loading weights:  33%|###3      | 254/760 [00:05<00:06, 78.39it/s]Loading weights:  35%|###4      | 263/760 [00:05<00:07, 70.96it/s]Loading weights:  37%|###6      | 278/760 [00:05<00:05, 82.72it/s]Loading weights:  38%|###7      | 288/760 [00:05<00:05, 85.65it/s]Loading weights:  39%|###9      | 297/760 [00:05<00:05, 78.39it/s]Loading weights:  40%|####      | 307/760 [00:05<00:05, 77.70it/s]Loading weights:  41%|####1     | 315/760 [00:05<00:06, 68.83it/s]Loading weights:  43%|####3     | 328/760 [00:05<00:05, 82.83it/s]Loading weights:  44%|####4     | 337/760 [00:06<00:05, 80.26it/s]Loading weights:  46%|####5     | 346/760 [00:06<00:05, 76.17it/s]Loading weights:  47%|####7     | 359/760 [00:06<00:04, 82.98it/s]Loading weights:  48%|####8     | 368/760 [00:06<00:05, 68.01it/s]Loading weights:  50%|#####     | 383/760 [00:06<00:04, 86.07it/s]Loading weights:  52%|#####1    | 393/760 [00:06<00:04, 85.84it/s]Loading weights:  53%|#####3    | 403/760 [00:06<00:04, 75.57it/s]Loading weights:  54%|#####4    | 413/760 [00:07<00:05, 69.13it/s]Loading weights:  55%|#####5    | 421/760 [00:07<00:04, 68.81it/s]Loading weights:  63%|######2   | 477/760 [00:07<00:01, 182.42it/s]Loading weights:  75%|#######4  | 567/760 [00:07<00:00, 359.47it/s]Loading weights:  88%|########8 | 669/760 [00:07<00:00, 531.04it/s]Loading weights:  99%|#########9| 753/760 [00:07<00:00, 606.62it/s]Loading weights: 100%|##########| 760/760 [00:07<00:00, 98.89it/s] 
+00:56:14 | INFO    | guardbound.llm.ornith15_client | Ornith-1.5-9B native class: Qwen3_5ForConditionalGeneration (declared: ['Qwen3_5ForConditionalGeneration'])
+00:56:14 | INFO    | guardbound.llm.model_manager | [model-manager] load role=attacker vram=18.82GB free=5.52GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'action': 'load', 'duration_s': 15.798, 'free_before_gb': 24.38463488, 'free_after_gb': 5.516558336, 'reserved_before_gb': 0.0, 'estimated_gb': 19.306, 'measured_gb': 18.82, 'driver_free_delta_gb': 18.868, 'device_map': 'cuda'}
+00:56:14 | INFO    | guardbound.llm.multimodal_client | Loading Ornith-1.5-9B processor: ornith-ai/Ornith-1.5-9B
+00:56:22 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=4.61GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[A]  0 VALID_JSON             via=direct_json defect=other (7.94s)
+00:56:26 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=4.61GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[A]  1 VALID_JSON             via=direct_json defect=other (4.51s)
+00:56:30 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=4.61GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[A]  2 VALID_JSON             via=direct_json defect=other (3.73s)
+00:56:35 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=4.61GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[A]  3 VALID_JSON             via=direct_json defect=other (5.6s)
+00:56:41 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=4.61GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[A]  4 VALID_JSON             via=direct_json defect=other (5.68s)
+00:56:46 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=4.61GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[A]  5 VALID_JSON             via=direct_json defect=other (4.88s)
+00:56:52 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=4.61GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[A]  6 EXTRA_TEXT             via=None defect=trailing_comma (5.59s)
+00:56:59 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=4.61GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[A]  7 VALID_JSON             via=direct_json defect=other (7.07s)
+00:57:06 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=4.61GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[A]  8 VALID_JSON             via=direct_json defect=other (7.0s)
+00:57:12 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=4.61GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[A]  9 VALID_JSON             via=direct_json defect=other (6.15s)
+00:57:17 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=4.61GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[A] 10 VALID_JSON             via=direct_json defect=other (5.19s)
+00:57:22 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=4.61GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[A] 11 EXTRA_TEXT             via=None defect=trailing_comma (4.58s)
+00:57:27 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=4.61GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[A] 12 EXTRA_TEXT             via=None defect=trailing_comma (5.58s)
+00:57:32 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=4.61GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[A] 13 VALID_JSON             via=direct_json defect=other (4.7s)
+00:57:36 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=4.61GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[A] 14 VALID_JSON             via=direct_json defect=other (4.58s)
+00:57:42 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=4.61GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[A] 15 VALID_JSON             via=direct_json defect=other (5.35s)
+00:57:46 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=4.61GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[A] 16 VALID_JSON             via=direct_json defect=other (4.56s)
+00:57:56 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=4.28GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[A] 17 VALID_JSON             via=direct_json defect=other (9.76s)
+00:58:02 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=4.28GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[A] 18 VALID_JSON             via=direct_json defect=other (6.03s)
+00:58:07 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=4.28GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[A] 19 VALID_JSON             via=direct_json defect=other (4.43s)
+00:58:12 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=4.28GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[B] seq 0 turn 1: VALID_JSON             (5.01s)
+00:58:18 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=3.78GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[B] seq 0 turn 2: JSON_PARSE_ERROR       (6.06s)
+00:58:22 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=3.78GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[B] seq 1 turn 1: VALID_JSON             (4.5s)
+00:58:26 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=3.78GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[B] seq 1 turn 2: EXTRA_TEXT             (3.32s)
+00:58:29 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=3.78GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[B] seq 2 turn 1: VALID_JSON             (3.77s)
+00:58:44 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=3.78GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[B] seq 2 turn 2: VALID_JSON             (14.31s)
+00:58:54 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=3.13GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[B] seq 2 turn 3: VALID_JSON             (10.58s)
+00:59:00 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=3.13GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[B] seq 3 turn 1: VALID_JSON             (5.59s)
+00:59:10 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=3.13GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[B] seq 3 turn 2: VALID_JSON             (9.91s)
+00:59:20 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=3.13GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[B] seq 3 turn 3: VALID_JSON             (10.8s)
+00:59:26 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=3.13GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[B] seq 4 turn 1: VALID_JSON             (5.71s)
+00:59:36 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=3.13GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[B] seq 4 turn 2: JSON_PARSE_ERROR       (10.18s)
+00:59:41 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=3.13GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[B] seq 5 turn 1: VALID_JSON             (4.86s)
+00:59:49 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=3.13GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[B] seq 5 turn 2: VALID_JSON             (7.59s)
+00:59:58 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=3.13GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[B] seq 5 turn 3: VALID_JSON             (8.82s)
+01:00:03 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=3.13GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[B] seq 6 turn 1: EXTRA_TEXT             (5.59s)
+01:00:10 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=3.13GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[B] seq 7 turn 1: VALID_JSON             (7.09s)
+01:00:20 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=3.13GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[B] seq 7 turn 2: VALID_JSON             (9.3s)
+01:00:29 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=18.83GB free=3.13GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'note': 'resident'}
+[B] seq 7 turn 3: VALID_JSON             (9.66s)
+01:00:29 | INFO    | guardbound.llm.model_manager | [model-manager] evict role=attacker vram=0.01GB free=24.31GB {'model_id': 'ornith-ai/Ornith-1.5-9B', 'action': 'evict', 'duration_s': 0.204, 'free_before_gb': 3.12999936, 'free_after_gb': 24.313331712, 'freed_gb': 21.183, 'cache_released': False}
+01:00:29 | INFO    | guardbound.llm.model_manager | [model-manager] unload_all vram=0.01GB free=24.31GB 
+[16.2] decision: REPRODUCED
+    Stage A valid 17/20 vs 16.1 17/20 (tol ±2): match
+    Stage B generated 15/19 vs 16.1 15/19 (tol ±3): match
+    3-turn sequences 4/8 vs 16.1 4/8 (tol ±1): match
+[16.2] stage A: {'generations': 20, 'valid_json': 17, 'json_failures': 3, 'valid_rate': 0.85, 'accepted_direct_json': 17, 'accepted_via_structural_extraction': 0, 'extra_text_rate': 0.15, 'empty_rate': 0.0, 'reasoning_only_rate': 0.0, 'mean_latency_s': 5.65, 'median_latency_s': 5.58}
+[16.2] stage B: {'sequences': 8, 'turns_attempted': 19, 'turns_generated': 15, 'turn_success_rate': 0.7895, 'context_failures': 4, 'completed_3_turn_sequences': 4, 'json_failures': 2, 'extra_text_failures': 2, 'empty_outputs': 0, 'reasoning_only_outputs': 0, 'missing_required_field': 0, 'accepted_via_structural_extraction': 0, 'mean_latency_s': 7.51, 'median_latency_s': 7.09, 'ordering_correct': True, 'goal_preserved': True}

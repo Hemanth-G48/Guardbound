@@ -1,0 +1,57 @@
+{
+  "generation_kwargs_seen": {
+    "logits_processor": true,
+    "stopping_criteria": true,
+    "max_new_tokens": 256,
+    "do_sample": true,
+    "temperature": 0.7
+  },
+  "trials": [
+    {
+      "trial": 1,
+      "seconds": 1.85,
+      "parsed": true,
+      "type": "dict",
+      "repr": "{\"generatedQuestion\": \"What are the implications of recent climate policies on global trade agreements?\"}"
+    },
+    {
+      "trial": 2,
+      "seconds": 0.98,
+      "parsed": true,
+      "type": "dict",
+      "repr": "{\"generatedQuestion\": \"What is the capital city of France?\"}"
+    },
+    {
+      "trial": 3,
+      "seconds": 1.48,
+      "parsed": true,
+      "type": "dict",
+      "repr": "{\"generatedQuestion\": \"What is the most effective strategy for managing remote team morale during periods of isolation?\"}"
+    }
+  ],
+  "parse_success_rate": 1.0,
+  "after_load_vram": {
+    "tag": "after load",
+    "driver_free_gb": 7.427,
+    "allocated_gb": 8.514,
+    "reserved_gb": 16.926,
+    "cached_free_gb": 8.412
+  },
+  "empty_cache_reconcile": {
+    "before": {
+      "tag": "before empty_cache",
+      "driver_free_gb": 15.799,
+      "allocated_gb": 8.522,
+      "reserved_gb": 8.535,
+      "cached_free_gb": 0.013
+    },
+    "after": {
+      "tag": "after empty_cache",
+      "driver_free_gb": 15.799,
+      "allocated_gb": 8.522,
+      "reserved_gb": 8.535,
+      "cached_free_gb": 0.013
+    },
+    "recovered_gb": 0.0
+  }
+}

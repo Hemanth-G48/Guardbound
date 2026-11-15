@@ -1,0 +1,42 @@
+{
+  "phase": "17",
+  "stage": "4.9",
+  "deliverable": "failure_cascade.json",
+  "funnel": [
+    {
+      "stage": "runs launched",
+      "runs": 90
+    },
+    {
+      "stage": "runs that produced at least one attacker call",
+      "runs": 90
+    },
+    {
+      "stage": "runs with at least one contract-valid attacker call",
+      "runs": 89
+    },
+    {
+      "stage": "runs that reached the target (>=1 target call)",
+      "runs": 83
+    },
+    {
+      "stage": "runs that reached the judge (>=1 judge call)",
+      "runs": 83
+    },
+    {
+      "stage": "runs with at least one rubric score",
+      "runs": 69
+    },
+    {
+      "stage": "runs reaching the success criterion (score 5)",
+      "runs": 22
+    }
+  ],
+  "call_counts": {
+    "attacker_calls": 371,
+    "target_calls": 303,
+    "judge_calls": 520
+  },
+  "runs_failing_before_first_target_call": 7,
+  "explanation_of_call_count_difference": "judge calls (520) exceed target calls (303) because the attack code makes two judge-type calls per accepted turn (a refusal/disclaimer check and the rubric evaluation); attacker calls (371) exceed target calls because a run can retry the attacker step after a refusal before a target call is accepted."
+}

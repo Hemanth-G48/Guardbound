@@ -1,0 +1,30 @@
+{
+  "total_runs": 120,
+  "completed_runs": 96,
+  "elapsed_seconds": 61042.3,
+  "estimated_remaining_seconds": 15254.8,
+  "mean_run_seconds": 635.6,
+  "current": {
+    "goal_id": 7,
+    "attack": "acronym",
+    "arm": "a1_t03"
+  },
+  "completed_by_arm": {
+    "control": 24,
+    "generation_point": 24,
+    "a1": 24,
+    "a1_t03": 24
+  },
+  "total_by_arm": {
+    "control": 30,
+    "generation_point": 30,
+    "a1": 30,
+    "a1_t03": 30
+  },
+  "goal_range": [
+    0,
+    9
+  ],
+  "observability_only": "no resume, no retry, no skipping",
+  "timestamp": "2026-10-02T10:48:15.975378+00:00"
+}

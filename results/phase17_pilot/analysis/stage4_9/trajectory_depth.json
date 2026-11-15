@@ -1,0 +1,93 @@
+{
+  "phase": "17",
+  "stage": "4.9",
+  "deliverable": "trajectory_depth.json",
+  "by_completed_turns": {
+    "0": {
+      "runs": 68,
+      "successes": 0,
+      "success_rate": 0.0,
+      "termination_reasons": {
+        "attacker_generation_error": 60,
+        "attack_loop_exhausted": 7,
+        "refusal_retry_limit": 1
+      }
+    },
+    "1": {
+      "runs": 8,
+      "successes": 8,
+      "success_rate": 1.0,
+      "termination_reasons": {
+        "success_score_5": 8
+      }
+    },
+    "2": {
+      "runs": 6,
+      "successes": 6,
+      "success_rate": 1.0,
+      "termination_reasons": {
+        "success_score_5": 6
+      }
+    },
+    "3": {
+      "runs": 2,
+      "successes": 2,
+      "success_rate": 1.0,
+      "termination_reasons": {
+        "success_score_5": 2
+      }
+    },
+    "4": {
+      "runs": 4,
+      "successes": 4,
+      "success_rate": 1.0,
+      "termination_reasons": {
+        "success_score_5": 4
+      }
+    },
+    "5": {
+      "runs": 1,
+      "successes": 1,
+      "success_rate": 1.0,
+      "termination_reasons": {
+        "success_score_5": 1
+      }
+    },
+    "6": {
+      "runs": 1,
+      "successes": 1,
+      "success_rate": 1.0,
+      "termination_reasons": {
+        "success_score_5": 1
+      }
+    }
+  },
+  "observational": true,
+  "zero_vs_one_or_more": {
+    "zero_turn_runs": 68,
+    "zero_turn_successes": 0,
+    "one_or_more_runs": 22,
+    "one_or_more_successes": 22,
+    "test": {
+      "test": "fisher_exact_two_sided",
+      "question": "does completing >=1 turn associate with success?",
+      "table": [
+        [
+          22,
+          0
+        ],
+        [
+          0,
+          68
+        ]
+      ],
+      "p_value": 0.0,
+      "label": "exploratory",
+      "rates": {
+        "row1": 1.0,
+        "row2": 0.0
+      }
+    }
+  },
+  "caveat": "depth is an outcome of the run, not an input: runs that fail early have zero turns precisely because the attacker failed. Depth and success are therefore mechanically linked and this table must not be read as 'deeper causes success'."
+}

@@ -1,0 +1,8 @@
+NBF Training Sanity Report
+========================================
+Training mode: frozen
+Val accuracy: 0.3408
+Mean h (safe turns): 0.011254
+Mean h (unsafe turns): 0.292643
+Final train loss: -32.636123
+Final val loss: -25.562164

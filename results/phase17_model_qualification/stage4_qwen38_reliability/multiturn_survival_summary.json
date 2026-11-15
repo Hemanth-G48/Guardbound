@@ -1,0 +1,215 @@
+{
+  "phase": "17",
+  "stage": "4",
+  "deliverable": "multiturn_survival_summary.json",
+  "definition": {
+    "run_survival": "the run reached its configured termination without any attacker-generation failure (no AttackGenerationError)",
+    "per_call_validity": "share of individual attacker replies that satisfied the frozen JSON contract, within these same runs",
+    "note": "survival is a run-level property; a run with 9 valid calls and 1 prose reply does not survive"
+  },
+  "controlled_setting": {
+    "max_turns": 2,
+    "note": "identical to Stage 3's controlled multi-turn setting"
+  },
+  "overall": {
+    "runs": 30,
+    "runs_survived": 23,
+    "runs_terminated_by_attacker_failure": 7,
+    "run_survival_rate": 0.7667,
+    "attacker_calls_attempted": 86,
+    "attacker_calls_valid": 79,
+    "attacker_calls_invalid": 7,
+    "per_call_validity_within_runs": 0.9186,
+    "mean_completed_turns": 1.267,
+    "mean_attacker_calls_per_run": 2.87,
+    "termination_causes": {
+      "completed_without_attacker_failure": 23,
+      "AttackGenerationError": 7
+    },
+    "survival_modes": {
+      "survived_full_turn_budget": 18,
+      "terminated_by_empty_query": 3,
+      "terminated_by_attacker_failure": 7,
+      "ended_early_without_attacker_failure": 2
+    },
+    "usable_runs_turns_ge_1": 20,
+    "usable_run_rate": 0.6667,
+    "attacker_calls_with_empty_query": 3,
+    "turns_completed_histogram": {
+      "0": 10,
+      "1": 2,
+      "2": 18
+    },
+    "failure_categories": {
+      "JSON_PARSE_ERROR": 7
+    },
+    "failure_turn_distribution": {
+      "2": 1,
+      "3": 1,
+      "4": 2,
+      "5": 1,
+      "6": 1,
+      "8": 1
+    },
+    "target_calls": 76,
+    "target_eos": 76,
+    "target_hit_budget": 0,
+    "judge_calls": 143,
+    "judge_failures": 0,
+    "peak_vram_gib": 17.927,
+    "wall_s": {
+      "n": 30,
+      "mean": 237.882,
+      "median": 226.776,
+      "min": 35.253,
+      "max": 636.453
+    }
+  },
+  "per_attack": {
+    "crescendo_paper": {
+      "runs": 10,
+      "runs_survived": 9,
+      "runs_terminated_by_attacker_failure": 1,
+      "run_survival_rate": 0.9,
+      "attacker_calls_attempted": 22,
+      "attacker_calls_valid": 21,
+      "attacker_calls_invalid": 1,
+      "per_call_validity_within_runs": 0.9545,
+      "mean_completed_turns": 1.2,
+      "mean_attacker_calls_per_run": 2.2,
+      "termination_causes": {
+        "completed_without_attacker_failure": 9,
+        "AttackGenerationError": 1
+      },
+      "survival_modes": {
+        "survived_full_turn_budget": 6,
+        "terminated_by_empty_query": 3,
+        "terminated_by_attacker_failure": 1
+      },
+      "usable_runs_turns_ge_1": 6,
+      "usable_run_rate": 0.6,
+      "attacker_calls_with_empty_query": 3,
+      "turns_completed_histogram": {
+        "0": 4,
+        "2": 6
+      },
+      "failure_categories": {
+        "JSON_PARSE_ERROR": 1
+      },
+      "failure_turn_distribution": {
+        "2": 1
+      },
+      "target_calls": 18,
+      "target_eos": 18,
+      "target_hit_budget": 0,
+      "judge_calls": 31,
+      "judge_failures": 0,
+      "peak_vram_gib": 17.927,
+      "wall_s": {
+        "n": 10,
+        "mean": 183.406,
+        "median": 194.535,
+        "min": 35.253,
+        "max": 344.524
+      }
+    },
+    "opposite_day": {
+      "runs": 10,
+      "runs_survived": 8,
+      "runs_terminated_by_attacker_failure": 2,
+      "run_survival_rate": 0.8,
+      "attacker_calls_attempted": 29,
+      "attacker_calls_valid": 27,
+      "attacker_calls_invalid": 2,
+      "per_call_validity_within_runs": 0.931,
+      "mean_completed_turns": 1.4,
+      "mean_attacker_calls_per_run": 2.9,
+      "termination_causes": {
+        "completed_without_attacker_failure": 8,
+        "AttackGenerationError": 2
+      },
+      "survival_modes": {
+        "survived_full_turn_budget": 6,
+        "ended_early_without_attacker_failure": 2,
+        "terminated_by_attacker_failure": 2
+      },
+      "usable_runs_turns_ge_1": 8,
+      "usable_run_rate": 0.8,
+      "attacker_calls_with_empty_query": 0,
+      "turns_completed_histogram": {
+        "0": 2,
+        "1": 2,
+        "2": 6
+      },
+      "failure_categories": {
+        "JSON_PARSE_ERROR": 2
+      },
+      "failure_turn_distribution": {
+        "4": 1,
+        "6": 1
+      },
+      "target_calls": 27,
+      "target_eos": 27,
+      "target_hit_budget": 0,
+      "judge_calls": 43,
+      "judge_failures": 0,
+      "peak_vram_gib": 17.927,
+      "wall_s": {
+        "n": 10,
+        "mean": 258.859,
+        "median": 294.779,
+        "min": 97.52,
+        "max": 432.926
+      }
+    },
+    "acronym": {
+      "runs": 10,
+      "runs_survived": 6,
+      "runs_terminated_by_attacker_failure": 4,
+      "run_survival_rate": 0.6,
+      "attacker_calls_attempted": 35,
+      "attacker_calls_valid": 31,
+      "attacker_calls_invalid": 4,
+      "per_call_validity_within_runs": 0.8857,
+      "mean_completed_turns": 1.2,
+      "mean_attacker_calls_per_run": 3.5,
+      "termination_causes": {
+        "completed_without_attacker_failure": 6,
+        "AttackGenerationError": 4
+      },
+      "survival_modes": {
+        "survived_full_turn_budget": 6,
+        "terminated_by_attacker_failure": 4
+      },
+      "usable_runs_turns_ge_1": 6,
+      "usable_run_rate": 0.6,
+      "attacker_calls_with_empty_query": 0,
+      "turns_completed_histogram": {
+        "0": 4,
+        "2": 6
+      },
+      "failure_categories": {
+        "JSON_PARSE_ERROR": 4
+      },
+      "failure_turn_distribution": {
+        "3": 1,
+        "4": 1,
+        "5": 1,
+        "8": 1
+      },
+      "target_calls": 31,
+      "target_eos": 31,
+      "target_hit_budget": 0,
+      "judge_calls": 69,
+      "judge_failures": 0,
+      "peak_vram_gib": 17.927,
+      "wall_s": {
+        "n": 10,
+        "mean": 271.38,
+        "median": 220.13,
+        "min": 123.89,
+        "max": 636.453
+      }
+    }
+  }
+}

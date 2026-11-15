@@ -1,0 +1,109 @@
+{
+  "phase": 19,
+  "deliverable": "analysis/threshold_response.json",
+  "table": [
+    {
+      "tag": "Tm010",
+      "threshold": -0.01,
+      "asr": 0.3333,
+      "delta_vs_off": -0.1445,
+      "delta_vs_t0": 0.0111,
+      "filtering_rate": 0.4615,
+      "mean_turns": 1.67,
+      "oom": 0
+    },
+    {
+      "tag": "Tm005",
+      "threshold": -0.005,
+      "asr": 0.3333,
+      "delta_vs_off": -0.1445,
+      "delta_vs_t0": 0.0111,
+      "filtering_rate": 0.6429,
+      "mean_turns": 1.67,
+      "oom": 0
+    },
+    {
+      "tag": "Tm002",
+      "threshold": -0.002,
+      "asr": 0.3333,
+      "delta_vs_off": -0.1445,
+      "delta_vs_t0": 0.0111,
+      "filtering_rate": 0.6429,
+      "mean_turns": 1.67,
+      "oom": 0
+    },
+    {
+      "tag": "Tm001",
+      "threshold": -0.001,
+      "asr": 0.3333,
+      "delta_vs_off": -0.1445,
+      "delta_vs_t0": 0.0111,
+      "filtering_rate": 0.6923,
+      "mean_turns": 1.33,
+      "oom": 0
+    },
+    {
+      "tag": "T000",
+      "threshold": 0.0,
+      "asr": 0.6667,
+      "delta_vs_off": 0.1889,
+      "delta_vs_t0": 0.3445,
+      "filtering_rate": 0.3077,
+      "mean_turns": 1.67,
+      "oom": 0
+    },
+    {
+      "tag": "Tp001",
+      "threshold": 0.001,
+      "asr": 0.6667,
+      "delta_vs_off": 0.1889,
+      "delta_vs_t0": 0.3445,
+      "filtering_rate": 0.2857,
+      "mean_turns": 2.0,
+      "oom": 0
+    },
+    {
+      "tag": "Tp002",
+      "threshold": 0.002,
+      "asr": 0.6667,
+      "delta_vs_off": 0.1889,
+      "delta_vs_t0": 0.3445,
+      "filtering_rate": 0.0357,
+      "mean_turns": 4.33,
+      "oom": 0
+    },
+    {
+      "tag": "Tp005",
+      "threshold": 0.005,
+      "asr": 1.0,
+      "delta_vs_off": 0.5222,
+      "delta_vs_t0": 0.6778,
+      "filtering_rate": 0.0,
+      "mean_turns": 3.67,
+      "oom": 0
+    },
+    {
+      "tag": "Tp010",
+      "threshold": 0.01,
+      "asr": 1.0,
+      "delta_vs_off": 0.5222,
+      "delta_vs_t0": 0.6778,
+      "filtering_rate": 0.0,
+      "mean_turns": 3.67,
+      "oom": 0
+    }
+  ],
+  "stability_quantities": {
+    "asr_range": 0.6667,
+    "filtering_range": 0.6923,
+    "max_adjacent_asr_jump": 0.3334,
+    "max_adjacent_filtering_jump": 0.3846,
+    "all_thresholds_below_off_baseline": false,
+    "sign_flips_vs_off": 5
+  },
+  "pre_declared_classification_rules": {
+    "ROBUST": "all thresholds below the OFF baseline AND asr_range <= 0.10 AND filtering_range <= 0.15 AND no adjacent ASR jump > 0.08",
+    "THRESHOLD_SENSITIVE": "any adjacent ASR jump > 0.10 OR adjacent filtering jump > 0.20 OR the ASR-vs-OFF sign flips",
+    "INCONCLUSIVE": "fewer than 5 complete goals OR >20% runs lost to infrastructure failure"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "device_map_cpu": {
+    "pipeline_device": "cuda:0",
+    "placement": {
+      "cuda:0": 4022468096
+    },
+    "gpu_delta_gb": 8.103,
+    "kwargs": {
+      "device_map": "cpu"
+    }
+  },
+  "device_cpu": {
+    "pipeline_device": "cpu",
+    "placement": {
+      "cpu": 4022468096
+    },
+    "gpu_delta_gb": 0.0,
+    "kwargs": {
+      "device": "cpu"
+    }
+  },
+  "device_map_cpu_plus_device_cpu": {
+    "pipeline_device": "cpu",
+    "placement": {
+      "cpu": 4022468096
+    },
+    "gpu_delta_gb": 0.0,
+    "kwargs": {
+      "device_map": "cpu",
+      "device": "cpu"
+    }
+  }
+}

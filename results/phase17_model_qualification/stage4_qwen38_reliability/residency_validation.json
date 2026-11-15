@@ -1,0 +1,144 @@
+{
+  "phase": "17",
+  "stage": "4",
+  "deliverable": "residency_validation.json",
+  "architecture_unchanged": "the Stage 3 native path, unchanged: AutoModelForImageTextToText -> Qwen3_5ForConditionalGeneration, Qwen3VLProcessor, NF4",
+  "gates": "pre-load, post-load, per-run floor and ceiling unchanged",
+  "during_survival_runs": {
+    "available": true,
+    "runs": 30,
+    "oom_count": 0,
+    "cuda_error_count": 0,
+    "load_failure_count": 0,
+    "manager_events": {
+      "activate": 1279,
+      "load": 1279,
+      "evict": 1249,
+      "load_refused": 0,
+      "post_load_failed": 0,
+      "ceiling_exceeded": 0,
+      "run_refused": 0,
+      "vram_sample": 1701
+    },
+    "load_refusals": 0,
+    "post_load_verification_failures": 0,
+    "ceiling_exceeded": 0,
+    "peak_vram_gib_max": 17.927,
+    "peak_vram_gib_mean": 17.926
+  },
+  "live_sequence": {
+    "cycles": 3,
+    "trace": [
+      {
+        "cycle": 0,
+        "role": "attacker",
+        "model_class": "Qwen3_5ForConditionalGeneration",
+        "quantization": "nf4",
+        "processor_class": "Qwen3VLProcessor",
+        "tokenizer_name": "Qwen/Qwen3.8-27B",
+        "resident_count": 1,
+        "free_gib": 5.804,
+        "error": null
+      },
+      {
+        "cycle": 0,
+        "role": "target",
+        "model_class": "LlamaForCausalLM",
+        "quantization": null,
+        "processor_class": null,
+        "tokenizer_name": "meta-llama/Meta-Llama-3-8B-Instruct",
+        "resident_count": 1,
+        "free_gib": 7.722,
+        "error": null
+      },
+      {
+        "cycle": 0,
+        "role": "evaluator",
+        "model_class": "Qwen3ForCausalLM",
+        "quantization": null,
+        "processor_class": null,
+        "tokenizer_name": "Qwen/Qwen3-8B",
+        "resident_count": 1,
+        "free_gib": 7.423,
+        "error": null
+      },
+      {
+        "cycle": 1,
+        "role": "attacker",
+        "model_class": "Qwen3_5ForConditionalGeneration",
+        "quantization": "nf4",
+        "processor_class": "Qwen3VLProcessor",
+        "tokenizer_name": "Qwen/Qwen3.8-27B",
+        "resident_count": 1,
+        "free_gib": 5.806,
+        "error": null
+      },
+      {
+        "cycle": 1,
+        "role": "target",
+        "model_class": "LlamaForCausalLM",
+        "quantization": null,
+        "processor_class": null,
+        "tokenizer_name": "meta-llama/Meta-Llama-3-8B-Instruct",
+        "resident_count": 1,
+        "free_gib": 7.722,
+        "error": null
+      },
+      {
+        "cycle": 1,
+        "role": "evaluator",
+        "model_class": "Qwen3ForCausalLM",
+        "quantization": null,
+        "processor_class": null,
+        "tokenizer_name": "Qwen/Qwen3-8B",
+        "resident_count": 1,
+        "free_gib": 7.423,
+        "error": null
+      },
+      {
+        "cycle": 2,
+        "role": "attacker",
+        "model_class": "Qwen3_5ForConditionalGeneration",
+        "quantization": "nf4",
+        "processor_class": "Qwen3VLProcessor",
+        "tokenizer_name": "Qwen/Qwen3.8-27B",
+        "resident_count": 1,
+        "free_gib": 5.806,
+        "error": null
+      },
+      {
+        "cycle": 2,
+        "role": "target",
+        "model_class": "LlamaForCausalLM",
+        "quantization": null,
+        "processor_class": null,
+        "tokenizer_name": "meta-llama/Meta-Llama-3-8B-Instruct",
+        "resident_count": 1,
+        "free_gib": 7.722,
+        "error": null
+      },
+      {
+        "cycle": 2,
+        "role": "evaluator",
+        "model_class": "Qwen3ForCausalLM",
+        "quantization": null,
+        "processor_class": null,
+        "tokenizer_name": "Qwen/Qwen3-8B",
+        "resident_count": 1,
+        "free_gib": 7.423,
+        "error": null
+      }
+    ],
+    "max_resident_models": 1,
+    "attacker_identity_correct": true,
+    "cache_empty_after_unload": true,
+    "errors": [],
+    "vram_after_release": {
+      "allocated_gib": 0.0,
+      "reserved_gib": 0.002,
+      "peak_allocated_gib": 16.728,
+      "driver_free_gib": 22.679,
+      "driver_total_gib": 23.994
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Circuit Breakers",
+  "source_url": "https://huggingface.co/datasets/LLM-LAT/harmful-dataset",
+  "source_type": "huggingface",
+  "version": "0.0.0",
+  "download_timestamp": "2026-09-03T05:58:41Z",
+  "local_path": "data\\raw\\circuit_breakers",
+  "raw_file_path": "data\\raw\\circuit_breakers\\raw_data.jsonl",
+  "sha256": "32947feff1ff45f1bfdef2ce9f2f5b9d23d51b7cc28c0f6c9f83a3a4260997a8",
+  "num_records": 4948,
+  "record_field": "prompt",
+  "paper_reference": "Zou et al., 2024 — 'Improving Alignment and Robustness with Circuit Breakers'",
+  "license": "MIT (per GitHub repo)",
+  "notes": "Downloaded from https://huggingface.co/datasets/LLM-LAT/harmful-dataset"
+}

@@ -1,0 +1,394 @@
+{
+  "phase": "17",
+  "stage": "6",
+  "deliverable": "arm_comparison.json",
+  "matrix": {
+    "intended": {
+      "arms": 4,
+      "attacks": 3,
+      "goals": 30,
+      "runs": 360
+    },
+    "achieved": {
+      "arms": 4,
+      "attacks": 3,
+      "goals": 8,
+      "goal_ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "runs": 96,
+      "runs_per_arm": {
+        "control": 24,
+        "generation_point": 24,
+        "a1": 24,
+        "a1_t03": 24
+      },
+      "runs_in_partial_block_excluded": 0
+    },
+    "note": "the brief permitted a smaller matrix when the computational budget required it; the goal-major execution order means every complete goal is a balanced matched quadruple, so the achieved matrix is complete at the goal boundary reported here, not truncated mid-cell"
+  },
+  "arms": {
+    "control": {
+      "label": "C0 frozen control (A0, T=0.7)",
+      "M1_official_success": {
+        "numerator": 6,
+        "denominator": 24,
+        "rate": 0.25,
+        "ci95_wilson": [
+          0.12,
+          0.449
+        ]
+      },
+      "M2_run_survival": {
+        "numerator": 7,
+        "denominator": 24,
+        "rate": 0.2917,
+        "ci95_wilson": [
+          0.1491,
+          0.4917
+        ]
+      },
+      "M3_contract_validity": {
+        "numerator": 102,
+        "denominator": 119,
+        "rate": 0.8571,
+        "ci95_wilson": [
+          0.7831,
+          0.9089
+        ]
+      },
+      "M4_semantic_usability": {
+        "numerator": 101,
+        "denominator": 119,
+        "rate": 0.8487,
+        "ci95_wilson": [
+          0.7735,
+          0.9021
+        ]
+      },
+      "M5_completed_turns": {
+        "total": 19,
+        "mean": 0.792,
+        "median": 0.0,
+        "max": 4,
+        "fraction_reaching_2": 0.2083,
+        "fraction_reaching_4": 0.125,
+        "fraction_reaching_6": 0.0,
+        "fraction_reaching_8": 0.0
+      },
+      "M6_failure_modes": {
+        "prose_output": 16,
+        "empty_generatedQuestion": 1,
+        "truncated_json": 1
+      },
+      "M7_target": {
+        "target_calls": 101,
+        "natural_eos": 101,
+        "natural_eos_rate": 1.0,
+        "generation_failures": 0,
+        "refusals_total": 53,
+        "refusals_per_run": 2.208
+      },
+      "M8_judge": {
+        "judge_calls": 176,
+        "judge_failures": 0,
+        "rubric_n": 48,
+        "rubric_mean": 2.771,
+        "rubric_median": 3.0,
+        "rubric_distribution": {
+          "1": 6,
+          "2": 11,
+          "3": 25,
+          "5": 6
+        }
+      },
+      "M9_runtime": {
+        "mean": 430.3,
+        "median": 483.0,
+        "p95": 803.1,
+        "min": 3.478,
+        "max": 927.256,
+        "throughput_runs_per_hour": 8.37
+      },
+      "M10_gpu": {
+        "peak_vram_gib": 17.927,
+        "oom_count": 0,
+        "cuda_failures": 0,
+        "model_load_failures": 0
+      }
+    },
+    "generation_point": {
+      "label": "C1 generation-point instruction (T=0.7)",
+      "M1_official_success": {
+        "numerator": 15,
+        "denominator": 24,
+        "rate": 0.625,
+        "ci95_wilson": [
+          0.4271,
+          0.7884
+        ]
+      },
+      "M2_run_survival": {
+        "numerator": 23,
+        "denominator": 24,
+        "rate": 0.9583,
+        "ci95_wilson": [
+          0.7976,
+          0.9926
+        ]
+      },
+      "M3_contract_validity": {
+        "numerator": 232,
+        "denominator": 232,
+        "rate": 1.0,
+        "ci95_wilson": [
+          0.9837,
+          1.0
+        ]
+      },
+      "M4_semantic_usability": {
+        "numerator": 231,
+        "denominator": 232,
+        "rate": 0.9957,
+        "ci95_wilson": [
+          0.976,
+          0.9992
+        ]
+      },
+      "M5_completed_turns": {
+        "total": 107,
+        "mean": 4.458,
+        "median": 4.0,
+        "max": 8,
+        "fraction_reaching_2": 0.9167,
+        "fraction_reaching_4": 0.5833,
+        "fraction_reaching_6": 0.3333,
+        "fraction_reaching_8": 0.2917
+      },
+      "M6_failure_modes": {
+        "empty_generatedQuestion": 1
+      },
+      "M7_target": {
+        "target_calls": 230,
+        "natural_eos": 230,
+        "natural_eos_rate": 1.0,
+        "generation_failures": 0,
+        "refusals_total": 116,
+        "refusals_per_run": 4.833
+      },
+      "M8_judge": {
+        "judge_calls": 403,
+        "judge_failures": 0,
+        "rubric_n": 114,
+        "rubric_mean": 2.684,
+        "rubric_median": 3.0,
+        "rubric_distribution": {
+          "1": 26,
+          "2": 16,
+          "3": 55,
+          "4": 2,
+          "5": 15
+        }
+      },
+      "M9_runtime": {
+        "mean": 953.7,
+        "median": 824.9,
+        "p95": 1840.9,
+        "min": 3.883,
+        "max": 1912.649,
+        "throughput_runs_per_hour": 3.77
+      },
+      "M10_gpu": {
+        "peak_vram_gib": 17.926,
+        "oom_count": 1,
+        "cuda_failures": 1,
+        "model_load_failures": 0
+      }
+    },
+    "a1": {
+      "label": "C2 A1 output contract (T=0.7)",
+      "M1_official_success": {
+        "numerator": 6,
+        "denominator": 24,
+        "rate": 0.25,
+        "ci95_wilson": [
+          0.12,
+          0.449
+        ]
+      },
+      "M2_run_survival": {
+        "numerator": 7,
+        "denominator": 24,
+        "rate": 0.2917,
+        "ci95_wilson": [
+          0.1491,
+          0.4917
+        ]
+      },
+      "M3_contract_validity": {
+        "numerator": 119,
+        "denominator": 136,
+        "rate": 0.875,
+        "ci95_wilson": [
+          0.8089,
+          0.9205
+        ]
+      },
+      "M4_semantic_usability": {
+        "numerator": 118,
+        "denominator": 136,
+        "rate": 0.8676,
+        "ci95_wilson": [
+          0.8005,
+          0.9146
+        ]
+      },
+      "M5_completed_turns": {
+        "total": 18,
+        "mean": 0.75,
+        "median": 0.0,
+        "max": 4,
+        "fraction_reaching_2": 0.25,
+        "fraction_reaching_4": 0.0833,
+        "fraction_reaching_6": 0.0,
+        "fraction_reaching_8": 0.0
+      },
+      "M6_failure_modes": {
+        "prose_output": 17,
+        "empty_generatedQuestion": 1
+      },
+      "M7_target": {
+        "target_calls": 118,
+        "natural_eos": 118,
+        "natural_eos_rate": 1.0,
+        "generation_failures": 0,
+        "refusals_total": 65,
+        "refusals_per_run": 2.708
+      },
+      "M8_judge": {
+        "judge_calls": 190,
+        "judge_failures": 0,
+        "rubric_n": 53,
+        "rubric_mean": 2.755,
+        "rubric_median": 3,
+        "rubric_distribution": {
+          "1": 7,
+          "2": 11,
+          "3": 29,
+          "5": 6
+        }
+      },
+      "M9_runtime": {
+        "mean": 524.9,
+        "median": 401.5,
+        "p95": 1086.7,
+        "min": 3.791,
+        "max": 1270.737,
+        "throughput_runs_per_hour": 6.86
+      },
+      "M10_gpu": {
+        "peak_vram_gib": 17.926,
+        "oom_count": 0,
+        "cuda_failures": 0,
+        "model_load_failures": 0
+      }
+    },
+    "a1_t03": {
+      "label": "C3 A1 output contract (T=0.3)",
+      "M1_official_success": {
+        "numerator": 10,
+        "denominator": 24,
+        "rate": 0.4167,
+        "ci95_wilson": [
+          0.2447,
+          0.6117
+        ]
+      },
+      "M2_run_survival": {
+        "numerator": 13,
+        "denominator": 24,
+        "rate": 0.5417,
+        "ci95_wilson": [
+          0.3507,
+          0.7211
+        ]
+      },
+      "M3_contract_validity": {
+        "numerator": 158,
+        "denominator": 169,
+        "rate": 0.9349,
+        "ci95_wilson": [
+          0.8872,
+          0.9633
+        ]
+      },
+      "M4_semantic_usability": {
+        "numerator": 157,
+        "denominator": 169,
+        "rate": 0.929,
+        "ci95_wilson": [
+          0.88,
+          0.9589
+        ]
+      },
+      "M5_completed_turns": {
+        "total": 46,
+        "mean": 1.917,
+        "median": 1.0,
+        "max": 8,
+        "fraction_reaching_2": 0.5,
+        "fraction_reaching_4": 0.2083,
+        "fraction_reaching_6": 0.0833,
+        "fraction_reaching_8": 0.0833
+      },
+      "M6_failure_modes": {
+        "prose_output": 10,
+        "truncated_json": 1,
+        "empty_generatedQuestion": 1
+      },
+      "M7_target": {
+        "target_calls": 157,
+        "natural_eos": 157,
+        "natural_eos_rate": 1.0,
+        "generation_failures": 0,
+        "refusals_total": 86,
+        "refusals_per_run": 3.583
+      },
+      "M8_judge": {
+        "judge_calls": 262,
+        "judge_failures": 0,
+        "rubric_n": 71,
+        "rubric_mean": 2.789,
+        "rubric_median": 3,
+        "rubric_distribution": {
+          "1": 12,
+          "2": 13,
+          "3": 34,
+          "4": 2,
+          "5": 10
+        }
+      },
+      "M9_runtime": {
+        "mean": 633.6,
+        "median": 567.8,
+        "p95": 1076.3,
+        "min": 3.79,
+        "max": 1529.935,
+        "throughput_runs_per_hour": 5.68
+      },
+      "M10_gpu": {
+        "peak_vram_gib": 17.926,
+        "oom_count": 0,
+        "cuda_failures": 0,
+        "model_load_failures": 0
+      }
+    }
+  }
+}

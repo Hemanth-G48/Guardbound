@@ -1,0 +1,23 @@
+{
+  "target_model": "meta-llama/Llama-3.2-3B-Instruct",
+  "account": {
+    "name": "hemanthg485",
+    "type": "user",
+    "token_valid": true,
+    "org_count": 0
+  },
+  "model_info": {
+    "exists": true,
+    "gated": "manual",
+    "sha": "0cb88a4f764b7a12671c53f0838cd831a0843b95",
+    "file_count": 16
+  },
+  "access": {
+    "meta-llama/Llama-3.2-3B-Instruct": "DENIED (403)",
+    "meta-llama/Llama-3.1-8B-Instruct": "GRANTED",
+    "meta-llama/Meta-Llama-3-8B-Instruct": "GRANTED",
+    "google/gemma-3-4b-it": "GRANTED"
+  },
+  "conclusion": "meta-llama/Llama-3.2-3B-Instruct requires accepting the Meta Llama 3.2 licence for this account. The token itself is valid and the account already has access to other gated Meta Llama repositories, so this is a per-repo licence gate on the 3.2 release specifically, not an auth failure.",
+  "required_action": "Sign in to huggingface.co as the account above, open https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct and accept the licence / request access. Meta gates per repository, so prior acceptance of the Llama 3.1 licence does not carry over to 3.2."
+}

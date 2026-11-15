@@ -1,0 +1,38 @@
+{
+  "total_runs": 6,
+  "completed_runs": 6,
+  "failed_runs": 3,
+  "elapsed_seconds": 2672.3,
+  "estimated_remaining_seconds": 0.0,
+  "eta_label": "rolling estimate (last 6 runs)",
+  "average_run_seconds": 438.8,
+  "rolling_run_seconds": 438.8,
+  "current_attack": "acronym",
+  "current_run": 2,
+  "current_turn": 1,
+  "current_stage": "run_failed",
+  "per_attack": {
+    "crescendo": {
+      "completed": 2,
+      "total": 2
+    },
+    "opposite_day": {
+      "completed": 2,
+      "total": 2
+    },
+    "acronym": {
+      "completed": 2,
+      "total": 2
+    }
+  },
+  "failures": {
+    "attacker": 3,
+    "target": 0,
+    "judge": 0,
+    "infra": 0
+  },
+  "observability_only": "this file never drives run selection, retries or resume",
+  "observability_error": null,
+  "console_glyphs": "unicode",
+  "timestamp": "2026-10-01T17:10:21.174140+00:00"
+}

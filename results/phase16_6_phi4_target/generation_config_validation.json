@@ -1,0 +1,109 @@
+{
+  "phase": "16.6",
+  "purpose": "compare the REFERENCE local target generation configuration against the project's, now that the reference local path has been found",
+  "reference_local_target_path": {
+    "file": "nbf_original_stuff/orginal_code_give_by_author/NBF-LLM/attacks/utils/generate.py",
+    "function": "local_phi",
+    "lines": "6-48",
+    "chat_template": "apply_chat_template(messages, add_generation_prompt=True)",
+    "torch_dtype": "bfloat16",
+    "device_map": "auto",
+    "max_new_tokens": 256,
+    "do_sample": true,
+    "temperature": "caller-supplied (target role uses 0.7)",
+    "top_p": 0.9,
+    "top_k": "not passed -> NOT SPECIFIED",
+    "eos_token_id": "[tokenizer.eos_token_id, convert_tokens_to_ids('<|eot_id|>')]  (note: <|eot_id|> is not a Phi token; the reference reuses the Llama terminator list, so in practice this is EOS-only)",
+    "stop_sequences": "none beyond EOS",
+    "json_structured_output": "asserted off - `assert not json_format` (generate.py:100), i.e. the local Phi-4 path is never used for JSON-producing roles",
+    "max_context": "model config max_position_embeddings = 16384",
+    "paper_api_path_for_contrast": "the OpenAI path (GPT-4o, generate.py:137-147) sends no max_tokens - unbounded at the API level, server-side maximum only"
+  },
+  "project_local_target_path": {
+    "frozen_config_value": {
+      "model": "microsoft/Phi-4-mini-instruct",
+      "max_new_tokens": 256,
+      "temperature": 0.7,
+      "top_p": "NOT SET -> inherited_from_generation_config",
+      "top_k": "NOT SET -> inherited_from_generation_config",
+      "do_sample": "derived (temperature > 0) -> true",
+      "dtype": "bfloat16",
+      "device_map": "cuda",
+      "max_position_embeddings": 131072,
+      "generation_config_json": "present, no top_p/top_k/max_length set",
+      "effective_top_p": 1.0,
+      "effective_top_k": "None"
+    },
+    "phase16_5_forensic_config_value": {
+      "max_new_tokens": "null (context-budget bounded) - F1 change",
+      "top_p": 1.0,
+      "top_k": 0,
+      "do_sample": true
+    }
+  },
+  "comparison": [
+    {
+      "parameter": "max_new_tokens",
+      "reference_local": 256,
+      "frozen": 256,
+      "frozen_match": true,
+      "phase16_5_config": "null (uncapped)",
+      "phase16_5_match": false,
+      "note": "the project's frozen 256 IS the reference local value; the Phase 16.5 uncapped change departs from it"
+    },
+    {
+      "parameter": "top_p",
+      "reference_local": 0.9,
+      "frozen": "inherited -> 1.0",
+      "frozen_match": false,
+      "phase16_5_config": 1.0,
+      "phase16_5_match": false,
+      "note": "NEWLY DISCOVERED - the reference local target uses top_p=0.9; neither project value matches"
+    },
+    {
+      "parameter": "temperature",
+      "reference_local": 0.7,
+      "frozen": 0.7,
+      "frozen_match": true,
+      "phase16_5_config": 0.7,
+      "phase16_5_match": true
+    },
+    {
+      "parameter": "do_sample",
+      "reference_local": true,
+      "frozen": true,
+      "frozen_match": true,
+      "phase16_5_config": true,
+      "phase16_5_match": true
+    },
+    {
+      "parameter": "dtype",
+      "reference_local": "bfloat16",
+      "frozen": "bfloat16",
+      "frozen_match": true,
+      "phase16_5_config": "bfloat16",
+      "phase16_5_match": true
+    },
+    {
+      "parameter": "quantization",
+      "reference_local": "none",
+      "frozen": "none",
+      "frozen_match": true,
+      "phase16_5_config": "none",
+      "phase16_5_match": true
+    },
+    {
+      "parameter": "json/structured output",
+      "reference_local": "off (asserted)",
+      "frozen": "n/a for the target role (target calls pass json_format=False)",
+      "frozen_match": true,
+      "phase16_5_config": "n/a",
+      "phase16_5_match": true
+    }
+  ],
+  "findings": {
+    "G1": "The reference's LOCAL target path DOES specify an output ceiling: max_new_tokens=256. The project's frozen value was therefore reference-faithful, and Phase 16.5's conclusion that 'no reference ceiling exists' was wrong. F1's BLOCKED status must be re-read in that light.",
+    "G2": "The reference's LOCAL target path uses top_p=0.9. Neither the frozen config (which inherited ~1.0 for Phi-4-mini) nor the Phase 16.5 config (explicit 1.0) matches it. This is a newly surfaced fidelity gap, independent of F3 (which was about declared-vs-effective, not about the correct value)."
+  },
+  "sampling_declaration_rule": "any value the reference does not specify is reported as inherited_from_generation_config rather than asserted (Phase 16.5 F3 behaviour, unchanged)"
+}

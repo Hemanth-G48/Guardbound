@@ -1,0 +1,228 @@
+{
+  "proposed_stack": {
+    "attacker": "Qwen/Qwen3-4B-Instruct-2507",
+    "target": "microsoft/Phi-4-mini-instruct",
+    "evaluator": "google/gemma-3-4b-it"
+  },
+  "seed": 42,
+  "probe_goals": 8,
+  "cases": 11,
+  "max_rounds": 8,
+  "attacker": {
+    "role": "attacker",
+    "model": "Qwen/Qwen3-4B-Instruct-2507",
+    "total_calls": 48,
+    "valid_json": 48,
+    "invalid_json": 0,
+    "required_fields_success": 48,
+    "parser_accepted": 48,
+    "parser_failures": 0,
+    "parser_crashes": 0,
+    "json_validity_rate": 1.0,
+    "required_field_success_rate": 1.0,
+    "contract_success_rate": 1.0,
+    "failure_types": {
+      "OK": 48
+    },
+    "mean_latency_s": 5.79,
+    "max_latency_s": 12.55,
+    "max_prompt_chars": 9655,
+    "wall_seconds": 0.0,
+    "peak_vram_gb": 8.889,
+    "free_vram_gb": 15.205400576,
+    "residency": {
+      "resident_roles": [
+        "evaluator"
+      ],
+      "resident_model_ids": [
+        "google/gemma-3-4b-it"
+      ],
+      "resident_count": 1,
+      "pinned_roles": [],
+      "free_gb": 15.205400576,
+      "allocated_gb": 8.609391104,
+      "reserved_gb": 9.128902656,
+      "cached_free_gb": 0.52
+    },
+    "loads": 2,
+    "evictions": 1,
+    "mean_load_s": 9.75,
+    "mean_evict_s": 0.162,
+    "load_refusals": 0,
+    "by_contract": {
+      "acronym.generate_acronym_step": {
+        "calls": 16,
+        "valid_json": 16,
+        "required_fields": 16,
+        "accepted": 16,
+        "acceptance_rate": 1.0,
+        "failure_types": {
+          "OK": 16
+        },
+        "mean_latency_s": 6.14
+      },
+      "crescendo_paper.generate_crescendo_step": {
+        "calls": 16,
+        "valid_json": 16,
+        "required_fields": 16,
+        "accepted": 16,
+        "acceptance_rate": 1.0,
+        "failure_types": {
+          "OK": 16
+        },
+        "mean_latency_s": 6.41
+      },
+      "opposite_day.generate_opposite_day_step": {
+        "calls": 16,
+        "valid_json": 16,
+        "required_fields": 16,
+        "accepted": 16,
+        "acceptance_rate": 1.0,
+        "failure_types": {
+          "OK": 16
+        },
+        "mean_latency_s": 4.81
+      }
+    },
+    "usable_generatedQuestion": 48,
+    "usable_lastResponseSummary": 24,
+    "usable_output_rate": 0.5
+  },
+  "evaluator": {
+    "role": "evaluator",
+    "model": "google/gemma-3-4b-it",
+    "total_calls": 77,
+    "valid_json": 33,
+    "invalid_json": 44,
+    "required_fields_success": 33,
+    "parser_accepted": 33,
+    "parser_failures": 44,
+    "parser_crashes": 11,
+    "json_validity_rate": 0.4286,
+    "required_field_success_rate": 0.4286,
+    "contract_success_rate": 0.4286,
+    "failure_types": {
+      "MODEL_CAPABILITY_FAILURE": 44,
+      "OK": 33
+    },
+    "mean_latency_s": 2.27,
+    "max_latency_s": 13.33,
+    "max_prompt_chars": 4957,
+    "wall_seconds": 175.7,
+    "peak_vram_gb": 8.889,
+    "free_vram_gb": 15.205400576,
+    "residency": {
+      "resident_roles": [
+        "evaluator"
+      ],
+      "resident_model_ids": [
+        "google/gemma-3-4b-it"
+      ],
+      "resident_count": 1,
+      "pinned_roles": [],
+      "free_gb": 15.205400576,
+      "allocated_gb": 8.609391104,
+      "reserved_gb": 9.128902656,
+      "cached_free_gb": 0.52
+    },
+    "loads": 2,
+    "evictions": 1,
+    "mean_load_s": 9.75,
+    "mean_evict_s": 0.162,
+    "load_refusals": 0,
+    "by_contract": {
+      "acronym.check_disclaimer": {
+        "calls": 11,
+        "valid_json": 0,
+        "required_fields": 0,
+        "accepted": 0,
+        "acceptance_rate": 0.0,
+        "failure_types": {
+          "MODEL_CAPABILITY_FAILURE": 11
+        },
+        "mean_latency_s": 4.31
+      },
+      "acronym.llm_check_refusal": {
+        "calls": 11,
+        "valid_json": 0,
+        "required_fields": 0,
+        "accepted": 0,
+        "acceptance_rate": 0.0,
+        "failure_types": {
+          "MODEL_CAPABILITY_FAILURE": 11
+        },
+        "mean_latency_s": 2.96
+      },
+      "acronym.llm_evaluate_with_rubric": {
+        "calls": 11,
+        "valid_json": 11,
+        "required_fields": 11,
+        "accepted": 11,
+        "acceptance_rate": 1.0,
+        "failure_types": {
+          "OK": 11
+        },
+        "mean_latency_s": 0.6
+      },
+      "crescendo_paper.llm_check_refusal": {
+        "calls": 11,
+        "valid_json": 0,
+        "required_fields": 0,
+        "accepted": 0,
+        "acceptance_rate": 0.0,
+        "failure_types": {
+          "MODEL_CAPABILITY_FAILURE": 11
+        },
+        "mean_latency_s": 3.82
+      },
+      "crescendo_paper.llm_evaluate_with_rubric": {
+        "calls": 11,
+        "valid_json": 11,
+        "required_fields": 11,
+        "accepted": 11,
+        "acceptance_rate": 1.0,
+        "failure_types": {
+          "OK": 11
+        },
+        "mean_latency_s": 0.65
+      },
+      "opposite_day.llm_check_refusal": {
+        "calls": 11,
+        "valid_json": 0,
+        "required_fields": 0,
+        "accepted": 0,
+        "acceptance_rate": 0.0,
+        "failure_types": {
+          "MODEL_CAPABILITY_FAILURE": 11
+        },
+        "mean_latency_s": 2.93
+      },
+      "opposite_day.llm_evaluate_with_rubric": {
+        "calls": 11,
+        "valid_json": 11,
+        "required_fields": 11,
+        "accepted": 11,
+        "acceptance_rate": 1.0,
+        "failure_types": {
+          "OK": 11
+        },
+        "mean_latency_s": 0.65
+      }
+    },
+    "refusal_parse_success": {
+      "calls": 44,
+      "accepted": 0,
+      "rate": 0.0
+    },
+    "rubric_parse_success": {
+      "calls": 33,
+      "accepted": 33,
+      "rate": 1.0
+    }
+  },
+  "model_revisions": {
+    "attacker": "cdbee75f17c01a7cc42f958dc650907174af0554",
+    "target": "cfbefacb99257ffa30c83adab238a50856ac3083",
+    "evaluator": "093f9f388b31de276ce2de164bdc2081324b9767"
+  }
+}

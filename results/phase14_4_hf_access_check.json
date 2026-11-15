@@ -1,0 +1,14 @@
+{
+  "token_valid": true,
+  "token_type": "user",
+  "account_name": "hemanthg485",
+  "is_pro": false,
+  "org_count": 0,
+  "token_file_present": true,
+  "token_prefix_class": "hf_...",
+  "token_length": 37,
+  "access": {
+    "google/gemma-3-4b-it": "DENIED (403)",
+    "meta-llama/Llama-3.1-8B-Instruct": "GRANTED"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "phase": "18-extension",
+  "deliverable": "analysis/matched_analysis.json",
+  "test_pre_specified": "exact McNemar (two-sided) over matched goal x attack cells (the Phase 18 methodology)",
+  "scope": "EXTENSION ONLY (30 matched cells, goals 30-39)",
+  "matched_cells": 30,
+  "contingency": {
+    "off_success_on_success": 15,
+    "off_success_on_failure": 8,
+    "off_failure_on_success": 2,
+    "off_failure_on_failure": 5
+  },
+  "mcnemar": {
+    "discordant": 10,
+    "exact_two_sided_p": 0.109375
+  },
+  "off_cell_rate": 0.7667,
+  "on_cell_rate": 0.5667,
+  "direction": "OFF > ON (Phase 18 direction reproduced)",
+  "mean_paired_turn_difference": -1.267
+}

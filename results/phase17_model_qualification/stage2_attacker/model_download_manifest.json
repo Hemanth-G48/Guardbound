@@ -1,0 +1,23 @@
+{
+  "phase": "17",
+  "stage": "2",
+  "deliverable": "model_download_manifest.json",
+  "policy": "Official base weights only, resolved revision pinned, one candidate at a time; quantisation happens at load time via NF4 (bitsandbytes), never by substituting a community quantised checkpoint.",
+  "candidates": {
+    "Qwen/Qwen3.8-27B": {
+      "model_id": "Qwen/Qwen3.8-27B",
+      "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+      "architecture": [
+        "Qwen3_5ForConditionalGeneration"
+      ],
+      "parameters": "27.78B",
+      "reference_precision": "BF16",
+      "download_status": "DRY_RUN_OK",
+      "official_base_weights": true,
+      "quantization_applied_at_runtime": "NF4",
+      "runtime": "bitsandbytes",
+      "disk_free_before_gib": 180.03,
+      "required_gib_estimate": 107.49
+    }
+  }
+}

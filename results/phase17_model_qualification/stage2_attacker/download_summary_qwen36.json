@@ -1,0 +1,13 @@
+{
+  "candidate": "qwen36",
+  "model_id": "Qwen/Qwen3.6-27B",
+  "revision": "6a9e13bd6fc8f0983b9b99948120bc37f49c13e9",
+  "attempts": 1,
+  "verdict": "COMPLETE",
+  "files_present": 29,
+  "files_expected": 29,
+  "missing_files": [],
+  "size_mismatches": [],
+  "cache_gib": 51.769,
+  "hub_gib": 51.769
+}

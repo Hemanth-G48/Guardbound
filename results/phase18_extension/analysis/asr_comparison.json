@@ -1,0 +1,31 @@
+{
+  "phase": "18-extension",
+  "deliverable": "analysis/asr_comparison.json",
+  "scope": "EXTENSION ONLY (goals 30-39) \u2014 reported independently of the original Phase 18 result",
+  "primary_endpoint": "official ASR = successful runs / total runs",
+  "nbf_off": {
+    "successes": 23,
+    "runs": 30,
+    "rate": 0.7667,
+    "ci95_wilson": [
+      0.5907,
+      0.8821
+    ]
+  },
+  "nbf_on": {
+    "successes": 17,
+    "runs": 30,
+    "rate": 0.5667,
+    "ci95_wilson": [
+      0.392,
+      0.7262
+    ]
+  },
+  "absolute_difference": -0.2,
+  "relative_difference": 0.7391,
+  "fisher_exact_two_sided_p": 0.170222,
+  "runs_executed": 60,
+  "runs_expected": 60,
+  "completion": "60/60",
+  "denominator_note": "all executed runs stay in the denominator; failures are never removed or replaced"
+}

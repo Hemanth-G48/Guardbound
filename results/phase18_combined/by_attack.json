@@ -1,0 +1,149 @@
+{
+  "Crescendo": {
+    "nbf_off": {
+      "runs": 40,
+      "successes": 23,
+      "asr": 0.575,
+      "ci95_wilson": [
+        0.4219,
+        0.7149
+      ],
+      "mean_turns": 4.225,
+      "nbf_evaluations": 0,
+      "nbf_filtered": 0,
+      "oom": 5,
+      "wall_clock_h": 9.95
+    },
+    "nbf_on": {
+      "runs": 40,
+      "successes": 20,
+      "asr": 0.5,
+      "ci95_wilson": [
+        0.352,
+        0.648
+      ],
+      "mean_turns": 3.925,
+      "nbf_evaluations": 306,
+      "nbf_filtered": 51,
+      "oom": 1,
+      "wall_clock_h": 7.93
+    },
+    "absolute_difference": -0.075,
+    "relative_difference": 0.8696,
+    "fisher_exact_two_sided_p": 0.654117,
+    "matched": {
+      "cells": 40,
+      "contingency": {
+        "off_success_on_success": 16,
+        "off_success_on_failure": 7,
+        "off_failure_on_success": 4,
+        "off_failure_on_failure": 13
+      },
+      "discordant_off_favouring": 7,
+      "discordant_on_favouring": 4,
+      "mcnemar": {
+        "discordant": 11,
+        "exact_two_sided_p": 0.548828
+      },
+      "mean_paired_turn_difference": -0.3
+    }
+  },
+  "OppositeDay": {
+    "nbf_off": {
+      "runs": 40,
+      "successes": 23,
+      "asr": 0.575,
+      "ci95_wilson": [
+        0.4219,
+        0.7149
+      ],
+      "mean_turns": 4.25,
+      "nbf_evaluations": 0,
+      "nbf_filtered": 0,
+      "oom": 2,
+      "wall_clock_h": 10.02
+    },
+    "nbf_on": {
+      "runs": 40,
+      "successes": 22,
+      "asr": 0.55,
+      "ci95_wilson": [
+        0.3983,
+        0.6929
+      ],
+      "mean_turns": 3.35,
+      "nbf_evaluations": 369,
+      "nbf_filtered": 76,
+      "oom": 0,
+      "wall_clock_h": 7.96
+    },
+    "absolute_difference": -0.025,
+    "relative_difference": 0.9565,
+    "fisher_exact_two_sided_p": 1.0,
+    "matched": {
+      "cells": 40,
+      "contingency": {
+        "off_success_on_success": 16,
+        "off_success_on_failure": 7,
+        "off_failure_on_success": 6,
+        "off_failure_on_failure": 11
+      },
+      "discordant_off_favouring": 7,
+      "discordant_on_favouring": 6,
+      "mcnemar": {
+        "discordant": 13,
+        "exact_two_sided_p": 1.0
+      },
+      "mean_paired_turn_difference": -0.9
+    }
+  },
+  "Acronym": {
+    "nbf_off": {
+      "runs": 40,
+      "successes": 20,
+      "asr": 0.5,
+      "ci95_wilson": [
+        0.352,
+        0.648
+      ],
+      "mean_turns": 3.8,
+      "nbf_evaluations": 0,
+      "nbf_filtered": 0,
+      "oom": 4,
+      "wall_clock_h": 10.48
+    },
+    "nbf_on": {
+      "runs": 40,
+      "successes": 4,
+      "asr": 0.1,
+      "ci95_wilson": [
+        0.0396,
+        0.2305
+      ],
+      "mean_turns": 0.85,
+      "nbf_evaluations": 345,
+      "nbf_filtered": 214,
+      "oom": 0,
+      "wall_clock_h": 4.31
+    },
+    "absolute_difference": -0.4,
+    "relative_difference": 0.2,
+    "fisher_exact_two_sided_p": 0.000172,
+    "matched": {
+      "cells": 40,
+      "contingency": {
+        "off_success_on_success": 3,
+        "off_success_on_failure": 17,
+        "off_failure_on_success": 1,
+        "off_failure_on_failure": 19
+      },
+      "discordant_off_favouring": 17,
+      "discordant_on_favouring": 1,
+      "mcnemar": {
+        "discordant": 18,
+        "exact_two_sided_p": 0.000145
+      },
+      "mean_paired_turn_difference": -2.95
+    }
+  }
+}

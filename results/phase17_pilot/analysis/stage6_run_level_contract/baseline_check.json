@@ -1,0 +1,78 @@
+{
+  "phase": "17",
+  "stage": "6",
+  "deliverable": "baseline_check.json",
+  "files": {
+    "scripts/phase17_stage47_pilot.py": {
+      "before": "aba5b75d526d0f763dea34c6c173bdd276908e657cdcdec5d1c88b21c84f4b1b",
+      "after": "aba5b75d526d0f763dea34c6c173bdd276908e657cdcdec5d1c88b21c84f4b1b",
+      "unchanged": true
+    },
+    "configs/default.yaml": {
+      "before": "ee6d601ac4cb8e4323598761fa5d65743460243d0548d583e56a0bdac486fd99",
+      "after": "ee6d601ac4cb8e4323598761fa5d65743460243d0548d583e56a0bdac486fd99",
+      "unchanged": true
+    },
+    "nbf_original_stuff\\orginal_code_give_by_author\\NBF-LLM\\data\\test\\harmbench_tasks.json": {
+      "before": "ac789de8859e755c11ee6cd600dd6a2eb88128c7ab119056dce3f7f125d014eb",
+      "after": "ac789de8859e755c11ee6cd600dd6a2eb88128c7ab119056dce3f7f125d014eb",
+      "unchanged": true
+    },
+    "src/guardbound/attacks/crescendo_paper.py": {
+      "before": "12b233b1eb98d19f58337676e05ffa6cf55caf3f91bcc46f2b742decf6454a10",
+      "after": "12b233b1eb98d19f58337676e05ffa6cf55caf3f91bcc46f2b742decf6454a10",
+      "unchanged": true
+    },
+    "src/guardbound/attacks/opposite_day.py": {
+      "before": "d477484df3002d195a8abb05772a27591a2cc7c3f9a243b1db516dd7ac24ba42",
+      "after": "d477484df3002d195a8abb05772a27591a2cc7c3f9a243b1db516dd7ac24ba42",
+      "unchanged": true
+    },
+    "src/guardbound/attacks/acronym.py": {
+      "before": "1d685cbe2b31567f5b4ebb2a68820956743327d6fb9d212235fce82aa8f0a670",
+      "after": "1d685cbe2b31567f5b4ebb2a68820956743327d6fb9d212235fce82aa8f0a670",
+      "unchanged": true
+    },
+    "src/guardbound/attacks/runner.py": {
+      "before": "6f1a964f9140271b8796185242bf70415a04d9a6c57789930a54914dca391323",
+      "after": "6f1a964f9140271b8796185242bf70415a04d9a6c57789930a54914dca391323",
+      "unchanged": true
+    },
+    "src/guardbound/attacks/rubric_evaluation.py": {
+      "before": "5fdb8ac414a3da844a423565383cbe82533467b41e1f4e8ff2cebb919582372a",
+      "after": "5fdb8ac414a3da844a423565383cbe82533467b41e1f4e8ff2cebb919582372a",
+      "unchanged": true
+    },
+    "src/guardbound/llm/model_manager.py": {
+      "before": "5aea4fa9d381d69ebd0f14a673c8712cd8b1c1b3ec7445795c9390e5ddd4b320",
+      "after": "5aea4fa9d381d69ebd0f14a673c8712cd8b1c1b3ec7445795c9390e5ddd4b320",
+      "unchanged": true
+    },
+    "src/guardbound/llm/provider_factory.py": {
+      "before": "36a933e089bf074ddd567fbddf94738fc46b84351257b98b0973d0ee83f40da5",
+      "after": "36a933e089bf074ddd567fbddf94738fc46b84351257b98b0973d0ee83f40da5",
+      "unchanged": true
+    },
+    "src/guardbound/llm/multimodal_client.py": {
+      "before": "f828fec10d71a29dfad9249bbc8a404007c7fae372368dea49b6bbfa6e9fef05",
+      "after": "f828fec10d71a29dfad9249bbc8a404007c7fae372368dea49b6bbfa6e9fef05",
+      "unchanged": true
+    },
+    "src/guardbound/llm/qwen38_native_client.py": {
+      "before": "04de874c990596bd9b9c19b31c9284703ff0a2127ff84b4be5d1bcd50c8f0640",
+      "after": "04de874c990596bd9b9c19b31c9284703ff0a2127ff84b4be5d1bcd50c8f0640",
+      "unchanged": true
+    },
+    "src/guardbound/llm/local_client.py": {
+      "before": "08ba6a829112c52ddce48e12df6633f6b4975b7c2d7f613bb173de123217cd4c",
+      "after": "08ba6a829112c52ddce48e12df6633f6b4975b7c2d7f613bb173de123217cd4c",
+      "unchanged": true
+    }
+  },
+  "all_unchanged": true,
+  "stage4_8_pilot_data": {
+    "before": "55101e0e75c61f3a25e027e67450c51f39818ffad8db79288855c5f86c7feaad",
+    "after": "55101e0e75c61f3a25e027e67450c51f39818ffad8db79288855c5f86c7feaad",
+    "unchanged": true
+  }
+}

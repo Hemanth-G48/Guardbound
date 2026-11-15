@@ -1,0 +1,12 @@
+{
+  "declared_device_map": "cpu",
+  "pipeline_device": "cuda:0",
+  "gpu_free_before_gb": 24.385,
+  "gpu_free_after_load_gb": 16.281,
+  "gpu_delta_gb": 8.103,
+  "param_placement_by_device": {
+    "cuda:0": 4022468224
+  },
+  "verdict": "NOT CPU-ONLY - 8.103 GB landed on the GPU",
+  "generation_s": 0.4
+}

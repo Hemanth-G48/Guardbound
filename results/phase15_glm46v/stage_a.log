@@ -1,0 +1,45 @@
+20:44:37 | INFO    | guardbound.llm.provider_factory | [factory] attacker -> local backend=glm4v model=zai-org/GLM-4.6V-Flash revision=411bb4d77144a3f03accbf4b780f5acb8b7cde4e max_new_tokens=256 structured_output_mode=constrained_json residency=sequential
+20:44:37 | INFO    | guardbound.llm.model_manager | [model-manager] activate role=attacker vram=0.00GB free=24.38GB {'model_id': 'zai-org/GLM-4.6V-Flash'}
+20:44:41 | INFO    | numexpr.utils | Note: NumExpr detected 24 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 16.
+20:44:41 | INFO    | numexpr.utils | NumExpr defaulting to 16 threads.
+20:44:42 | INFO    | guardbound.llm.glm4v_client | Loading GLM-4.6V model: zai-org/GLM-4.6V-Flash (revision=411bb4d77144a3f03accbf4b780f5acb8b7cde4e, dtype=bfloat16, device_map=cuda)
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files: 100%|##########| 4/4 [00:00<00:00, 5140.08it/s]
+Loading weights:   0%|          | 0/704 [00:00<?, ?it/s]Loading weights:   0%|          | 1/704 [00:00<09:47,  1.20it/s]Loading weights:   0%|          | 2/704 [00:01<07:15,  1.61it/s]Loading weights:   1%|          | 4/704 [00:01<03:10,  3.67it/s]Loading weights:   3%|2         | 18/704 [00:01<00:32, 21.25it/s]Loading weights:   4%|4         | 30/704 [00:01<00:19, 34.21it/s]Loading weights:   6%|6         | 44/704 [00:01<00:13, 48.23it/s]Loading weights:   8%|8         | 57/704 [00:02<00:11, 58.44it/s]Loading weights:  10%|9         | 69/704 [00:02<00:09, 64.57it/s]Loading weights:  12%|#1        | 83/704 [00:02<00:08, 73.22it/s]Loading weights:  14%|#3        | 96/704 [00:02<00:07, 76.93it/s]Loading weights:  15%|#5        | 109/704 [00:02<00:07, 80.18it/s]Loading weights:  17%|#7        | 122/704 [00:02<00:07, 83.00it/s]Loading weights:  19%|#9        | 135/704 [00:02<00:06, 82.08it/s]Loading weights:  21%|##        | 147/704 [00:03<00:07, 79.54it/s]Loading weights:  23%|##2       | 161/704 [00:03<00:06, 80.40it/s]Loading weights:  25%|##4       | 173/704 [00:03<00:06, 78.72it/s]Loading weights:  27%|##6       | 187/704 [00:03<00:06, 81.03it/s]Loading weights:  28%|##8       | 200/704 [00:03<00:06, 80.24it/s]Loading weights:  30%|###       | 213/704 [00:03<00:05, 82.01it/s]Loading weights:  32%|###2      | 226/704 [00:04<00:05, 83.07it/s]Loading weights:  34%|###3      | 239/704 [00:04<00:05, 84.54it/s]Loading weights:  36%|###5      | 252/704 [00:04<00:05, 85.81it/s]Loading weights:  38%|###7      | 265/704 [00:04<00:05, 85.81it/s]Loading weights:  39%|###9      | 277/704 [00:04<00:05, 84.23it/s]Loading weights:  41%|####1     | 291/704 [00:04<00:04, 87.85it/s]Loading weights:  43%|####3     | 304/704 [00:04<00:04, 85.18it/s]Loading weights:  45%|####5     | 317/704 [00:05<00:04, 83.40it/s]Loading weights:  47%|####6     | 330/704 [00:05<00:04, 82.33it/s]Loading weights:  49%|####8     | 342/704 [00:05<00:04, 79.72it/s]Loading weights:  51%|#####     | 356/704 [00:05<00:04, 81.41it/s]Loading weights:  52%|#####2    | 369/704 [00:05<00:04, 80.63it/s]Loading weights:  54%|#####4    | 382/704 [00:05<00:03, 80.56it/s]Loading weights:  56%|#####6    | 395/704 [00:06<00:03, 82.55it/s]Loading weights:  58%|#####7    | 408/704 [00:06<00:03, 83.78it/s]Loading weights:  60%|#####9    | 421/704 [00:06<00:03, 84.25it/s]Loading weights:  62%|######1   | 434/704 [00:06<00:03, 85.24it/s]Loading weights:  63%|######3   | 447/704 [00:06<00:02, 86.37it/s]Loading weights:  65%|######5   | 460/704 [00:06<00:02, 86.51it/s]Loading weights:  67%|######7   | 473/704 [00:06<00:02, 83.85it/s]Loading weights:  69%|######9   | 486/704 [00:07<00:02, 82.60it/s]Loading weights:  71%|#######   | 499/704 [00:07<00:02, 81.96it/s]Loading weights:  73%|#######2  | 512/704 [00:07<00:02, 82.58it/s]Loading weights:  78%|#######7  | 547/704 [00:07<00:01, 139.79it/s]Loading weights:  83%|########2 | 582/704 [00:07<00:00, 187.25it/s]Loading weights:  88%|########7 | 616/704 [00:07<00:00, 220.92it/s]Loading weights:  93%|#########2| 652/704 [00:07<00:00, 253.61it/s]Loading weights:  98%|#########7| 687/704 [00:08<00:00, 275.06it/s]Loading weights: 100%|##########| 704/704 [00:08<00:00, 86.28it/s] 
+20:44:53 | INFO    | guardbound.llm.model_manager | [model-manager] load role=attacker vram=20.59GB free=3.80GB {'model_id': 'zai-org/GLM-4.6V-Flash', 'action': 'load', 'duration_s': 16.396, 'free_before_gb': 24.38463488, 'free_after_gb': 3.796893696, 'reserved_before_gb': 0.0, 'estimated_gb': 20.586, 'measured_gb': 20.586, 'driver_free_delta_gb': 20.588, 'device_map': 'cuda'}
+20:44:53 | INFO    | guardbound.llm.glm4v_client | Loading GLM-4.6V processor: zai-org/GLM-4.6V-Flash
+20:45:18 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=20.59GB free=2.72GB {'model_id': 'zai-org/GLM-4.6V-Flash', 'note': 'resident'}
+[A] probe 0: parsed  (25.22s)
+20:45:23 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=20.59GB free=2.72GB {'model_id': 'zai-org/GLM-4.6V-Flash', 'note': 'resident'}
+[A] probe 1: raised json_like_malformed (5.21s)
+20:45:44 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=20.59GB free=2.72GB {'model_id': 'zai-org/GLM-4.6V-Flash', 'note': 'resident'}
+[A] probe 2: parsed  (20.82s)
+20:46:05 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=20.59GB free=2.72GB {'model_id': 'zai-org/GLM-4.6V-Flash', 'note': 'resident'}
+[A] probe 3: parsed  (20.8s)
+20:46:10 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=20.59GB free=2.72GB {'model_id': 'zai-org/GLM-4.6V-Flash', 'note': 'resident'}
+[A] probe 4: raised json_like_malformed (5.26s)
+20:46:31 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=20.59GB free=2.72GB {'model_id': 'zai-org/GLM-4.6V-Flash', 'note': 'resident'}
+[A] probe 5: parsed  (20.82s)
+20:46:52 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=20.59GB free=2.08GB {'model_id': 'zai-org/GLM-4.6V-Flash', 'note': 'resident'}
+[A] probe 6: parsed  (20.86s)
+20:46:57 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=20.59GB free=2.08GB {'model_id': 'zai-org/GLM-4.6V-Flash', 'note': 'resident'}
+[A] probe 7: raised json_like_malformed (5.07s)
+20:47:02 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=20.59GB free=2.08GB {'model_id': 'zai-org/GLM-4.6V-Flash', 'note': 'resident'}
+[A] probe 8: raised json_like_malformed (4.73s)
+20:47:07 | INFO    | guardbound.llm.model_manager | [model-manager] vram_sample role=attacker vram=20.59GB free=2.08GB {'model_id': 'zai-org/GLM-4.6V-Flash', 'note': 'resident'}
+[A] probe 9: raised json_like_malformed (5.45s)
+20:47:07 | INFO    | guardbound.llm.model_manager | [model-manager] evict role=attacker vram=0.01GB free=24.31GB {'model_id': 'zai-org/GLM-4.6V-Flash', 'action': 'evict', 'duration_s': 0.176, 'free_before_gb': 2.079326208, 'free_after_gb': 24.313331712, 'freed_gb': 22.234, 'cache_released': False}
+20:47:07 | INFO    | guardbound.llm.model_manager | [model-manager] unload_all vram=0.01GB free=24.31GB 
+[qualify] wrote C:\Users\CSLAB\Desktop\hemanth\Guardbound\results\phase15_glm46v\qualification\stage_A.json
+{
+  "generations": 10,
+  "valid_json": 5,
+  "invalid_json": 5,
+  "json_validity_rate": 0.5,
+  "empty_outputs": 0,
+  "reasoning_only_outputs": 0,
+  "json_like_malformed": 5,
+  "other_text_outputs": 0,
+  "empty_queries": 0,
+  "latency_mean_s": 13.42,
+  "latency_max_s": 25.22
+}

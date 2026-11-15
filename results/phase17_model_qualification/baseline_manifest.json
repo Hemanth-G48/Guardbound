@@ -1,0 +1,102 @@
+{
+  "phase": "17",
+  "deliverable": "baseline_manifest.json",
+  "purpose": "Section 3 baseline capture, taken before any change is made in Phase 17. Every value here was measured on this machine; none is assumed.",
+  "captured_at_utc": "2026-09-24",
+  "git": {
+    "commit": "b46d6fd7ed37b7a6ee9e643476ae2b2263b85624",
+    "branch": "main",
+    "dirty": true,
+    "modified_tracked_files": [
+      "scripts/phase14_full_reproduction.py",
+      "src/guardbound/attacks/acronym.py",
+      "src/guardbound/attacks/opposite_day.py",
+      "src/guardbound/llm/local_client.py",
+      "src/guardbound/llm/model_manager.py",
+      "src/guardbound/llm/provider_factory.py",
+      "tests/parity/test_refusal_threshold_parity.py",
+      "tests/test_phase14_8_telemetry.py"
+    ],
+    "note": "The working tree is dirty. Phase 17 is read-only against the frozen stack, so this is recorded rather than cleaned; the frozen artifacts listed below are hash-verified regardless of tree state."
+  },
+  "environment": {
+    "python": "3.13.9",
+    "transformers": "5.16.1",
+    "torch": "2.7.1+cu118",
+    "accelerate": "1.14.0"
+  },
+  "hardware": {
+    "gpu": "NVIDIA RTX 4500 Ada Generation",
+    "vram_total_mib": 24570,
+    "vram_total_gib": 23.99,
+    "vram_used_mib_at_capture": 80,
+    "driver_version": "595.79",
+    "disk_free_bytes": 30993985536,
+    "disk_free_gib": 28.86,
+    "hf_cache_total_gib": 193.48,
+    "note": "Disk headroom, not VRAM, is the tighter constraint for downloading any new attacker candidate."
+  },
+  "frozen_artifacts_verified": {
+    "track_a_180_records": {
+      "path": "results/phase15_pilot_30/trackA_frozen/batch00_goals000-029_180records.jsonl",
+      "sha256": "FCB952F1598B697B033D605B0791CFBB64A010F8E43CD1ADF3D0EDC359D8A092",
+      "bytes": 5322817,
+      "matches_frozen_constant": true
+    },
+    "track_a_108_snapshot": {
+      "path": "results/phase15_pilot_30/trackA_frozen/batch00_goals000-017_108records.jsonl",
+      "sha256": "C12A562A9454D83B6CC0EE93B2653F4AA5AB058C5AC3E50CEED4EF7A8EC57FB3",
+      "bytes": 3106196,
+      "matches_frozen_constant": true
+    },
+    "frozen_config": {
+      "path": "configs/reproduction_phase14_frozen.yaml",
+      "sha256": "27B660A7052054521A94E3430013D9863964E825157056D3861228250F19A358",
+      "bytes": 4654,
+      "matches_frozen_constant": true
+    },
+    "nbf_checkpoint": {
+      "path": "checkpoints/models_best_nbf_released.pth",
+      "sha256": "CEA1A75BCEF4FC515814B69C42541C95114F587ABCC4505C9B096BBFA2A136FE",
+      "bytes": 11757138,
+      "matches_frozen_constant": true,
+      "duplicate_verified_identical": "nbf_original_stuff/orginal_code_give_by_author/NBF-LLM/models/models_best_nbf_released.pth"
+    },
+    "historical_dirs_intact": {
+      "results/phase14": "27 files",
+      "results/phase15_pilot_30": "4 files",
+      "results/phase16_5_forensics": "11 files",
+      "results/phase16_6_phi4_target": "8 files"
+    }
+  },
+  "frozen_contract_read_from_config": {
+    "attacker": "Qwen/Qwen3-4B-Instruct-2507",
+    "attacker_temperature": 0.7,
+    "attacker_max_new_tokens": 256,
+    "attacker_enable_thinking": false,
+    "target": "microsoft/Phi-4-mini-instruct",
+    "target_temperature": 0.7,
+    "target_max_new_tokens": 256,
+    "evaluator": "meta-llama/Llama-3.2-3B-Instruct",
+    "evaluator_temperature": 0.0,
+    "nbf_checkpoint_sha256_expected": "cea1a75bcef4fc515814b69c42541c95114f587abcc4505c9b096bbfa2a136fe",
+    "nbf_eta": 0.0,
+    "nbf_threshold": 0.0,
+    "dataset": "nbf_original_stuff/orginal_code_give_by_author/NBF-LLM/data/test/harmbench_tasks.json",
+    "dataset_num_goals": 200,
+    "dataset_sampling": "file_order",
+    "success_score": 5,
+    "dtype": "bfloat16",
+    "quantization": "none",
+    "attacks_max_turns": 8
+  },
+  "phase17_contract_change": {
+    "target_before": "microsoft/Phi-4-mini-instruct",
+    "target_after": "meta-llama/Meta-Llama-3-8B-Instruct",
+    "judge_before": "meta-llama/Llama-3.2-3B-Instruct",
+    "judge_after": "UNRESOLVED — the specified id Qwen/Qwen3-8B-Instruct-2507 does not exist",
+    "attacker_before": "Qwen/Qwen3-4B-Instruct-2507",
+    "attacker_after": "one of five candidates, to be qualified",
+    "consequence": "Replacing the frozen target and judge deliberately breaks comparability with the 180 Track A records. This is a documented break, not an oversight: the previous target (Phi-4-mini) never self-terminated (95.0% cap-hit, 1/8 natural stops), which made attack success unmeasurable."
+  }
+}

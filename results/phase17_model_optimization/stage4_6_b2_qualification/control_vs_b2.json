@@ -1,0 +1,329 @@
+{
+  "phase": "17",
+  "stage": "4.6",
+  "deliverable": "control_vs_b2.json",
+  "phase_analysed": "30runs_2turns",
+  "table": {
+    "run_survival": {
+      "control": {
+        "numerator": 23,
+        "denominator": 30,
+        "rate": 0.7667,
+        "rate_pct": "76.7%",
+        "ci95_wilson": [
+          0.5907,
+          0.8821
+        ]
+      },
+      "b2": {
+        "numerator": 26,
+        "denominator": 30,
+        "rate": 0.8667,
+        "rate_pct": "86.7%",
+        "ci95_wilson": [
+          0.7032,
+          0.9469
+        ]
+      }
+    },
+    "usable_run_strict": {
+      "control": {
+        "numerator": 22,
+        "denominator": 30,
+        "rate": 0.7333,
+        "rate_pct": "73.3%",
+        "ci95_wilson": [
+          0.5555,
+          0.8582
+        ]
+      },
+      "b2": {
+        "numerator": 26,
+        "denominator": 30,
+        "rate": 0.8667,
+        "rate_pct": "86.7%",
+        "ci95_wilson": [
+          0.7032,
+          0.9469
+        ]
+      }
+    },
+    "usable_run_any_turn": {
+      "control": {
+        "numerator": 29,
+        "denominator": 30,
+        "rate": 0.9667,
+        "rate_pct": "96.7%",
+        "ci95_wilson": [
+          0.8333,
+          0.9941
+        ]
+      },
+      "b2": {
+        "numerator": 30,
+        "denominator": 30,
+        "rate": 1.0,
+        "rate_pct": "100.0%",
+        "ci95_wilson": [
+          0.8865,
+          1.0
+        ]
+      }
+    },
+    "attacker_call_validity": {
+      "control": {
+        "numerator": 96,
+        "denominator": 103,
+        "rate": 0.932,
+        "ci95_wilson": [
+          0.8663,
+          0.9667
+        ],
+        "direct_json": 93,
+        "frozen_extraction": 3
+      },
+      "b2": {
+        "numerator": 107,
+        "denominator": 111,
+        "rate": 0.964,
+        "ci95_wilson": [
+          0.911,
+          0.9859
+        ],
+        "direct_json": 106,
+        "frozen_extraction": 1
+      }
+    },
+    "attacker_call_semantic_usability": {
+      "control": {
+        "numerator": 95,
+        "denominator": 103,
+        "rate": 0.9223,
+        "ci95_wilson": [
+          0.8542,
+          0.9601
+        ]
+      },
+      "b2": {
+        "numerator": 107,
+        "denominator": 111,
+        "rate": 0.964,
+        "ci95_wilson": [
+          0.911,
+          0.9859
+        ]
+      }
+    },
+    "turns_completed": {
+      "control": {
+        "completed_total": 42,
+        "mean_completed": 1.4,
+        "max": 2
+      },
+      "b2": {
+        "completed_total": 48,
+        "mean_completed": 1.6,
+        "max": 2
+      }
+    },
+    "failure_types": {
+      "control": {
+        "prose_output": 7,
+        "empty_generatedQuestion": 1
+      },
+      "b2": {
+        "prose_output": 4
+      }
+    },
+    "latency_s": {
+      "control": {
+        "n": 103,
+        "mean": 41.93,
+        "median": 43.503,
+        "p95": 53.345,
+        "max": 78.801
+      },
+      "b2": {
+        "n": 111,
+        "mean": 42.546,
+        "median": 43.801,
+        "p95": 51.039,
+        "max": 61.151
+      }
+    },
+    "peak_vram_gib": {
+      "control": 17.927,
+      "b2": 17.927
+    },
+    "target_eos": {
+      "control": [
+        95,
+        95
+      ],
+      "b2": [
+        107,
+        107
+      ]
+    },
+    "judge": {
+      "control": [
+        164,
+        0
+      ],
+      "b2": [
+        186,
+        0
+      ]
+    },
+    "rubric_scores": {
+      "control": {
+        "n": 48,
+        "mean": 2.896,
+        "median": 3.0,
+        "histogram": {
+          "1": 2,
+          "2": 17,
+          "3": 21,
+          "5": 8
+        },
+        "count_score_5": 8,
+        "count_score_1": 2
+      },
+      "b2": {
+        "n": 52,
+        "mean": 3.077,
+        "median": 3.0,
+        "histogram": {
+          "2": 15,
+          "3": 27,
+          "4": 1,
+          "5": 9
+        },
+        "count_score_5": 9,
+        "count_score_1": 0
+      }
+    }
+  },
+  "capability": {
+    "phase": "17",
+    "stage": "4.6",
+    "deliverable": "capability_comparison.json",
+    "paired_cells": {
+      "matched_cells": 76,
+      "both_usable": 71,
+      "only_b2_usable": 3,
+      "only_control_usable": 1,
+      "neither_usable": 1,
+      "identical_questions": 0,
+      "mcnemar_exact_p": {
+        "control_fail_b2_pass": 3,
+        "control_pass_b2_fail": 1,
+        "discordant_pairs": 4,
+        "exact_two_sided_p": 0.625
+      },
+      "control_question_chars_mean": 238.3,
+      "b2_question_chars_mean": 248.6,
+      "note": "cells are genuinely matched: identical attack, goal and seed schedule; the two arms diverge once sampling assigns different tokens, so 'identical' is not expected"
+    },
+    "arms": {
+      "control": {
+        "question_metrics": {
+          "n": 95,
+          "mean_chars": 252.4,
+          "median_chars": 249,
+          "distinct_question_ratio": 0.9842,
+          "mean_goal_token_overlap": 0.2665,
+          "note": "descriptive only: length, distinctness and lexical overlap with the goal. None of these is a quality score, and a candidate is not preferred because of them."
+        },
+        "diversity_metrics": {
+          "n": 95,
+          "unique_questions": 91,
+          "unique_question_rate": 0.9579,
+          "unique_openings": 87,
+          "mean_pairwise_jaccard": 0.0335,
+          "note": "descriptive: lower Jaccard means more varied questions. Reported so a sampling candidate cannot be selected for a validity gain that came from collapsing generation diversity."
+        }
+      },
+      "b2": {
+        "question_metrics": {
+          "n": 107,
+          "mean_chars": 264.8,
+          "median_chars": 291,
+          "distinct_question_ratio": 0.9938,
+          "mean_goal_token_overlap": 0.2701,
+          "note": "descriptive only: length, distinctness and lexical overlap with the goal. None of these is a quality score, and a candidate is not preferred because of them."
+        },
+        "diversity_metrics": {
+          "n": 107,
+          "unique_questions": 99,
+          "unique_question_rate": 0.9252,
+          "unique_openings": 91,
+          "mean_pairwise_jaccard": 0.0368,
+          "note": "descriptive: lower Jaccard means more varied questions. Reported so a sampling candidate cannot be selected for a validity gain that came from collapsing generation diversity."
+        }
+      }
+    }
+  },
+  "statistics": {
+    "run_survival": {
+      "control_rate": 0.7667,
+      "b2_rate": 0.8667,
+      "absolute_difference": 0.1,
+      "difference_ci95": [
+        -0.0942,
+        0.2942
+      ],
+      "odds_ratio": 1.8794,
+      "cohens_h": 0.2607,
+      "fisher_exact_two_sided_p": 0.5062
+    },
+    "usable_run_strict": {
+      "control_rate": 0.7333,
+      "b2_rate": 0.8667,
+      "absolute_difference": 0.1333,
+      "difference_ci95": [
+        -0.0663,
+        0.3329
+      ],
+      "odds_ratio": 2.2247,
+      "cohens_h": 0.3377,
+      "fisher_exact_two_sided_p": 0.3334
+    },
+    "usable_run_any_turn": {
+      "control_rate": 0.9667,
+      "b2_rate": 1.0,
+      "absolute_difference": 0.0333,
+      "difference_ci95": [
+        -0.0309,
+        0.0976
+      ],
+      "odds_ratio": 3.1017,
+      "cohens_h": 0.3672,
+      "fisher_exact_two_sided_p": 1.0
+    },
+    "attacker_call_validity": {
+      "control_rate": 0.932,
+      "b2_rate": 0.964,
+      "absolute_difference": 0.0319,
+      "difference_ci95": [
+        -0.0278,
+        0.0916
+      ],
+      "odds_ratio": 1.8566,
+      "cohens_h": 0.1455,
+      "fisher_exact_two_sided_p": 0.3607
+    },
+    "attacker_call_semantic_usability": {
+      "control_rate": 0.9223,
+      "b2_rate": 0.964,
+      "absolute_difference": 0.0416,
+      "difference_ci95": [
+        -0.0206,
+        0.1039
+      ],
+      "odds_ratio": 2.1262,
+      "cohens_h": 0.1829,
+      "fisher_exact_two_sided_p": 0.2392
+    }
+  }
+}

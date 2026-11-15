@@ -1,0 +1,488 @@
+{
+  "phase": "17",
+  "stage": "5",
+  "deliverable": "context_length_analysis.json",
+  "source": "frozen Stage 4.8 records (371 attacker calls from 90 runs)",
+  "call_index_table": {
+    "1": {
+      "calls": 90,
+      "json_valid": 89,
+      "validity_rate": 0.9889,
+      "ci95_wilson": [
+        0.9397,
+        0.998
+      ],
+      "mean_context_tokens": 1150.1,
+      "prose_failures": 1,
+      "empty_question_failures": 6
+    },
+    "2": {
+      "calls": 76,
+      "json_valid": 59,
+      "validity_rate": 0.7763,
+      "ci95_wilson": [
+        0.6707,
+        0.8554
+      ],
+      "mean_context_tokens": 1592.3,
+      "prose_failures": 17,
+      "empty_question_failures": 1
+    },
+    "3": {
+      "calls": 52,
+      "json_valid": 46,
+      "validity_rate": 0.8846,
+      "ci95_wilson": [
+        0.7703,
+        0.946
+      ],
+      "mean_context_tokens": 1706.8,
+      "prose_failures": 6,
+      "empty_question_failures": 0
+    },
+    "4": {
+      "calls": 46,
+      "json_valid": 37,
+      "validity_rate": 0.8043,
+      "ci95_wilson": [
+        0.6683,
+        0.8935
+      ],
+      "mean_context_tokens": 1787.7,
+      "prose_failures": 9,
+      "empty_question_failures": 0
+    },
+    "5+": {
+      "calls": 107,
+      "json_valid": 79,
+      "validity_rate": 0.7383,
+      "ci95_wilson": [
+        0.6478,
+        0.8123
+      ],
+      "mean_context_tokens": 1942.3,
+      "prose_failures": 27,
+      "empty_question_failures": 0
+    }
+  },
+  "context_bucket_table": {
+    "0-1500": {
+      "label": "0-1500 tokens",
+      "calls": 166,
+      "json_valid": 149,
+      "validity_rate": 0.8976,
+      "ci95_wilson": [
+        0.8421,
+        0.9351
+      ],
+      "prose_failures": 17,
+      "prose_rate": 0.1024,
+      "mean_output_tokens": 99.2
+    },
+    "1500-2000": {
+      "label": "1500-2000 tokens",
+      "calls": 117,
+      "json_valid": 96,
+      "validity_rate": 0.8205,
+      "ci95_wilson": [
+        0.7411,
+        0.8795
+      ],
+      "prose_failures": 20,
+      "prose_rate": 0.1709,
+      "mean_output_tokens": 88.3
+    },
+    "2000-2500": {
+      "label": "2000-2500 tokens",
+      "calls": 48,
+      "json_valid": 35,
+      "validity_rate": 0.7292,
+      "ci95_wilson": [
+        0.59,
+        0.8343
+      ],
+      "prose_failures": 13,
+      "prose_rate": 0.2708,
+      "mean_output_tokens": 110.9
+    },
+    "2500-3000": {
+      "label": "2500-3000 tokens",
+      "calls": 32,
+      "json_valid": 25,
+      "validity_rate": 0.7812,
+      "ci95_wilson": [
+        0.6124,
+        0.8898
+      ],
+      "prose_failures": 7,
+      "prose_rate": 0.2188,
+      "mean_output_tokens": 126.3
+    },
+    "3000-100000": {
+      "label": "3000-100000 tokens",
+      "calls": 8,
+      "json_valid": 5,
+      "validity_rate": 0.625,
+      "ci95_wilson": [
+        0.3057,
+        0.8632
+      ],
+      "prose_failures": 3,
+      "prose_rate": 0.375,
+      "mean_output_tokens": 115.8
+    }
+  },
+  "first_vs_later": {
+    "call_1": {
+      "numerator": 89,
+      "denominator": 90,
+      "rate": 0.9889,
+      "ci95_wilson": [
+        0.9397,
+        0.998
+      ]
+    },
+    "calls_2_plus": {
+      "numerator": 221,
+      "denominator": 281,
+      "rate": 0.7865,
+      "ci95_wilson": [
+        0.7349,
+        0.8304
+      ]
+    },
+    "test": {
+      "question": "call 1 vs later calls",
+      "table": [
+        [
+          89,
+          1
+        ],
+        [
+          221,
+          60
+        ]
+      ],
+      "p_value": 0.0,
+      "rate_row1": 0.9889,
+      "rate_row2": 0.7865,
+      "risk_difference": 0.2024,
+      "note": ""
+    },
+    "mean_context_tokens_call_1": {
+      "n": 90,
+      "mean": 1150.1,
+      "median": 1023.0,
+      "p95": 1603,
+      "min": 821,
+      "max": 1612
+    },
+    "mean_context_tokens_later": {
+      "n": 281,
+      "mean": 1778.7,
+      "median": 1699,
+      "p95": 2786,
+      "min": 939,
+      "max": 3553
+    }
+  },
+  "within_later_calls_context_split": {
+    "median_context_tokens_of_later_calls": 1699,
+    "lower_half": {
+      "numerator": 114,
+      "denominator": 141,
+      "rate": 0.8085,
+      "ci95_wilson": [
+        0.7357,
+        0.8649
+      ]
+    },
+    "upper_half": {
+      "numerator": 107,
+      "denominator": 140,
+      "rate": 0.7643,
+      "ci95_wilson": [
+        0.6875,
+        0.8269
+      ]
+    },
+    "test": {
+      "question": "context length (median split, later calls only) vs validity",
+      "table": [
+        [
+          114,
+          27
+        ],
+        [
+          107,
+          33
+        ]
+      ],
+      "p_value": 0.385623,
+      "rate_row1": 0.8085,
+      "rate_row2": 0.7643,
+      "risk_difference": 0.0442,
+      "note": "controls for call index by restricting to calls >= 2"
+    }
+  },
+  "controlled_context_length_experiment": {
+    "C0": {
+      "calls": 30,
+      "json_valid": 30,
+      "validity_rate": 1.0,
+      "ci95_wilson": [
+        0.8865,
+        1.0
+      ],
+      "semantic_valid": 28,
+      "prose_failures": 0,
+      "empty_question_failures": 2,
+      "mean_context_tokens": 1150.7,
+      "mean_output_tokens": 62.1,
+      "by_attack": {
+        "Crescendo": {
+          "numerator": 10,
+          "denominator": 10,
+          "rate": 1.0,
+          "ci95_wilson": [
+            0.7225,
+            1.0
+          ]
+        },
+        "OppositeDay": {
+          "numerator": 10,
+          "denominator": 10,
+          "rate": 1.0,
+          "ci95_wilson": [
+            0.7225,
+            1.0
+          ]
+        },
+        "Acronym": {
+          "numerator": 10,
+          "denominator": 10,
+          "rate": 1.0,
+          "ci95_wilson": [
+            0.7225,
+            1.0
+          ]
+        }
+      }
+    },
+    "C1": {
+      "calls": 30,
+      "json_valid": 30,
+      "validity_rate": 1.0,
+      "ci95_wilson": [
+        0.8865,
+        1.0
+      ],
+      "semantic_valid": 30,
+      "prose_failures": 0,
+      "empty_question_failures": 0,
+      "mean_context_tokens": 1262.7,
+      "mean_output_tokens": 82.3,
+      "by_attack": {
+        "Crescendo": {
+          "numerator": 10,
+          "denominator": 10,
+          "rate": 1.0,
+          "ci95_wilson": [
+            0.7225,
+            1.0
+          ]
+        },
+        "OppositeDay": {
+          "numerator": 10,
+          "denominator": 10,
+          "rate": 1.0,
+          "ci95_wilson": [
+            0.7225,
+            1.0
+          ]
+        },
+        "Acronym": {
+          "numerator": 10,
+          "denominator": 10,
+          "rate": 1.0,
+          "ci95_wilson": [
+            0.7225,
+            1.0
+          ]
+        }
+      }
+    },
+    "C2": {
+      "calls": 30,
+      "json_valid": 27,
+      "validity_rate": 0.9,
+      "ci95_wilson": [
+        0.7438,
+        0.9654
+      ],
+      "semantic_valid": 27,
+      "prose_failures": 2,
+      "empty_question_failures": 0,
+      "mean_context_tokens": 1372.7,
+      "mean_output_tokens": 74.0,
+      "by_attack": {
+        "Crescendo": {
+          "numerator": 8,
+          "denominator": 10,
+          "rate": 0.8,
+          "ci95_wilson": [
+            0.4902,
+            0.9433
+          ]
+        },
+        "OppositeDay": {
+          "numerator": 9,
+          "denominator": 10,
+          "rate": 0.9,
+          "ci95_wilson": [
+            0.5958,
+            0.9821
+          ]
+        },
+        "Acronym": {
+          "numerator": 10,
+          "denominator": 10,
+          "rate": 1.0,
+          "ci95_wilson": [
+            0.7225,
+            1.0
+          ]
+        }
+      }
+    },
+    "C3": {
+      "calls": 30,
+      "json_valid": 26,
+      "validity_rate": 0.8667,
+      "ci95_wilson": [
+        0.7032,
+        0.9469
+      ],
+      "semantic_valid": 26,
+      "prose_failures": 3,
+      "empty_question_failures": 0,
+      "mean_context_tokens": 1595.7,
+      "mean_output_tokens": 83.1,
+      "by_attack": {
+        "Crescendo": {
+          "numerator": 9,
+          "denominator": 10,
+          "rate": 0.9,
+          "ci95_wilson": [
+            0.5958,
+            0.9821
+          ]
+        },
+        "OppositeDay": {
+          "numerator": 8,
+          "denominator": 10,
+          "rate": 0.8,
+          "ci95_wilson": [
+            0.4902,
+            0.9433
+          ]
+        },
+        "Acronym": {
+          "numerator": 9,
+          "denominator": 10,
+          "rate": 0.9,
+          "ci95_wilson": [
+            0.5958,
+            0.9821
+          ]
+        }
+      }
+    },
+    "C4": {
+      "calls": 30,
+      "json_valid": 26,
+      "validity_rate": 0.8667,
+      "ci95_wilson": [
+        0.7032,
+        0.9469
+      ],
+      "semantic_valid": 26,
+      "prose_failures": 4,
+      "empty_question_failures": 0,
+      "mean_context_tokens": 1808.7,
+      "mean_output_tokens": 75.1,
+      "by_attack": {
+        "Crescendo": {
+          "numerator": 8,
+          "denominator": 10,
+          "rate": 0.8,
+          "ci95_wilson": [
+            0.4902,
+            0.9433
+          ]
+        },
+        "OppositeDay": {
+          "numerator": 8,
+          "denominator": 10,
+          "rate": 0.8,
+          "ci95_wilson": [
+            0.4902,
+            0.9433
+          ]
+        },
+        "Acronym": {
+          "numerator": 10,
+          "denominator": 10,
+          "rate": 1.0,
+          "ci95_wilson": [
+            0.7225,
+            1.0
+          ]
+        }
+      }
+    },
+    "C5": {
+      "calls": 30,
+      "json_valid": 17,
+      "validity_rate": 0.5667,
+      "ci95_wilson": [
+        0.392,
+        0.7262
+      ],
+      "semantic_valid": 17,
+      "prose_failures": 13,
+      "empty_question_failures": 0,
+      "mean_context_tokens": 2030.7,
+      "mean_output_tokens": 47.2,
+      "by_attack": {
+        "Crescendo": {
+          "numerator": 3,
+          "denominator": 10,
+          "rate": 0.3,
+          "ci95_wilson": [
+            0.1078,
+            0.6032
+          ]
+        },
+        "OppositeDay": {
+          "numerator": 8,
+          "denominator": 10,
+          "rate": 0.8,
+          "ci95_wilson": [
+            0.4902,
+            0.9433
+          ]
+        },
+        "Acronym": {
+          "numerator": 6,
+          "denominator": 10,
+          "rate": 0.6,
+          "ci95_wilson": [
+            0.3127,
+            0.8318
+          ]
+        }
+      }
+    }
+  }
+}

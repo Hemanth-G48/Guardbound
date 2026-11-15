@@ -1,0 +1,156 @@
+{
+  "frozen_config": {
+    "config": "reproduction_phase14_frozen.yaml",
+    "roles": {
+      "attacker": {
+        "reported": {
+          "backend": "HFLocalChatLLM",
+          "model_id": "Qwen/Qwen3-4B-Instruct-2507",
+          "max_new_tokens": 256,
+          "max_new_tokens_effective": 256,
+          "top_p": null,
+          "top_p_source": "inherited_from_generation_config",
+          "top_k": null,
+          "top_k_source": "inherited_from_generation_config",
+          "do_sample": null,
+          "do_sample_source": "derived_from_temperature"
+        },
+        "kwargs_passed_to_generate": {
+          "max_new_tokens": 256,
+          "top_p": null,
+          "top_k": null,
+          "do_sample": true,
+          "temperature": 0.7,
+          "use_cache": true
+        },
+        "top_p_present": false,
+        "top_k_present": false
+      },
+      "target": {
+        "reported": {
+          "backend": "HFLocalChatLLM",
+          "model_id": "microsoft/Phi-4-mini-instruct",
+          "max_new_tokens": 256,
+          "max_new_tokens_effective": 256,
+          "top_p": null,
+          "top_p_source": "inherited_from_generation_config",
+          "top_k": null,
+          "top_k_source": "inherited_from_generation_config",
+          "do_sample": null,
+          "do_sample_source": "derived_from_temperature"
+        },
+        "kwargs_passed_to_generate": {
+          "max_new_tokens": 256,
+          "top_p": null,
+          "top_k": null,
+          "do_sample": true,
+          "temperature": 0.7,
+          "use_cache": true
+        },
+        "top_p_present": false,
+        "top_k_present": false
+      },
+      "evaluator": {
+        "reported": {
+          "backend": "HFLocalChatLLM",
+          "model_id": "meta-llama/Llama-3.2-3B-Instruct",
+          "max_new_tokens": 256,
+          "max_new_tokens_effective": 256,
+          "top_p": null,
+          "top_p_source": "inherited_from_generation_config",
+          "top_k": null,
+          "top_k_source": "inherited_from_generation_config",
+          "do_sample": null,
+          "do_sample_source": "derived_from_temperature"
+        },
+        "kwargs_passed_to_generate": {
+          "max_new_tokens": 256,
+          "top_p": null,
+          "top_k": null,
+          "do_sample": true,
+          "temperature": 0.7,
+          "use_cache": true
+        },
+        "top_p_present": false,
+        "top_k_present": false
+      }
+    }
+  },
+  "phase16_5_config": {
+    "config": "reproduction_phase16_5_forensics.yaml",
+    "roles": {
+      "attacker": {
+        "reported": {
+          "backend": "HFLocalChatLLM",
+          "model_id": "Qwen/Qwen3-4B-Instruct-2507",
+          "max_new_tokens": 256,
+          "max_new_tokens_effective": 256,
+          "top_p": 1.0,
+          "top_p_source": "declared",
+          "top_k": 0,
+          "top_k_source": "declared",
+          "do_sample": true,
+          "do_sample_source": "declared"
+        },
+        "kwargs_passed_to_generate": {
+          "max_new_tokens": 256,
+          "top_p": 1.0,
+          "top_k": 0,
+          "do_sample": true,
+          "temperature": 0.7,
+          "use_cache": true
+        },
+        "top_p_present": true,
+        "top_k_present": true
+      },
+      "target": {
+        "reported": {
+          "backend": "HFLocalChatLLM",
+          "model_id": "microsoft/Phi-4-mini-instruct",
+          "max_new_tokens": null,
+          "max_new_tokens_effective": "context_window",
+          "top_p": 1.0,
+          "top_p_source": "declared",
+          "top_k": 0,
+          "top_k_source": "declared",
+          "do_sample": true,
+          "do_sample_source": "declared"
+        },
+        "kwargs_passed_to_generate": {
+          "max_new_tokens": 131069,
+          "top_p": 1.0,
+          "top_k": 0,
+          "do_sample": true,
+          "temperature": 0.7,
+          "use_cache": true
+        },
+        "top_p_present": true,
+        "top_k_present": true
+      },
+      "evaluator": {
+        "reported": {
+          "backend": "HFLocalChatLLM",
+          "model_id": "meta-llama/Llama-3.2-3B-Instruct",
+          "max_new_tokens": 256,
+          "max_new_tokens_effective": 256,
+          "top_p": 1.0,
+          "top_p_source": "declared",
+          "top_k": 0,
+          "top_k_source": "declared",
+          "do_sample": true,
+          "do_sample_source": "declared"
+        },
+        "kwargs_passed_to_generate": {
+          "max_new_tokens": 256,
+          "top_p": 1.0,
+          "top_k": 0,
+          "do_sample": true,
+          "temperature": 0.7,
+          "use_cache": true
+        },
+        "top_p_present": true,
+        "top_k_present": true
+      }
+    }
+  }
+}

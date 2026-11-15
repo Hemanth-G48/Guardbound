@@ -1,0 +1,38 @@
+{
+  "phase": "17",
+  "stage": "2",
+  "deliverable": "regression_report.json",
+  "gates": {
+    "stage2_regression_file": {
+      "command": "pytest tests/test_phase17_stage2_infrastructure.py",
+      "exit_code": 0,
+      "passed": 64,
+      "failed": 0,
+      "errors": 0,
+      "failures": [],
+      "tail": "................................................................         [100%]\n64 passed in 15.23s\n"
+    },
+    "complete_suite": {
+      "command": "pytest ",
+      "exit_code": 1,
+      "passed": 790,
+      "failed": 2,
+      "errors": 0,
+      "failures": [
+        "tests/test_phase8_architecture.py::TestThreeModelConfigValidation::test_default_config_valid",
+        "tests/test_phase8_architecture.py::TestConfiguredModelsPresentOnDisk::test_attacker_present"
+      ],
+      "tail": "................................. [ 18%]\n........................................................................ [ 27%]\n........................................................................ [ 36%]\n........................................................................ [ 45%]\n........................................................................ [ 54%]\n........................................................................ [ 63%]\n........................................................................ [ 72%]\n........................................................................ [ 81%]\n................................................F......F................ [ 90%]\n........................................................................ [100%]\n================================== FAILURES ===================================\n__________ TestThreeModelConfigValidation.test_default_config_valid ___________\n\nself = <test_phase8_architecture.TestThreeModelConfigValidation object at 0x00000218C9AAE0D0>\n\n    def test_default_config_valid(self):\n        from run_reproduction import validate_config\n        cfg = _load_three_model_cfg()\n>       assert validate_config(cfg, strict=False) == []\nE       assert ['models.atta... checkpoint.'] == []\nE         \nE         Left contains one more item: \"models.attacker.model 'Qwen/Qwen3.5-4B' is not cached locally (provider=local). Refusing to start rather than silently downloading or substituting a checkpoint.\"\nE         Use -v to get more diff\n\ntests\\test_phase8_architecture.py:486: AssertionError\n___________ TestConfiguredModelsPresentOnDisk.test_attacker_present ___________\n\nself = <test_phase8_architecture.TestConfiguredModelsPresentOnDisk object at 0x00000218C9AAE350>\n\n    def test_attacker_present(self):\n        cfg = _load_three_model_cfg()\n        model = cfg[\"models\"][\"attacker\"][\"model\"]\n        assert model == \"Qwen/Qwen3.5-4B\", model\n        snap = _hf_cache_snapshot(model)\n>       assert snap is not None, f\"attacker {model} not found on disk\"\nE       AssertionError: attacker Qwen/Qwen3.5-4B not found on disk\nE       assert None is not None\n\ntests\\test_phase8_architecture.py:599: AssertionError\n=========================== short test summary info ===========================\nFAILED tests/test_phase8_architecture.py::TestThreeModelConfigValidation::test_default_config_valid\nFAILED tests/test_phase8_architecture.py::TestConfiguredModelsPresentOnDisk::test_attacker_present\n2 failed, 790 passed in 124.70s (0:02:04)\n"
+    }
+  },
+  "pre_existing_failures": {
+    "tests": [
+      "tests/test_phase8_architecture.py::TestThreeModelConfigValidation::test_default_config_valid",
+      "tests/test_phase8_architecture.py::TestConfiguredModelsPresentOnDisk::test_attacker_present"
+    ],
+    "cause": "Both assert that 'Qwen/Qwen3.5-4B' is present in the local HF cache. That model was evicted in Phase 17 Stage 0 under a user-approved cache eviction (cache_eviction.json, reason 'superseded attacker model'), so the assertion fails for an environment-state reason. The files were verified absent from the cache and present in the Phase 8 config, which is the whole discrepancy.",
+    "relationship_to_stage2": "none \u2014 no file these tests exercise was modified in Stage 2; they were failing before the F1/F2/F3 changes and are not repaired here because repairing them would mean either restoring a model the user approved removing or editing an unrelated config",
+    "decision": "reported, not modified"
+  },
+  "generated_utc": "2026-09-29T13:20:28.598064+00:00"
+}

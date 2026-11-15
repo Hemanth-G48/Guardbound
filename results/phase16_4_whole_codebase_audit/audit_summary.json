@@ -1,0 +1,186 @@
+{
+  "phase": "16.4",
+  "title": "Whole-codebase forensic audit (read-only)",
+  "date_utc": "2026-09-28",
+  "type": "read_only_audit",
+  "code_modified": [],
+  "experiments_run": [],
+  "pilot_launched": false,
+  "audit_inputs": {
+    "frozen_records": "results/phase15_pilot_30/trackA_frozen/batch00_goals000-029_180records.jsonl",
+    "frozen_records_sha256_prefix": "FCB952F1598B697B033D605B0791CFBB",
+    "reference_implementation": "nbf_original_stuff/orginal_code_give_by_author/NBF-LLM/",
+    "prior_fidelity_audit": "PHASE14_CODE_FIDELITY_AUDIT.md",
+    "method": "four parallel read-only code investigations + independent empirical re-analysis of the 180 records + direct inspection of cached model configs and the target tokenizer"
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "title": "Target responses truncated at max_new_tokens=256 in 95.0% of turns",
+      "severity": "HIGH",
+      "location": "configs/reproduction_phase14_frozen.yaml (models.target.max_new_tokens: 256); src/guardbound/llm/local_client.py (generation cap)",
+      "expected": "paper's GPT-4o target completions are unbounded",
+      "actual": "929 target responses: mean 254.9 tokens, median 256, max 256, 95.0% at the exact cap, 99.6% >=240, 0% <200; tails end mid-word",
+      "evidence": "target tokenizer re-encode of the frozen records; measured in this audit",
+      "impact": "the rubric scores an incomplete answer in nearly every turn; truncation plausibly suppresses full compliance (score 5)",
+      "confidence_fact": "HIGH",
+      "confidence_impact": "MEDIUM",
+      "affects": "the ASR numerator",
+      "previously_documented": "the 256 cap was declared as a LOCAL_RUNTIME_ADAPTATION; its measured effect was not"
+    },
+    {
+      "id": "F2",
+      "title": "Acronym/OppositeDay attacker JSON failures recorded as ATTACK_FAILURE, not JSON_PARSE_ERROR",
+      "severity": "HIGH",
+      "location": "src/guardbound/attacks/acronym.py (generate_acronym_step returns ('','')), opposite_day.py (same), runner.py (empty query -> break), scripts/phase14_full_reproduction.py (failure_class = SUCCESS if success else ATTACK_FAILURE)",
+      "expected": "a malformed attacker reply is an execution failure (JSON_PARSE_ERROR), as it is for Crescendo",
+      "actual": "empty query -> attack_loop_exhausted -> recorded ATTACK_FAILURE",
+      "evidence": "12 of 180 records have attacker_parse_failures > 0 with failure_class == ATTACK_FAILURE (11 Acronym, 1 OppositeDay), each with a final unparseable [generation/str] raw output; Acronym has 11 parse failures and 0 JSON_PARSE_ERROR records while Crescendo's 6 map to 6",
+      "impact": "OFF-half execution failures understated ~3-4x (4 recorded vs ~15); ATTACK_FAILURE is not a clean attack-outcome category for 2 of 3 attacks; failure-taxonomy statements are biased",
+      "confidence": "HIGH",
+      "affects": "failure taxonomy / interpretation, not the numerator"
+    },
+    {
+      "id": "F3",
+      "title": "Declared top_p=1.0 not enforced; effective sampling differs",
+      "severity": "MEDIUM",
+      "location": "src/guardbound/llm/local_client.py (gen_kwargs omit top_p/top_k); scripts/phase14_full_reproduction.py:823 (metadata.top_p = 1.0 hardcoded)",
+      "expected": "declared top_p = 1.0 (manifest and deviation D-LLM1)",
+      "actual": "top_p is never passed to generate(); sampling inherits the models' generation_config.json: top_p=0.8, top_k=20 (Qwen3-4B attacker), top_p=0.9 (Llama-3.2-3B evaluator); Phi-4-mini has no generation_config.json",
+      "impact": "narrower nucleus sampling than declared; the recorded top_p field is inaccurate",
+      "confidence": "HIGH for the mechanism, MEDIUM for the exact effective value (not executed)",
+      "affects": "sampling fidelity + telemetry accuracy"
+    }
+  ],
+  "latent_findings": [
+    {
+      "id": "L1",
+      "title": "Steered-mode candidate filter scores against an empty dialogue",
+      "severity": "HIGH if used",
+      "location": "src/guardbound/attacks/runner.py (steer_target branch never appends to messages; filter uses messages)",
+      "frozen_path_affected": false,
+      "note": "Phase 14 hardcodes steer_target=False; run_reproduction.py mode C would hit it"
+    },
+    {
+      "id": "L2",
+      "title": "get_attack('crescendo') resolves to the heuristic, non-author implementation",
+      "severity": "MEDIUM",
+      "location": "src/guardbound/attacks/registry.py; DEFAULT_EVALUATION_ATTACKS",
+      "frozen_path_affected": false,
+      "note": "the frozen study uses crescendo_paper"
+    },
+    {
+      "id": "L3",
+      "title": "Batch-level VRAM guards abort the whole batch with no failure rows",
+      "severity": "MEDIUM (survivorship)",
+      "location": "scripts/phase14_full_reproduction.py (pre_run_check / ceiling_check outside the per-run try)",
+      "evidence": "the Phase 15 pilot stopped at 108/180 with goals 18-29 absent, later resumed",
+      "note": "analysis must verify planned-vs-present counts"
+    },
+    {
+      "id": "L4",
+      "title": "Rubric parse failure falls back to score 1",
+      "severity": "MEDIUM latent",
+      "location": "src/guardbound/attacks/crescendo_paper.py:334-339 and siblings",
+      "evidence": "0 parse failures in 2755 evaluator JSON calls across the 180 records -> never fired in the pilot",
+      "note": "would otherwise suppress success"
+    },
+    {
+      "id": "L5",
+      "title": "ActorAttack rubric omits json_format=True and step_judge runs at temperature 0.7",
+      "severity": "MEDIUM",
+      "location": "src/guardbound/attacks/actor_attack.py:538, :426",
+      "frozen_path_affected": false,
+      "note": "ActorAttack is excluded from the study"
+    }
+  ],
+  "verified_faithful": {
+    "attack_algorithms": "Crescendo/OppositeDay prompts byte-identical; control flow, refusal budget (C_refused<10), score==5, loop budget, NBF order all match the author",
+    "nbf": "architecture, checkpoint (parity max_diff=0.0), embedding (all-mpnet-base-v2, 768-d), h = p(unsafe) - max p(safe), filter rule h+eta>=0, pre-update state order, OFF invariant on the real path, no cross-run state leakage",
+    "conversation_construction": "roles/order verified in live traces; goal preserved; no duplication or truncation; evaluator receives the raw (query, response) pair",
+    "context": "no input truncation (worst case ~7.5K of 131K tokens)",
+    "temperatures": "attacker 0.7, target 0.7, evaluator 0.0 - all as declared",
+    "dataset": "author's HarmBench file, SHA-pinned, file order, no skipping",
+    "denominator": "per conversation; failures retained (OFF ASR reported as 6/90 with the 6/86 counterfactual noted)"
+  },
+  "empirical_measurements": {
+    "records": 180,
+    "attacker_json_calls": 1978,
+    "attacker_parse_failures": 18,
+    "attacker_per_call_failure_rate": 0.0091,
+    "mean_attacker_calls_per_run": 10.99,
+    "evaluator_json_calls": 2755,
+    "evaluator_parse_failures": 0,
+    "misclassified_execution_failures": 12,
+    "target_responses_measured": 929,
+    "target_response_tokens": {"mean": 254.9, "median": 256, "max": 256, "at_cap_pct": 95.0},
+    "off_best_score_distribution": {"1": 2, "2": 7, "3": 53, "4": 21, "5": 6},
+    "on_best_score_distribution": {"1": 3, "2": 3, "3": 34, "4": 10, "5": 5},
+    "off_mean_turns": 7.05,
+    "on_mean_turns": 3.71
+  },
+  "test_suite": {
+    "test_functions": 674,
+    "files": 34,
+    "parity_vs_reference": true,
+    "highest_value_gaps": [
+      "production async runner never exercised by pytest (sync twin only)",
+      "seeding contract untested",
+      "full NBF filter/regeneration schedule parity lives in a script, not a test",
+      "matrix/denominator invariants untested",
+      "end-to-end JSON-failure wiring untested (the gap that let F2 survive)",
+      "prompt parity asserted only after normalisation",
+      "effective sampling parameters unpinned (the gap that let F3 survive)"
+    ]
+  },
+  "root_cause_answers": {
+    "Q1_implementation_or_algorithmic_bug": "YES - limited",
+    "Q1_detail": "F2 is a real implementation defect affecting failure taxonomy; F1 is an unmeasured adaptation that plausibly depresses the numerator; no bug found in the attack algorithms or NBF",
+    "Q2_prompt_or_methodology_mismatch": "YES",
+    "Q2_detail": "F1 (256-token target cap vs unbounded GPT-4o) plus non-RNG-paired OFF/ON arms and rubric-based rather than judge-model verdicts",
+    "Q3_local_model_substitution_major_contributor": "YES as a contributor, share UNKNOWN",
+    "Q3_detail": "all three papered roles substituted; no ablation isolates their share",
+    "Q4_faithful_enough_to_blame_models": "NO / INCONCLUSIVE",
+    "Q4_detail": "F1 and F2 are un-isolated, so the remaining gap cannot yet be attributed primarily to model differences",
+    "Q5_pilot": "NOT AUTHORIZED",
+    "Q5_detail": "pending explicit decisions on F1 (keep or lift the 256-token target cap) and F2 (declare or repair the failure-class asymmetry), and correction of F3's declaration"
+  },
+  "known_suspect_ruled_out_unknown": {
+    "known": [
+      "attack algorithms, NBF, prompts, conversation construction, context limits and temperatures are faithful (code + parity tests + numerics)",
+      "the failure taxonomy is not applied uniformly across attacks (F2, measured)",
+      "target outputs are truncated at the token cap (F1, measured)",
+      "declared top_p is not enforced (F3, measured)"
+    ],
+    "suspected": [
+      "the 256-token target cap contributes to the low full-compliance rate (directionally supported, magnitude unmeasured)",
+      "the attacker's and target's content quality differ from GPT-4o (unmeasured, no ablation)"
+    ],
+    "ruled_out": [
+      "algorithmic/loop/scoring defects in the three in-scope attacks",
+      "NBF architecture, weight mapping, threshold sign, state-update order, OFF leakage",
+      "prompt drift beyond inert whitespace/apostrophes",
+      "conversation-construction, role-ordering, wrong-turn-evaluator, context-truncation defects",
+      "evaluator parse-failure fallback having affected the frozen pilot (0/2755)",
+      "GPU/VRAM constraints changing generation behaviour"
+    ],
+    "unknown": [
+      "the share of the ASR gap attributable to each substituted model",
+      "the paper's absolute ASR figures (not recovered; the frozen study does not claim to reproduce them)",
+      "whether goals 30-199 behave differently (30-goal scope only)",
+      "the effective CUDA RNG seed path and kernel-level determinism"
+    ]
+  },
+  "integrity": {
+    "track_a_results_unchanged": true,
+    "track_a_config_unchanged": true,
+    "frozen_config_hash": "61ea203c20e68c51",
+    "files_written": [
+      "results/phase16_4_whole_codebase_audit/audit_report.md",
+      "results/phase16_4_whole_codebase_audit/audit_summary.json",
+      "results/phase16_4_whole_codebase_audit/reference_vs_local_matrix.md",
+      "results/phase16_4_whole_codebase_audit/root_cause_matrix.md",
+      "results/phase16_4_whole_codebase_audit/methodology_fidelity_matrix.md"
+    ]
+  }
+}

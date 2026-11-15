@@ -1,0 +1,365 @@
+{
+  "phase": "17",
+  "stage": "1",
+  "deliverable": "judge_vram_validation.json",
+  "judge_model": "Qwen/Qwen3-8B",
+  "judge_revision": "b968826d9c46dd6066d109eabc6255188de91218",
+  "device": "NVIDIA RTX 4500 Ada Generation, 23.99 GiB usable",
+  "residency_policy": "max resident models = 1 (sequential)",
+  "baseline_vram": {
+    "allocated_gib": 0.0,
+    "reserved_gib": 0.0,
+    "peak_gib": 0.0,
+    "free_gib": 23.994
+  },
+  "measurements": [
+    {
+      "step": 2,
+      "label": "TARGET -> JUDGE",
+      "role": "judge",
+      "model_id": "Qwen/Qwen3-8B",
+      "requested_model_id": "Qwen/Qwen3-8B",
+      "loaded_name_or_path": "Qwen/Qwen3-8B",
+      "loaded_architectures": [
+        "Qwen3ForCausalLM"
+      ],
+      "loaded_model_type": "qwen3",
+      "matches_expected_arch": true,
+      "tokenizer_name_or_path": "Qwen/Qwen3-8B",
+      "tokenizer_vocab_size": 151643,
+      "chat_template_chars": 4168,
+      "load_seconds": 18.37,
+      "generate_seconds": 0.17,
+      "generated_ok": true,
+      "vram_before_load": {
+        "allocated_gib": 0.008,
+        "reserved_gib": 0.02,
+        "peak_gib": 0.008,
+        "free_gib": 23.974
+      },
+      "vram_after_load": {
+        "allocated_gib": 15.264,
+        "reserved_gib": 15.287,
+        "peak_gib": 15.264,
+        "free_gib": 8.707
+      },
+      "vram_after_generate": {
+        "allocated_gib": 15.264,
+        "reserved_gib": 15.291,
+        "peak_gib": 15.269,
+        "free_gib": 8.703
+      },
+      "released": true,
+      "release_seconds": 0.74,
+      "vram_before_release_alloc_gib": 15.264,
+      "vram_after_release": {
+        "allocated_gib": 0.008,
+        "reserved_gib": 0.02,
+        "peak_gib": 15.269,
+        "free_gib": 23.974
+      },
+      "vram_reclaimed_gib": 15.256
+    },
+    {
+      "step": 4,
+      "label": "TARGET -> JUDGE (2nd cycle)",
+      "role": "judge",
+      "model_id": "Qwen/Qwen3-8B",
+      "requested_model_id": "Qwen/Qwen3-8B",
+      "loaded_name_or_path": "Qwen/Qwen3-8B",
+      "loaded_architectures": [
+        "Qwen3ForCausalLM"
+      ],
+      "loaded_model_type": "qwen3",
+      "matches_expected_arch": true,
+      "tokenizer_name_or_path": "Qwen/Qwen3-8B",
+      "tokenizer_vocab_size": 151643,
+      "chat_template_chars": 4168,
+      "load_seconds": 18.33,
+      "generate_seconds": 0.13,
+      "generated_ok": true,
+      "vram_before_load": {
+        "allocated_gib": 0.008,
+        "reserved_gib": 0.02,
+        "peak_gib": 0.008,
+        "free_gib": 23.974
+      },
+      "vram_after_load": {
+        "allocated_gib": 15.264,
+        "reserved_gib": 15.287,
+        "peak_gib": 15.264,
+        "free_gib": 8.707
+      },
+      "vram_after_generate": {
+        "allocated_gib": 15.264,
+        "reserved_gib": 15.291,
+        "peak_gib": 15.269,
+        "free_gib": 8.703
+      },
+      "released": true,
+      "release_seconds": 0.6,
+      "vram_before_release_alloc_gib": 15.264,
+      "vram_after_release": {
+        "allocated_gib": 0.008,
+        "reserved_gib": 0.02,
+        "peak_gib": 15.269,
+        "free_gib": 23.974
+      },
+      "vram_reclaimed_gib": 15.256
+    }
+  ],
+  "all_steps": [
+    {
+      "step": 1,
+      "role": "target",
+      "model_id": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "label": "TARGET (cold)",
+      "vram_before_load": {
+        "allocated_gib": 0.0,
+        "reserved_gib": 0.0,
+        "peak_gib": 0.0,
+        "free_gib": 23.994
+      },
+      "vram_after_load": {
+        "allocated_gib": 14.958,
+        "reserved_gib": 14.961,
+        "peak_gib": 14.958,
+        "free_gib": 9.033
+      },
+      "vram_after_generate": {
+        "allocated_gib": 14.965,
+        "reserved_gib": 14.984,
+        "peak_gib": 14.97,
+        "free_gib": 9.009
+      },
+      "vram_before_release_alloc_gib": 14.965,
+      "vram_after_release": {
+        "allocated_gib": 0.008,
+        "reserved_gib": 0.02,
+        "peak_gib": 14.97,
+        "free_gib": 23.974
+      },
+      "vram_reclaimed_gib": 14.958,
+      "load_seconds": 22.26
+    },
+    {
+      "step": 2,
+      "role": "judge",
+      "model_id": "Qwen/Qwen3-8B",
+      "label": "TARGET -> JUDGE",
+      "vram_before_load": {
+        "allocated_gib": 0.008,
+        "reserved_gib": 0.02,
+        "peak_gib": 0.008,
+        "free_gib": 23.974
+      },
+      "vram_after_load": {
+        "allocated_gib": 15.264,
+        "reserved_gib": 15.287,
+        "peak_gib": 15.264,
+        "free_gib": 8.707
+      },
+      "vram_after_generate": {
+        "allocated_gib": 15.264,
+        "reserved_gib": 15.291,
+        "peak_gib": 15.269,
+        "free_gib": 8.703
+      },
+      "vram_before_release_alloc_gib": 15.264,
+      "vram_after_release": {
+        "allocated_gib": 0.008,
+        "reserved_gib": 0.02,
+        "peak_gib": 15.269,
+        "free_gib": 23.974
+      },
+      "vram_reclaimed_gib": 15.256,
+      "load_seconds": 18.37
+    },
+    {
+      "step": 3,
+      "role": "target",
+      "model_id": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "label": "JUDGE -> TARGET",
+      "vram_before_load": {
+        "allocated_gib": 0.008,
+        "reserved_gib": 0.02,
+        "peak_gib": 0.008,
+        "free_gib": 23.974
+      },
+      "vram_after_load": {
+        "allocated_gib": 14.965,
+        "reserved_gib": 14.988,
+        "peak_gib": 14.965,
+        "free_gib": 9.005
+      },
+      "vram_after_generate": {
+        "allocated_gib": 14.965,
+        "reserved_gib": 14.992,
+        "peak_gib": 14.97,
+        "free_gib": 9.001
+      },
+      "vram_before_release_alloc_gib": 14.965,
+      "vram_after_release": {
+        "allocated_gib": 0.008,
+        "reserved_gib": 0.02,
+        "peak_gib": 14.97,
+        "free_gib": 23.974
+      },
+      "vram_reclaimed_gib": 14.958,
+      "load_seconds": 13.34
+    },
+    {
+      "step": 4,
+      "role": "judge",
+      "model_id": "Qwen/Qwen3-8B",
+      "label": "TARGET -> JUDGE (2nd cycle)",
+      "vram_before_load": {
+        "allocated_gib": 0.008,
+        "reserved_gib": 0.02,
+        "peak_gib": 0.008,
+        "free_gib": 23.974
+      },
+      "vram_after_load": {
+        "allocated_gib": 15.264,
+        "reserved_gib": 15.287,
+        "peak_gib": 15.264,
+        "free_gib": 8.707
+      },
+      "vram_after_generate": {
+        "allocated_gib": 15.264,
+        "reserved_gib": 15.291,
+        "peak_gib": 15.269,
+        "free_gib": 8.703
+      },
+      "vram_before_release_alloc_gib": 15.264,
+      "vram_after_release": {
+        "allocated_gib": 0.008,
+        "reserved_gib": 0.02,
+        "peak_gib": 15.269,
+        "free_gib": 23.974
+      },
+      "vram_reclaimed_gib": 15.256,
+      "load_seconds": 18.33
+    },
+    {
+      "step": 5,
+      "role": "target",
+      "model_id": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "label": "JUDGE -> TARGET (2nd cycle)",
+      "vram_before_load": {
+        "allocated_gib": 0.008,
+        "reserved_gib": 0.02,
+        "peak_gib": 0.008,
+        "free_gib": 23.974
+      },
+      "vram_after_load": {
+        "allocated_gib": 14.965,
+        "reserved_gib": 14.988,
+        "peak_gib": 14.965,
+        "free_gib": 9.005
+      },
+      "vram_after_generate": {
+        "allocated_gib": 14.965,
+        "reserved_gib": 14.992,
+        "peak_gib": 14.97,
+        "free_gib": 9.001
+      },
+      "vram_before_release_alloc_gib": 14.965,
+      "vram_after_release": {
+        "allocated_gib": 0.008,
+        "reserved_gib": 0.02,
+        "peak_gib": 14.97,
+        "free_gib": 23.974
+      },
+      "vram_reclaimed_gib": 14.958,
+      "load_seconds": 13.59
+    }
+  ],
+  "final_vram": {
+    "allocated_gib": 0.008,
+    "reserved_gib": 0.02,
+    "peak_gib": 14.97,
+    "free_gib": 23.974
+  },
+  "checks": [
+    {
+      "check": "target_architecture_consistent_across_reloads",
+      "passed": true,
+      "observed": [
+        [
+          "LlamaForCausalLM"
+        ]
+      ]
+    },
+    {
+      "check": "target_identity_matches_request",
+      "passed": true,
+      "observed": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "check": "judge_architecture_consistent_across_reloads",
+      "passed": true,
+      "observed": [
+        [
+          "Qwen3ForCausalLM"
+        ]
+      ]
+    },
+    {
+      "check": "judge_identity_matches_request",
+      "passed": true,
+      "observed": [
+        true,
+        true
+      ]
+    },
+    {
+      "check": "no_cross_role_architecture_contamination",
+      "passed": true,
+      "note": "each role always loaded its own architecture"
+    },
+    {
+      "check": "tokenizer_not_contaminated",
+      "passed": true,
+      "observed": [
+        {
+          "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+          "tokenizer": "meta-llama/Meta-Llama-3-8B-Instruct"
+        },
+        {
+          "model": "Qwen/Qwen3-8B",
+          "tokenizer": "Qwen/Qwen3-8B"
+        },
+        {
+          "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+          "tokenizer": "meta-llama/Meta-Llama-3-8B-Instruct"
+        },
+        {
+          "model": "Qwen/Qwen3-8B",
+          "tokenizer": "Qwen/Qwen3-8B"
+        },
+        {
+          "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+          "tokenizer": "meta-llama/Meta-Llama-3-8B-Instruct"
+        }
+      ]
+    },
+    {
+      "check": "no_vram_leak_across_cycles",
+      "passed": true,
+      "baseline_alloc_gib": 0.0,
+      "final_alloc_gib": 0.008
+    },
+    {
+      "check": "single_resident_model_enforced",
+      "passed": true,
+      "note": "both roles are ~15 GiB; two resident would exceed the 23.99 GiB card",
+      "max_allocated_observed_gib": 15.264
+    }
+  ],
+  "all_checks_passed": true
+}

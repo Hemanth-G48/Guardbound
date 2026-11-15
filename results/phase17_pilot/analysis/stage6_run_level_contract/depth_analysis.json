@@ -1,0 +1,323 @@
+{
+  "phase": "17",
+  "stage": "6",
+  "deliverable": "depth_analysis.json",
+  "validity_by_call_index": {
+    "control": {
+      "1": {
+        "calls": 24,
+        "valid": 24,
+        "validity": 1.0,
+        "prose_failures": 0,
+        "empty_question_failures": 1
+      },
+      "2": {
+        "calls": 22,
+        "valid": 17,
+        "validity": 0.7727,
+        "prose_failures": 4,
+        "empty_question_failures": 0
+      },
+      "3": {
+        "calls": 17,
+        "valid": 16,
+        "validity": 0.9412,
+        "prose_failures": 1,
+        "empty_question_failures": 0
+      },
+      "4": {
+        "calls": 16,
+        "valid": 16,
+        "validity": 1.0,
+        "prose_failures": 0,
+        "empty_question_failures": 0
+      },
+      "5": {
+        "calls": 16,
+        "valid": 13,
+        "validity": 0.8125,
+        "prose_failures": 3,
+        "empty_question_failures": 0
+      },
+      "6": {
+        "calls": 9,
+        "valid": 7,
+        "validity": 0.7778,
+        "prose_failures": 2,
+        "empty_question_failures": 0
+      },
+      "7": {
+        "calls": 6,
+        "valid": 4,
+        "validity": 0.6667,
+        "prose_failures": 2,
+        "empty_question_failures": 0
+      },
+      "8+": {
+        "calls": 9,
+        "valid": 5,
+        "validity": 0.5556,
+        "prose_failures": 4,
+        "empty_question_failures": 0
+      }
+    },
+    "generation_point": {
+      "1": {
+        "calls": 24,
+        "valid": 24,
+        "validity": 1.0,
+        "prose_failures": 0,
+        "empty_question_failures": 1
+      },
+      "2": {
+        "calls": 23,
+        "valid": 23,
+        "validity": 1.0,
+        "prose_failures": 0,
+        "empty_question_failures": 0
+      },
+      "3": {
+        "calls": 22,
+        "valid": 22,
+        "validity": 1.0,
+        "prose_failures": 0,
+        "empty_question_failures": 0
+      },
+      "4": {
+        "calls": 20,
+        "valid": 20,
+        "validity": 1.0,
+        "prose_failures": 0,
+        "empty_question_failures": 0
+      },
+      "5": {
+        "calls": 18,
+        "valid": 18,
+        "validity": 1.0,
+        "prose_failures": 0,
+        "empty_question_failures": 0
+      },
+      "6": {
+        "calls": 17,
+        "valid": 17,
+        "validity": 1.0,
+        "prose_failures": 0,
+        "empty_question_failures": 0
+      },
+      "7": {
+        "calls": 15,
+        "valid": 15,
+        "validity": 1.0,
+        "prose_failures": 0,
+        "empty_question_failures": 0
+      },
+      "8+": {
+        "calls": 93,
+        "valid": 93,
+        "validity": 1.0,
+        "prose_failures": 0,
+        "empty_question_failures": 0
+      }
+    },
+    "a1": {
+      "1": {
+        "calls": 24,
+        "valid": 24,
+        "validity": 1.0,
+        "prose_failures": 0,
+        "empty_question_failures": 1
+      },
+      "2": {
+        "calls": 23,
+        "valid": 23,
+        "validity": 1.0,
+        "prose_failures": 0,
+        "empty_question_failures": 0
+      },
+      "3": {
+        "calls": 22,
+        "valid": 19,
+        "validity": 0.8636,
+        "prose_failures": 3,
+        "empty_question_failures": 0
+      },
+      "4": {
+        "calls": 18,
+        "valid": 13,
+        "validity": 0.7222,
+        "prose_failures": 5,
+        "empty_question_failures": 0
+      },
+      "5": {
+        "calls": 12,
+        "valid": 11,
+        "validity": 0.9167,
+        "prose_failures": 1,
+        "empty_question_failures": 0
+      },
+      "6": {
+        "calls": 11,
+        "valid": 10,
+        "validity": 0.9091,
+        "prose_failures": 1,
+        "empty_question_failures": 0
+      },
+      "7": {
+        "calls": 8,
+        "valid": 5,
+        "validity": 0.625,
+        "prose_failures": 3,
+        "empty_question_failures": 0
+      },
+      "8+": {
+        "calls": 18,
+        "valid": 14,
+        "validity": 0.7778,
+        "prose_failures": 4,
+        "empty_question_failures": 0
+      }
+    },
+    "a1_t03": {
+      "1": {
+        "calls": 24,
+        "valid": 24,
+        "validity": 1.0,
+        "prose_failures": 0,
+        "empty_question_failures": 1
+      },
+      "2": {
+        "calls": 23,
+        "valid": 23,
+        "validity": 1.0,
+        "prose_failures": 0,
+        "empty_question_failures": 0
+      },
+      "3": {
+        "calls": 22,
+        "valid": 21,
+        "validity": 0.9545,
+        "prose_failures": 1,
+        "empty_question_failures": 0
+      },
+      "4": {
+        "calls": 21,
+        "valid": 21,
+        "validity": 1.0,
+        "prose_failures": 0,
+        "empty_question_failures": 0
+      },
+      "5": {
+        "calls": 19,
+        "valid": 19,
+        "validity": 1.0,
+        "prose_failures": 0,
+        "empty_question_failures": 0
+      },
+      "6": {
+        "calls": 16,
+        "valid": 12,
+        "validity": 0.75,
+        "prose_failures": 4,
+        "empty_question_failures": 0
+      },
+      "7": {
+        "calls": 12,
+        "valid": 11,
+        "validity": 0.9167,
+        "prose_failures": 0,
+        "empty_question_failures": 0
+      },
+      "8+": {
+        "calls": 32,
+        "valid": 27,
+        "validity": 0.8438,
+        "prose_failures": 5,
+        "empty_question_failures": 0
+      }
+    }
+  },
+  "survival_by_depth": {
+    "control": {
+      "1": 0.25,
+      "2": 0.2083,
+      "3": 0.2083,
+      "4": 0.125,
+      "5": 0.0,
+      "6": 0.0,
+      "7": 0.0,
+      "8": 0.0
+    },
+    "generation_point": {
+      "1": 0.9167,
+      "2": 0.9167,
+      "3": 0.7083,
+      "4": 0.5833,
+      "5": 0.4167,
+      "6": 0.3333,
+      "7": 0.2917,
+      "8": 0.2917
+    },
+    "a1": {
+      "1": 0.25,
+      "2": 0.25,
+      "3": 0.1667,
+      "4": 0.0833,
+      "5": 0.0,
+      "6": 0.0,
+      "7": 0.0,
+      "8": 0.0
+    },
+    "a1_t03": {
+      "1": 0.5,
+      "2": 0.5,
+      "3": 0.3333,
+      "4": 0.2083,
+      "5": 0.125,
+      "6": 0.0833,
+      "7": 0.0833,
+      "8": 0.0833
+    }
+  },
+  "reaching_turn": {
+    "control": {
+      "1": 6,
+      "2": 5,
+      "3": 5,
+      "4": 3,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0
+    },
+    "generation_point": {
+      "1": 22,
+      "2": 22,
+      "3": 17,
+      "4": 14,
+      "5": 10,
+      "6": 8,
+      "7": 7,
+      "8": 7
+    },
+    "a1": {
+      "1": 6,
+      "2": 6,
+      "3": 4,
+      "4": 2,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0
+    },
+    "a1_t03": {
+      "1": 12,
+      "2": 12,
+      "3": 8,
+      "4": 5,
+      "5": 3,
+      "6": 2,
+      "7": 2,
+      "8": 2
+    }
+  }
+}

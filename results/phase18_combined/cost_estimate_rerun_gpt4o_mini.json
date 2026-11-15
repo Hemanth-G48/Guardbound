@@ -1,0 +1,72 @@
+{
+  "question": "cost of re-running the full Phase 18 matrix on gpt-4o-mini",
+  "matrix": {
+    "runs": 180,
+    "goals": "0-29",
+    "attacks": 3,
+    "arms": 2,
+    "total_model_calls": 5715
+  },
+  "measured_tokens": {
+    "total": {
+      "input": 8100861,
+      "output": 670147
+    },
+    "by_role": {
+      "attacker_calls": {
+        "in": 3878680,
+        "out": 199512,
+        "calls": 1792
+      },
+      "target_calls": {
+        "in": 1926956,
+        "out": 377734,
+        "calls": 1504
+      },
+      "judge_calls": {
+        "in": 2295225,
+        "out": 92901,
+        "calls": 2419
+      }
+    }
+  },
+  "gpt_4o_mini_price_per_1M": {
+    "input": 0.15,
+    "output": 0.6
+  },
+  "scenarios_usd": {
+    "A. all three roles on gpt-4o-mini": 1.6172173499999998,
+    "B. attacker only on gpt-4o-mini": 0.7015092,
+    "C. target only on gpt-4o-mini": 0.5156837999999999
+  },
+  "scenarios_batch_usd": {
+    "A. all three roles on gpt-4o-mini": 0.8086,
+    "B. attacker only on gpt-4o-mini": 0.3508,
+    "C. target only on gpt-4o-mini": 0.2578
+  },
+  "per_unit": {
+    "per_run": 0.009,
+    "per_matched_cell": 0.018,
+    "per_1_point_of_ASR_difference_observed_in_phase18": 0.1037
+  },
+  "sensitivity": {
+    "tokenizer_pm20pct": {
+      "low": 1.2938,
+      "high": 1.9407
+    },
+    "calls_pm30pct": {
+      "low": 1.1321,
+      "high": 2.1024
+    },
+    "plausible_envelope_usd": [
+      1.13,
+      2.26
+    ]
+  },
+  "caveats": [
+    "token counts come from the local Qwen/Llama tokenizers, not o200k_base",
+    "a different attacker/target/judge would change the number of turns, so the call count is the largest single uncertainty (assumed unchanged here)",
+    "swapping models changes the experiment itself, not just the price: the frozen C1 configuration, the target's refusal behaviour and therefore the ASR would all differ",
+    "switching the attacker role to a hosted API also subjects that use to the provider's usage policies, which restrict generating adversarial/jailbreak content"
+  ]
+}

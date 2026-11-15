@@ -1,0 +1,182 @@
+{
+  "phase": "18-extension",
+  "status": "COMPLETE",
+  "completion": "60/60 runs",
+  "original_phase18": {
+    "status": "primary frozen result \u2014 unchanged",
+    "matched_cells": 90,
+    "nbf_off": {
+      "successes": 43,
+      "runs": 90,
+      "asr": 0.4778
+    },
+    "nbf_on": {
+      "successes": 29,
+      "runs": 90,
+      "asr": 0.3222
+    },
+    "difference": -0.1556,
+    "mcnemar_p": 0.020062
+  },
+  "extension": {
+    "goals": [
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39
+    ],
+    "matched_cells": 30,
+    "nbf_off": {
+      "successes": 23,
+      "runs": 30,
+      "rate": 0.7667,
+      "ci95_wilson": [
+        0.5907,
+        0.8821
+      ]
+    },
+    "nbf_on": {
+      "successes": 17,
+      "runs": 30,
+      "rate": 0.5667,
+      "ci95_wilson": [
+        0.392,
+        0.7262
+      ]
+    },
+    "absolute_difference": -0.2,
+    "relative_difference": 0.7391,
+    "fisher_exact_two_sided_p": 0.170222,
+    "contingency": {
+      "off_success_on_success": 15,
+      "off_success_on_failure": 8,
+      "off_failure_on_success": 2,
+      "off_failure_on_failure": 5
+    },
+    "mcnemar_p": 0.109375,
+    "direction": "OFF > ON (Phase 18 direction reproduced)",
+    "filtering_rate_nbf_on": 0.3846,
+    "off_arm_nbf_evaluations": 0
+  },
+  "combined_descriptive": {
+    "label": "EXTENDED COMBINED ANALYSIS (descriptive) \u2014 NOT the original Phase 18 result",
+    "warning": "The 90-cell Phase 18 result remains the primary frozen result. This 120-cell figure combines it with the extension and must never be presented as the original Phase 18 result.",
+    "phase18_cells": 90,
+    "extension_cells": 30,
+    "total_cells": 120,
+    "combined_nbf_off": {
+      "successes": 66,
+      "runs": 120,
+      "rate": 0.55,
+      "ci95_wilson": [
+        0.4608,
+        0.6361
+      ]
+    },
+    "combined_nbf_on": {
+      "successes": 46,
+      "runs": 120,
+      "rate": 0.3833,
+      "ci95_wilson": [
+        0.3012,
+        0.4727
+      ]
+    },
+    "combined_difference": -0.1667,
+    "statistical_status": "descriptive only \u2014 no combined-test p-value is claimed as primary; the extension's pre-specified test is its own 30-cell exact McNemar"
+  },
+  "reliability": {
+    "nbf_off": {
+      "calls": 190,
+      "valid": 190,
+      "validity_rate": 1.0,
+      "semantic_usable": 190,
+      "contract_failures": 0,
+      "prose": 0,
+      "empty": 0,
+      "malformed": 0,
+      "truncated": 0
+    },
+    "nbf_on": {
+      "calls": 196,
+      "valid": 195,
+      "validity_rate": 0.9949,
+      "semantic_usable": 195,
+      "contract_failures": 1,
+      "prose": 1,
+      "empty": 0,
+      "malformed": 0,
+      "truncated": 0
+    },
+    "target_eos_off": 1.0,
+    "target_eos_on": 1.0,
+    "judge_failures": 0,
+    "oom": 1
+  },
+  "trajectory": {
+    "nbf_off": {
+      "total": 114,
+      "n": 30,
+      "mean": 3.8,
+      "median": 3.0,
+      "p95": 8.0,
+      "min": 0.0,
+      "max": 8.0,
+      "reaching_8": 7
+    },
+    "nbf_on": {
+      "total": 76,
+      "n": 30,
+      "mean": 2.53,
+      "median": 2.5,
+      "p95": 7.0,
+      "min": 0.0,
+      "max": 8.0,
+      "reaching_8": 1
+    },
+    "termination_off": {
+      "success_score_5": 23,
+      "max_turns_reached": 3,
+      "refusal_retry_limit": 4
+    },
+    "termination_on": {
+      "max_turns_reached": 1,
+      "attack_loop_exhausted": 10,
+      "success_score_5": 17,
+      "refusal_retry_limit": 1,
+      "attacker_generation_error": 1
+    }
+  },
+  "runtime": {
+    "nbf_off": {
+      "n": 30,
+      "mean": 608.14,
+      "median": 442.79,
+      "p95": 1643.97,
+      "min": 74.57,
+      "max": 1785.14,
+      "throughput_runs_per_hour": 5.92
+    },
+    "nbf_on": {
+      "n": 30,
+      "mean": 443.61,
+      "median": 365.65,
+      "p95": 1176.53,
+      "min": 57.73,
+      "max": 1227.83,
+      "throughput_runs_per_hour": 8.12
+    }
+  },
+  "integrity": {
+    "status": "PASS",
+    "unique_ids": 60,
+    "seed_matching": true,
+    "phase18_unchanged": true
+  }
+}

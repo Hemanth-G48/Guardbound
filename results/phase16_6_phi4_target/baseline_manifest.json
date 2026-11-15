@@ -1,0 +1,94 @@
+{
+  "phase": "16.6",
+  "captured_utc": "2026-09-29T04:34:39+00:00",
+  "read_only_baseline": true,
+  "git": {
+    "commit": "b46d6fd7ed37b7a6ee9e643476ae2b2263b85624",
+    "branch": "main",
+    "status_short": [
+      "M scripts/phase14_full_reproduction.py",
+      " M src/guardbound/attacks/acronym.py",
+      " M src/guardbound/attacks/opposite_day.py",
+      " M src/guardbound/llm/local_client.py",
+      " M src/guardbound/llm/model_manager.py",
+      " M src/guardbound/llm/provider_factory.py",
+      " M tests/parity/test_refusal_threshold_parity.py",
+      " M tests/test_phase14_8_telemetry.py",
+      "?? .commandcode/",
+      "?? .obsidian/",
+      "?? PHASE_15_GLM_ATTACKER_IMPLEMENTATION_REPORT.md",
+      "?? PHASE_16_ORNITH15_ATTACKER_BACKEND_REPORT.md",
+      "?? configs/attacker_glm46v.yaml",
+      "?? configs/attacker_ornith15.yaml",
+      "?? configs/reproduction_phase16_5_forensics.yaml",
+      "?? scripts/diagnose_ornith15_structured_output.py",
+      "?? scripts/phase16_5_f1_natural_stopping_probe.py",
+      "?? scripts/phase16_5_f3_validation.py",
+      "?? scripts/phase16_5_failure_forensics.py",
+      "?? scripts/phase16_5_structured_output.py",
+      "?? scripts/qualify_glm_attacker.py",
+      "?? scripts/qualify_ornith15_attacker.py",
+      "?? scripts/validate_ornith15_config_b.py",
+      "?? src/guardbound/llm/attacker_profiles.py",
+      "?? src/guardbound/llm/glm4v_client.py",
+      "?? src/guardbound/llm/multimodal_client.py",
+      "?? src/guardbound/llm/ornith15_client.py",
+      "?? tests/test_glm_attacker_backend.py",
+      "?? tests/test_ornith15_attacker_backend.py",
+      "?? tests/test_phase16_5_forensics.py"
+    ]
+  },
+  "current_target_model": {
+    "model": "microsoft/Phi-4-mini-instruct",
+    "revision": null,
+    "dtype": null,
+    "device_map": null,
+    "max_new_tokens": 256,
+    "temperature": 0.7,
+    "top_p": "NOT SET"
+  },
+  "proposed_target_model": {
+    "model": "microsoft/phi-4",
+    "reference_evidence": "nbf_original_stuff/.../NBF-LLM/attacks/utils/generate.py:12",
+    "revision": "2db69c1c3e91a05d2c64a3185acfbaf36f744e25",
+    "cached_complete": false
+  },
+  "hashes": {
+    "frozen_config": {
+      "path": "configs/reproduction_phase14_frozen.yaml",
+      "sha256": "27B660A7052054521A94E3430013D9863964E825157056D3861228250F19A358"
+    },
+    "nbf_checkpoint": {
+      "path": "nbf_original_stuff/orginal_code_give_by_author/NBF-LLM/models/models_best_nbf_released.pth",
+      "sha256": "CEA1A75BCEF4FC515814B69C42541C95114F587ABCC4505C9B096BBFA2A136FE"
+    },
+    "dataset": {
+      "path": "nbf_original_stuff/orginal_code_give_by_author/NBF-LLM/data/test/harmbench_tasks.json",
+      "sha256": "AC789DE8859E755C11EE6CD600DD6A2EB88128C7AB119056DCE3F7F125D014EB"
+    },
+    "track_a_180": {
+      "path": "results/phase15_pilot_30/trackA_frozen/batch00_goals000-029_180records.jsonl",
+      "sha256": "FCB952F1598B697B033D605B0791CFBB64A010F8E43CD1ADF3D0EDC359D8A092"
+    },
+    "track_a_108_snapshot": {
+      "path": "results/phase15_pilot_30/trackA_frozen/batch00_goals000-017_108records.jsonl",
+      "sha256": "C12A562A9454D83B6CC0EE93B2653F4AA5AB058C5AC3E50CEED4EF7A8EC57FB3"
+    },
+    "results_phase14_batch00": {
+      "path": "results/phase14/batch00.jsonl",
+      "sha256": "FCB952F1598B697B033D605B0791CFBB64A010F8E43CD1ADF3D0EDC359D8A092"
+    }
+  },
+  "gpu": {
+    "name": "NVIDIA RTX 4500 Ada Generation",
+    "total_gb": 25.763,
+    "free_gb": 24.385
+  },
+  "regression_suite_before": {
+    "command": "python -m pytest tests/ -q",
+    "result": "see results/phase16_6_phi4_target/regression_after.json / report"
+  },
+  "immutability_check": {
+    "note": "Track A, results/phase14 and the frozen config were read only; no Phase 16.6 artefact overwrites a previous phase's evidence"
+  }
+}

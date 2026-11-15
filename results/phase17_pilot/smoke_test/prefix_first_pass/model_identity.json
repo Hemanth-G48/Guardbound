@@ -1,0 +1,55 @@
+{
+  "phase": "17",
+  "stage": "4.7",
+  "deliverable": "configuration/model_identity.json",
+  "mode": "smoke",
+  "attacker": {
+    "model_class": "Qwen3_5ForConditionalGeneration",
+    "model_class_expected": "Qwen3_5ForConditionalGeneration",
+    "model_class_matches_native_architecture": true,
+    "processor_class": "NoneType",
+    "processor_class_expected": "Qwen3VLProcessor",
+    "processor_class_matches": false,
+    "parameters": 14953501936,
+    "linear4bit_modules": 606,
+    "quantization_config": {
+      "quant_method": "bitsandbytes",
+      "llm_int8_threshold": 6.0,
+      "llm_int8_skip_modules": null,
+      "llm_int8_enable_fp32_cpu_offload": false,
+      "llm_int8_has_fp16_weight": false,
+      "bnb_4bit_quant_type": "nf4",
+      "bnb_4bit_use_double_quant": true,
+      "bnb_4bit_compute_dtype": "torch.bfloat16",
+      "bnb_4bit_quant_storage": "torch.uint8"
+    },
+    "config_model_type": "qwen3_5",
+    "declared_architectures": [
+      "Qwen3_5ForConditionalGeneration"
+    ],
+    "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+    "device": "cuda:0",
+    "dtype": "torch.bfloat16"
+  },
+  "target": {
+    "model_id": "meta-llama/Meta-Llama-3-8B-Instruct",
+    "revision": "8afb486c1db24fe5011ec46dfbe5b5dccdb575c2",
+    "natural_eos": true,
+    "max_new_tokens": null
+  },
+  "judge": {
+    "model_id": "Qwen/Qwen3-8B",
+    "revision": "b968826d9c46dd6066d109eabc6255188de91218",
+    "enable_thinking": false,
+    "temperature": 0.0
+  },
+  "gpu": {
+    "name": "NVIDIA RTX 4500 Ada Generation",
+    "peak_allocated_gib": 16.728,
+    "allocated_gib": 16.688,
+    "total_gib": 23.99
+  },
+  "attacker_load_seconds": 40.28,
+  "no_hidden_fallback": true,
+  "fallback_note": "the stack is built from explicit configs; a missing backend or checkpoint raises instead of substituting a model"
+}

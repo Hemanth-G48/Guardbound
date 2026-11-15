@@ -1,0 +1,44 @@
+{
+  "phase": "18-extension",
+  "deliverable": "analysis/nbf_analysis.json",
+  "off_arm": {
+    "evaluations": 0,
+    "invariant_holds": true,
+    "note": "NBF OFF must record zero evaluations"
+  },
+  "on_arm": {
+    "evaluations": 195,
+    "accepted": 120,
+    "filtered": 75,
+    "filtering_rate": 0.3846,
+    "runs_affected": 19,
+    "successful_after_filtering": 7,
+    "unsuccessful_after_filtering": 12,
+    "threshold": 0.0,
+    "barrier_score_distribution": {
+      "n": 195,
+      "mean": -0.17,
+      "median": -0.0,
+      "p95": 0.0,
+      "min": -0.85,
+      "max": 0.0
+    }
+  },
+  "per_attack": {
+    "acronym": {
+      "filtering_rate": 0.6267,
+      "evaluations": 75,
+      "filtered": 47
+    },
+    "crescendo_paper": {
+      "filtering_rate": 0.35,
+      "evaluations": 60,
+      "filtered": 21
+    },
+    "opposite_day": {
+      "filtering_rate": 0.1167,
+      "evaluations": 60,
+      "filtered": 7
+    }
+  }
+}

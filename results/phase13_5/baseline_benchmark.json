@@ -1,0 +1,127 @@
+{
+  "environment": {
+    "python": "3.13.9",
+    "torch": "2.7.1+cu118",
+    "transformers": "5.16.1",
+    "cuda": "11.8",
+    "gpu": "NVIDIA RTX 4500 Ada Generation",
+    "vram_total_gb": 25.76,
+    "tf32_enabled": false,
+    "cudnn_benchmark": false,
+    "default_dtype": "torch.float32"
+  },
+  "stages": {
+    "model_direct": {
+      "attacker": {
+        "model_id": "Qwen/Qwen3-4B-Instruct-2507",
+        "role": "attacker",
+        "model_size_params": "4B",
+        "cold_load_sec": 12.0,
+        "warm_load_sec": 8.16,
+        "evict_sec": 0.17,
+        "cold_vram_gb": 8.04,
+        "after_evict_vram_gb": 8.04,
+        "gen_time_mean_sec": 3.57,
+        "gen_time_min_sec": null,
+        "gen_time_max_sec": null,
+        "input_tokens": 31,
+        "output_tokens": 68,
+        "tokens_per_sec_mean": 19.3,
+        "tokens_per_sec_min": null,
+        "tokens_per_sec_max": null,
+        "gpu_stats": {
+          "count": 0
+        },
+        "max_new_tokens": 256,
+        "temperature": 0.7
+      },
+      "target": {
+        "model_id": "microsoft/Phi-4-mini-instruct",
+        "role": "target",
+        "model_size_params": "3.8B",
+        "cold_load_sec": 10.61,
+        "warm_load_sec": 10.18,
+        "evict_sec": 0.14,
+        "cold_vram_gb": 7.68,
+        "after_evict_vram_gb": 7.68,
+        "gen_time_mean_sec": 9.26,
+        "gen_time_min_sec": null,
+        "gen_time_max_sec": null,
+        "input_tokens": 22,
+        "output_tokens": 251,
+        "tokens_per_sec_mean": 27.4,
+        "tokens_per_sec_min": null,
+        "tokens_per_sec_max": null,
+        "gpu_stats": {
+          "count": 0
+        },
+        "max_new_tokens": 256,
+        "temperature": 0.7
+      },
+      "evaluator": {
+        "model_id": "Qwen/Qwen3-4B-Instruct-2507",
+        "role": "evaluator",
+        "model_size_params": "4B",
+        "cold_load_sec": 8.59,
+        "warm_load_sec": 12.35,
+        "evict_sec": 0.17,
+        "cold_vram_gb": 8.05,
+        "after_evict_vram_gb": 8.04,
+        "gen_time_mean_sec": 3.3,
+        "gen_time_min_sec": null,
+        "gen_time_max_sec": null,
+        "input_tokens": 31,
+        "output_tokens": 68,
+        "tokens_per_sec_mean": 20.6,
+        "tokens_per_sec_min": null,
+        "tokens_per_sec_max": null,
+        "gpu_stats": {
+          "count": 0
+        },
+        "max_new_tokens": 256,
+        "temperature": 0.0
+      }
+    },
+    "model_lifecycle": {
+      "cycle_events": [
+        {"step": 0, "role": "attacker", "activate_sec": 0.0, "vram_after_gb": 0.009, "was_cache_hit": false, "event_type": "activate"},
+        {"step": 1, "role": "target", "activate_sec": 0.0, "vram_after_gb": 0.009, "was_cache_hit": false, "event_type": "activate"},
+        {"step": 2, "role": "evaluator", "activate_sec": 0.116, "vram_after_gb": 0.009, "was_cache_hit": false, "event_type": "activate"},
+        {"step": 3, "role": "attacker", "activate_sec": 0.0, "vram_after_gb": 0.009, "was_cache_hit": false, "event_type": "activate"},
+        {"step": 4, "role": "target", "activate_sec": 0.0, "vram_after_gb": 0.009, "was_cache_hit": false, "event_type": "activate"},
+        {"step": 5, "role": "evaluator", "activate_sec": 0.112, "vram_after_gb": 0.009, "was_cache_hit": false, "event_type": "activate"},
+        {"step": 6, "role": "attacker", "activate_sec": 0.0, "vram_after_gb": 0.009, "was_cache_hit": false, "event_type": "activate"},
+        {"step": 7, "role": "target", "activate_sec": 0.0, "vram_after_gb": 0.009, "was_cache_hit": false, "event_type": "activate"},
+        {"step": 8, "role": "evaluator", "activate_sec": 0.113, "vram_after_gb": 0.009, "was_cache_hit": false, "event_type": "activate"}
+      ],
+      "total_activate_time_sec": 0.341,
+      "num_activations": 9,
+      "num_evictions": 3,
+      "num_deferred_evictions": 3,
+      "num_vram_samples": 0,
+      "peak_vram_gb": 0.009,
+      "model_ids": {
+        "attacker": "Qwen/Qwen3-4B-Instruct-2507",
+        "target": "microsoft/Phi-4-mini-instruct",
+        "evaluator": "Qwen/Qwen3-4B-Instruct-2507"
+      },
+      "shared_model_pairs": {
+        "attacker": "Qwen/Qwen3-4B-Instruct-2507",
+        "target": "microsoft/Phi-4-mini-instruct",
+        "evaluator": "Qwen/Qwen3-4B-Instruct-2507"
+      }
+    },
+    "nbf": {
+      "embedding_time_mean_ms": 6.13,
+      "embedding_time_max_ms": 7.82,
+      "nbf_forward_time_mean_ms": 0.25,
+      "nbf_forward_time_max_ms": null,
+      "nbf_combine_time_mean_ms": 6.43,
+      "nbf_combine_time_max_ms": null,
+      "nbf_vram_gb": 0.4588,
+      "param_count": 50405,
+      "num_measurements": 30
+    },
+    "pipeline_runs": []
+  }
+}

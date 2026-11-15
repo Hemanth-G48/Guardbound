@@ -63,6 +63,22 @@ python scripts/check_env.py --with-embeddings   # optional: real 768-d embedding
 Set API keys only when you reach phases that need them:
 `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`.
 
+### Bundled reference assets (Git LFS)
+
+Large `.pt` and `.npz` files are stored with Git LFS. After cloning:
+
+```bash
+git lfs install
+git lfs pull
+```
+
+The repository bundles `nbf_original_stuff/`, `NBF-LLM-Dialogue-Embedding/`,
+`data/raw/`, `data/processed/`, `checkpoints/`, `results/`, `runs/`, the paper
+PDF, and the small `data/utility/` MTBench/XSTest fixtures. Local model weights
+under `models/` are still external and must be copied or downloaded separately.
+`.env` remains local; copy `.env.example` when a paid cloud run is explicitly
+authorized.
+
 ## Phase 2 data pipeline
 
 ```bash

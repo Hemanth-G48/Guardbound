@@ -1,0 +1,23 @@
+{
+  "arm": "control",
+  "temperature": 0.7,
+  "top_p": 1.0,
+  "prompt": "frozen Stage 4 production prompt",
+  "prompt_variant": "A0_control",
+  "prompt_suffix": null,
+  "structured_output_mode": null,
+  "model_id": "Qwen/Qwen3.8-27B",
+  "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+  "architecture": "Qwen3_5ForConditionalGeneration",
+  "loader": "AutoModelForImageTextToText",
+  "processor": "Qwen3VLProcessor",
+  "quantization": "nf4",
+  "compute_dtype": "bfloat16",
+  "double_quant": true,
+  "enable_thinking": false,
+  "max_new_tokens": null,
+  "max_turns": 8,
+  "seed_base": 4286,
+  "seed_schedule": "seed_base + 1000*run_index + call_index, set before each attacker generation; target and judge unseeded as in production",
+  "runs": 10
+}

@@ -1,0 +1,11 @@
+{
+  "phase": "17",
+  "stage": "4.5",
+  "deliverable": "control/",
+  "contents": {
+    "control_baseline.json": "the frozen Stage 4 configuration and its carried-forward measurements",
+    "A0_isolated_raw.jsonl": "the 45 isolated control calls re-measured inside this study (verbatim raw outputs)"
+  },
+  "multi_turn_raw": "../multiturn/MT_control_<attack>_run<NN>.json (10 runs)",
+  "note": "the control IS prompt variant A0 at temperature 0.7 / top_p 1.0 with structured decoding off; its raw rows are also present in ../prompt_variant_results.jsonl"
+}

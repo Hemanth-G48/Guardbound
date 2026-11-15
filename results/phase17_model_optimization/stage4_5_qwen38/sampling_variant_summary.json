@@ -1,0 +1,1880 @@
+{
+  "phase": "17",
+  "stage": "4.5",
+  "deliverable": "sampling_variant_summary.json",
+  "policy": "contract-valid = the frozen JSON contract is satisfied (direct or via the frozen extraction); semantically usable = contract-valid AND a non-empty string generatedQuestion",
+  "candidates": {
+    "B0": {
+      "label": "B0",
+      "overall": {
+        "n": 30,
+        "contract_valid": 30,
+        "contract_valid_rate": 1.0,
+        "direct_json": 30,
+        "frozen_extraction": 0,
+        "json_parse_error": 0,
+        "empty_query": 1,
+        "empty_query_rate": 0.0333,
+        "semantically_usable": 29,
+        "semantically_usable_rate": 0.9667,
+        "prose_failure": 0,
+        "failure_shapes": {},
+        "categories": {
+          "VALID_DIRECT_JSON": 30
+        },
+        "latency_s": {
+          "mean": 9.907,
+          "median": 9.966,
+          "max": 15.28
+        },
+        "generated_tokens": {
+          "mean": 78.9,
+          "min": 38,
+          "max": 133
+        },
+        "question_chars": {
+          "n": 29,
+          "mean": 251.0,
+          "min": 113,
+          "max": 470
+        }
+      },
+      "per_attack": {
+        "crescendo_paper": {
+          "n": 10,
+          "contract_valid": 10,
+          "contract_valid_rate": 1.0,
+          "direct_json": 10,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 1,
+          "empty_query_rate": 0.1,
+          "semantically_usable": 9,
+          "semantically_usable_rate": 0.9,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 10
+          },
+          "latency_s": {
+            "mean": 9.601,
+            "median": 10.017,
+            "max": 13.169
+          },
+          "generated_tokens": {
+            "mean": 69.5,
+            "min": 38,
+            "max": 118
+          },
+          "question_chars": {
+            "n": 9,
+            "mean": 233,
+            "min": 142,
+            "max": 470
+          }
+        },
+        "opposite_day": {
+          "n": 10,
+          "contract_valid": 10,
+          "contract_valid_rate": 1.0,
+          "direct_json": 10,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 10,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 10
+          },
+          "latency_s": {
+            "mean": 8.626,
+            "median": 8.572,
+            "max": 13.08
+          },
+          "generated_tokens": {
+            "mean": 69.4,
+            "min": 38,
+            "max": 106
+          },
+          "question_chars": {
+            "n": 10,
+            "mean": 207,
+            "min": 113,
+            "max": 392
+          }
+        },
+        "acronym": {
+          "n": 10,
+          "contract_valid": 10,
+          "contract_valid_rate": 1.0,
+          "direct_json": 10,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 10,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 10
+          },
+          "latency_s": {
+            "mean": 11.494,
+            "median": 10.906,
+            "max": 15.28
+          },
+          "generated_tokens": {
+            "mean": 97.8,
+            "min": 74,
+            "max": 133
+          },
+          "question_chars": {
+            "n": 10,
+            "mean": 311.1,
+            "min": 175,
+            "max": 405
+          }
+        }
+      },
+      "per_round": {
+        "1": {
+          "n": 6,
+          "contract_valid": 6,
+          "contract_valid_rate": 1.0,
+          "direct_json": 6,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 6,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 6
+          },
+          "latency_s": {
+            "mean": 7.656,
+            "median": 8.11,
+            "max": 10.175
+          },
+          "generated_tokens": {
+            "mean": 55.8,
+            "min": 38,
+            "max": 83
+          },
+          "question_chars": {
+            "n": 6,
+            "mean": 207.5,
+            "min": 123,
+            "max": 323
+          }
+        },
+        "2": {
+          "n": 6,
+          "contract_valid": 6,
+          "contract_valid_rate": 1.0,
+          "direct_json": 6,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 1,
+          "empty_query_rate": 0.1667,
+          "semantically_usable": 5,
+          "semantically_usable_rate": 0.8333,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 6
+          },
+          "latency_s": {
+            "mean": 10.293,
+            "median": 10.7,
+            "max": 13.169
+          },
+          "generated_tokens": {
+            "mean": 88.3,
+            "min": 38,
+            "max": 118
+          },
+          "question_chars": {
+            "n": 5,
+            "mean": 347.2,
+            "min": 183,
+            "max": 470
+          }
+        },
+        "4": {
+          "n": 6,
+          "contract_valid": 6,
+          "contract_valid_rate": 1.0,
+          "direct_json": 6,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 6,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 6
+          },
+          "latency_s": {
+            "mean": 9.769,
+            "median": 10.137,
+            "max": 11.11
+          },
+          "generated_tokens": {
+            "mean": 77.3,
+            "min": 67,
+            "max": 90
+          },
+          "question_chars": {
+            "n": 6,
+            "mean": 208.3,
+            "min": 144,
+            "max": 304
+          }
+        },
+        "6": {
+          "n": 6,
+          "contract_valid": 6,
+          "contract_valid_rate": 1.0,
+          "direct_json": 6,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 6,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 6
+          },
+          "latency_s": {
+            "mean": 10.787,
+            "median": 9.43,
+            "max": 15.28
+          },
+          "generated_tokens": {
+            "mean": 86.2,
+            "min": 55,
+            "max": 133
+          },
+          "question_chars": {
+            "n": 6,
+            "mean": 241.8,
+            "min": 142,
+            "max": 385
+          }
+        },
+        "8": {
+          "n": 6,
+          "contract_valid": 6,
+          "contract_valid_rate": 1.0,
+          "direct_json": 6,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 6,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 6
+          },
+          "latency_s": {
+            "mean": 11.029,
+            "median": 11.166,
+            "max": 12.978
+          },
+          "generated_tokens": {
+            "mean": 86.8,
+            "min": 57,
+            "max": 108
+          },
+          "question_chars": {
+            "n": 6,
+            "mean": 266,
+            "min": 113,
+            "max": 358
+          }
+        }
+      },
+      "contract_valid_ci95": [
+        0.8865,
+        1.0
+      ],
+      "semantically_usable_ci95": [
+        0.8333,
+        0.9941
+      ]
+    },
+    "B1": {
+      "label": "B1",
+      "overall": {
+        "n": 30,
+        "contract_valid": 30,
+        "contract_valid_rate": 1.0,
+        "direct_json": 30,
+        "frozen_extraction": 0,
+        "json_parse_error": 0,
+        "empty_query": 1,
+        "empty_query_rate": 0.0333,
+        "semantically_usable": 29,
+        "semantically_usable_rate": 0.9667,
+        "prose_failure": 0,
+        "failure_shapes": {},
+        "categories": {
+          "VALID_DIRECT_JSON": 30
+        },
+        "latency_s": {
+          "mean": 9.327,
+          "median": 9.47,
+          "max": 16.454
+        },
+        "generated_tokens": {
+          "mean": 72.5,
+          "min": 38,
+          "max": 136
+        },
+        "question_chars": {
+          "n": 29,
+          "mean": 228.2,
+          "min": 72,
+          "max": 597
+        }
+      },
+      "per_attack": {
+        "crescendo_paper": {
+          "n": 10,
+          "contract_valid": 10,
+          "contract_valid_rate": 1.0,
+          "direct_json": 10,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 1,
+          "empty_query_rate": 0.1,
+          "semantically_usable": 9,
+          "semantically_usable_rate": 0.9,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 10
+          },
+          "latency_s": {
+            "mean": 9.037,
+            "median": 9.341,
+            "max": 11.336
+          },
+          "generated_tokens": {
+            "mean": 61.2,
+            "min": 38,
+            "max": 81
+          },
+          "question_chars": {
+            "n": 9,
+            "mean": 185.1,
+            "min": 142,
+            "max": 239
+          }
+        },
+        "opposite_day": {
+          "n": 10,
+          "contract_valid": 10,
+          "contract_valid_rate": 1.0,
+          "direct_json": 10,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 10,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 10
+          },
+          "latency_s": {
+            "mean": 7.69,
+            "median": 7.479,
+            "max": 12.304
+          },
+          "generated_tokens": {
+            "mean": 61.8,
+            "min": 38,
+            "max": 100
+          },
+          "question_chars": {
+            "n": 10,
+            "mean": 169.2,
+            "min": 72,
+            "max": 345
+          }
+        },
+        "acronym": {
+          "n": 10,
+          "contract_valid": 10,
+          "contract_valid_rate": 1.0,
+          "direct_json": 10,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 10,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 10
+          },
+          "latency_s": {
+            "mean": 11.255,
+            "median": 11.035,
+            "max": 16.454
+          },
+          "generated_tokens": {
+            "mean": 94.5,
+            "min": 46,
+            "max": 136
+          },
+          "question_chars": {
+            "n": 10,
+            "mean": 326,
+            "min": 159,
+            "max": 597
+          }
+        }
+      },
+      "per_round": {
+        "1": {
+          "n": 6,
+          "contract_valid": 6,
+          "contract_valid_rate": 1.0,
+          "direct_json": 6,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 6,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 6
+          },
+          "latency_s": {
+            "mean": 7.001,
+            "median": 6.139,
+            "max": 10.956
+          },
+          "generated_tokens": {
+            "mean": 47.8,
+            "min": 38,
+            "max": 73
+          },
+          "question_chars": {
+            "n": 6,
+            "mean": 174,
+            "min": 123,
+            "max": 285
+          }
+        },
+        "2": {
+          "n": 6,
+          "contract_valid": 6,
+          "contract_valid_rate": 1.0,
+          "direct_json": 6,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 1,
+          "empty_query_rate": 0.1667,
+          "semantically_usable": 5,
+          "semantically_usable_rate": 0.8333,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 6
+          },
+          "latency_s": {
+            "mean": 10.43,
+            "median": 10.303,
+            "max": 16.454
+          },
+          "generated_tokens": {
+            "mean": 86,
+            "min": 38,
+            "max": 136
+          },
+          "question_chars": {
+            "n": 5,
+            "mean": 334,
+            "min": 171,
+            "max": 597
+          }
+        },
+        "4": {
+          "n": 6,
+          "contract_valid": 6,
+          "contract_valid_rate": 1.0,
+          "direct_json": 6,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 6,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 6
+          },
+          "latency_s": {
+            "mean": 9.915,
+            "median": 9.963,
+            "max": 11.124
+          },
+          "generated_tokens": {
+            "mean": 77.7,
+            "min": 64,
+            "max": 94
+          },
+          "question_chars": {
+            "n": 6,
+            "mean": 208.2,
+            "min": 144,
+            "max": 270
+          }
+        },
+        "6": {
+          "n": 6,
+          "contract_valid": 6,
+          "contract_valid_rate": 1.0,
+          "direct_json": 6,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 6,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 6
+          },
+          "latency_s": {
+            "mean": 9.232,
+            "median": 8.174,
+            "max": 13.287
+          },
+          "generated_tokens": {
+            "mean": 72.8,
+            "min": 54,
+            "max": 113
+          },
+          "question_chars": {
+            "n": 6,
+            "mean": 221.8,
+            "min": 135,
+            "max": 391
+          }
+        },
+        "8": {
+          "n": 6,
+          "contract_valid": 6,
+          "contract_valid_rate": 1.0,
+          "direct_json": 6,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 6,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 6
+          },
+          "latency_s": {
+            "mean": 10.059,
+            "median": 10.32,
+            "max": 13.606
+          },
+          "generated_tokens": {
+            "mean": 78.2,
+            "min": 53,
+            "max": 121
+          },
+          "question_chars": {
+            "n": 6,
+            "mean": 220.7,
+            "min": 72,
+            "max": 474
+          }
+        }
+      },
+      "contract_valid_ci95": [
+        0.8865,
+        1.0
+      ],
+      "semantically_usable_ci95": [
+        0.8333,
+        0.9941
+      ]
+    },
+    "B2": {
+      "label": "B2",
+      "overall": {
+        "n": 30,
+        "contract_valid": 30,
+        "contract_valid_rate": 1.0,
+        "direct_json": 30,
+        "frozen_extraction": 0,
+        "json_parse_error": 0,
+        "empty_query": 0,
+        "empty_query_rate": 0.0,
+        "semantically_usable": 30,
+        "semantically_usable_rate": 1.0,
+        "prose_failure": 0,
+        "failure_shapes": {},
+        "categories": {
+          "VALID_DIRECT_JSON": 30
+        },
+        "latency_s": {
+          "mean": 9.524,
+          "median": 9.212,
+          "max": 16.736
+        },
+        "generated_tokens": {
+          "mean": 74.9,
+          "min": 37,
+          "max": 147
+        },
+        "question_chars": {
+          "n": 30,
+          "mean": 228.9,
+          "min": 72,
+          "max": 544
+        }
+      },
+      "per_attack": {
+        "crescendo_paper": {
+          "n": 10,
+          "contract_valid": 10,
+          "contract_valid_rate": 1.0,
+          "direct_json": 10,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 10,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 10
+          },
+          "latency_s": {
+            "mean": 9.554,
+            "median": 9.212,
+            "max": 12.273
+          },
+          "generated_tokens": {
+            "mean": 67.7,
+            "min": 42,
+            "max": 102
+          },
+          "question_chars": {
+            "n": 10,
+            "mean": 199.1,
+            "min": 115,
+            "max": 321
+          }
+        },
+        "opposite_day": {
+          "n": 10,
+          "contract_valid": 10,
+          "contract_valid_rate": 1.0,
+          "direct_json": 10,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 10,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 10
+          },
+          "latency_s": {
+            "mean": 7.456,
+            "median": 7.116,
+            "max": 10.367
+          },
+          "generated_tokens": {
+            "mean": 59,
+            "min": 37,
+            "max": 90
+          },
+          "question_chars": {
+            "n": 10,
+            "mean": 150.7,
+            "min": 72,
+            "max": 315
+          }
+        },
+        "acronym": {
+          "n": 10,
+          "contract_valid": 10,
+          "contract_valid_rate": 1.0,
+          "direct_json": 10,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 10,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 10
+          },
+          "latency_s": {
+            "mean": 11.564,
+            "median": 11.467,
+            "max": 16.736
+          },
+          "generated_tokens": {
+            "mean": 98.1,
+            "min": 61,
+            "max": 147
+          },
+          "question_chars": {
+            "n": 10,
+            "mean": 336.9,
+            "min": 227,
+            "max": 544
+          }
+        }
+      },
+      "per_round": {
+        "1": {
+          "n": 6,
+          "contract_valid": 6,
+          "contract_valid_rate": 1.0,
+          "direct_json": 6,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 6,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 6
+          },
+          "latency_s": {
+            "mean": 7.46,
+            "median": 7.443,
+            "max": 10.07
+          },
+          "generated_tokens": {
+            "mean": 54.2,
+            "min": 37,
+            "max": 73
+          },
+          "question_chars": {
+            "n": 6,
+            "mean": 202.3,
+            "min": 130,
+            "max": 276
+          }
+        },
+        "2": {
+          "n": 6,
+          "contract_valid": 6,
+          "contract_valid_rate": 1.0,
+          "direct_json": 6,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 6,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 6
+          },
+          "latency_s": {
+            "mean": 10.059,
+            "median": 10.419,
+            "max": 12.273
+          },
+          "generated_tokens": {
+            "mean": 85.7,
+            "min": 64,
+            "max": 102
+          },
+          "question_chars": {
+            "n": 6,
+            "mean": 271.3,
+            "min": 153,
+            "max": 321
+          }
+        },
+        "4": {
+          "n": 6,
+          "contract_valid": 6,
+          "contract_valid_rate": 1.0,
+          "direct_json": 6,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 6,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 6
+          },
+          "latency_s": {
+            "mean": 8.768,
+            "median": 7.88,
+            "max": 12.082
+          },
+          "generated_tokens": {
+            "mean": 73,
+            "min": 59,
+            "max": 116
+          },
+          "question_chars": {
+            "n": 6,
+            "mean": 188.8,
+            "min": 103,
+            "max": 386
+          }
+        },
+        "6": {
+          "n": 6,
+          "contract_valid": 6,
+          "contract_valid_rate": 1.0,
+          "direct_json": 6,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 6,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 6
+          },
+          "latency_s": {
+            "mean": 9.5,
+            "median": 8.454,
+            "max": 13.553
+          },
+          "generated_tokens": {
+            "mean": 73.3,
+            "min": 54,
+            "max": 110
+          },
+          "question_chars": {
+            "n": 6,
+            "mean": 217,
+            "min": 127,
+            "max": 389
+          }
+        },
+        "8": {
+          "n": 6,
+          "contract_valid": 6,
+          "contract_valid_rate": 1.0,
+          "direct_json": 6,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 6,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 6
+          },
+          "latency_s": {
+            "mean": 11.834,
+            "median": 11.774,
+            "max": 16.736
+          },
+          "generated_tokens": {
+            "mean": 88.5,
+            "min": 53,
+            "max": 147
+          },
+          "question_chars": {
+            "n": 6,
+            "mean": 265,
+            "min": 72,
+            "max": 544
+          }
+        }
+      },
+      "contract_valid_ci95": [
+        0.8865,
+        1.0
+      ],
+      "semantically_usable_ci95": [
+        0.8865,
+        1.0
+      ]
+    },
+    "B3": {
+      "label": "B3",
+      "overall": {
+        "n": 30,
+        "contract_valid": 30,
+        "contract_valid_rate": 1.0,
+        "direct_json": 30,
+        "frozen_extraction": 0,
+        "json_parse_error": 0,
+        "empty_query": 1,
+        "empty_query_rate": 0.0333,
+        "semantically_usable": 29,
+        "semantically_usable_rate": 0.9667,
+        "prose_failure": 0,
+        "failure_shapes": {},
+        "categories": {
+          "VALID_DIRECT_JSON": 30
+        },
+        "latency_s": {
+          "mean": 9.512,
+          "median": 9.617,
+          "max": 15.921
+        },
+        "generated_tokens": {
+          "mean": 72.9,
+          "min": 38,
+          "max": 119
+        },
+        "question_chars": {
+          "n": 29,
+          "mean": 224.7,
+          "min": 119,
+          "max": 431
+        }
+      },
+      "per_attack": {
+        "crescendo_paper": {
+          "n": 10,
+          "contract_valid": 10,
+          "contract_valid_rate": 1.0,
+          "direct_json": 10,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 1,
+          "empty_query_rate": 0.1,
+          "semantically_usable": 9,
+          "semantically_usable_rate": 0.9,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 10
+          },
+          "latency_s": {
+            "mean": 9.548,
+            "median": 9.477,
+            "max": 13.011
+          },
+          "generated_tokens": {
+            "mean": 64.4,
+            "min": 38,
+            "max": 92
+          },
+          "question_chars": {
+            "n": 9,
+            "mean": 197.6,
+            "min": 134,
+            "max": 304
+          }
+        },
+        "opposite_day": {
+          "n": 10,
+          "contract_valid": 10,
+          "contract_valid_rate": 1.0,
+          "direct_json": 10,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 10,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 10
+          },
+          "latency_s": {
+            "mean": 8.143,
+            "median": 7.708,
+            "max": 11.996
+          },
+          "generated_tokens": {
+            "mean": 67.2,
+            "min": 38,
+            "max": 102
+          },
+          "question_chars": {
+            "n": 10,
+            "mean": 197.3,
+            "min": 119,
+            "max": 332
+          }
+        },
+        "acronym": {
+          "n": 10,
+          "contract_valid": 10,
+          "contract_valid_rate": 1.0,
+          "direct_json": 10,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 10,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 10
+          },
+          "latency_s": {
+            "mean": 10.845,
+            "median": 10.656,
+            "max": 15.921
+          },
+          "generated_tokens": {
+            "mean": 87,
+            "min": 64,
+            "max": 119
+          },
+          "question_chars": {
+            "n": 10,
+            "mean": 276.4,
+            "min": 182,
+            "max": 431
+          }
+        }
+      },
+      "per_round": {
+        "1": {
+          "n": 6,
+          "contract_valid": 6,
+          "contract_valid_rate": 1.0,
+          "direct_json": 6,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 6,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 6
+          },
+          "latency_s": {
+            "mean": 7.577,
+            "median": 8.148,
+            "max": 10.996
+          },
+          "generated_tokens": {
+            "mean": 51.8,
+            "min": 38,
+            "max": 75
+          },
+          "question_chars": {
+            "n": 6,
+            "mean": 178.8,
+            "min": 123,
+            "max": 254
+          }
+        },
+        "2": {
+          "n": 6,
+          "contract_valid": 6,
+          "contract_valid_rate": 1.0,
+          "direct_json": 6,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 1,
+          "empty_query_rate": 0.1667,
+          "semantically_usable": 5,
+          "semantically_usable_rate": 0.8333,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 6
+          },
+          "latency_s": {
+            "mean": 10.04,
+            "median": 11.153,
+            "max": 13.011
+          },
+          "generated_tokens": {
+            "mean": 81.2,
+            "min": 38,
+            "max": 107
+          },
+          "question_chars": {
+            "n": 5,
+            "mean": 297.8,
+            "min": 184,
+            "max": 405
+          }
+        },
+        "4": {
+          "n": 6,
+          "contract_valid": 6,
+          "contract_valid_rate": 1.0,
+          "direct_json": 6,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 6,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 6
+          },
+          "latency_s": {
+            "mean": 10.545,
+            "median": 9.832,
+            "max": 15.921
+          },
+          "generated_tokens": {
+            "mean": 82.2,
+            "min": 61,
+            "max": 119
+          },
+          "question_chars": {
+            "n": 6,
+            "mean": 236.2,
+            "min": 119,
+            "max": 431
+          }
+        },
+        "6": {
+          "n": 6,
+          "contract_valid": 6,
+          "contract_valid_rate": 1.0,
+          "direct_json": 6,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 6,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 6
+          },
+          "latency_s": {
+            "mean": 9.02,
+            "median": 8.316,
+            "max": 11.213
+          },
+          "generated_tokens": {
+            "mean": 69,
+            "min": 55,
+            "max": 90
+          },
+          "question_chars": {
+            "n": 6,
+            "mean": 199.7,
+            "min": 142,
+            "max": 305
+          }
+        },
+        "8": {
+          "n": 6,
+          "contract_valid": 6,
+          "contract_valid_rate": 1.0,
+          "direct_json": 6,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 6,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 6
+          },
+          "latency_s": {
+            "mean": 10.379,
+            "median": 10.415,
+            "max": 12.148
+          },
+          "generated_tokens": {
+            "mean": 80.2,
+            "min": 62,
+            "max": 102
+          },
+          "question_chars": {
+            "n": 6,
+            "mean": 223,
+            "min": 129,
+            "max": 332
+          }
+        }
+      },
+      "contract_valid_ci95": [
+        0.8865,
+        1.0
+      ],
+      "semantically_usable_ci95": [
+        0.8333,
+        0.9941
+      ]
+    },
+    "B4": {
+      "label": "B4",
+      "overall": {
+        "n": 30,
+        "contract_valid": 30,
+        "contract_valid_rate": 1.0,
+        "direct_json": 30,
+        "frozen_extraction": 0,
+        "json_parse_error": 0,
+        "empty_query": 0,
+        "empty_query_rate": 0.0,
+        "semantically_usable": 30,
+        "semantically_usable_rate": 1.0,
+        "prose_failure": 0,
+        "failure_shapes": {},
+        "categories": {
+          "VALID_DIRECT_JSON": 30
+        },
+        "latency_s": {
+          "mean": 9.962,
+          "median": 10.36,
+          "max": 15.016
+        },
+        "generated_tokens": {
+          "mean": 76.7,
+          "min": 38,
+          "max": 131
+        },
+        "question_chars": {
+          "n": 30,
+          "mean": 242.0,
+          "min": 72,
+          "max": 505
+        }
+      },
+      "per_attack": {
+        "crescendo_paper": {
+          "n": 10,
+          "contract_valid": 10,
+          "contract_valid_rate": 1.0,
+          "direct_json": 10,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 10,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 10
+          },
+          "latency_s": {
+            "mean": 9.864,
+            "median": 9.645,
+            "max": 11.852
+          },
+          "generated_tokens": {
+            "mean": 68.4,
+            "min": 40,
+            "max": 95
+          },
+          "question_chars": {
+            "n": 10,
+            "mean": 204.8,
+            "min": 133,
+            "max": 319
+          }
+        },
+        "opposite_day": {
+          "n": 10,
+          "contract_valid": 10,
+          "contract_valid_rate": 1.0,
+          "direct_json": 10,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 10,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 10
+          },
+          "latency_s": {
+            "mean": 7.83,
+            "median": 7.632,
+            "max": 11.293
+          },
+          "generated_tokens": {
+            "mean": 59.4,
+            "min": 38,
+            "max": 103
+          },
+          "question_chars": {
+            "n": 10,
+            "mean": 155.2,
+            "min": 72,
+            "max": 376
+          }
+        },
+        "acronym": {
+          "n": 10,
+          "contract_valid": 10,
+          "contract_valid_rate": 1.0,
+          "direct_json": 10,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 10,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 10
+          },
+          "latency_s": {
+            "mean": 12.19,
+            "median": 12.039,
+            "max": 15.016
+          },
+          "generated_tokens": {
+            "mean": 102.2,
+            "min": 73,
+            "max": 131
+          },
+          "question_chars": {
+            "n": 10,
+            "mean": 365.9,
+            "min": 214,
+            "max": 505
+          }
+        }
+      },
+      "per_round": {
+        "1": {
+          "n": 6,
+          "contract_valid": 6,
+          "contract_valid_rate": 1.0,
+          "direct_json": 6,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 6,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 6
+          },
+          "latency_s": {
+            "mean": 8.395,
+            "median": 9.421,
+            "max": 11.037
+          },
+          "generated_tokens": {
+            "mean": 58,
+            "min": 38,
+            "max": 98
+          },
+          "question_chars": {
+            "n": 6,
+            "mean": 234.5,
+            "min": 123,
+            "max": 472
+          }
+        },
+        "2": {
+          "n": 6,
+          "contract_valid": 6,
+          "contract_valid_rate": 1.0,
+          "direct_json": 6,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 6,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 6
+          },
+          "latency_s": {
+            "mean": 11.124,
+            "median": 11.398,
+            "max": 12.165
+          },
+          "generated_tokens": {
+            "mean": 94.2,
+            "min": 64,
+            "max": 109
+          },
+          "question_chars": {
+            "n": 6,
+            "mean": 311.5,
+            "min": 171,
+            "max": 405
+          }
+        },
+        "4": {
+          "n": 6,
+          "contract_valid": 6,
+          "contract_valid_rate": 1.0,
+          "direct_json": 6,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 6,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 6
+          },
+          "latency_s": {
+            "mean": 9.76,
+            "median": 9.488,
+            "max": 13.516
+          },
+          "generated_tokens": {
+            "mean": 75.3,
+            "min": 60,
+            "max": 118
+          },
+          "question_chars": {
+            "n": 6,
+            "mean": 203.2,
+            "min": 127,
+            "max": 410
+          }
+        },
+        "6": {
+          "n": 6,
+          "contract_valid": 6,
+          "contract_valid_rate": 1.0,
+          "direct_json": 6,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 6,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 6
+          },
+          "latency_s": {
+            "mean": 9.439,
+            "median": 8.711,
+            "max": 12.207
+          },
+          "generated_tokens": {
+            "mean": 70.5,
+            "min": 54,
+            "max": 102
+          },
+          "question_chars": {
+            "n": 6,
+            "mean": 204.3,
+            "min": 127,
+            "max": 349
+          }
+        },
+        "8": {
+          "n": 6,
+          "contract_valid": 6,
+          "contract_valid_rate": 1.0,
+          "direct_json": 6,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 6,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 6
+          },
+          "latency_s": {
+            "mean": 11.09,
+            "median": 11.038,
+            "max": 15.016
+          },
+          "generated_tokens": {
+            "mean": 85.3,
+            "min": 53,
+            "max": 131
+          },
+          "question_chars": {
+            "n": 6,
+            "mean": 256.3,
+            "min": 72,
+            "max": 505
+          }
+        }
+      },
+      "contract_valid_ci95": [
+        0.8865,
+        1.0
+      ],
+      "semantically_usable_ci95": [
+        0.8865,
+        1.0
+      ]
+    },
+    "B5": {
+      "label": "B5",
+      "overall": {
+        "n": 30,
+        "contract_valid": 30,
+        "contract_valid_rate": 1.0,
+        "direct_json": 30,
+        "frozen_extraction": 0,
+        "json_parse_error": 0,
+        "empty_query": 0,
+        "empty_query_rate": 0.0,
+        "semantically_usable": 30,
+        "semantically_usable_rate": 1.0,
+        "prose_failure": 0,
+        "failure_shapes": {},
+        "categories": {
+          "VALID_DIRECT_JSON": 30
+        },
+        "latency_s": {
+          "mean": 9.497,
+          "median": 8.806,
+          "max": 13.624
+        },
+        "generated_tokens": {
+          "mean": 74.4,
+          "min": 37,
+          "max": 116
+        },
+        "question_chars": {
+          "n": 30,
+          "mean": 229.0,
+          "min": 72,
+          "max": 421
+        }
+      },
+      "per_attack": {
+        "crescendo_paper": {
+          "n": 10,
+          "contract_valid": 10,
+          "contract_valid_rate": 1.0,
+          "direct_json": 10,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 10,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 10
+          },
+          "latency_s": {
+            "mean": 9.631,
+            "median": 9.396,
+            "max": 12.394
+          },
+          "generated_tokens": {
+            "mean": 66.8,
+            "min": 42,
+            "max": 102
+          },
+          "question_chars": {
+            "n": 10,
+            "mean": 194,
+            "min": 115,
+            "max": 321
+          }
+        },
+        "opposite_day": {
+          "n": 10,
+          "contract_valid": 10,
+          "contract_valid_rate": 1.0,
+          "direct_json": 10,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 10,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 10
+          },
+          "latency_s": {
+            "mean": 7.438,
+            "median": 7.187,
+            "max": 10.95
+          },
+          "generated_tokens": {
+            "mean": 60.1,
+            "min": 37,
+            "max": 99
+          },
+          "question_chars": {
+            "n": 10,
+            "mean": 157.4,
+            "min": 72,
+            "max": 361
+          }
+        },
+        "acronym": {
+          "n": 10,
+          "contract_valid": 10,
+          "contract_valid_rate": 1.0,
+          "direct_json": 10,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 10,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 10
+          },
+          "latency_s": {
+            "mean": 11.422,
+            "median": 12.178,
+            "max": 13.624
+          },
+          "generated_tokens": {
+            "mean": 96.4,
+            "min": 61,
+            "max": 116
+          },
+          "question_chars": {
+            "n": 10,
+            "mean": 335.7,
+            "min": 227,
+            "max": 421
+          }
+        }
+      },
+      "per_round": {
+        "1": {
+          "n": 6,
+          "contract_valid": 6,
+          "contract_valid_rate": 1.0,
+          "direct_json": 6,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 6,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 6
+          },
+          "latency_s": {
+            "mean": 7.523,
+            "median": 7.389,
+            "max": 10.784
+          },
+          "generated_tokens": {
+            "mean": 53.5,
+            "min": 37,
+            "max": 70
+          },
+          "question_chars": {
+            "n": 6,
+            "mean": 197.2,
+            "min": 130,
+            "max": 257
+          }
+        },
+        "2": {
+          "n": 6,
+          "contract_valid": 6,
+          "contract_valid_rate": 1.0,
+          "direct_json": 6,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 6,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 6
+          },
+          "latency_s": {
+            "mean": 10.309,
+            "median": 10.716,
+            "max": 12.136
+          },
+          "generated_tokens": {
+            "mean": 89.3,
+            "min": 64,
+            "max": 111
+          },
+          "question_chars": {
+            "n": 6,
+            "mean": 290.7,
+            "min": 153,
+            "max": 399
+          }
+        },
+        "4": {
+          "n": 6,
+          "contract_valid": 6,
+          "contract_valid_rate": 1.0,
+          "direct_json": 6,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 6,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 6
+          },
+          "latency_s": {
+            "mean": 9.797,
+            "median": 8.356,
+            "max": 13.624
+          },
+          "generated_tokens": {
+            "mean": 76.8,
+            "min": 59,
+            "max": 116
+          },
+          "question_chars": {
+            "n": 6,
+            "mean": 213.5,
+            "min": 103,
+            "max": 386
+          }
+        },
+        "6": {
+          "n": 6,
+          "contract_valid": 6,
+          "contract_valid_rate": 1.0,
+          "direct_json": 6,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 6,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 6
+          },
+          "latency_s": {
+            "mean": 9.2,
+            "median": 8.515,
+            "max": 13.379
+          },
+          "generated_tokens": {
+            "mean": 72.5,
+            "min": 54,
+            "max": 109
+          },
+          "question_chars": {
+            "n": 6,
+            "mean": 212.7,
+            "min": 127,
+            "max": 385
+          }
+        },
+        "8": {
+          "n": 6,
+          "contract_valid": 6,
+          "contract_valid_rate": 1.0,
+          "direct_json": 6,
+          "frozen_extraction": 0,
+          "json_parse_error": 0,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 6,
+          "semantically_usable_rate": 1.0,
+          "prose_failure": 0,
+          "failure_shapes": {},
+          "categories": {
+            "VALID_DIRECT_JSON": 6
+          },
+          "latency_s": {
+            "mean": 10.658,
+            "median": 11.312,
+            "max": 13.337
+          },
+          "generated_tokens": {
+            "mean": 80,
+            "min": 51,
+            "max": 112
+          },
+          "question_chars": {
+            "n": 6,
+            "mean": 231.2,
+            "min": 72,
+            "max": 421
+          }
+        }
+      },
+      "contract_valid_ci95": [
+        0.8865,
+        1.0
+      ],
+      "semantically_usable_ci95": [
+        0.8865,
+        1.0
+      ]
+    }
+  }
+}

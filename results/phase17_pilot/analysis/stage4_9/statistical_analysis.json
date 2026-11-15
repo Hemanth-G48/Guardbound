@@ -1,0 +1,296 @@
+{
+  "phase": "17",
+  "stage": "4.9",
+  "deliverable": "statistical_analysis.json",
+  "confidence_intervals": {
+    "attacker_validity": [
+      0.7945,
+      0.8698
+    ],
+    "attacker_semantic_usability": [
+      0.7742,
+      0.8528
+    ],
+    "run_survival": [
+      0.2347,
+      0.4243
+    ],
+    "attack_success": [
+      0.1673,
+      0.3425
+    ],
+    "per_attack_success": {
+      "Crescendo": [
+        0.095,
+        0.3731
+      ],
+      "OppositeDay": [
+        0.2459,
+        0.5768
+      ],
+      "Acronym": [
+        0.0531,
+        0.2968
+      ]
+    },
+    "method": "Wilson score interval, 95 %"
+  },
+  "attack_level_comparisons": [
+    {
+      "comparison": "Crescendo vs OppositeDay",
+      "success": {
+        "test": "fisher_exact_two_sided",
+        "question": "success rate Crescendo vs OppositeDay",
+        "table": [
+          [
+            6,
+            24
+          ],
+          [
+            12,
+            18
+          ]
+        ],
+        "p_value": 0.1581,
+        "label": "exploratory",
+        "rates": {
+          "row1": 0.2,
+          "row2": 0.4
+        }
+      },
+      "survival": {
+        "test": "fisher_exact_two_sided",
+        "question": "survival Crescendo vs OppositeDay",
+        "table": [
+          [
+            11,
+            19
+          ],
+          [
+            13,
+            17
+          ]
+        ],
+        "p_value": 0.7925,
+        "label": "exploratory",
+        "rates": {
+          "row1": 0.3667,
+          "row2": 0.4333
+        }
+      }
+    },
+    {
+      "comparison": "Crescendo vs Acronym",
+      "success": {
+        "test": "fisher_exact_two_sided",
+        "question": "success rate Crescendo vs Acronym",
+        "table": [
+          [
+            6,
+            24
+          ],
+          [
+            4,
+            26
+          ]
+        ],
+        "p_value": 0.7306,
+        "label": "exploratory",
+        "rates": {
+          "row1": 0.2,
+          "row2": 0.1333
+        }
+      },
+      "survival": {
+        "test": "fisher_exact_two_sided",
+        "question": "survival Crescendo vs Acronym",
+        "table": [
+          [
+            11,
+            19
+          ],
+          [
+            5,
+            25
+          ]
+        ],
+        "p_value": 0.1432,
+        "label": "exploratory",
+        "rates": {
+          "row1": 0.3667,
+          "row2": 0.1667
+        }
+      }
+    },
+    {
+      "comparison": "OppositeDay vs Acronym",
+      "success": {
+        "test": "fisher_exact_two_sided",
+        "question": "success rate OppositeDay vs Acronym",
+        "table": [
+          [
+            12,
+            18
+          ],
+          [
+            4,
+            26
+          ]
+        ],
+        "p_value": 0.0391,
+        "label": "exploratory",
+        "rates": {
+          "row1": 0.4,
+          "row2": 0.1333
+        }
+      },
+      "survival": {
+        "test": "fisher_exact_two_sided",
+        "question": "survival OppositeDay vs Acronym",
+        "table": [
+          [
+            13,
+            17
+          ],
+          [
+            5,
+            25
+          ]
+        ],
+        "p_value": 0.047,
+        "label": "exploratory",
+        "rates": {
+          "row1": 0.4333,
+          "row2": 0.1667
+        }
+      }
+    }
+  ],
+  "exploratory_test_discipline": {
+    "n_tests": 11,
+    "tests": [
+      {
+        "question": "does survival associate with success? (run level)",
+        "p_value": 0.0,
+        "label": "exploratory"
+      },
+      {
+        "question": "does completing >=1 turn associate with success?",
+        "p_value": 0.0,
+        "label": "exploratory"
+      },
+      {
+        "question": "completed turns: successful vs unsuccessful runs",
+        "p_value": 0.0,
+        "label": "exploratory (permutation)"
+      },
+      {
+        "question": "target refusals: successful vs unsuccessful runs",
+        "p_value": 0.0245,
+        "label": "exploratory (permutation)"
+      },
+      {
+        "question": "does having any invalid attacker call associate with success?",
+        "p_value": 0.0,
+        "label": "exploratory"
+      },
+      {
+        "question": "success rate Crescendo vs OppositeDay",
+        "p_value": 0.1581,
+        "label": "exploratory"
+      },
+      {
+        "question": "survival Crescendo vs OppositeDay",
+        "p_value": 0.7925,
+        "label": "exploratory"
+      },
+      {
+        "question": "success rate Crescendo vs Acronym",
+        "p_value": 0.7306,
+        "label": "exploratory"
+      },
+      {
+        "question": "survival Crescendo vs Acronym",
+        "p_value": 0.1432,
+        "label": "exploratory"
+      },
+      {
+        "question": "success rate OppositeDay vs Acronym",
+        "p_value": 0.0391,
+        "label": "exploratory"
+      },
+      {
+        "question": "survival OppositeDay vs Acronym",
+        "p_value": 0.047,
+        "label": "exploratory"
+      }
+    ],
+    "min_p_value": 0.0,
+    "bonferroni_threshold": 0.0045,
+    "n_below_bonferroni": 4,
+    "statement": "all association tests here are exploratory, performed on one pilot dataset, and none survives a Bonferroni correction; no p-value is presented as a definitive finding"
+  },
+  "associations": {
+    "attacker_reliability_to_success": {
+      "test": "fisher_exact_two_sided",
+      "question": "does having any invalid attacker call associate with success?",
+      "table": [
+        [
+          0,
+          68
+        ],
+        [
+          22,
+          0
+        ]
+      ],
+      "p_value": 0.0,
+      "label": "exploratory",
+      "rates": {
+        "row1": 0.0,
+        "row2": 1.0
+      }
+    },
+    "survival_to_success": {
+      "test": "fisher_exact_two_sided",
+      "question": "does survival associate with success? (run level)",
+      "table": [
+        [
+          22,
+          7
+        ],
+        [
+          0,
+          61
+        ]
+      ],
+      "p_value": 0.0,
+      "label": "exploratory",
+      "rates": {
+        "row1": 0.7586,
+        "row2": 0.0
+      }
+    },
+    "depth_to_success": {
+      "test": "fisher_exact_two_sided",
+      "question": "does completing >=1 turn associate with success?",
+      "table": [
+        [
+          22,
+          0
+        ],
+        [
+          0,
+          68
+        ]
+      ],
+      "p_value": 0.0,
+      "label": "exploratory",
+      "rates": {
+        "row1": 1.0,
+        "row2": 0.0
+      }
+    }
+  },
+  "caveat": "n = 90 runs and n = 30 per attack; differences between attacks are reported descriptively and are not established as real differences"
+}

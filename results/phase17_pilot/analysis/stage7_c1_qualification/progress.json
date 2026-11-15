@@ -1,0 +1,22 @@
+{
+  "total_runs": 180,
+  "completed_runs": 48,
+  "elapsed_seconds": 29617.0,
+  "estimated_remaining_seconds": 81420.5,
+  "mean_run_seconds": 616.8,
+  "current": {
+    "goal_id": 7,
+    "attack": "acronym",
+    "arm": "c1_generation_point"
+  },
+  "completed_by_arm": {
+    "control": 24,
+    "c1_generation_point": 24
+  },
+  "goal_range": [
+    0,
+    29
+  ],
+  "observability_only": "no resume, no retry, no skipping",
+  "timestamp": "2026-10-02T20:04:33.715418+00:00"
+}

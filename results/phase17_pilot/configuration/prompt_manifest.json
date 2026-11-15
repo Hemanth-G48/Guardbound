@@ -1,0 +1,51 @@
+{
+  "phase": "17",
+  "stage": "4.7",
+  "deliverable": "configuration/prompt_manifest.json",
+  "requirement": "the attacker must use the frozen Stage 4 A0 production prompt",
+  "attacks": {
+    "crescendo_paper": {
+      "module": "guardbound.attacks.crescendo_paper",
+      "constant": "CRESCENDO_SYSTEM_PROMPT",
+      "source_file": "src/guardbound/attacks/crescendo_paper.py",
+      "source_file_sha256": null,
+      "control_sha256_prefix": "7df65dbd9ce4bed42c985d7af5fa2742",
+      "frozen_reference_prefix": "7df65dbd9ce4bed42c985d7af5fa2742",
+      "matches_frozen_A0": true,
+      "rendered_sha256": "dabafde1ebcdd27859090f499cfb78956671084594818e24b792a3ee20cc168c",
+      "prompt_chars": 7601,
+      "optimization_markers_present": []
+    },
+    "opposite_day": {
+      "module": "guardbound.attacks.opposite_day",
+      "constant": "OPPOSITE_DAY_SYSTEM_PROMPT",
+      "source_file": "src/guardbound/attacks/opposite_day.py",
+      "source_file_sha256": null,
+      "control_sha256_prefix": "1cd2c2d0120bc88d5454083eb5a17980",
+      "frozen_reference_prefix": "1cd2c2d0120bc88d5454083eb5a17980",
+      "matches_frozen_A0": true,
+      "rendered_sha256": "79ec4d34bcedf9f32a812bca9dc57be90968c058795ae3eeab3a566189046d59",
+      "prompt_chars": 3729,
+      "optimization_markers_present": []
+    },
+    "acronym": {
+      "module": "guardbound.attacks.acronym",
+      "constant": "ACRONYM_SYSTEM_PROMPT",
+      "source_file": "src/guardbound/attacks/acronym.py",
+      "source_file_sha256": null,
+      "control_sha256_prefix": "6b8b11a5ff15f06aa191489cec54e94f",
+      "frozen_reference_prefix": "6b8b11a5ff15f06aa191489cec54e94f",
+      "matches_frozen_A0": true,
+      "rendered_sha256": "372d553c138e81837c1ca1c984bc64554a5c890a3003fe5217f6a91ed4c3ae29",
+      "prompt_chars": 4433,
+      "optimization_markers_present": []
+    }
+  },
+  "optimization_markers_checked": [
+    "###Output Format (required)###",
+    "Your entire response must be a single JSON object",
+    "Respond with a single JSON object containing exactly these two string fields",
+    "Example of the required response shape",
+    "<think"
+  ]
+}

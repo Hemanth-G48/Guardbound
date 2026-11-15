@@ -1,0 +1,98 @@
+{
+  "phase": "17",
+  "stage": "4.6",
+  "deliverable": "stage4_vs_stage4_6.json",
+  "stage4_frozen_control": {
+    "runs": 30,
+    "run_survival_rate": 0.7667,
+    "usable_run_rate": 0.6667,
+    "mean_completed_turns": 1.267,
+    "source": "results/phase17_model_qualification/stage4_qwen38_reliability/"
+  },
+  "stage4_5_control_10_runs": {
+    "run_survival_rate": 0.6,
+    "usable_run_rate": 0.6,
+    "attacker_calls": [
+      25,
+      29
+    ]
+  },
+  "stage4_5_b2_10_runs": {
+    "run_survival_rate": 1.0,
+    "usable_run_rate": 1.0,
+    "attacker_calls": [
+      32,
+      32
+    ]
+  },
+  "stage4_6": {
+    "phase": "30runs_2turns",
+    "control": {
+      "run_survival": {
+        "numerator": 23,
+        "denominator": 30,
+        "rate": 0.7667,
+        "rate_pct": "76.7%",
+        "ci95_wilson": [
+          0.5907,
+          0.8821
+        ]
+      },
+      "usable_run_strict": {
+        "numerator": 22,
+        "denominator": 30,
+        "rate": 0.7333,
+        "rate_pct": "73.3%",
+        "ci95_wilson": [
+          0.5555,
+          0.8582
+        ]
+      },
+      "attacker_call_validity": {
+        "numerator": 96,
+        "denominator": 103,
+        "rate": 0.932,
+        "ci95_wilson": [
+          0.8663,
+          0.9667
+        ],
+        "direct_json": 93,
+        "frozen_extraction": 3
+      }
+    },
+    "b2": {
+      "run_survival": {
+        "numerator": 26,
+        "denominator": 30,
+        "rate": 0.8667,
+        "rate_pct": "86.7%",
+        "ci95_wilson": [
+          0.7032,
+          0.9469
+        ]
+      },
+      "usable_run_strict": {
+        "numerator": 26,
+        "denominator": 30,
+        "rate": 0.8667,
+        "rate_pct": "86.7%",
+        "ci95_wilson": [
+          0.7032,
+          0.9469
+        ]
+      },
+      "attacker_call_validity": {
+        "numerator": 107,
+        "denominator": 111,
+        "rate": 0.964,
+        "ci95_wilson": [
+          0.911,
+          0.9859
+        ],
+        "direct_json": 106,
+        "frozen_extraction": 1
+      }
+    }
+  },
+  "note": "Stage 4/4.5 samples and this qualification are reported side by side for continuity; only the 4.6 arms are directly comparable, having matched cells"
+}

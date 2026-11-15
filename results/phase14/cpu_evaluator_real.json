@@ -1,0 +1,24 @@
+{
+  "device": "cpu",
+  "load_s": 2.95,
+  "gpu_delta_gb": 0.0,
+  "placement": {
+    "cpu": 4022468096
+  },
+  "ctx_tokens": 643,
+  "trials": [
+    {
+      "label": "64_new_tokens",
+      "seconds": 4.65,
+      "new_tokens": 6,
+      "tok_per_s": 1.29
+    },
+    {
+      "label": "256_new_tokens",
+      "seconds": 4.23,
+      "new_tokens": 6,
+      "tok_per_s": 1.42
+    }
+  ],
+  "note": "Same weights and dtype as the GPU path => identical numerics; only speed differs."
+}

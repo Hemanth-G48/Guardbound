@@ -1,0 +1,74 @@
+{
+  "phase": "17",
+  "stage": "4.9",
+  "deliverable": "reliability_success_relationship.json",
+  "framing": "observational association; no causal claim",
+  "runs_with_zero_invalid_calls": 22,
+  "runs_with_at_least_one_invalid_call": 68,
+  "success_among_clean": {
+    "numerator": 22,
+    "denominator": 22,
+    "rate": 1.0
+  },
+  "success_among_runs_with_a_failure": {
+    "numerator": 0,
+    "denominator": 68,
+    "rate": 0.0
+  },
+  "test": {
+    "test": "fisher_exact_two_sided",
+    "question": "does having any invalid attacker call associate with success?",
+    "table": [
+      [
+        0,
+        68
+      ],
+      [
+        22,
+        0
+      ]
+    ],
+    "p_value": 0.0,
+    "label": "exploratory",
+    "rates": {
+      "row1": 0.0,
+      "row2": 1.0
+    }
+  },
+  "attacker_valid_fraction": {
+    "successful_runs": {
+      "n": 22,
+      "mean": 1.0,
+      "median": 1.0,
+      "p95": 1.0,
+      "min": 1.0,
+      "max": 1.0
+    },
+    "unsuccessful_runs": {
+      "n": 68,
+      "mean": 0.737,
+      "median": 0.8,
+      "p95": 1.0,
+      "min": 0.0,
+      "max": 1.0
+    }
+  },
+  "valid_call_count": {
+    "successful_runs": {
+      "n": 22,
+      "mean": 3.227,
+      "median": 2.0,
+      "p95": 8.0,
+      "min": 1.0,
+      "max": 8.0
+    },
+    "unsuccessful_runs": {
+      "n": 68,
+      "mean": 3.515,
+      "median": 3.0,
+      "p95": 8.0,
+      "min": 0.0,
+      "max": 13.0
+    }
+  }
+}

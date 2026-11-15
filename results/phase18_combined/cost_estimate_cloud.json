@@ -1,0 +1,107 @@
+{
+  "analysis": "cloud-cost-equivalent of the local GPU runs (same measured token volumes)",
+  "prices_per_1M_verified_2026_10": {
+    "gpt-4o-mini": {
+      "input": 0.15,
+      "output": 0.6
+    },
+    "gpt-6-luna (current budget tier)": {
+      "input": 0.1,
+      "output": 0.5
+    },
+    "gpt-6.1-sol (mid tier)": {
+      "input": 2.0,
+      "output": 10.0
+    },
+    "gpt-6-astra (flagship)": {
+      "input": 10.0,
+      "output": 50.0
+    }
+  },
+  "measured": {
+    "Phase 18 (180 runs, goals 0-29)": {
+      "runs": 180,
+      "calls": 5715,
+      "input": 8100861,
+      "output": 670147,
+      "missing": 0,
+      "arms": {
+        "nbf_off": {
+          "in": 4941674,
+          "out": 392172,
+          "calls": 3460
+        },
+        "nbf_on": {
+          "in": 3159187,
+          "out": 277975,
+          "calls": 2255
+        }
+      }
+    },
+    "Extension (60 runs, goals 30-39)": {
+      "runs": 60,
+      "calls": 1262,
+      "input": 1557075,
+      "output": 169495,
+      "missing": 0,
+      "arms": {
+        "nbf_off": {
+          "in": 918521,
+          "out": 94265,
+          "calls": 732
+        },
+        "nbf_on": {
+          "in": 638554,
+          "out": 75230,
+          "calls": 530
+        }
+      }
+    },
+    "Pilot (Phase 17, 90 runs)": {
+      "runs": 90,
+      "calls": 1194,
+      "input": 1281412,
+      "output": 136056,
+      "missing": 0,
+      "arms": {
+        "?": {
+          "in": 1281412,
+          "out": 136056,
+          "calls": 1194
+        }
+      }
+    },
+    "Stage 19 threshold study (33 runs)": {
+      "runs": 33,
+      "calls": 644,
+      "input": 903192,
+      "output": 94202,
+      "missing": 0,
+      "arms": {
+        "nbf_on": {
+          "in": 903192,
+          "out": 94202,
+          "calls": 644
+        }
+      }
+    }
+  },
+  "core_phase18_plus_extension": {
+    "input": 9657936,
+    "output": 839642,
+    "gpt_4o_mini_usd": 1.9525,
+    "gpt_4o_mini_batch_usd": 0.9762,
+    "gpt_6_luna_usd": 1.3856
+  },
+  "all_measured_sets": {
+    "input": 11842540,
+    "output": 1069900,
+    "gpt_4o_mini_usd": 2.4183
+  },
+  "caveats": [
+    "token counts come from the local Qwen/Llama tokenizers, not o200k_base \u2014 a real GPT-4o-mini invoice would differ (roughly +/-20% for this kind of text)",
+    "assumes identical call structure and output lengths; a different model would produce different text lengths and possibly a different number of turns (and a different ASR)",
+    "local NBF embeddings (all-mpnet-base-v2) run on the same GPU and cost nothing extra; a cloud embeddings equivalent would add a few cents at most",
+    "this compares API list prices only against ~50 h of local GPU time; it excludes electricity, hardware amortisation and engineering time on either side"
+  ]
+}

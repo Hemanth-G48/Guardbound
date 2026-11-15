@@ -1,0 +1,230 @@
+{
+  "phase": "17",
+  "stage": "5",
+  "deliverable": "previous_output_ablation.json",
+  "design": "identical 4-turn context; only the immediately previous attacker output differs",
+  "variants": {
+    "P0": "full history (frozen control)",
+    "P1": "previous attacker response removed",
+    "P2": "previous attacker response replaced by minimal valid JSON",
+    "P3": "previous attacker response replaced by fixed neutral prose",
+    "P4": "previous attacker response replaced by a long valid JSON response"
+  },
+  "conditions": {
+    "P0": {
+      "calls": 30,
+      "json_valid": 25,
+      "validity_rate": 0.8333,
+      "ci95_wilson": [
+        0.6644,
+        0.9266
+      ],
+      "semantic_valid": 25,
+      "prose_failures": 5,
+      "empty_question_failures": 0,
+      "mean_context_tokens": 1595.7,
+      "mean_output_tokens": 77.3,
+      "by_attack": {
+        "Crescendo": {
+          "numerator": 8,
+          "denominator": 10,
+          "rate": 0.8,
+          "ci95_wilson": [
+            0.4902,
+            0.9433
+          ]
+        },
+        "OppositeDay": {
+          "numerator": 7,
+          "denominator": 10,
+          "rate": 0.7,
+          "ci95_wilson": [
+            0.3968,
+            0.8922
+          ]
+        },
+        "Acronym": {
+          "numerator": 10,
+          "denominator": 10,
+          "rate": 1.0,
+          "ci95_wilson": [
+            0.7225,
+            1.0
+          ]
+        }
+      }
+    },
+    "P1": {
+      "calls": 30,
+      "json_valid": 24,
+      "validity_rate": 0.8,
+      "ci95_wilson": [
+        0.6269,
+        0.905
+      ],
+      "semantic_valid": 24,
+      "prose_failures": 5,
+      "empty_question_failures": 0,
+      "mean_context_tokens": 1484.7,
+      "mean_output_tokens": 68.4,
+      "by_attack": {
+        "Crescendo": {
+          "numerator": 6,
+          "denominator": 10,
+          "rate": 0.6,
+          "ci95_wilson": [
+            0.3127,
+            0.8318
+          ]
+        },
+        "OppositeDay": {
+          "numerator": 9,
+          "denominator": 10,
+          "rate": 0.9,
+          "ci95_wilson": [
+            0.5958,
+            0.9821
+          ]
+        },
+        "Acronym": {
+          "numerator": 9,
+          "denominator": 10,
+          "rate": 0.9,
+          "ci95_wilson": [
+            0.5958,
+            0.9821
+          ]
+        }
+      }
+    },
+    "P2": {
+      "calls": 30,
+      "json_valid": 22,
+      "validity_rate": 0.7333,
+      "ci95_wilson": [
+        0.5555,
+        0.8582
+      ],
+      "semantic_valid": 21,
+      "prose_failures": 7,
+      "empty_question_failures": 1,
+      "mean_context_tokens": 1582.7,
+      "mean_output_tokens": 92.9,
+      "by_attack": {
+        "Crescendo": {
+          "numerator": 5,
+          "denominator": 10,
+          "rate": 0.5,
+          "ci95_wilson": [
+            0.2366,
+            0.7634
+          ]
+        },
+        "OppositeDay": {
+          "numerator": 7,
+          "denominator": 10,
+          "rate": 0.7,
+          "ci95_wilson": [
+            0.3968,
+            0.8922
+          ]
+        },
+        "Acronym": {
+          "numerator": 10,
+          "denominator": 10,
+          "rate": 1.0,
+          "ci95_wilson": [
+            0.7225,
+            1.0
+          ]
+        }
+      }
+    },
+    "P3": {
+      "calls": 30,
+      "json_valid": 25,
+      "validity_rate": 0.8333,
+      "ci95_wilson": [
+        0.6644,
+        0.9266
+      ],
+      "semantic_valid": 25,
+      "prose_failures": 4,
+      "empty_question_failures": 0,
+      "mean_context_tokens": 1606.7,
+      "mean_output_tokens": 84.0,
+      "by_attack": {
+        "Crescendo": {
+          "numerator": 8,
+          "denominator": 10,
+          "rate": 0.8,
+          "ci95_wilson": [
+            0.4902,
+            0.9433
+          ]
+        },
+        "OppositeDay": {
+          "numerator": 8,
+          "denominator": 10,
+          "rate": 0.8,
+          "ci95_wilson": [
+            0.4902,
+            0.9433
+          ]
+        },
+        "Acronym": {
+          "numerator": 9,
+          "denominator": 10,
+          "rate": 0.9,
+          "ci95_wilson": [
+            0.5958,
+            0.9821
+          ]
+        }
+      }
+    },
+    "P4": {
+      "calls": 30,
+      "json_valid": 30,
+      "validity_rate": 1.0,
+      "ci95_wilson": [
+        0.8865,
+        1.0
+      ],
+      "semantic_valid": 30,
+      "prose_failures": 0,
+      "empty_question_failures": 0,
+      "mean_context_tokens": 1671.7,
+      "mean_output_tokens": 88,
+      "by_attack": {
+        "Crescendo": {
+          "numerator": 10,
+          "denominator": 10,
+          "rate": 1.0,
+          "ci95_wilson": [
+            0.7225,
+            1.0
+          ]
+        },
+        "OppositeDay": {
+          "numerator": 10,
+          "denominator": 10,
+          "rate": 1.0,
+          "ci95_wilson": [
+            0.7225,
+            1.0
+          ]
+        },
+        "Acronym": {
+          "numerator": 10,
+          "denominator": 10,
+          "rate": 1.0,
+          "ci95_wilson": [
+            0.7225,
+            1.0
+          ]
+        }
+      }
+    }
+  }
+}

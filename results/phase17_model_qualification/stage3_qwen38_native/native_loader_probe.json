@@ -1,0 +1,67 @@
+{
+  "phase": "17",
+  "stage": "3",
+  "deliverable": "native_loader_probe.json",
+  "model_id": "Qwen/Qwen3.8-27B",
+  "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+  "question": "Which loading API resolves this checkpoint to its declared Qwen3_5ForConditionalGeneration class, and does that class's expected parameter structure match the published checkpoint?",
+  "results": {
+    "AutoModelForImageTextToText": {
+      "maps_config_to": "Qwen3_5ForConditionalGeneration",
+      "instantiated_class": "Qwen3_5ForConditionalGeneration",
+      "expects_vision_tower": true,
+      "text_prefix_sample": [
+        "model.language_model.layers.0.linear_attn.dt_bias",
+        "model.language_model.layers.0.linear_attn.A_log",
+        "model.language_model.layers.0.linear_attn.conv1d.weight",
+        "model.language_model.layers.0.linear_attn.norm.weight"
+      ]
+    },
+    "AutoModelForMultimodalLM": {
+      "maps_config_to": "Qwen3_5ForConditionalGeneration",
+      "instantiated_class": "Qwen3_5ForConditionalGeneration",
+      "expects_vision_tower": true,
+      "text_prefix_sample": [
+        "model.language_model.layers.0.linear_attn.dt_bias",
+        "model.language_model.layers.0.linear_attn.A_log",
+        "model.language_model.layers.0.linear_attn.conv1d.weight",
+        "model.language_model.layers.0.linear_attn.norm.weight"
+      ]
+    },
+    "AutoModelForCausalLM": {
+      "maps_config_to": "Qwen3_5ForCausalLM",
+      "instantiated_class": "Qwen3_5ForCausalLM",
+      "expects_vision_tower": false,
+      "text_prefix_sample": [
+        "model.layers.0.linear_attn.dt_bias",
+        "model.layers.0.linear_attn.A_log",
+        "model.layers.0.linear_attn.conv1d.weight",
+        "model.layers.0.linear_attn.norm.weight"
+      ]
+    }
+  },
+  "checkpoint_prefixes": {
+    "lm_head.weight": 1,
+    "model.language_model.embed_tokens": 1,
+    "model.language_model.layers": 848,
+    "model.language_model.norm": 1,
+    "model.visual.blocks": 324,
+    "model.visual.merger": 6,
+    "model.visual.patch_embed": 2,
+    "model.visual.pos_embed": 1,
+    "mtp.fc.weight": 1,
+    "mtp.layers.0": 11,
+    "mtp.norm.weight": 1,
+    "mtp.pre_fc_norm_embedding.weight": 1,
+    "mtp.pre_fc_norm_hidden.weight": 1
+  },
+  "selection": {
+    "chosen_auto_class": "AutoModelForImageTextToText",
+    "why": "It is the auto-class for image-text-to-text checkpoints (the checkpoint's own pipeline_tag and its declared Qwen3VLProcessor), and it resolves Qwen3_5Config to Qwen3_5ForConditionalGeneration directly. AutoModelForMultimodalLM resolves identically in this transformers version; AutoModelForCausalLM resolves a different class and is not the native path.",
+    "not_chosen": {
+      "AutoModelForCausalLM": "resolves Qwen3_5ForCausalLM \u2014 the Stage 2 substitution",
+      "AutoModelForMultimodalLM": "resolves identically here; kept as the existing project seam used by the Ornith backend"
+    }
+  },
+  "native_architecture_supported": true
+}

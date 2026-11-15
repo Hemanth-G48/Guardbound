@@ -1,0 +1,26 @@
+{
+  "phase": "18-extension",
+  "deliverable": "analysis/attacker_reliability.json",
+  "nbf_off": {
+    "calls": 190,
+    "valid": 190,
+    "validity_rate": 1.0,
+    "semantic_usable": 190,
+    "contract_failures": 0,
+    "prose": 0,
+    "empty": 0,
+    "malformed": 0,
+    "truncated": 0
+  },
+  "nbf_on": {
+    "calls": 196,
+    "valid": 195,
+    "validity_rate": 0.9949,
+    "semantic_usable": 195,
+    "contract_failures": 1,
+    "prose": 1,
+    "empty": 0,
+    "malformed": 0,
+    "truncated": 0
+  }
+}

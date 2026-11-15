@@ -1,0 +1,57 @@
+02:15:56 | INFO    | httpx | HTTP Request: HEAD https://huggingface.co/microsoft/Phi-4-mini-instruct/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+02:15:56 | INFO    | httpx | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/Phi-4-mini-instruct/cfbefacb99257ffa30c83adab238a50856ac3083/config.json "HTTP/1.1 200 OK"
+02:15:58 | INFO    | numexpr.utils | Note: NumExpr detected 24 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 16.
+02:15:58 | INFO    | numexpr.utils | NumExpr defaulting to 16 threads.
+02:15:59 | INFO    | httpx | HTTP Request: HEAD https://huggingface.co/microsoft/Phi-4-mini-instruct/resolve/main/configuration_phi3.py "HTTP/1.1 307 Temporary Redirect"
+02:15:59 | INFO    | httpx | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/Phi-4-mini-instruct/cfbefacb99257ffa30c83adab238a50856ac3083/configuration_phi3.py "HTTP/1.1 200 OK"
+02:15:59 | INFO    | httpx | HTTP Request: HEAD https://huggingface.co/microsoft/Phi-4-mini-instruct/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+02:15:59 | INFO    | httpx | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/Phi-4-mini-instruct/cfbefacb99257ffa30c83adab238a50856ac3083/config.json "HTTP/1.1 200 OK"
+[transformers] This model config has set a `rope_parameters['original_max_position_embeddings']` field, to be used together with `max_position_embeddings` to determine a scaling factor. Please set the `factor` field of `rope_parameters`with this ratio instead -- we recommend the use of this field over `original_max_position_embeddings`, as it is compatible with most model architectures.
+02:15:59 | INFO    | guardbound.llm.provider_factory | [factory] target -> local backend=hf_local model=microsoft/Phi-4-mini-instruct revision=None max_new_tokens=None structured_output_mode=constrained_json residency=pinned
+02:15:59 | INFO    | guardbound.llm.model_manager | [model-manager] activate role=target vram=0.00GB free=24.38GB {'model_id': 'microsoft/Phi-4-mini-instruct'}
+02:16:00 | INFO    | guardbound.llm.local_client | Loading HuggingFace model: microsoft/Phi-4-mini-instruct
+02:16:00 | INFO    | httpx | HTTP Request: HEAD https://huggingface.co/microsoft/Phi-4-mini-instruct/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+02:16:00 | INFO    | httpx | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/Phi-4-mini-instruct/cfbefacb99257ffa30c83adab238a50856ac3083/config.json "HTTP/1.1 200 OK"
+02:16:01 | INFO    | httpx | HTTP Request: HEAD https://huggingface.co/microsoft/Phi-4-mini-instruct/resolve/main/configuration_phi3.py "HTTP/1.1 307 Temporary Redirect"
+02:16:01 | INFO    | httpx | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/Phi-4-mini-instruct/cfbefacb99257ffa30c83adab238a50856ac3083/configuration_phi3.py "HTTP/1.1 200 OK"
+02:16:01 | INFO    | httpx | HTTP Request: HEAD https://huggingface.co/microsoft/Phi-4-mini-instruct/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+02:16:01 | INFO    | httpx | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/Phi-4-mini-instruct/cfbefacb99257ffa30c83adab238a50856ac3083/config.json "HTTP/1.1 200 OK"
+02:16:01 | INFO    | httpx | HTTP Request: HEAD https://huggingface.co/microsoft/Phi-4-mini-instruct/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+02:16:01 | INFO    | httpx | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/Phi-4-mini-instruct/cfbefacb99257ffa30c83adab238a50856ac3083/tokenizer_config.json "HTTP/1.1 200 OK"
+02:16:02 | INFO    | httpx | HTTP Request: HEAD https://huggingface.co/microsoft/Phi-4-mini-instruct/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+02:16:02 | INFO    | httpx | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/Phi-4-mini-instruct/cfbefacb99257ffa30c83adab238a50856ac3083/tokenizer_config.json "HTTP/1.1 200 OK"
+02:16:02 | INFO    | httpx | HTTP Request: GET https://huggingface.co/api/models/microsoft/Phi-4-mini-instruct/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+02:16:02 | INFO    | httpx | HTTP Request: GET https://huggingface.co/api/models/microsoft/Phi-4-mini-instruct/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+02:16:03 | INFO    | httpx | HTTP Request: GET https://huggingface.co/api/models/microsoft/Phi-4-mini-instruct "HTTP/1.1 200 OK"
+[transformers] The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+02:16:03 | INFO    | httpx | HTTP Request: HEAD https://huggingface.co/microsoft/Phi-4-mini-instruct/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+02:16:03 | INFO    | httpx | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/Phi-4-mini-instruct/cfbefacb99257ffa30c83adab238a50856ac3083/config.json "HTTP/1.1 200 OK"
+Loading weights:   0%|          | 0/194 [00:00<?, ?it/s]Loading weights:   1%|          | 1/194 [00:00<01:55,  1.68it/s]Loading weights:   4%|▍         | 8/194 [00:00<00:12, 14.70it/s]Loading weights:   8%|▊         | 16/194 [00:00<00:06, 26.81it/s]Loading weights:  12%|█▏        | 24/194 [00:00<00:04, 38.61it/s]Loading weights:  17%|█▋        | 33/194 [00:01<00:03, 44.08it/s]Loading weights:  22%|██▏       | 42/194 [00:01<00:02, 54.59it/s]Loading weights:  25%|██▌       | 49/194 [00:01<00:02, 57.33it/s]Loading weights:  29%|██▉       | 56/194 [00:01<00:02, 60.12it/s]Loading weights:  33%|███▎      | 64/194 [00:01<00:02, 60.37it/s]Loading weights:  37%|███▋      | 72/194 [00:01<00:01, 65.30it/s]Loading weights:  41%|████      | 79/194 [00:01<00:01, 66.38it/s]Loading weights:  45%|████▍     | 87/194 [00:01<00:01, 61.65it/s]Loading weights:  49%|████▉     | 96/194 [00:01<00:01, 68.46it/s]Loading weights:  54%|█████▎    | 104/194 [00:02<00:01, 69.64it/s]Loading weights:  58%|█████▊    | 112/194 [00:02<00:01, 63.76it/s]Loading weights:  62%|██████▏   | 120/194 [00:02<00:01, 67.42it/s]Loading weights:  65%|██████▌   | 127/194 [00:02<00:00, 67.92it/s]Loading weights:  69%|██████▉   | 134/194 [00:02<00:00, 64.32it/s]Loading weights:  73%|███████▎  | 142/194 [00:02<00:00, 64.68it/s]Loading weights:  77%|███████▋  | 150/194 [00:02<00:00, 68.35it/s]Loading weights:  82%|████████▏ | 159/194 [00:02<00:00, 72.09it/s]Loading weights:  86%|████████▌ | 167/194 [00:03<00:00, 62.21it/s]Loading weights:  90%|████████▉ | 174/194 [00:03<00:00, 60.72it/s]Loading weights:  93%|█████████▎| 181/194 [00:03<00:00, 59.54it/s]Loading weights:  97%|█████████▋| 188/194 [00:03<00:00, 59.17it/s]Loading weights: 100%|██████████| 194/194 [00:03<00:00, 54.21it/s]
+02:16:08 | INFO    | httpx | HTTP Request: HEAD https://huggingface.co/microsoft/Phi-4-mini-instruct/resolve/main/generation_config.json "HTTP/1.1 307 Temporary Redirect"
+02:16:08 | INFO    | httpx | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/Phi-4-mini-instruct/cfbefacb99257ffa30c83adab238a50856ac3083/generation_config.json "HTTP/1.1 200 OK"
+02:16:08 | INFO    | httpx | HTTP Request: GET https://huggingface.co/api/models/microsoft/Phi-4-mini-instruct/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+02:16:09 | INFO    | httpx | HTTP Request: GET https://huggingface.co/api/models/microsoft/Phi-4-mini-instruct/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+02:16:10 | INFO    | httpx | HTTP Request: GET https://huggingface.co/api/models/microsoft/Phi-4-mini-instruct "HTTP/1.1 200 OK"
+02:16:10 | INFO    | httpx | HTTP Request: HEAD https://huggingface.co/microsoft/Phi-4-mini-instruct/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+02:16:10 | INFO    | httpx | HTTP Request: HEAD https://huggingface.co/microsoft/Phi-4-mini-instruct/resolve/main/video_preprocessor_config.json "HTTP/1.1 404 Not Found"
+02:16:10 | INFO    | httpx | HTTP Request: HEAD https://huggingface.co/microsoft/Phi-4-mini-instruct/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+02:16:10 | INFO    | guardbound.llm.model_manager | [model-manager] load role=target vram=7.67GB free=16.71GB {'model_id': 'microsoft/Phi-4-mini-instruct', 'action': 'load', 'duration_s': 11.046, 'free_before_gb': 24.38463488, 'free_after_gb': 16.70905856, 'reserved_before_gb': 0.0, 'estimated_gb': 7.672, 'measured_gb': 7.672, 'driver_free_delta_gb': 7.676, 'device_map': 'cuda'}
+loaded in 11.3s; probe budget=2048 tokens / 45.0s
+[probe 0] goal=0 turn=1: recorded=256 tok -> natural=1303 tok eos=False 45s midword=True
+[probe 1] goal=0 turn=1: recorded=256 tok -> natural=1301 tok eos=False 45s midword=True
+[probe 2] goal=0 turn=1: recorded=249 tok -> natural=1299 tok eos=False 45s midword=True
+[probe 3] goal=0 turn=1: recorded=249 tok -> natural=1310 tok eos=False 45s midword=True
+[probe 4] goal=1 turn=1: recorded=256 tok -> natural=1304 tok eos=False 45s midword=True
+[probe 5] goal=1 turn=1: recorded=256 tok -> natural=450 tok eos=True 16s midword=False
+[probe 6] goal=2 turn=1: recorded=254 tok -> natural=1279 tok eos=False 45s midword=False
+[probe 7] goal=2 turn=1: recorded=256 tok -> natural=1281 tok eos=False 45s midword=True
+02:21:42 | INFO    | guardbound.llm.model_manager | [model-manager] evict role=target vram=7.68GB free=16.64GB {'model_id': 'microsoft/Phi-4-mini-instruct', 'action': 'evict', 'duration_s': 0.247, 'free_before_gb': 16.224616448, 'free_after_gb': 16.63565824, 'freed_gb': 0.411, 'cache_released': True}
+02:21:42 | INFO    | guardbound.llm.model_manager | [model-manager] unload_all vram=7.68GB free=16.64GB 
+
+cases: 8
+natural tokens : mean=1191 median=1300.0 min=450 max=1310
+recorded tokens: mean=254 median=256.0 max=256
+ended on EOS   : 1/8
+hit probe cap  : 0/8
+peak vram      : 7.98 GB
+wrote C:\Users\CSLAB\Desktop\hemanth\Guardbound\results\phase16_5_forensics\f1_natural_stopping_probe.json

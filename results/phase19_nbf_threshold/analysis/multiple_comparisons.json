@@ -1,0 +1,67 @@
+{
+  "phase": 19,
+  "deliverable": "analysis/multiple_comparisons.json",
+  "primary_comparison": "T000 (threshold 0.000) vs the frozen Phase 18 NBF OFF arm \u2014 this reproduces the Phase 18 primary result and is the only comparison treated as confirmatory",
+  "family": "the 9 threshold-vs-OFF exact McNemar tests",
+  "correction": "Holm-Bonferroni, family-wise alpha = 0.05",
+  "descriptive_note": "all other thresholds are descriptive sensitivity probes; their uncorrected p-values are reported but must not be read as independent confirmations",
+  "holm": {
+    "Tm010": {
+      "p": 0.5,
+      "holm_alpha": 0.005556,
+      "significant": false
+    },
+    "Tm005": {
+      "p": 0.5,
+      "holm_alpha": 0.00625,
+      "significant": false
+    },
+    "Tm002": {
+      "p": 0.5,
+      "holm_alpha": 0.007143,
+      "significant": false
+    },
+    "Tm001": {
+      "p": 0.5,
+      "holm_alpha": 0.008333,
+      "significant": false
+    },
+    "T000": {
+      "p": 1.0,
+      "holm_alpha": 0.01,
+      "significant": false
+    },
+    "Tp001": {
+      "p": 1.0,
+      "holm_alpha": 0.0125,
+      "significant": false
+    },
+    "Tp002": {
+      "p": 1.0,
+      "holm_alpha": 0.016667,
+      "significant": false
+    },
+    "Tp005": {
+      "p": 1.0,
+      "holm_alpha": 0.025,
+      "significant": false
+    },
+    "Tp010": {
+      "p": 1.0,
+      "holm_alpha": 0.05,
+      "significant": false
+    }
+  },
+  "uncorrected": {
+    "Tm010": 0.5,
+    "Tm005": 0.5,
+    "Tm002": 0.5,
+    "Tm001": 0.5,
+    "T000": 1.0,
+    "Tp001": 1.0,
+    "Tp002": 1.0,
+    "Tp005": 1.0,
+    "Tp010": 1.0
+  },
+  "significant_after_correction": []
+}

@@ -1,0 +1,51 @@
+{
+  "candidate": "qwen38",
+  "model_id": "Qwen/Qwen3.8-27B",
+  "record_type": "interface_compatibility_probe",
+  "weights_downloaded": false,
+  "transformers_version": "5.16.1",
+  "config": {
+    "class": "Qwen3_5Config",
+    "model_type": "qwen3_5",
+    "architectures": [
+      "Qwen3_5ForConditionalGeneration"
+    ],
+    "text_config_class": "Qwen3_5TextConfig",
+    "has_text_config": true
+  },
+  "auto_class_resolution": {
+    "auto_class": "AutoModelForCausalLM",
+    "mapped": true,
+    "mapped_class": "Qwen3_5ForCausalLM"
+  },
+  "expected_keys": {
+    "resolvable": true,
+    "config_class": "Qwen3_5TextConfig",
+    "class": "Qwen3_5ForCausalLM",
+    "param_count": 17,
+    "prefixes": [
+      "lm_head.weight",
+      "model.embed_tokens.weight",
+      "model.layers.0",
+      "model.norm.weight"
+    ]
+  },
+  "checkpoint_index": {
+    "status": 200,
+    "tensor_count": 1199,
+    "total_size_bytes": 55562855904.0,
+    "key_prefixes": [
+      "lm_head.weight",
+      "model.language_model",
+      "model.visual",
+      "mtp.fc",
+      "mtp.layers",
+      "mtp.norm",
+      "mtp.pre_fc_norm_embedding",
+      "mtp.pre_fc_norm_hidden"
+    ],
+    "has_vision_keys": true
+  },
+  "verdict": "INTERFACE_PROBE_PASSED",
+  "reason": "The model type is mapped by AutoModelForCausalLM. Interface compatibility still has to be proven by an actual NF4 load (Part G) \u2014 mapping presence alone is not a load result."
+}

@@ -1,0 +1,22 @@
+{
+  "phase": "17",
+  "stage": "7",
+  "deliverable": "conditional_analysis.json",
+  "arms": {
+    "control": {
+      "official_success": 0.3333,
+      "p_success_given_survived": 0.8889,
+      "n_survived": 9,
+      "p_success_given_1plus_turn": 1.0,
+      "n_1plus_turn": 8
+    },
+    "c1_generation_point": {
+      "official_success": 0.625,
+      "p_success_given_survived": 0.6522,
+      "n_survived": 23,
+      "p_success_given_1plus_turn": 0.6818,
+      "n_1plus_turn": 22
+    }
+  },
+  "note": "the conditional values are diagnostic only and never replace the official rate"
+}

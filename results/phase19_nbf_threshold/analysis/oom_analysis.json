@@ -1,0 +1,74 @@
+{
+  "phase": 19,
+  "deliverable": "analysis/oom_analysis.json",
+  "phase18_reference": {
+    "nbf_off_oom": 10,
+    "nbf_on_oom": 1
+  },
+  "by_threshold": {
+    "Tm010": {
+      "threshold": -0.01,
+      "oom": 0,
+      "refusal_retry_limit": 0,
+      "mean_turns": 1.667,
+      "filtered_candidates": 12
+    },
+    "Tm005": {
+      "threshold": -0.005,
+      "oom": 0,
+      "refusal_retry_limit": 0,
+      "mean_turns": 1.667,
+      "filtered_candidates": 9
+    },
+    "Tm002": {
+      "threshold": -0.002,
+      "oom": 0,
+      "refusal_retry_limit": 0,
+      "mean_turns": 1.667,
+      "filtered_candidates": 9
+    },
+    "Tm001": {
+      "threshold": -0.001,
+      "oom": 0,
+      "refusal_retry_limit": 0,
+      "mean_turns": 1.333,
+      "filtered_candidates": 9
+    },
+    "T000": {
+      "threshold": 0.0,
+      "oom": 0,
+      "refusal_retry_limit": 0,
+      "mean_turns": 1.667,
+      "filtered_candidates": 4
+    },
+    "Tp001": {
+      "threshold": 0.001,
+      "oom": 0,
+      "refusal_retry_limit": 0,
+      "mean_turns": 2,
+      "filtered_candidates": 4
+    },
+    "Tp002": {
+      "threshold": 0.002,
+      "oom": 0,
+      "refusal_retry_limit": 1,
+      "mean_turns": 4.333,
+      "filtered_candidates": 1
+    },
+    "Tp005": {
+      "threshold": 0.005,
+      "oom": 0,
+      "refusal_retry_limit": 0,
+      "mean_turns": 3.667,
+      "filtered_candidates": 0
+    },
+    "Tp010": {
+      "threshold": 0.01,
+      "oom": 0,
+      "refusal_retry_limit": 0,
+      "mean_turns": 3.667,
+      "filtered_candidates": 0
+    }
+  },
+  "note": "fewer OOMs or lower runtime is NOT evidence that the NBF is intrinsically cheaper: filtering consumes round budget and shortens trajectories, which is a trajectory-truncation effect, not an efficiency property."
+}

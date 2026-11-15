@@ -1,0 +1,6 @@
+{
+  "source": "local",
+  "source_url": "https://github.com/centerforaisafety/HarmBench",
+  "selected_records": 160,
+  "description": "Local HarmBench behaviors"
+}

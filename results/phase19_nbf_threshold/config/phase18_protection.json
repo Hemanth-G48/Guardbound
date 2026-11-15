@@ -1,0 +1,77 @@
+{
+  "phase": 19,
+  "deliverable": "config/phase18_protection.json",
+  "checks": {
+    "phase18 raw data present (hash captured as the before/after baseline)": {
+      "ok": true,
+      "detail": "sha256 02e11c0fcd975dfa00a97258a4dc2dded3bf400e1bcd15e16d2472000015746e"
+    },
+    "phase18 summary status COMPLETE": {
+      "ok": true,
+      "detail": "Phase 18 marked COMPLETE"
+    },
+    "phase18 integrity PASS": {
+      "ok": true,
+      "detail": "Phase 18 integrity check PASS"
+    },
+    "stage4.8 pilot untouched": {
+      "ok": true,
+      "detail": "55101e0e75c61f3a\u2026"
+    },
+    "NBF checkpoint sha256": {
+      "ok": true,
+      "detail": "cea1a75bcef4fc515814b69c\u2026"
+    },
+    "dataset sha256": {
+      "ok": true,
+      "detail": "ac789de8859e755c11ee6cd6\u2026"
+    },
+    "phase18 arms 90/90": {
+      "ok": true,
+      "detail": "off=90 on=90"
+    },
+    "revisions identical across Phase 18": {
+      "ok": true,
+      "detail": "single attacker/target/judge revision set"
+    },
+    "C1 identity in Phase 18": {
+      "ok": true,
+      "detail": "mode I1, temperature 0.7"
+    },
+    "prompt hashes in Phase 18": {
+      "ok": true,
+      "detail": "3 distinct attack prompt hashes"
+    },
+    "success criterion frozen": {
+      "ok": true,
+      "detail": "attack.was_successful()"
+    },
+    "NBF OFF arm is threshold-independent": {
+      "ok": true,
+      "detail": "90 OFF runs record 0 NBF evaluations -> valid as the shared baseline for every threshold"
+    },
+    "phase18 OFF ASR": {
+      "ok": true,
+      "detail": "43/90 = 47.8%"
+    },
+    "phase18 ON ASR (T=0)": {
+      "ok": true,
+      "detail": "29/90 = 32.2%"
+    },
+    "phase18 score population available": {
+      "ok": true,
+      "detail": "825 NBF evaluations carried forward for calibration analysis"
+    }
+  },
+  "phase18_raw_sha256": "02e11c0fcd975dfa00a97258a4dc2dded3bf400e1bcd15e16d2472000015746e",
+  "baseline": {
+    "off_successes": 43,
+    "off_runs": 90,
+    "off_asr": 0.4778,
+    "on_successes": 29,
+    "on_runs": 90,
+    "on_asr": 0.3222,
+    "on_scores": 825
+  },
+  "all_ok": true
+}

@@ -1,0 +1,331 @@
+{
+  "phase": "17",
+  "stage": "4.5",
+  "deliverable": "structured_decoding_summary.json",
+  "policy": "contract-valid = the frozen JSON contract is satisfied (direct or via the frozen extraction); semantically usable = contract-valid AND a non-empty string generatedQuestion",
+  "candidates": {
+    "C0": {
+      "label": "C0",
+      "overall": {
+        "n": 30,
+        "contract_valid": 3,
+        "contract_valid_rate": 0.1,
+        "direct_json": 3,
+        "frozen_extraction": 0,
+        "json_parse_error": 25,
+        "empty_query": 0,
+        "empty_query_rate": 0.0,
+        "semantically_usable": 3,
+        "semantically_usable_rate": 0.1,
+        "prose_failure": 0,
+        "failure_shapes": {
+          "malformed_json": 25,
+          "truncated": 2
+        },
+        "categories": {
+          "JSON_PARSE_ERROR": 25,
+          "VALID_DIRECT_JSON": 3,
+          "TRUNCATED_OUTPUT": 2
+        },
+        "latency_s": {
+          "mean": 18.234,
+          "median": 11.297,
+          "max": 227.649
+        },
+        "generated_tokens": {
+          "mean": 140.7,
+          "min": 39,
+          "max": 1917
+        },
+        "question_chars": {
+          "n": 3,
+          "mean": 280,
+          "min": 113,
+          "max": 473
+        }
+      },
+      "per_attack": {
+        "crescendo_paper": {
+          "n": 10,
+          "contract_valid": 0,
+          "contract_valid_rate": 0.0,
+          "direct_json": 0,
+          "frozen_extraction": 0,
+          "json_parse_error": 10,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 0,
+          "semantically_usable_rate": 0.0,
+          "prose_failure": 0,
+          "failure_shapes": {
+            "malformed_json": 10
+          },
+          "categories": {
+            "JSON_PARSE_ERROR": 10
+          },
+          "latency_s": {
+            "mean": 10.948,
+            "median": 11.224,
+            "max": 16.013
+          },
+          "generated_tokens": {
+            "mean": 72.1,
+            "min": 43,
+            "max": 119
+          },
+          "question_chars": null
+        },
+        "opposite_day": {
+          "n": 10,
+          "contract_valid": 1,
+          "contract_valid_rate": 0.1,
+          "direct_json": 1,
+          "frozen_extraction": 0,
+          "json_parse_error": 8,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 1,
+          "semantically_usable_rate": 0.1,
+          "prose_failure": 0,
+          "failure_shapes": {
+            "malformed_json": 8,
+            "truncated": 1
+          },
+          "categories": {
+            "JSON_PARSE_ERROR": 8,
+            "TRUNCATED_OUTPUT": 1,
+            "VALID_DIRECT_JSON": 1
+          },
+          "latency_s": {
+            "mean": 9.265,
+            "median": 9.413,
+            "max": 12.572
+          },
+          "generated_tokens": {
+            "mean": 68.3,
+            "min": 39,
+            "max": 96
+          },
+          "question_chars": {
+            "n": 1,
+            "mean": 113,
+            "min": 113,
+            "max": 113
+          }
+        },
+        "acronym": {
+          "n": 10,
+          "contract_valid": 2,
+          "contract_valid_rate": 0.2,
+          "direct_json": 2,
+          "frozen_extraction": 0,
+          "json_parse_error": 7,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 2,
+          "semantically_usable_rate": 0.2,
+          "prose_failure": 0,
+          "failure_shapes": {
+            "malformed_json": 7,
+            "truncated": 1
+          },
+          "categories": {
+            "VALID_DIRECT_JSON": 2,
+            "JSON_PARSE_ERROR": 7,
+            "TRUNCATED_OUTPUT": 1
+          },
+          "latency_s": {
+            "mean": 34.491,
+            "median": 13.037,
+            "max": 227.649
+          },
+          "generated_tokens": {
+            "mean": 281.8,
+            "min": 73,
+            "max": 1917
+          },
+          "question_chars": {
+            "n": 2,
+            "mean": 363.5,
+            "min": 254,
+            "max": 473
+          }
+        }
+      },
+      "per_round": {
+        "1": {
+          "n": 6,
+          "contract_valid": 1,
+          "contract_valid_rate": 0.1667,
+          "direct_json": 1,
+          "frozen_extraction": 0,
+          "json_parse_error": 5,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 1,
+          "semantically_usable_rate": 0.1667,
+          "prose_failure": 0,
+          "failure_shapes": {
+            "malformed_json": 5
+          },
+          "categories": {
+            "JSON_PARSE_ERROR": 5,
+            "VALID_DIRECT_JSON": 1
+          },
+          "latency_s": {
+            "mean": 8.635,
+            "median": 8.889,
+            "max": 11.384
+          },
+          "generated_tokens": {
+            "mean": 56.7,
+            "min": 39,
+            "max": 84
+          },
+          "question_chars": {
+            "n": 1,
+            "mean": 254,
+            "min": 254,
+            "max": 254
+          }
+        },
+        "2": {
+          "n": 6,
+          "contract_valid": 0,
+          "contract_valid_rate": 0.0,
+          "direct_json": 0,
+          "frozen_extraction": 0,
+          "json_parse_error": 4,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 0,
+          "semantically_usable_rate": 0.0,
+          "prose_failure": 0,
+          "failure_shapes": {
+            "malformed_json": 4,
+            "truncated": 2
+          },
+          "categories": {
+            "JSON_PARSE_ERROR": 4,
+            "TRUNCATED_OUTPUT": 2
+          },
+          "latency_s": {
+            "mean": 47.4,
+            "median": 12.491,
+            "max": 227.649
+          },
+          "generated_tokens": {
+            "mean": 391.8,
+            "min": 44,
+            "max": 1917
+          },
+          "question_chars": null
+        },
+        "4": {
+          "n": 6,
+          "contract_valid": 0,
+          "contract_valid_rate": 0.0,
+          "direct_json": 0,
+          "frozen_extraction": 0,
+          "json_parse_error": 6,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 0,
+          "semantically_usable_rate": 0.0,
+          "prose_failure": 0,
+          "failure_shapes": {
+            "malformed_json": 6
+          },
+          "categories": {
+            "JSON_PARSE_ERROR": 6
+          },
+          "latency_s": {
+            "mean": 11.056,
+            "median": 11.559,
+            "max": 12.149
+          },
+          "generated_tokens": {
+            "mean": 81,
+            "min": 71,
+            "max": 91
+          },
+          "question_chars": null
+        },
+        "6": {
+          "n": 6,
+          "contract_valid": 0,
+          "contract_valid_rate": 0.0,
+          "direct_json": 0,
+          "frozen_extraction": 0,
+          "json_parse_error": 6,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 0,
+          "semantically_usable_rate": 0.0,
+          "prose_failure": 0,
+          "failure_shapes": {
+            "malformed_json": 6
+          },
+          "categories": {
+            "JSON_PARSE_ERROR": 6
+          },
+          "latency_s": {
+            "mean": 11.301,
+            "median": 10.097,
+            "max": 16.838
+          },
+          "generated_tokens": {
+            "mean": 82,
+            "min": 56,
+            "max": 128
+          },
+          "question_chars": null
+        },
+        "8": {
+          "n": 6,
+          "contract_valid": 2,
+          "contract_valid_rate": 0.3333,
+          "direct_json": 2,
+          "frozen_extraction": 0,
+          "json_parse_error": 4,
+          "empty_query": 0,
+          "empty_query_rate": 0.0,
+          "semantically_usable": 2,
+          "semantically_usable_rate": 0.3333,
+          "prose_failure": 0,
+          "failure_shapes": {
+            "malformed_json": 4
+          },
+          "categories": {
+            "JSON_PARSE_ERROR": 4,
+            "VALID_DIRECT_JSON": 2
+          },
+          "latency_s": {
+            "mean": 12.78,
+            "median": 12.476,
+            "max": 17.816
+          },
+          "generated_tokens": {
+            "mean": 92.2,
+            "min": 57,
+            "max": 131
+          },
+          "question_chars": {
+            "n": 2,
+            "mean": 293,
+            "min": 113,
+            "max": 473
+          }
+        }
+      },
+      "contract_valid_ci95": [
+        0.0346,
+        0.2562
+      ],
+      "semantically_usable_ci95": [
+        0.0346,
+        0.2562
+      ]
+    }
+  }
+}

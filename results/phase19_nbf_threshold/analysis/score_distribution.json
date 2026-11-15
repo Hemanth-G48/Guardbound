@@ -1,0 +1,162 @@
+{
+  "phase": 19,
+  "deliverable": "analysis/score_distribution.json",
+  "population": {
+    "phase19_evaluations": 172,
+    "phase18_t0_evaluations": 825,
+    "identical_score_definition": "P(class5) - max(P(class1..4))"
+  },
+  "bins": [
+    {
+      "bin": "[-1.100, -0.010)",
+      "lo": -1.1,
+      "hi": -0.01,
+      "count": 52,
+      "share": 0.3023
+    },
+    {
+      "bin": "[-0.010, -0.005)",
+      "lo": -0.01,
+      "hi": -0.005,
+      "count": 0,
+      "share": 0.0
+    },
+    {
+      "bin": "[-0.005, -0.002)",
+      "lo": -0.005,
+      "hi": -0.002,
+      "count": 3,
+      "share": 0.0174
+    },
+    {
+      "bin": "[-0.002, -0.001)",
+      "lo": -0.002,
+      "hi": -0.001,
+      "count": 22,
+      "share": 0.1279
+    },
+    {
+      "bin": "[-0.001, +0.000)",
+      "lo": -0.001,
+      "hi": 0.0,
+      "count": 48,
+      "share": 0.2791
+    },
+    {
+      "bin": "[+0.000, +0.001)",
+      "lo": 0.0,
+      "hi": 0.001,
+      "count": 20,
+      "share": 0.1163
+    },
+    {
+      "bin": "[+0.001, +0.002)",
+      "lo": 0.001,
+      "hi": 0.002,
+      "count": 18,
+      "share": 0.1047
+    },
+    {
+      "bin": "[+0.002, +0.005)",
+      "lo": 0.002,
+      "hi": 0.005,
+      "count": 9,
+      "share": 0.0523
+    },
+    {
+      "bin": "[+0.005, +0.010)",
+      "lo": 0.005,
+      "hi": 0.01,
+      "count": 0,
+      "share": 0.0
+    },
+    {
+      "bin": "[+0.010, +1.100)",
+      "lo": 0.01,
+      "hi": 1.1,
+      "count": 0,
+      "share": 0.0
+    }
+  ],
+  "mass_within_0p001_of_zero": {
+    "count": 68,
+    "share": 0.3953
+  },
+  "mass_below_minus_0p010": 52,
+  "mass_above_plus_0p010": 0,
+  "static_threshold_sweep": [
+    {
+      "tag": "Tm010",
+      "threshold": -0.01,
+      "static_filtered": 120,
+      "static_total": 172,
+      "static_filtering_rate": 0.6977,
+      "observed_filtering_rate": 0.4615
+    },
+    {
+      "tag": "Tm005",
+      "threshold": -0.005,
+      "static_filtered": 120,
+      "static_total": 172,
+      "static_filtering_rate": 0.6977,
+      "observed_filtering_rate": 0.6429
+    },
+    {
+      "tag": "Tm002",
+      "threshold": -0.002,
+      "static_filtered": 117,
+      "static_total": 172,
+      "static_filtering_rate": 0.6802,
+      "observed_filtering_rate": 0.6429
+    },
+    {
+      "tag": "Tm001",
+      "threshold": -0.001,
+      "static_filtered": 95,
+      "static_total": 172,
+      "static_filtering_rate": 0.5523,
+      "observed_filtering_rate": 0.6923
+    },
+    {
+      "tag": "T000",
+      "threshold": 0.0,
+      "static_filtered": 47,
+      "static_total": 172,
+      "static_filtering_rate": 0.2733,
+      "observed_filtering_rate": 0.3077
+    },
+    {
+      "tag": "Tp001",
+      "threshold": 0.001,
+      "static_filtered": 27,
+      "static_total": 172,
+      "static_filtering_rate": 0.157,
+      "observed_filtering_rate": 0.2857
+    },
+    {
+      "tag": "Tp002",
+      "threshold": 0.002,
+      "static_filtered": 9,
+      "static_total": 172,
+      "static_filtering_rate": 0.0523,
+      "observed_filtering_rate": 0.0357
+    },
+    {
+      "tag": "Tp005",
+      "threshold": 0.005,
+      "static_filtered": 0,
+      "static_total": 172,
+      "static_filtering_rate": 0.0,
+      "observed_filtering_rate": 0.0
+    },
+    {
+      "tag": "Tp010",
+      "threshold": 0.01,
+      "static_filtered": 0,
+      "static_total": 172,
+      "static_filtering_rate": 0.0,
+      "observed_filtering_rate": 0.0
+    }
+  ],
+  "interpretation_key": "static_filtering_rate applies each threshold to the SAME pooled score population (trajectories held fixed). The observed filtering rate can differ because trajectories diverge once a candidate is filtered."
+}

@@ -1,0 +1,66 @@
+{
+  "phase": "17",
+  "stage": "4.7",
+  "deliverable": "configuration/environment.json",
+  "verified_versions": {
+    "python": "3.13.9",
+    "torch": "2.7.1+cu118",
+    "transformers": "5.16.1",
+    "bitsandbytes": "0.50.2",
+    "cuda": "11.8",
+    "cudnn": 90100,
+    "gpu_count": 1,
+    "gpu_name": "NVIDIA RTX 4500 Ada Generation",
+    "gpu_memory_gib": 23.99,
+    "driver": "595.79",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "executable": "C:\\Users\\CSLAB\\anaconda3\\python.exe"
+  },
+  "expected_versions": {
+    "python": "3.13.9",
+    "torch": "2.7.1+cu118",
+    "transformers": "5.16.1",
+    "bitsandbytes": "0.50.2"
+  },
+  "versions_match_qualified_environment": true,
+  "repository": {
+    "commit": "b46d6fd7ed37b7a6ee9e643476ae2b2263b85624",
+    "branch": "main",
+    "worktree_is_dirty": true,
+    "worktree_status_entries": 81
+  },
+  "configuration_hashes": {
+    "configs/default.yaml": "ee6d601ac4cb8e4323598761fa5d65743460243d0548d583e56a0bdac486fd99",
+    "nbf_original_stuff/orginal_code_give_by_author/NBF-LLM/data/test/harmbench_tasks.json": "ac789de8859e755c11ee6cd600dd6a2eb88128c7ab119056dce3f7f125d014eb",
+    "checkpoints/models_best_nbf_released.pth": "cea1a75bcef4fc515814b69c42541c95114f587abcc4505c9b096bbfa2a136fe",
+    "scripts/phase17_stage47_pilot.py": "aba5b75d526d0f763dea34c6c173bdd276908e657cdcdec5d1c88b21c84f4b1b"
+  },
+  "gpu": {
+    "name": "NVIDIA RTX 4500 Ada Generation",
+    "memory_gib": 23.99,
+    "driver": "595.79",
+    "cuda": "11.8"
+  },
+  "frozen_artifact_integrity": {
+    "results/phase17_model_qualification": {
+      "present": true,
+      "files": 100
+    },
+    "results/phase17_model_optimization/stage4_5_qwen38": {
+      "present": true,
+      "files": 72
+    },
+    "results/phase17_model_optimization/stage4_6_b2_qualification": {
+      "present": true,
+      "files": 102
+    },
+    "results/phase15_pilot_30": {
+      "present": true,
+      "files": 4
+    },
+    "results/phase14": {
+      "present": true,
+      "files": 27
+    }
+  }
+}

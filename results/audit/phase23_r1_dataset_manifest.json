@@ -1,0 +1,28 @@
+{
+  "dataset_name": "HarmBench behaviours (official NBF-LLM test split)",
+  "source_file": "nbf_original_stuff/orginal_code_give_by_author/NBF-LLM/data/test/harmbench_tasks.json",
+  "file_sha256": "ac789de8859e755c11ee6cd600dd6a2eb88128c7ab119056dce3f7f125d014eb",
+  "records_in_file": 200,
+  "selected_sample_count": 200,
+  "goal_id_field": "task",
+  "goal_id_hash_sha256": "4a7dc3757902cbacb84a21fedcadcfb674747d3d07edec8d62019321bbc60206",
+  "duplicate_count": 0,
+  "missing_data_count": 0,
+  "unused_records": 0,
+  "fields_present": ["task", "target_system", "max_rounds"],
+  "target_system_distinct": {"You are a helpful assistant.": 200},
+  "max_rounds_distinct": {"8": 200},
+  "selection_procedure": "cases[:dataset.num_goals] in file order; no shuffle, no filter, no deduplication (scripts/_cloud_common.py::load_goals)",
+  "attack_to_goal_mapping": "all three R1 attacks iterate the identical 200-case list in the same order (cloud_pilot.py:448-449: for attack in attacks: for case in goals)",
+  "provenance": {
+    "paper": "arXiv:2503.00187v3 p9 Sec. 5.1 and p22 Appendix B.1: 200 HarmBench behaviours; every case uses the 6-token target system prompt \"You are a helpful assistant.\" and max_rounds 8",
+    "file_source": "shipped verbatim inside the author's release under data/test/",
+    "verified_against_upstream_harmbench": false,
+    "provenance_gap": "No upstream HarmBench checksum is available offline, so the file is verified as 'the release's own test split of 200 behaviours', not as a byte match to the HarmBench repository release."
+  },
+  "contamination_filtering": {
+    "applied": false,
+    "reason": "Neither the paper nor the author's release describes any contamination filter for this split; none was invented."
+  },
+  "generated_by": "Phase 23 audit probe (offline), 2026-11-10"
+}

@@ -1,0 +1,68 @@
+{
+  "phase": "17",
+  "stage": "3",
+  "deliverable": "native_quantization_validation.json",
+  "model_id": "Qwen/Qwen3.8-27B",
+  "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+  "method": "4-bit NF4 PTQ at load time",
+  "runtime": "bitsandbytes",
+  "compute_dtype": "bfloat16",
+  "double_quant": true,
+  "config": "BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_quant_type='nf4', bnb_4bit_compute_dtype=bfloat16, bnb_4bit_use_double_quant=True)",
+  "census": {
+    "model_class": "Qwen3_5ForConditionalGeneration",
+    "linear4bit_modules": 606,
+    "plain_linear_modules": 1,
+    "total_params": 14953501936,
+    "params_in_4bit_layers": 12403508080,
+    "frac_params_quantized": 0.8295,
+    "unquantized_param_counts_by_module": {
+      "Embedding": 1274052608,
+      "Linear": 1271398400
+    },
+    "has_vision_tower": true
+  },
+  "vram_after_load": {
+    "allocated_gib": 16.688,
+    "reserved_gib": 16.877,
+    "peak_allocated_gib": 16.728,
+    "driver_free_gib": 5.804,
+    "driver_total_gib": 23.994
+  },
+  "causallm_baseline_census": {
+    "linear4bit_modules": 496,
+    "plain_linear_modules": 1,
+    "total_params": 14720720384,
+    "params_in_4bit_layers": 12175278080,
+    "frac_params_quantized": 0.8271,
+    "model_class": "Qwen3_5ForCausalLM"
+  },
+  "transformers_load_report": {
+    "messages": [],
+    "missing_keys_reported": false,
+    "unused_keys_reported": false,
+    "unexpected_keys_reported": false,
+    "size_mismatch_reported": false
+  },
+  "parameter_reconciliation": {
+    "checkpoint_tensors": 1199,
+    "model_tensors": 4214,
+    "matched": 1184,
+    "missing_from_checkpoint": 0,
+    "unused_in_model": 15,
+    "quantization_metadata_params": 3030,
+    "missing_sample": [],
+    "unused_sample": [
+      "mtp.fc.weight",
+      "mtp.layers.0.input_layernorm.weight",
+      "mtp.layers.0.mlp.down_proj.weight",
+      "mtp.layers.0.mlp.gate_proj.weight",
+      "mtp.layers.0.mlp.up_proj.weight",
+      "mtp.layers.0.post_attention_layernorm.weight",
+      "mtp.layers.0.self_attn.k_norm.weight",
+      "mtp.layers.0.self_attn.k_proj.weight",
+      "mtp.layers.0.self_attn.o_proj.weight",
+      "mtp.layers.0.self_attn.q_norm.weight"
+    ]
+  }
+}

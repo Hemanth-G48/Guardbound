@@ -1,0 +1,257 @@
+{
+  "measured": {
+    "encoding": "o200k_base (gpt-4o)",
+    "pricing_usd_per_1m": {
+      "input": 2.5,
+      "cached_input": 1.25,
+      "output": 10.0,
+      "source": "https://developers.openai.com/api/docs/pricing (verified 2026-11-10)"
+    },
+    "target_system_prompt_tokens": 6,
+    "evaluator_input_tokens": {
+      "refusal": 569,
+      "disclaimer": 292,
+      "rubric": 656,
+      "step_judge": 165,
+      "rewrite": 435
+    },
+    "actor_attack_pre_attack": {
+      "n_calls": 4,
+      "input_tokens": [
+        462,
+        422,
+        532,
+        558
+      ],
+      "total_input_tokens": 1974
+    },
+    "per_attack": {
+      "crescendo": {
+        "attacker_by_turn": {
+          "1": 1503,
+          "4": 1713,
+          "8": 1993
+        },
+        "target_by_turn": {
+          "1": 13,
+          "4": 784,
+          "8": 1812
+        },
+        "evaluator_per_turn": 1225,
+        "pre_attack_total": 0,
+        "pre_attack_calls": 0
+      },
+      "opposite_day": {
+        "attacker_by_turn": {
+          "1": 762,
+          "4": 972,
+          "8": 1252
+        },
+        "target_by_turn": {
+          "1": 13,
+          "4": 784,
+          "8": 1812
+        },
+        "evaluator_per_turn": 1225,
+        "pre_attack_total": 0,
+        "pre_attack_calls": 0
+      },
+      "acronym": {
+        "attacker_by_turn": {
+          "1": 957,
+          "4": 1167,
+          "8": 1447
+        },
+        "target_by_turn": {
+          "1": 13,
+          "4": 784,
+          "8": 1812
+        },
+        "evaluator_per_turn": 1517,
+        "pre_attack_total": 0,
+        "pre_attack_calls": 0
+      },
+      "actor_attack": {
+        "attacker_per_turn": 0,
+        "target_by_turn": {
+          "1": 13,
+          "4": 784,
+          "8": 1812
+        },
+        "evaluator_per_turn": 821,
+        "pre_attack_total": 1974,
+        "pre_attack_calls": 4
+      }
+    }
+  },
+  "assumed_output_tokens": {
+    "attacker": {
+      "low": 60,
+      "expected": 120,
+      "high": 250
+    },
+    "target": {
+      "low": 120,
+      "expected": 250,
+      "high": 500
+    },
+    "refusal": {
+      "low": 40,
+      "expected": 70,
+      "high": 150
+    },
+    "disclaimer": {
+      "low": 40,
+      "expected": 70,
+      "high": 150
+    },
+    "rubric": {
+      "low": 12,
+      "expected": 25,
+      "high": 60
+    },
+    "step_judge": {
+      "low": 10,
+      "expected": 25,
+      "high": 80
+    },
+    "rewrite": {
+      "low": 40,
+      "expected": 90,
+      "high": 200
+    }
+  },
+  "assumed_rewrite_rate": {
+    "low": 0.05,
+    "expected": 0.2,
+    "high": 0.5
+  },
+  "goals_per_attack": 200,
+  "max_turns": 8,
+  "paper_attacks": [
+    "actor_attack",
+    "crescendo",
+    "opposite_day"
+  ],
+  "rows": [
+    {
+      "attack": "actor_attack",
+      "band": "low",
+      "dialogues": 200,
+      "calls_per_dialogue": 28.4,
+      "input_tokens_per_dialogue": 12376,
+      "output_tokens_per_dialogue": 1332,
+      "total_input_tokens": 2475200,
+      "total_output_tokens": 266400,
+      "cost_usd": 8.85
+    },
+    {
+      "attack": "actor_attack",
+      "band": "expected",
+      "dialogues": 200,
+      "calls_per_dialogue": 29.6,
+      "input_tokens_per_dialogue": 16538,
+      "output_tokens_per_dialogue": 2904,
+      "total_input_tokens": 3307600,
+      "total_output_tokens": 580800,
+      "cost_usd": 14.08
+    },
+    {
+      "attack": "actor_attack",
+      "band": "high",
+      "dialogues": 200,
+      "calls_per_dialogue": 32.0,
+      "input_tokens_per_dialogue": 24582,
+      "output_tokens_per_dialogue": 6670,
+      "total_input_tokens": 4916400,
+      "total_output_tokens": 1334000,
+      "cost_usd": 25.63
+    },
+    {
+      "attack": "crescendo",
+      "band": "low",
+      "dialogues": 200,
+      "calls_per_dialogue": 32,
+      "input_tokens_per_dialogue": 27351,
+      "output_tokens_per_dialogue": 1856,
+      "total_input_tokens": 5470133,
+      "total_output_tokens": 371200,
+      "cost_usd": 17.39
+    },
+    {
+      "attack": "crescendo",
+      "band": "expected",
+      "dialogues": 200,
+      "calls_per_dialogue": 32,
+      "input_tokens_per_dialogue": 30991,
+      "output_tokens_per_dialogue": 3720,
+      "total_input_tokens": 6198133,
+      "total_output_tokens": 744000,
+      "cost_usd": 22.94
+    },
+    {
+      "attack": "crescendo",
+      "band": "high",
+      "dialogues": 200,
+      "calls_per_dialogue": 32,
+      "input_tokens_per_dialogue": 37991,
+      "output_tokens_per_dialogue": 7680,
+      "total_input_tokens": 7598133,
+      "total_output_tokens": 1536000,
+      "cost_usd": 34.36
+    },
+    {
+      "attack": "opposite_day",
+      "band": "low",
+      "dialogues": 200,
+      "calls_per_dialogue": 32,
+      "input_tokens_per_dialogue": 21423,
+      "output_tokens_per_dialogue": 1856,
+      "total_input_tokens": 4284533,
+      "total_output_tokens": 371200,
+      "cost_usd": 14.42
+    },
+    {
+      "attack": "opposite_day",
+      "band": "expected",
+      "dialogues": 200,
+      "calls_per_dialogue": 32,
+      "input_tokens_per_dialogue": 25063,
+      "output_tokens_per_dialogue": 3720,
+      "total_input_tokens": 5012533,
+      "total_output_tokens": 744000,
+      "cost_usd": 19.97
+    },
+    {
+      "attack": "opposite_day",
+      "band": "high",
+      "dialogues": 200,
+      "calls_per_dialogue": 32,
+      "input_tokens_per_dialogue": 32063,
+      "output_tokens_per_dialogue": 7680,
+      "total_input_tokens": 6412533,
+      "total_output_tokens": 1536000,
+      "cost_usd": 31.39
+    }
+  ],
+  "totals": {
+    "low": {
+      "total_input_tokens": 12229866,
+      "total_output_tokens": 1008800,
+      "cost_usd": 40.66,
+      "total_calls": 18480.0
+    },
+    "expected": {
+      "total_input_tokens": 14518266,
+      "total_output_tokens": 2068800,
+      "cost_usd": 56.99,
+      "total_calls": 18720.0
+    },
+    "high": {
+      "total_input_tokens": 18927066,
+      "total_output_tokens": 4406000,
+      "cost_usd": 91.38,
+      "total_calls": 19200.0
+    }
+  }
+}

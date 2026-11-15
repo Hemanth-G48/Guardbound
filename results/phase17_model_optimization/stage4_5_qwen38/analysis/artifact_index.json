@@ -1,0 +1,27 @@
+{
+  "phase": "17",
+  "stage": "4.5",
+  "layout": {
+    "top_level": "the artifacts named in the stage brief",
+    "prompt_variants/, sampling_variants/, structured_decoding/": "per-candidate raw JSONL and per-candidate summaries",
+    "multiturn/": "per-run raw records and conversations",
+    "analysis/": "descriptive checks (semantic drift, per-round detail)"
+  },
+  "artifacts": [
+    "candidate_comparison.json",
+    "control_baseline.json",
+    "multiturn_results.jsonl",
+    "multiturn_summary.json",
+    "prompt_variant_manifest.json",
+    "prompt_variant_results.jsonl",
+    "prompt_variant_summary.json",
+    "sampling_variant_manifest.json",
+    "sampling_variant_results.jsonl",
+    "sampling_variant_summary.json",
+    "stage4_5_report.md",
+    "stage4_vs_stage4_5.json",
+    "structured_decoding_manifest.json",
+    "structured_decoding_results.jsonl",
+    "structured_decoding_summary.json"
+  ]
+}

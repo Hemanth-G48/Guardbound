@@ -1,0 +1,63 @@
+[probe] MEASUREMENT ONLY — no experiment code modified, no batch data touched
+[probe] resuming: 2 completed rows loaded from results\phase14\probe_json_compliance.jsonl (skipped, included in the summary)
+[probe] goals=10 attacks=['crescendo_paper', 'opposite_day', 'acronym'] condition=off max_turns=8 dataset_sha=ac789de8859e
+[probe] output=results\phase14\probe_json_compliance.jsonl
+[transformers] This model config has set a `rope_parameters['original_max_position_embeddings']` field, to be used together with `max_position_embeddings` to determine a scaling factor. Please set the `factor` field of `rope_parameters`with this ratio instead -- we recommend the use of this field over `original_max_position_embeddings`, as it is compatible with most model architectures.
+[probe] OFF_crescendo_000 SKIP (already recorded)
+[probe] OFF_opposite_day_000 SKIP (already recorded)
+[transformers] The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights:   0%|          | 1/398 [00:00<02:36,  2.53it/s]Loading weights:   4%|3         | 15/398 [00:00<00:09, 38.68it/s]Loading weights:   8%|8         | 32/398 [00:00<00:04, 74.17it/s]Loading weights:  12%|#2        | 48/398 [00:00<00:03, 96.00it/s]Loading weights:  17%|#6        | 66/398 [00:00<00:02, 117.68it/s]Loading weights:  20%|##        | 81/398 [00:00<00:02, 125.51it/s]Loading weights:  24%|##4       | 97/398 [00:01<00:02, 134.73it/s]Loading weights:  29%|##8       | 114/398 [00:01<00:01, 143.13it/s]Loading weights:  33%|###3      | 132/398 [00:01<00:01, 151.37it/s]Loading weights:  37%|###7      | 148/398 [00:01<00:01, 145.39it/s]Loading weights:  42%|####2     | 168/398 [00:01<00:01, 151.58it/s]Loading weights:  47%|####6     | 187/398 [00:01<00:01, 161.60it/s]Loading weights:  51%|#####1    | 204/398 [00:01<00:01, 154.61it/s]Loading weights:  56%|#####6    | 223/398 [00:01<00:01, 163.24it/s]Loading weights:  60%|######    | 240/398 [00:01<00:00, 160.50it/s]Loading weights:  65%|######4   | 257/398 [00:02<00:00, 159.18it/s]Loading weights:  69%|######9   | 275/398 [00:02<00:00, 163.63it/s]Loading weights:  73%|#######3  | 292/398 [00:02<00:00, 154.37it/s]Loading weights:  78%|#######8  | 311/398 [00:02<00:00, 162.16it/s]Loading weights:  82%|########2 | 328/398 [00:02<00:00, 156.13it/s]Loading weights:  87%|########6 | 345/398 [00:02<00:00, 157.25it/s]Loading weights:  91%|#########1| 363/398 [00:02<00:00, 161.48it/s]Loading weights:  95%|#########5| 380/398 [00:02<00:00, 153.65it/s]Loading weights: 100%|##########| 398/398 [00:02<00:00, 137.92it/s]
+[transformers] The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.7 json=True ctx_tokens=982 new_tokens=78 time=12.3s
+Loading weights:   0%|          | 0/194 [00:00<?, ?it/s]Loading weights:   1%|          | 1/194 [00:00<01:41,  1.91it/s]Loading weights:   5%|5         | 10/194 [00:00<00:09, 20.18it/s]Loading weights:  11%|#         | 21/194 [00:00<00:04, 40.45it/s]Loading weights:  15%|#4        | 29/194 [00:00<00:03, 50.02it/s]Loading weights:  20%|#9        | 38/194 [00:00<00:02, 55.48it/s]Loading weights:  25%|##5       | 49/194 [00:01<00:02, 69.08it/s]Loading weights:  30%|##9       | 58/194 [00:01<00:01, 73.63it/s]Loading weights:  36%|###5      | 69/194 [00:01<00:01, 83.03it/s]Loading weights:  41%|####      | 79/194 [00:01<00:01, 83.52it/s]Loading weights:  45%|####5     | 88/194 [00:01<00:01, 81.29it/s]Loading weights:  51%|#####1    | 99/194 [00:01<00:01, 88.04it/s]Loading weights:  56%|#####6    | 109/194 [00:01<00:00, 85.93it/s]Loading weights:  61%|######    | 118/194 [00:01<00:00, 82.25it/s]Loading weights:  66%|######6   | 129/194 [00:01<00:00, 89.37it/s]Loading weights:  72%|#######1  | 139/194 [00:02<00:00, 87.37it/s]Loading weights:  76%|#######6  | 148/194 [00:02<00:00, 83.53it/s]Loading weights:  82%|########1 | 159/194 [00:02<00:00, 89.18it/s]Loading weights:  87%|########7 | 169/194 [00:02<00:00, 84.37it/s]Loading weights:  92%|#########1| 178/194 [00:02<00:00, 79.56it/s]Loading weights:  97%|#########7| 189/194 [00:02<00:00, 85.73it/s]Loading weights: 100%|##########| 194/194 [00:02<00:00, 70.72it/s]
+[GEN] microsoft/Phi-4-mini-instruct temp=0.7 json=False ctx_tokens=68 new_tokens=256 time=18.0s
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.0 json=True ctx_tokens=877 new_tokens=91 time=6.2s
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.0 json=True ctx_tokens=590 new_tokens=76 time=3.3s
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.7 json=True ctx_tokens=1360 new_tokens=210 time=10.3s
+[GEN] microsoft/Phi-4-mini-instruct temp=0.7 json=False ctx_tokens=82 new_tokens=256 time=8.2s
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.0 json=True ctx_tokens=898 new_tokens=70 time=3.5s
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.7 json=True ctx_tokens=1365 new_tokens=179 time=12.8s
+[GEN] microsoft/Phi-4-mini-instruct temp=0.7 json=False ctx_tokens=68 new_tokens=256 time=8.3s
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.0 json=True ctx_tokens=872 new_tokens=93 time=4.3s
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.0 json=True ctx_tokens=585 new_tokens=132 time=5.6s
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.0 json=True ctx_tokens=956 new_tokens=256 time=12.0s
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.7 json=True ctx_tokens=1355 new_tokens=219 time=10.7s
+[GEN] microsoft/Phi-4-mini-instruct temp=0.7 json=False ctx_tokens=398 new_tokens=256 time=8.9s
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.0 json=True ctx_tokens=898 new_tokens=94 time=5.7s
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.7 json=True ctx_tokens=1637 new_tokens=226 time=17.7s
+[GEN] microsoft/Phi-4-mini-instruct temp=0.7 json=False ctx_tokens=406 new_tokens=256 time=8.6s
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.0 json=True ctx_tokens=920 new_tokens=126 time=6.0s
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.7 json=True ctx_tokens=1900 new_tokens=205 time=23.5s
+[GEN] microsoft/Phi-4-mini-instruct temp=0.7 json=False ctx_tokens=404 new_tokens=256 time=8.6s
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.0 json=True ctx_tokens=901 new_tokens=88 time=5.5s
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.7 json=True ctx_tokens=2148 new_tokens=223 time=48.9s
+[GEN] microsoft/Phi-4-mini-instruct temp=0.7 json=False ctx_tokens=392 new_tokens=256 time=8.5s
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.0 json=True ctx_tokens=899 new_tokens=105 time=6.3s
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.7 json=True ctx_tokens=2447 new_tokens=196 time=62.5s
+[GEN] microsoft/Phi-4-mini-instruct temp=0.7 json=False ctx_tokens=410 new_tokens=256 time=8.8s
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.0 json=True ctx_tokens=916 new_tokens=103 time=5.3s
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.7 json=True ctx_tokens=2692 new_tokens=212 time=67.2s
+[GEN] microsoft/Phi-4-mini-instruct temp=0.7 json=False ctx_tokens=419 new_tokens=256 time=8.6s
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.0 json=True ctx_tokens=920 new_tokens=69 time=3.8s
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.7 json=True ctx_tokens=2932 new_tokens=199 time=100.0s
+[GEN] microsoft/Phi-4-mini-instruct temp=0.7 json=False ctx_tokens=409 new_tokens=256 time=8.8s
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.0 json=True ctx_tokens=914 new_tokens=83 time=4.7s
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.7 json=True ctx_tokens=3187 new_tokens=217 time=126.1s
+[GEN] microsoft/Phi-4-mini-instruct temp=0.7 json=False ctx_tokens=415 new_tokens=256 time=8.6s
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.0 json=True ctx_tokens=914 new_tokens=88 time=4.5s
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.7 json=True ctx_tokens=3463 new_tokens=210 time=178.2s
+[GEN] microsoft/Phi-4-mini-instruct temp=0.7 json=False ctx_tokens=419 new_tokens=256 time=8.6s
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.0 json=True ctx_tokens=921 new_tokens=91 time=5.1s
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.0 json=True ctx_tokens=1004 new_tokens=189 time=10.0s
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.7 json=True ctx_tokens=3721 new_tokens=222 time=194.7s
+[GEN] microsoft/Phi-4-mini-instruct temp=0.7 json=False ctx_tokens=771 new_tokens=256 time=9.7s
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.0 json=True ctx_tokens=913 new_tokens=111 time=5.7s
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.0 json=True ctx_tokens=1003 new_tokens=9 time=1.9s
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.7 json=True ctx_tokens=3992 new_tokens=218 time=222.8s
+[GEN] microsoft/Phi-4-mini-instruct temp=0.7 json=False ctx_tokens=1122 new_tokens=256 time=11.1s
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.0 json=True ctx_tokens=919 new_tokens=93 time=5.5s
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.0 json=True ctx_tokens=1005 new_tokens=9 time=2.0s
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.7 json=True ctx_tokens=4276 new_tokens=219 time=252.2s
+[GEN] microsoft/Phi-4-mini-instruct temp=0.7 json=False ctx_tokens=1474 new_tokens=256 time=19.3s
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.0 json=True ctx_tokens=919 new_tokens=115 time=6.7s
+[GEN] Qwen/Qwen3-4B-Instruct-2507 temp=0.0 json=True ctx_tokens=1005 new_tokens=9 time=2.0s

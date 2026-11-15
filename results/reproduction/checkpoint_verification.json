@@ -1,0 +1,39 @@
+{
+  "checkpoint": "nbf_original_stuff\\orginal_code_give_by_author\\NBF-LLM\\models\\models_best_nbf_released.pth",
+  "config": "configs/reproduction.yaml",
+  "threshold": 0.0,
+  "checks": {
+    "file_exists_and_hash": "PASS",
+    "f_theta_loads": "PASS",
+    "g_theta_loads": "PASS",
+    "predictor_loads": "PASS",
+    "embedding_dim_768": "PASS",
+    "state_dim_768": "PASS",
+    "predictor_5_classes": "PASS",
+    "nbf_input_is_concat_x_u": "PASS",
+    "remap_equivalence_vs_original": "PASS"
+  },
+  "checkpoint_sha256": "cea1a75bcef4fc515814b69c42541c95114f587abcc4505c9b096bbfa2a136fe",
+  "sanity_test": {
+    "x0": "zeros(768) (official initial state)",
+    "u": "torch.manual_seed(7); torch.randn(1, 768)",
+    "logits": [
+      6.623433,
+      -10.151479,
+      0.011153,
+      -6.960104,
+      -4.107246
+    ],
+    "softmax_probs": [
+      0.998635,
+      0.0,
+      0.001342,
+      1e-06,
+      2.2e-05
+    ],
+    "barrier_score_h_xu": -0.998613,
+    "threshold": 0.0,
+    "filtering_decision": "accepted (safe)",
+    "state_after_advance nonzero": true
+  }
+}

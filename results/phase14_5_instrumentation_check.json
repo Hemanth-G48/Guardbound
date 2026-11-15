@@ -1,0 +1,14 @@
+{
+  "effective_structured_output_mode": "constrained_json",
+  "generation_kwargs_seen": {
+    "logits_processor": true,
+    "stopping_criteria": true,
+    "max_new_tokens": 256,
+    "do_sample": false,
+    "temperature": null
+  },
+  "return_type": "dict",
+  "logits_processor_attached": true,
+  "stopping_criteria_attached": true,
+  "verdict": "constrained_json was ACTIVE: the backend resolved it from its constructor default even though callers pass structured_output_mode=None"
+}

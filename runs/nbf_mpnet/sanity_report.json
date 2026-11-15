@@ -1,0 +1,10 @@
+{
+  "val_accuracy": 0.3407762944698334,
+  "mean_h_safe": 0.011253743432462215,
+  "mean_h_unsafe": 0.29264312982559204,
+  "final_train_loss": -32.63612336204166,
+  "final_val_loss": -25.562164306640625,
+  "training_mode": "frozen",
+  "eta": 0.0,
+  "kappa": 3
+}

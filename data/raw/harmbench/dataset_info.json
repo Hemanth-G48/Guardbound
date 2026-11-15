@@ -1,0 +1,15 @@
+{
+  "name": "HarmBench",
+  "source_url": "https://huggingface.co/datasets/walledai/HarmBench",
+  "source_type": "huggingface+github_fallback",
+  "version": "github-main",
+  "download_timestamp": "2026-09-03T05:59:04Z",
+  "local_path": "data\\raw\\harmbench",
+  "raw_file_path": "data\\raw\\harmbench\\raw_data.jsonl",
+  "sha256": "49bad4926cd5a3f0575bfff0cdbd953b2613fa77a4276c9410d819847e51510c",
+  "num_records": 320,
+  "record_field": "Behavior",
+  "paper_reference": "Mazeika et al., 2024 — 'HarmBench: A Standardized Evaluation Framework for Automated Red Teaming and Robust Refusal'",
+  "license": "Apache 2.0 (per GitHub repo)",
+  "notes": "Primary: HuggingFace HarmBench/harmbench, fallback: GitHub repo"
+}

@@ -1,0 +1,40 @@
+{
+  "phase": "17",
+  "stage": "3",
+  "deliverable": "native_generation_probe.json",
+  "prompt": "Respond with exactly the word: READY",
+  "text_only": true,
+  "images_supplied": false,
+  "generated": true,
+  "output": "READY",
+  "wall_s": 4.68,
+  "stats": {
+    "model_id": "Qwen/Qwen3.8-27B",
+    "backend": "Qwen38NativeChatLLM",
+    "quantization": "nf4",
+    "prompt_tokens": 19,
+    "generated_tokens": 2,
+    "context_tokens_total": 21,
+    "max_new_tokens_effective": 262125,
+    "max_new_tokens_declared": null,
+    "hit_output_budget": false,
+    "last_token_id": 248046,
+    "eos_token_ids": [
+      248046
+    ],
+    "termination": "eos",
+    "elapsed_s": 4.68,
+    "json_format": false,
+    "temperature": 0.0,
+    "do_sample": false,
+    "top_p": 1.0,
+    "vram_allocated_gib": 16.696
+  },
+  "vram_after_generation": {
+    "allocated_gib": 16.696,
+    "reserved_gib": 16.977,
+    "peak_allocated_gib": 16.875,
+    "driver_free_gib": 5.687,
+    "driver_total_gib": 23.994
+  }
+}
